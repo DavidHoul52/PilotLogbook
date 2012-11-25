@@ -6,6 +6,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:LogbookApp.Views"
     xmlns:common="using:LogbookApp.Common"
+                        xmlns:controls="using:LogbookApp.Controls.TemplatedControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -33,7 +34,7 @@
                 <RowDefinition Height="*"/>
 
             </Grid.RowDefinitions>
-            <LogbookApp:DavidsDateControl  />
+            <controls:DavidsDateControl></controls:DavidsDateControl>
        </Grid>
     <Button Grid.Row="1" Width="100" Background="Red"/>
         <!-- Back button and page title -->
