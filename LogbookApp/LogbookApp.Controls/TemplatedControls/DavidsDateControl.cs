@@ -26,10 +26,13 @@ namespace LogbookApp.Controls.TemplatedControls
 
             ComboBox dayComboBox = GetTemplateChild("DayComboBox") as ComboBox;
             dayComboBox.ItemsSource = new Calendar().DaysOfMonth();
+            dayComboBox.SelectedIndex = 0;
             ComboBox monthComboBox = GetTemplateChild("MonthComboBox") as ComboBox;
             monthComboBox.ItemsSource = new Calendar().Months();
+            monthComboBox.SelectedIndex = 0;
             ComboBox yearComboBox = GetTemplateChild("YearComboBox") as ComboBox;
             yearComboBox.ItemsSource = new Calendar().Years();
+            yearComboBox.SelectedIndex = 0;
             base.OnApplyTemplate();
 
         }
