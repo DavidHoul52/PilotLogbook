@@ -1,4 +1,5 @@
 ﻿using LogbookApp.ViewModel;
+using LogbookApp.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,12 +22,18 @@ namespace LogbookApp
     /// A page that displays a collection of item previews.  In the Split Application this page
     /// is used to display and select one of the available groups.
     /// </summary>
+    /// 
+
+
     public sealed partial class FlightsPage : LogbookApp.Common.LayoutAwarePage
     {
+        private FlightsPageViewModel viewModel;
+
         public FlightsPage()
         {
             this.InitializeComponent();
-            DataContext = new FlightsPageViewModel();
+            viewModel = new FlightsPageViewModel();
+            DataContext = viewModel;
         }
 
         /// <summary>
@@ -41,6 +48,11 @@ namespace LogbookApp
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             // TODO: Assign a bindable collection of items to this.DefaultViewModel["Items"]
+        }
+
+        private void itemGridView_ItemClick_1(object sender, ItemClickEventArgs e)
+        {
+            Frame.Navigate(typeof(FlightDetailPage1));
         }
     }
 }

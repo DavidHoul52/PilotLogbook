@@ -8,6 +8,7 @@
     xmlns:common="using:LogbookApp.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:gala="using:GalaSoft.MvvmLight.Command"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -45,11 +46,15 @@
             Grid.RowSpan="2"
             Padding="116,136,116,46"
             ItemsSource="{Binding Flights}"
+             ItemClick="itemGridView_ItemClick_1" 
             
             
             SelectionMode="None"
+                  IsItemClickEnabled="True"
             IsSwipeEnabled="false">
+            
             <GridView.ItemTemplate>
+                
                 <DataTemplate>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="150">
                         <StackPanel Orientation="Horizontal">

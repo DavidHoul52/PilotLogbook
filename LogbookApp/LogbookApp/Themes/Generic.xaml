@@ -1,0 +1,28 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LogbookApp">
+
+    <Style TargetType="local:DavidsDateControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:DavidsDateControl">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox   Height="30" Width="200"  />
+                            <Rectangle Width="30"></Rectangle>
+                            <ComboBox   Height="30" Width="200" />
+                            <Rectangle Width="30"></Rectangle>
+                            <ComboBox   Height="30" Width="200" />
+                            <Rectangle Width="30"></Rectangle>
+                        </StackPanel>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
