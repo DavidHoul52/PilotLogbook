@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 
 namespace LogbookApp.ViewModel
 {
-    public class FlightsPageViewModel
+    public class FlightsPageViewModel : ViewModelBase
     {
         public FlightsPageViewModel()
         {

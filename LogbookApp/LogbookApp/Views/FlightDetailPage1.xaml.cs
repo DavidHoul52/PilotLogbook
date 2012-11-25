@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogbookApp.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace LogbookApp.Views
         public FlightDetailPage1()
         {
             this.InitializeComponent();
+            DataContext = new FlightDetailPageViewModel();
         }
 
         /// <summary>

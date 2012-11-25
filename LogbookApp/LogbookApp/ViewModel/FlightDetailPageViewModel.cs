@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogbookApp.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,15 @@ using System.Threading.Tasks;
 
 namespace LogbookApp.ViewModel
 {
-    class FlightDetailPageViewModel
+    public class FlightDetailPageViewModel : ViewModelBase
     {
+        public FlightDetailPageViewModel()
+        {
+            Lookups = new Lookups();
+            RaisePropertyChanged(()=>Lookups);
+        }
+
+
+        public Lookups Lookups { get; set; }
     }
 }
