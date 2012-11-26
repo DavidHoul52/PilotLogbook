@@ -1,4 +1,5 @@
-﻿using LogbookApp.Services;
+﻿using LogbookApp.Model;
+using LogbookApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,7 @@ namespace LogbookApp.ViewModel
 
 
         public Lookups Lookups { get; set; }
+
+        public Flight Flight { get; set; }
     }
 }

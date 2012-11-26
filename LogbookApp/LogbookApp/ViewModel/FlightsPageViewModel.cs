@@ -35,9 +35,21 @@ namespace LogbookApp.ViewModel
 
         public ObservableCollection<Flight> Flights { get; set; }
 
-        public void SelectDetail()
-        {
 
+        public Action<Flight> ShowDetail;
+
+      
+
+        private Flight selectedFlight;
+        public Flight SelectedFlight {
+            get
+            { return selectedFlight; ;}
+        
+            set
+            { 
+                selectedFlight=value;
+                ShowDetail(value);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using LogbookApp.ViewModel;
+﻿using LogbookApp.Model;
+using LogbookApp.ViewModel;
 using LogbookApp.Views;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,7 @@ namespace LogbookApp
         {
             this.InitializeComponent();
             viewModel = new FlightsPageViewModel();
+            viewModel.ShowDetail = ActionShowDetail; 
             DataContext = viewModel;
         }
 
@@ -50,9 +52,9 @@ namespace LogbookApp
             // TODO: Assign a bindable collection of items to this.DefaultViewModel["Items"]
         }
 
-        private void itemGridView_ItemClick_1(object sender, ItemClickEventArgs e)
+        private void ActionShowDetail(Flight flight)
         {
-            Frame.Navigate(typeof(FlightDetailPage1));
+            Frame.Navigate(typeof(FlightDetailPage1), flight);
         }
     }
 }

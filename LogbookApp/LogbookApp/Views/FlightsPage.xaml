@@ -46,11 +46,10 @@
             Grid.RowSpan="2"
             Padding="116,136,116,46"
             ItemsSource="{Binding Flights}"
-             ItemClick="itemGridView_ItemClick_1" 
+            
+            SelectedItem="{Binding SelectedFlight,Mode=TwoWay}"
             
             
-            SelectionMode="None"
-                  IsItemClickEnabled="True"
             IsSwipeEnabled="false">
             
             <GridView.ItemTemplate>
@@ -58,19 +57,19 @@
                 <DataTemplate>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="150">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="P1" Foreground="#FFFF06B0" FontSize="18" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="{Binding Capacity}" Foreground="#FFFF06B0" FontSize="18" VerticalAlignment="Center"></TextBlock>
                             <Rectangle Width="10"/>
-                            <TextBlock Text="10/10/2012 10:15 - 11:15" FontSize="14" VerticalAlignment="Center" ></TextBlock>
+                            <TextBlock Text="{Binding Date}" FontSize="14" VerticalAlignment="Center" ></TextBlock>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
 
-                            <TextBlock Text="G-ABCD"></TextBlock>
+                            <TextBlock Text="{Binding Reg}"></TextBlock>
                             <Rectangle Width="25"/>
-                            <TextBlock Text="C-152"></TextBlock>
+                            <TextBlock Text="{Binding AcType}"></TextBlock>
                         </StackPanel>
                         <TextBlock  Text="1:00" FontSize="30" 
                        ></TextBlock>
-                        <TextBlock Text="Fairoaks - Goodwood"></TextBlock>
+                        <TextBlock Text="{Binding From}"></TextBlock>
 
                     </StackPanel>
                 </DataTemplate>
