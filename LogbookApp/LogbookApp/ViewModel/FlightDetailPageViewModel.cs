@@ -19,6 +19,31 @@ namespace LogbookApp.ViewModel
 
         public Lookups Lookups { get; set; }
 
-        public Flight Flight { get; set; }
+        private Flight _flight;
+        public Flight Flight {
+            get
+            {
+                return _flight; ;
+            }
+            set
+            {
+                _flight = value;
+                RaisePropertyChanged(() => Flight);
+                FlightDate = Flight.Date;
+                RaisePropertyChanged(() => FlightDate);
+            }
+            }
+
+
+        private DateTime flightDate;
+
+        public DateTime FlightDate
+        {
+            get { return flightDate; }
+            set {
+                flightDate = value;
+            }
+        }
+        
     }
 }

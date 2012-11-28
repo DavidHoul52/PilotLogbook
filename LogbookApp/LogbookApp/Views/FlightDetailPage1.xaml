@@ -46,7 +46,7 @@
             <StackPanel Grid.ColumnSpan="2">
                 
                 <TextBlock Text="Date:"/>
-                <controls:DavidsDateControl></controls:DavidsDateControl>
+                <controls:DavidsDateControl Date="{Binding FlightDate,Mode=TwoWay}"></controls:DavidsDateControl>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Type:" Width="230" />
@@ -56,7 +56,7 @@
                 <StackPanel Orientation="Horizontal">
                 <ComboBox Width="200"  HorizontalAlignment="Left" ItemsSource="{Binding Lookups.AcTypes}"></ComboBox>
                 <Rectangle Width="30"></Rectangle>
-                <TextBox Width="200" HorizontalAlignment="Left"></TextBox>
+                <TextBox  Text="{Binding Flight.Reg}" Width="200" HorizontalAlignment="Left"></TextBox>
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">

@@ -19,22 +19,112 @@ namespace LogbookApp.Controls.TemplatedControls
         public DavidsDateControl()
         {
             this.DefaultStyleKey = typeof(DavidsDateControl);
+            
+            SetInternals(DateTime.Now);
         }
+
+        private int _day;
+        private int _month;
+        private int _year;
+        public ComboBox dayComboBox;
+        public ComboBox monthComboBox;
+        public ComboBox yearComboBox;
+        public List<string> months;
 
         protected override void OnApplyTemplate()
         {
-
-            ComboBox dayComboBox = GetTemplateChild("DayComboBox") as ComboBox;
-            dayComboBox.ItemsSource = new Calendar().DaysOfMonth();
-            dayComboBox.SelectedIndex = 0;
-            ComboBox monthComboBox = GetTemplateChild("MonthComboBox") as ComboBox;
-            monthComboBox.ItemsSource = new Calendar().Months();
-            monthComboBox.SelectedIndex = 0;
-            ComboBox yearComboBox = GetTemplateChild("YearComboBox") as ComboBox;
-            yearComboBox.ItemsSource = new Calendar().Years();
-            yearComboBox.SelectedIndex = 0;
             base.OnApplyTemplate();
+          
+
+            dayComboBox = GetTemplateChild("DayComboBox") as ComboBox;
+            dayComboBox.ItemsSource = new Calendar().DaysOfMonth();
+            
+            monthComboBox = GetTemplateChild("MonthComboBox") as ComboBox;
+            months = new Calendar().Months; ;
+            monthComboBox.ItemsSource = months;
+          
+            yearComboBox = GetTemplateChild("YearComboBox") as ComboBox;
+            yearComboBox.ItemsSource = new Calendar().Years();
+      
+            SetControls();
+
+            dayComboBox.SelectionChanged += (s, e) =>
+            {
+                SetDateFromControls();
+            };
+
+            monthComboBox.SelectionChanged += (s, e) =>
+            {
+                SetDateFromControls();
+            };
+
+            yearComboBox.SelectionChanged += (s, e) =>
+            {
+                SetDateFromControls();
+            };
+
+          
 
         }
+
+        private void SetDateFromControls()
+        {
+            Date = new DateTime((int)yearComboBox.SelectedItem, (int)months.FindIndex((s) => { return s == monthComboBox.SelectedItem; }) + 1,
+                (int)dayComboBox.SelectedItem);
+        }
+
+        public void SetControls()
+        {
+            dayComboBox.SelectedItem = _day;
+            monthComboBox.SelectedItem = months.ElementAt(_month - 1);
+            yearComboBox.SelectedItem = _year;
+        }
+
+        public void SetControls(DateTime date)
+        {
+            dayComboBox.SelectedItem = date.Day;
+            monthComboBox.SelectedItem = months.ElementAt(date.Month - 1);
+            yearComboBox.SelectedItem = date.Year;
+        }
+
+        public void SetInternals(DateTime date)
+        {
+            _day = date.Day;
+            _month = date.Month;
+            _year = date.Year;
+
+        }
+
+
+    
+
+
+        public DateTime Date
+        {
+            get { return (DateTime)GetValue(DateProperty); }
+            set {
+                SetValue(DateProperty, value); 
+            }
+        }
+
+        // Using a DependencyProperty as the backing store for Date.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DateProperty =
+            DependencyProperty.Register("Date", typeof(DateTime), typeof(DavidsDateControl),  new PropertyMetadata(default(DateTime), SelectedDateChanged));
+
+        private static void SelectedDateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            DavidsDateControl control = (DavidsDateControl)d;
+            DateTime date = (DateTime)e.NewValue;
+            if (control.monthComboBox != null)
+                control.SetControls(date);
+            else
+                control.SetInternals(date);
+            
+
+
+        }
+
+        
+        
     }
 }

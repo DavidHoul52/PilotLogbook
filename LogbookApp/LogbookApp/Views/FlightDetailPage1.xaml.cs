@@ -24,12 +24,15 @@ namespace LogbookApp.Views
     public sealed partial class FlightDetailPage1 : LogbookApp.Common.LayoutAwarePage
     {
         private FlightDetailPageViewModel viewModel;
+    
+
 
         public FlightDetailPage1()
         {
-            this.InitializeComponent();
-            
+            InitializeComponent();
+            viewModel = new FlightDetailPageViewModel();
             DataContext = viewModel;
+            
         }
 
         /// <summary>
@@ -43,8 +46,8 @@ namespace LogbookApp.Views
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            FlightDetailPageViewModel viewModel = new FlightDetailPageViewModel();
-            viewModel.Flight = navigationParameter as Flight;
+           viewModel.Flight = navigationParameter as Flight;
+            
         }
 
         /// <summary>

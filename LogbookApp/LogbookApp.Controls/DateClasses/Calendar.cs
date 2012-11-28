@@ -20,11 +20,14 @@ namespace LogbookApp.Controls.DateClasses
 
 
 
-        public List<string> Months()
+        public List<string> Months
         {
-            return new List<string>{
+            get
+            {
+                return new List<string>{
             "January","February","March","April","May","June","July","August","September","October",
             "November","December"};
+            }
         }
 
         public List<int> Years()
