@@ -54,7 +54,7 @@
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
-                <ComboBox Width="200"  HorizontalAlignment="Left" ItemsSource="{Binding Lookups.AcTypes}"></ComboBox>
+                <ComboBox Width="200"  HorizontalAlignment="Left" ItemsSource="{Binding Lookups.AcTypes}" SelectedItem="{Binding Flight.AcType,Mode=TwoWay}"></ComboBox>
                 <Rectangle Width="30"></Rectangle>
                 <TextBox  Text="{Binding Flight.Reg}" Width="200" HorizontalAlignment="Left"></TextBox>
                 </StackPanel>
@@ -67,7 +67,7 @@
                 <StackPanel Orientation="Horizontal">
                   <TextBox Width="200" HorizontalAlignment="Left"></TextBox>
                    <Rectangle Width="30"></Rectangle>
-                  <ComboBox Width="200" HorizontalAlignment="Left" ItemsSource="{Binding Lookups.Capacity}"></ComboBox>
+                  <ComboBox Width="200" HorizontalAlignment="Left" ItemsSource="{Binding Lookups.Capacity}" SelectedItem="{Binding Flight.Capacity,Mode=TwoWay}"></ComboBox>
                   </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
@@ -87,9 +87,10 @@
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Width="200" HorizontalAlignment="Left"></TextBox>
+                    <controls:SelectedTimeControl  Time="{Binding Flight.Depart,Mode=TwoWay}" HorizontalAlignment="Left"></controls:SelectedTimeControl>
+                    
                     <Rectangle Width="30"></Rectangle>
-                    <TextBox Width="200" HorizontalAlignment="Left"></TextBox>
+                    <controls:SelectedTimeControl  Time="{Binding Flight.Arrival,Mode=TwoWay}" HorizontalAlignment="Left"></controls:SelectedTimeControl>
                 </StackPanel>
 
 

@@ -34,5 +34,26 @@ namespace LogbookApp.Controls.DateClasses
         {
             return new List<int> { 2008, 2009, 2010, 2011, 2012, 2013 };
         }
+
+        public List<int> Hours()
+        {
+            List<int> result = new List<int>();
+            for (int i = 1; i <= 24; i++)
+            {
+                result.Add(i);
+            }
+
+            return result;
+        }
+
+        public List<int> FiveMinIntervals()
+        {
+            List<int> result = new List<int>();
+            for (int i = 5; i <= 60; i=i+5)
+            {
+                result.Add(i);
+            }
+            return result;
+        }
     }
 }

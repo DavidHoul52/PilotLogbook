@@ -25,4 +25,27 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+   
+
+    <Style TargetType="local:SelectedTimeControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:SelectedTimeControl">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox  x:Name="HourComboBox"  Height="30" Width="80"  />
+                            <Rectangle Width="10"></Rectangle>
+                            <ComboBox  x:Name="MinComboBox" Height="30" Width="80" />
+                            <Rectangle Width="30"></Rectangle>
+
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

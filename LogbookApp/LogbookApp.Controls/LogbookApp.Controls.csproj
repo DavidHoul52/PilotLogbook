@@ -116,6 +116,16 @@
     <Compile Include="TemplatedControls\Design\DateControlDesign.xaml.cs">
       <DependentUpon>DateControlDesign.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TemplatedControls\Design\SelectedTimeControlDesign.xaml.cs">
+      <DependentUpon>SelectedTimeControlDesign.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TemplatedControls\SelectedTimeControl.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="TemplatedControls\Design\SelectedTimeControlDesign.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
