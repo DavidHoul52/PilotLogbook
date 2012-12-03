@@ -114,7 +114,9 @@
       <DependentUpon>FlightItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\Lookups.cs" />
+    <Compile Include="ViewModel\DelegateCommand.cs" />
     <Compile Include="ViewModel\FlightDetailPageViewModel.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="Views\FlightDetailPage1.xaml.cs">
       <DependentUpon>FlightDetailPage1.xaml</DependentUpon>

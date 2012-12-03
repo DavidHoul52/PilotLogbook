@@ -21,7 +21,22 @@
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <x:String x:Key="AppName">Pilots Logbook</x:String>
     </Page.Resources>
-
+    <Page.TopAppBar>
+        <AppBar x:Name="topAppBar" Padding="10,0,10,0">
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button Style="{StaticResource AddAppBarButtonStyle}" />
+                    <Button Style="{StaticResource EditAppBarButtonStyle}" Command="{Binding EditCommand,Mode=TwoWay}" CommandParameter="{Binding SelectedFlight}" />
+                    <Button Style="{StaticResource RemoveAppBarButtonStyle}" />
+                    
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource RefreshAppBarButtonStyle}" />
+                    <Button Style="{StaticResource HelpAppBarButtonStyle}" />
+                </StackPanel>
+            </Grid>
+        </AppBar>
+    </Page.TopAppBar>
     <!--
         This grid acts as a root panel for the page that defines two rows:
         * Row 0 contains the back button and page title
@@ -98,12 +113,14 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>
+           
         </Grid>
-        
-       
+
+      
 
         <VisualStateManager.VisualStateGroups>
 

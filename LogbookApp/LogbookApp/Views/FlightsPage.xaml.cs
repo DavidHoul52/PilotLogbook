@@ -36,6 +36,7 @@ namespace LogbookApp
             viewModel = new FlightsPageViewModel();
             viewModel.ShowDetail = ActionShowDetail; 
             DataContext = viewModel;
+            
         }
 
         /// <summary>

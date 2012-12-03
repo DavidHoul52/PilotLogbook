@@ -38,7 +38,7 @@ namespace LogbookApp.Controls.DateClasses
         public List<int> Hours()
         {
             List<int> result = new List<int>();
-            for (int i = 1; i <= 24; i++)
+            for (int i = 0; i <= 24; i++)
             {
                 result.Add(i);
             }
@@ -49,7 +49,7 @@ namespace LogbookApp.Controls.DateClasses
         public List<int> FiveMinIntervals()
         {
             List<int> result = new List<int>();
-            for (int i = 5; i <= 60; i=i+5)
+            for (int i = 0; i <= 60; i=i+5)
             {
                 result.Add(i);
             }

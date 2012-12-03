@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LogbookApp.Model;
 using System.Collections.ObjectModel;
 
+
 namespace LogbookApp.ViewModel
 {
     public class FlightsPageViewModel : ViewModelBase
@@ -29,8 +30,9 @@ namespace LogbookApp.ViewModel
                     Arrival = new DateTime(2012, 2, 2, 11, 15, 0)
                 });
             }
-            
-            
+
+            EditCommand = new DelegateCommand<Flight>((f) => ShowDetail(f), (f) => { return f!=null; });
+            RaisePropertyChanged(() => EditCommand);
         }
 
         public ObservableCollection<Flight> Flights { get; set; }
@@ -38,18 +40,26 @@ namespace LogbookApp.ViewModel
 
         public Action<Flight> ShowDetail;
 
-      
+
 
         private Flight selectedFlight;
-        public Flight SelectedFlight {
+        public Flight SelectedFlight
+        {
             get
             { return selectedFlight; ;}
-        
+
             set
-            { 
-                selectedFlight=value;
-                ShowDetail(value);
+            {
+                selectedFlight = value;
+                RaisePropertyChanged(() => SelectedFlight);
+                
             }
+        }
+
+        public DelegateCommand<Flight> EditCommand
+        {
+            get;
+            set;
         }
     }
 }
