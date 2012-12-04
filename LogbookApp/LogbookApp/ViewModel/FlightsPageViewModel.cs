@@ -33,6 +33,23 @@ namespace LogbookApp.ViewModel
 
             EditCommand = new DelegateCommand<Flight>((f) => ShowDetail(f), (f) => { return f!=null; });
             RaisePropertyChanged(() => EditCommand);
+            DeleteCommand = new DelegateCommand<Flight>((f) => DeleteFlight(f), (f) => { return f != null; });
+            RaisePropertyChanged(() => DeleteCommand);
+            AddCommand = new DelegateCommand<Flight>((f) => AddFlight(), (f) => { return true; });
+            RaisePropertyChanged(() => AddCommand);
+        }
+
+        private void AddFlight()
+        {
+            Flights.Add(new Flight { Captain="Haddock"});
+            SelectedFlight = Flights.Last();
+            ShowDetail(SelectedFlight);
+
+        }
+
+        private void DeleteFlight(Flight f)
+        {
+            Flights.Remove(f);
         }
 
         public ObservableCollection<Flight> Flights { get; set; }
@@ -57,6 +74,18 @@ namespace LogbookApp.ViewModel
         }
 
         public DelegateCommand<Flight> EditCommand
+        {
+            get;
+            set;
+        }
+
+        public DelegateCommand<Flight> DeleteCommand
+        {
+            get;
+            set;
+        }
+
+        public DelegateCommand<Flight> AddCommand
         {
             get;
             set;
