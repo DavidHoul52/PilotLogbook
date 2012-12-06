@@ -54,7 +54,8 @@
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
-                <ComboBox Width="200"  HorizontalAlignment="Left" ItemsSource="{Binding Lookups.AcTypes}" SelectedItem="{Binding Flight.AcType,Mode=TwoWay}"></ComboBox>
+                <ComboBox Width="200"  HorizontalAlignment="Left" ItemsSource="{Binding Lookups.AcTypes}" DisplayMemberPath="Code" 
+                          SelectedValue="{Binding Flight.AcType.Code,Mode=TwoWay}" SelectedValuePath="Code" ></ComboBox>
                 <Rectangle Width="30"></Rectangle>
                 <TextBox  Text="{Binding Flight.Reg}" Width="200" HorizontalAlignment="Left"></TextBox>
                 </StackPanel>
@@ -67,7 +68,9 @@
                 <StackPanel Orientation="Horizontal">
                   <TextBox Width="200" Text="{Binding Flight.Captain,Mode=TwoWay}" HorizontalAlignment="Left"></TextBox>
                    <Rectangle Width="30"></Rectangle>
-                  <ComboBox Width="200" HorizontalAlignment="Left" ItemsSource="{Binding Lookups.Capacity}" SelectedItem="{Binding Flight.Capacity,Mode=TwoWay}"></ComboBox>
+                  <ComboBox Width="200" HorizontalAlignment="Left" ItemsSource="{Binding Lookups.Capacity}" SelectedValue="{Binding Flight.Capacity.Code,Mode=TwoWay}"
+                            SelectedValuePath="Code"
+                            DisplayMemberPath="Code"></ComboBox>
                   </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
@@ -76,7 +79,7 @@
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Width="200" HorizontalAlignment="Left"></TextBox>
+                    <ComboBox Width="200" ItemsSource="{Binding Lookups.Airfields}" HorizontalAlignment="Left"></ComboBox>
                     <Rectangle Width="30"></Rectangle>
                     <TextBox Width="200" HorizontalAlignment="Left"></TextBox>
                 </StackPanel>

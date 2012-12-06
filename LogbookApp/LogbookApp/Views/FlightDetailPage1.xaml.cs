@@ -59,5 +59,7 @@ namespace LogbookApp.Views
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
         }
+
+       
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LogbookApp.Model;
 using System.Collections.ObjectModel;
+using LogbookApp.Services;
 
 
 namespace LogbookApp.ViewModel
@@ -13,17 +14,17 @@ namespace LogbookApp.ViewModel
     {
         public FlightsPageViewModel()
         {
-
+            Lookups lookups = new Lookups();
             Flights = new ObservableCollection<Flight>();
             for (int i = 0; i < 100; i++)
             {
                 Flights.Add(new Flight
                 {
                     Date = new DateTime(2012, 2, 2),
-                    AcType = "C-152",
+                    AcType = lookups.AcTypes.First(),
                     Reg = "G-ABCD",
                     Captain = "Self",
-                    Capacity = "P1",
+                    Capacity = lookups.Capacity.First(),
                     From = "Fairoaks",
                     To = "Goodwood",
                     Depart = new DateTime(2012, 2, 2, 10, 15, 0),

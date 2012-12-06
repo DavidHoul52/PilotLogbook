@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogbookApp.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,21 +9,32 @@ namespace LogbookApp.Services
 {
     public class Lookups
     {
-        public List<string> AcTypes
+        public List<AcType> AcTypes
         {
             get
             {
-                return new List<string> { "C-152", "C-172", "P28", "P38" };
+                return new List<AcType> { new AcType{ Code="C-152"}, new AcType{ Code="C-172"},new AcType{ Code="P28"} ,new AcType{ Code="P38"} };
             }
 
         }
 
-        public List<string> Capacity
+        public List<Capacity> Capacity
         {
 
             get
             {
-                return new List<string> { "P1", "P2", "Put" };
+                return new List<Capacity> {new Capacity {Code= "P1"},new Capacity {Code= "P2"},new Capacity {Code= "Put"} };
+            }
+
+        }
+
+
+        public List<Airfield> Airfields
+        {
+
+            get
+            {
+                return new List<Airfield> { new Airfield { ICAOCode = "EGLF", Name = "Farnborough" }, new Airfield { ICAOCode = "EGTF", Name = "Fairoaks" } };
             }
 
         }

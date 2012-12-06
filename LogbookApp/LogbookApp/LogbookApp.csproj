@@ -113,6 +113,9 @@
     <Compile Include="Design\FlightItem.xaml.cs">
       <DependentUpon>FlightItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\AcType.cs" />
+    <Compile Include="Model\Airfield.cs" />
+    <Compile Include="Model\Capacity.cs" />
     <Compile Include="Services\Lookups.cs" />
     <Compile Include="ViewModel\DelegateCommand.cs" />
     <Compile Include="ViewModel\FlightDetailPageViewModel.cs" />
