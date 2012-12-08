@@ -25,8 +25,8 @@ namespace LogbookApp.ViewModel
                     Reg = "G-ABCD",
                     Captain = "Self",
                     Capacity = lookups.Capacity.First(),
-                    From = "Fairoaks",
-                    To = "Goodwood",
+                    From = lookups.Airfields.First(),
+                    To = lookups.Airfields.Last(),
                     Depart = new DateTime(2012, 2, 2, 10, 15, 0),
                     Arrival = new DateTime(2012, 2, 2, 11, 15, 0)
                 });

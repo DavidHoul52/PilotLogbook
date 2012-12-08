@@ -13,8 +13,8 @@ namespace LogbookApp.Model
         public string Reg { get; set; }
         public string Captain { get; set; }
         public Capacity Capacity { get; set; }
-        public string From { get; set; }
-        public string To { get; set; }
+        public Airfield From { get; set; }
+        public Airfield To { get; set; }
         public DateTime Depart { get; set; }
         public DateTime Arrival { get; set; }
 
