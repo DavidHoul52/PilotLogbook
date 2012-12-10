@@ -27,8 +27,8 @@ namespace LogbookApp.ViewModel
                     Capacity = lookups.Capacity.First(),
                     From = lookups.Airfields.First(),
                     To = lookups.Airfields.Last(),
-                    Depart = new DateTime(2012, 2, 2, 10, 15, 0),
-                    Arrival = new DateTime(2012, 2, 2, 11, 15, 0)
+                    Depart = new DateTime(2001, 1, 1, 10, 15, 0),
+                    Arrival = new DateTime(2001, 1, 1, 11, 15, 0)
                 });
             }
 

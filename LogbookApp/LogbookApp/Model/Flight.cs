@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogbookApp.Model
 {
-    public class Flight
+    public class Flight 
     {
         public DateTime Date { get; set; }
         public AcType AcType { get; set; }
@@ -17,6 +17,47 @@ namespace LogbookApp.Model
         public Airfield To { get; set; }
         public DateTime Depart { get; set; }
         public DateTime Arrival { get; set; }
+
+        public string FromTo
+        {
+            get
+            {
+                return String.Format("{0} - {1}", From.Name, To.Name);
+            }
+        }
+
+        public string DateStr
+        {
+            get
+            {
+                return Date.ToString("dd-MM-yyyy");
+            }
+        }
+
+        public string DurationStr
+        {
+            get
+            {
+                if (Duration != default(TimeSpan))
+                    return Duration.ToString(@"hh\:mm");
+                else
+                    return "Invalid";
+            }
+        }
+
+
+        public TimeSpan Duration
+        {
+            get
+            {
+                if (Arrival >= Depart)
+                    return Arrival - Depart;
+                else
+                    return default(TimeSpan);
+            }
+        }
+
+
 
     }
 }

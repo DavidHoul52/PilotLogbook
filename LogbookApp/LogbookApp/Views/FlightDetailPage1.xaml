@@ -94,10 +94,12 @@
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
-                    <controls:SelectedTimeControl  Time="{Binding Flight.Depart,Mode=TwoWay}" HorizontalAlignment="Left"></controls:SelectedTimeControl>
+                    <controls:SelectedTimeControl  Time="{Binding Depart,Mode=TwoWay}" HorizontalAlignment="Left"></controls:SelectedTimeControl>
                     
                     <Rectangle Width="30"></Rectangle>
-                    <controls:SelectedTimeControl  Time="{Binding Flight.Arrival,Mode=TwoWay}" HorizontalAlignment="Left"></controls:SelectedTimeControl>
+                    <controls:SelectedTimeControl  Time="{Binding Arrival,Mode=TwoWay}" HorizontalAlignment="Left"></controls:SelectedTimeControl>
+                    <Rectangle Width="30"></Rectangle>
+                    <TextBlock Width="150" Text="{Binding Flight.DurationStr}" Foreground="Yellow" FontSize="32"></TextBlock>
                 </StackPanel>
 
 

@@ -70,11 +70,12 @@
             <GridView.ItemTemplate>
                 
                 <DataTemplate>
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="150">
+                    <Grid Margin="10">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="150"  >
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Capacity.Code}" Foreground="#FFFF06B0" FontSize="18" VerticalAlignment="Center"></TextBlock>
                             <Rectangle Width="10"/>
-                            <TextBlock Text="{Binding Date}" FontSize="14" VerticalAlignment="Center" ></TextBlock>
+                            <TextBlock Text="{Binding DateStr}" FontSize="14" VerticalAlignment="Center" ></TextBlock>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
 
@@ -82,11 +83,12 @@
                             <Rectangle Width="25"/>
                             <TextBlock Text="{Binding AcType.Code}"></TextBlock>
                         </StackPanel>
-                        <TextBlock  Text="1:00" FontSize="30" 
+                            <TextBlock  Text="{Binding DurationStr}" FontSize="30" 
                        ></TextBlock>
-                        <TextBlock Text="{Binding From.Name}"></TextBlock>
+                        <TextBlock Text="{Binding FromTo}"></TextBlock>
 
                     </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>
             

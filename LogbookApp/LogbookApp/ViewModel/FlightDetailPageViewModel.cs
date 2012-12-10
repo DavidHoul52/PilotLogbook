@@ -29,21 +29,39 @@ namespace LogbookApp.ViewModel
             {
                 _flight = value;
                 RaisePropertyChanged(() => Flight);
-                FlightDate = Flight.Date;
-                RaisePropertyChanged(() => FlightDate);
+                RaisePropertyChanged(() => Depart);
+                RaisePropertyChanged(() => Arrival);
+            
             }
             }
 
+        
 
-        private DateTime flightDate;
-
-        public DateTime FlightDate
+        public DateTime Depart
         {
-            get { return flightDate; }
+            get { return Flight.Depart; }
             set {
-                flightDate = value;
+                   Flight.Depart = value;
+                   RaisePropertyChanged(() => Flight);
+               }
+        }
+
+
+        public DateTime Arrival
+        {
+            get { return Flight.Arrival; }
+            set
+            {
+                Flight.Arrival = value;
+                RaisePropertyChanged(() => Flight);
             }
         }
+
+        
+
+       
+        
+        
         
     }
 }

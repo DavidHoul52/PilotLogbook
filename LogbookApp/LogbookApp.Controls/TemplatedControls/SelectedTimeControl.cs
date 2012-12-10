@@ -17,6 +17,7 @@ namespace LogbookApp.Controls.TemplatedControls
     {
         private int _hour;
         private int _min;
+        private DateTime _baseDate = new DateTime(2001,1,1);
         
 
         public ComboBox hourComboBox;
@@ -67,7 +68,7 @@ namespace LogbookApp.Controls.TemplatedControls
 
         private void SetTimeFromControls()
         {
-            Time = new DateTime(2001,1,1,(int)hourComboBox.SelectedItem,  (int)minComboBox.SelectedItem,0);
+            Time = new DateTime(_baseDate.Year,_baseDate.Month,_baseDate.Day,(int)hourComboBox.SelectedItem,  (int)minComboBox.SelectedItem,0);
         }
 
         private void SetControls()
@@ -80,6 +81,7 @@ namespace LogbookApp.Controls.TemplatedControls
 
         public void SetControls(DateTime time)
         {
+            _baseDate = time;
             hourComboBox.SelectedItem = time.Hour;
             minComboBox.SelectedItem = time.Minute;
 
