@@ -1,4 +1,5 @@
-﻿using LogbookApp.Model;
+﻿
+using LogbookApp.Data;
 using LogbookApp.ViewModel;
 using LogbookApp.Views;
 using System;

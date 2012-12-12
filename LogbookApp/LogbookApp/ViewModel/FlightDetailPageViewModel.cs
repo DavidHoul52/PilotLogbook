@@ -1,4 +1,4 @@
-﻿using LogbookApp.Model;
+﻿using LogbookApp.Data;
 using LogbookApp.Services;
 using System;
 using System.Collections.Generic;

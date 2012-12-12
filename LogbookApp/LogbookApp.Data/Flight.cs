@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogbookApp.Model
+
+namespace LogbookApp.Data
 {
+   
     public class Flight 
     {
+        
         public DateTime Date { get; set; }
         public AcType AcType { get; set; }
         public string Reg { get; set; }
@@ -17,6 +20,10 @@ namespace LogbookApp.Model
         public Airfield To { get; set; }
         public DateTime Depart { get; set; }
         public DateTime Arrival { get; set; }
+
+
+        [SQLite.PrimaryKey, SQLite.AutoIncrement]
+        public int Id { get; set; }
 
         public string FromTo
         {

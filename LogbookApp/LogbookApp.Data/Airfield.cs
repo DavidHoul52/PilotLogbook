@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogbookApp.Model
+namespace LogbookApp.Data
 {
     public class Airfield
     {
+          [SQLite.PrimaryKey]
         public string ICAOCode { get; set; }
 
         public string Name { get; set; }
