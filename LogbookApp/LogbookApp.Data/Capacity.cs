@@ -8,7 +8,7 @@ namespace LogbookApp.Data
 {
     public class Capacity
     {
-          [SQLite.PrimaryKey]
+     
         public string Code { get; set; }
     }
 }

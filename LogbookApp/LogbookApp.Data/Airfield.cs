@@ -8,7 +8,7 @@ namespace LogbookApp.Data
 {
     public class Airfield
     {
-          [SQLite.PrimaryKey]
+        
         public string ICAOCode { get; set; }
 
         public string Name { get; set; }

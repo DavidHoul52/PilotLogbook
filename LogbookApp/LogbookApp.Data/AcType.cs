@@ -8,8 +8,8 @@ namespace LogbookApp.Data
 {
     public class AcType
     {
-        
-        [SQLite.PrimaryKey]
+
+        public int Id { get; set; }
         public string Code { get; set; }
     }
 }

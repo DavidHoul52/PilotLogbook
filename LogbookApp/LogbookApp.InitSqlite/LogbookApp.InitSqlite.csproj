@@ -145,8 +145,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="SQLite.WinRT, Version=3.7.14.1">
-      <Name>SQLite for Windows Runtime</Name>
+    <SDKReference Include="MobileServicesManagedClient, Version=0.2.0.0">
+      <Name>Windows Azure Mobile Services Managed Client</Name>
     </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

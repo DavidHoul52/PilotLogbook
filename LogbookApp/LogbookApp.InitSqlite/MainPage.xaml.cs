@@ -1,4 +1,5 @@
 ﻿using LogbookApp.Data;
+using Microsoft.WindowsAzure.MobileServices;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -34,27 +35,25 @@ namespace LogbookApp.InitSqlite
         /// </summary>
         /// <param name="e">Event data that describes how this page was reached.  The Parameter
         /// property is typically used to configure the page.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        public 
+            MobileServiceClient MobileService = new MobileServiceClient( "https://win8pilotslogbook.azure-mobile.net/",  "muBOJHLaoxgRzKMhnmjhbqfSeVfInI19");
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // Set the path in which to store the database.
-            string dbRootPath = Path.Combine(new[]
-                          {
-                            ApplicationData.Current.LocalFolder.Path, "LogBook1"
-                          });
-
-           // Create a new connection
-           var _db = new SQLiteConnection(dbRootPath);
-
-          // Create the tables if they not exists
-        
-        _db.CreateTable<AcType>();
-        _db.CreateTable<Capacity>();
-        _db.CreateTable<Airfield>();
-        _db.CreateTable<Flight>();
+            
+         //   AcType acType = new AcType { Code = "C-152" };
+          //  await MobileService.GetTable<AcType>().InsertAsync(acType);
+            //Flight flight = new Flight {Reg="G-WIZZ", Depart= DateTime.Today, Arrival=DateTime.Today, Captain="Haddock",Date=DateTime.Today,
+            //AcTypeId=1};
+            // await MobileService.GetTable<Flight>().InsertAsync(flight);
+            var poo = new FlightDataService(MobileService);
+            var goo= await poo.GetAllFlights();
+            
+        }
+            
+    }
             
           
           
 
-        }
-    }
+    
 }
