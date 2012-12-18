@@ -114,8 +114,6 @@
       <DependentUpon>FlightItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\Lookups.cs" />
-    <Compile Include="SQLite.cs" />
-    <Compile Include="SQLiteAsync.cs" />
     <Compile Include="ViewModel\DelegateCommand.cs" />
     <Compile Include="ViewModel\FlightDetailPageViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />

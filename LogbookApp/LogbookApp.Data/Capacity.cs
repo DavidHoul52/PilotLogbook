@@ -8,7 +8,8 @@ namespace LogbookApp.Data
 {
     public class Capacity
     {
-     
+
+        public int Id { get; set; }
         public string Code { get; set; }
     }
 }

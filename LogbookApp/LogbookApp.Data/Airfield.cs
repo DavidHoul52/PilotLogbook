@@ -8,7 +8,9 @@ namespace LogbookApp.Data
 {
     public class Airfield
     {
-        
+
+        public int Id { get; set; }
+
         public string ICAOCode { get; set; }
 
         public string Name { get; set; }
