@@ -24,9 +24,9 @@ namespace LogbookApp.ViewModel
                     AcType = lookups.AcTypes.First(),
                     Reg = "G-ABCD",
                     Captain = "Self",
-                    Capacity = lookups.Capacity.First(),
-                    From = lookups.Airfields.First(),
-                    To = lookups.Airfields.Last(),
+               //     Capacity = lookups.Capacity.First(),
+               //     From = lookups.Airfields.First(),
+               //     To = lookups.Airfields.Last(),
                     Depart = new DateTime(2001, 1, 1, 10, 15, 0),
                     Arrival = new DateTime(2001, 1, 1, 11, 15, 0)
                 });

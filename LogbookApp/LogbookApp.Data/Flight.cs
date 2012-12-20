@@ -20,11 +20,18 @@ namespace LogbookApp.Data
         public int AcTypeId { get; set; }
         public string Reg { get; set; }
         public string Captain { get; set; }
-       
-        //public Capacity Capacity { get; set; }
-       
-        //public Airfield From { get; set; }
-        //       public Airfield To { get; set; }
+
+        [IgnoreDataMember]
+        public Capacity Capacity { get; set; }
+
+        public int CapacityId { get; set; }
+
+        [IgnoreDataMember]
+        public Airfield From { get; set; }
+        public int FromAirfieldId { get; set; }
+        [IgnoreDataMember]
+        public Airfield To { get; set; }
+        public int ToAirfieldId { get; set; }
         public DateTime Depart { get; set; }
         public DateTime Arrival { get; set; }
 

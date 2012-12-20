@@ -19,14 +19,28 @@ namespace LogbookApp.Data
         }
 
      
+        public IEnumerable<Flight> Flights { get; set; }
+        public IEnumerable<AcType> AcTypes {get; set;}
+        public IEnumerable<Airfield> Airfields { get; set; }
+        public IEnumerable<Capacity> Capacitys { get; set; }
 
 
-        public async Task<List<Flight>> GetAllFlights()
+        public async Task<List<Flight>> GetFlights()
         {
 
             var flights = await _mobileService.GetTable<Flight>().ReadAsync() ;
-            var AcTypes = await _mobileService.GetTable<AcType>().ReadAsync();
-            return flights.Select(x => { x.AcType = AcTypes.Where(a => a.Id == x.AcTypeId).FirstOrDefault(); return x; }).ToList();
+            AcTypes = await _mobileService.GetTable<AcType>().ReadAsync();
+            Airfields = await _mobileService.GetTable<Airfield>().ReadAsync();
+            Capacitys = await _mobileService.GetTable<Capacity>().ReadAsync();
+
+            return flights.Select(x => {
+                x.AcType = AcTypes.Where(a => a.Id == x.AcTypeId).FirstOrDefault();
+                x.Capacity = Capacitys.Where(c=>c.Id==x.CapacityId).FirstOrDefault();
+                x.From = Airfields.Where(airfield=>airfield.Id==x.FromAirfieldId).FirstOrDefault();
+                x.To = Airfields.Where(airfield=>airfield.Id==x.ToAirfieldId).FirstOrDefault();
+                return x;
+            }).ToList();
+
             
         }
 

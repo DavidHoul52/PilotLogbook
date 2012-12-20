@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="7e3166cc-93a3-4f92-956a-fb9ca0a5d5e9" ChangeDateTime="12/20/2012 22:02:40">
+    <Property Name="ElementName" Value="[win8pilotslogbook].[Flight].[AirfieldId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[win8pilotslogbook].[Flight]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FromAirfieldId]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3f2446cb-1c22-4dcf-be41-e45f8852802f" ChangeDateTime="12/20/2012 22:03:16">
+    <Property Name="ElementName" Value="[win8pilotslogbook].[Flight].[FromAirfieldId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[win8pilotslogbook].[Flight]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ToAirfieldId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a861450a-9fce-484d-99a7-352010edb93f" ChangeDateTime="12/20/2012 22:03:46">
+    <Property Name="ElementName" Value="[win8pilotslogbook].[flight_airfieldid_fk]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[win8pilotslogbook].[Flight]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[flight_fromairfieldid_fk]" />
+  </Operation>
+</Operations>

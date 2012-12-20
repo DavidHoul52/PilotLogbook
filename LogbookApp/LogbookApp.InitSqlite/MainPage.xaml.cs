@@ -44,12 +44,13 @@ namespace LogbookApp.InitSqlite
             //Flight flight = new Flight {Reg="G-WIZZ", Depart= DateTime.Today, Arrival=DateTime.Today, Captain="Haddock",Date=DateTime.Today,
             //AcTypeId=1};
             // await MobileService.GetTable<Flight>().InsertAsync(flight);
-       //     var poo = new FlightDataService(MobileService);
-       //     var goo= await poo.GetAllFlights();
+            var poo = new FlightDataService(MobileService);
+            var flights = await poo.GetFlights();
+    
 //            Airfield airfield = new Airfield { ICAOCode = "EXXXX", Name = "Perwadi" };
        //     await MobileService.GetTable<Airfield>().InsertAsync(airfield);
-            Capacity capacity = new Capacity { Code="P1" };
-            await MobileService.GetTable<Capacity>().InsertAsync(capacity);
+         //   Capacity capacity = new Capacity { Code="P1" };
+         //   await MobileService.GetTable<Capacity>().InsertAsync(capacity);
 
             
 
