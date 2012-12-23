@@ -108,6 +108,9 @@
     <Compile Include="Capacity.cs" />
     <Compile Include="Flight.cs" />
     <Compile Include="FlightDataService.cs" />
+    <Compile Include="IMobileService.cs" />
+    <Compile Include="Lookups.cs" />
+    <Compile Include="MobileService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

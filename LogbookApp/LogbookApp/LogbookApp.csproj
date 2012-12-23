@@ -113,7 +113,6 @@
     <Compile Include="Design\FlightItem.xaml.cs">
       <DependentUpon>FlightItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\Lookups.cs" />
     <Compile Include="ViewModel\DelegateCommand.cs" />
     <Compile Include="ViewModel\FlightDetailPageViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
@@ -175,6 +174,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="MobileServicesManagedClient, Version=0.2.0.0">
+      <Name>Windows Azure Mobile Services Managed Client</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

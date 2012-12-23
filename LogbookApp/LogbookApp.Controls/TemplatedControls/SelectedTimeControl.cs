@@ -104,12 +104,15 @@ namespace LogbookApp.Controls.TemplatedControls
 
         private static void SelectedTimeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            SelectedTimeControl control = (SelectedTimeControl)d;
-            DateTime time = (DateTime)e.NewValue;
-            if (control.hourComboBox != null)
-                control.SetControls(time);
-            else
-                control.SetInternals(time);
+            if (e.NewValue != null)
+            {
+                SelectedTimeControl control = (SelectedTimeControl)d;
+                DateTime time = (DateTime)e.NewValue;
+                if (control.hourComboBox != null)
+                    control.SetControls(time);
+                else
+                    control.SetInternals(time);
+            }
 
 
 

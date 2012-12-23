@@ -32,17 +32,30 @@ namespace LogbookApp.Data
             AcTypes = await _mobileService.GetTable<AcType>().ReadAsync();
             Airfields = await _mobileService.GetTable<Airfield>().ReadAsync();
             Capacitys = await _mobileService.GetTable<Capacity>().ReadAsync();
+            Lookups = await GetLookups(); 
 
             return flights.Select(x => {
                 x.AcType = AcTypes.Where(a => a.Id == x.AcTypeId).FirstOrDefault();
                 x.Capacity = Capacitys.Where(c=>c.Id==x.CapacityId).FirstOrDefault();
                 x.From = Airfields.Where(airfield=>airfield.Id==x.FromAirfieldId).FirstOrDefault();
                 x.To = Airfields.Where(airfield=>airfield.Id==x.ToAirfieldId).FirstOrDefault();
+                x.Lookups = Lookups;
                 return x;
             }).ToList();
 
             
         }
+
+        public async Task<Lookups> GetLookups()
+        {
+            var lookups = new Lookups(_mobileService);
+            lookups.Load();
+            return lookups;
+
+        }
+
+        public Lookups Lookups { get; set; }
+
 
 
     }

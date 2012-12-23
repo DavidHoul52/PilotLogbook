@@ -2,6 +2,7 @@
 using LogbookApp.Data;
 using LogbookApp.ViewModel;
 using LogbookApp.Views;
+using Microsoft.WindowsAzure.MobileServices;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,6 +38,7 @@ namespace LogbookApp
             viewModel = new FlightsPageViewModel();
             viewModel.ShowDetail = ActionShowDetail; 
             DataContext = viewModel;
+            viewModel.Load();
             
         }
 
@@ -54,7 +56,7 @@ namespace LogbookApp
             // TODO: Assign a bindable collection of items to this.DefaultViewModel["Items"]
         }
 
-        private void ActionShowDetail(Flight flight)
+        private void ActionShowDetail(Flight flight )
         {
             Frame.Navigate(typeof(FlightDetailPage1), flight);
         }

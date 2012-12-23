@@ -4,33 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-using LogbookApp.Services;
 using LogbookApp.Data;
+using Microsoft.WindowsAzure.MobileServices;
+using Windows.UI.Xaml.Navigation;
 
 
 namespace LogbookApp.ViewModel
 {
     public class FlightsPageViewModel : ViewModelBase
     {
+        private MobileServiceClient MobileService = new MobileServiceClient( "https://win8pilotslogbook.azure-mobile.net/",  "muBOJHLaoxgRzKMhnmjhbqfSeVfInI19");
+        private FlightDataService flightDataService;
+
         public FlightsPageViewModel()
         {
-            Lookups lookups = new Lookups();
-            Flights = new ObservableCollection<Flight>();
-            for (int i = 0; i < 100; i++)
-            {
-                Flights.Add(new Flight
-                {
-                    Date = new DateTime(2012, 2, 2),
-                    AcType = lookups.AcTypes.First(),
-                    Reg = "G-ABCD",
-                    Captain = "Self",
-               //     Capacity = lookups.Capacity.First(),
-               //     From = lookups.Airfields.First(),
-               //     To = lookups.Airfields.Last(),
-                    Depart = new DateTime(2001, 1, 1, 10, 15, 0),
-                    Arrival = new DateTime(2001, 1, 1, 11, 15, 0)
-                });
-            }
+                        
 
             EditCommand = new DelegateCommand<Flight>((f) => ShowDetail(f), (f) => { return f!=null; });
             RaisePropertyChanged(() => EditCommand);
@@ -40,9 +28,19 @@ namespace LogbookApp.ViewModel
             RaisePropertyChanged(() => AddCommand);
         }
 
+
+        public async void Load()
+        {
+            flightDataService = new FlightDataService(MobileService);
+            Flights = new ObservableCollection<Flight>(await flightDataService.GetFlights());
+            RaisePropertyChanged(() => Flights);
+            
+        }
+
+
         private void AddFlight()
         {
-            Flights.Add(new Flight { Captain="Haddock"});
+            Flights.Add(new Flight { Lookups= flightDataService.Lookups });
             SelectedFlight = Flights.Last();
             ShowDetail(SelectedFlight);
 
@@ -57,6 +55,7 @@ namespace LogbookApp.ViewModel
 
 
         public Action<Flight> ShowDetail;
+
 
 
 

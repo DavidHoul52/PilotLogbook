@@ -35,6 +35,9 @@ namespace LogbookApp.Data
         public DateTime Depart { get; set; }
         public DateTime Arrival { get; set; }
 
+        [IgnoreDataMember]
+        public Lookups Lookups { get; set; }
+
 
         
         public int Id { get; set; }

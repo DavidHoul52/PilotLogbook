@@ -1,5 +1,4 @@
 ﻿using LogbookApp.Data;
-using LogbookApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +11,7 @@ namespace LogbookApp.ViewModel
     {
         public FlightDetailPageViewModel()
         {
-            Lookups = new Lookups();
-            RaisePropertyChanged(()=>Lookups);
+         
         }
 
 
@@ -31,28 +29,41 @@ namespace LogbookApp.ViewModel
                 RaisePropertyChanged(() => Flight);
                 RaisePropertyChanged(() => Depart);
                 RaisePropertyChanged(() => Arrival);
+                Lookups = _flight.Lookups;
+                RaisePropertyChanged(() => Lookups);
             
             }
             }
 
         
 
-        public DateTime Depart
+        public DateTime? Depart
         {
-            get { return Flight.Depart; }
+            get {
+
+                if (Flight != null)
+                    return Flight.Depart;
+                else
+                    return null;
+            }
             set {
-                   Flight.Depart = value;
+                   Flight.Depart = value.Value;
                    RaisePropertyChanged(() => Flight);
                }
         }
 
 
-        public DateTime Arrival
+        public DateTime? Arrival
         {
-            get { return Flight.Arrival; }
+            get {
+                if (Flight != null)
+                    return Flight.Arrival;
+                else
+                    return null;
+            }
             set
             {
-                Flight.Arrival = value;
+                Flight.Arrival = value.Value;
                 RaisePropertyChanged(() => Flight);
             }
         }
