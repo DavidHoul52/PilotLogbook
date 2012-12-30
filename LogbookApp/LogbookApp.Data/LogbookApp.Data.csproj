@@ -107,16 +107,8 @@
     <Compile Include="Airfield.cs" />
     <Compile Include="Capacity.cs" />
     <Compile Include="Flight.cs" />
-    <Compile Include="FlightDataService.cs" />
-    <Compile Include="IMobileService.cs" />
     <Compile Include="Lookups.cs" />
-    <Compile Include="MobileService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <SDKReference Include="MobileServicesManagedClient, Version=0.2.0.0">
-      <Name>Windows Azure Mobile Services Managed Client</Name>
-    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

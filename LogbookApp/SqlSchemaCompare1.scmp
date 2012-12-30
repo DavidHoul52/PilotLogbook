@@ -2,11 +2,16 @@
 <SchemaComparison>
   <Version>10</Version>
   <SourceModelProvider>
-    <FileBasedModelProvider>
-      <Name />
-      <DatabaseFileName>C:\Users\David\Documents\Visual Studio 2012\Projects\Database1\Snapshots\Database1_20121218_10-24-22.dacpac</DatabaseFileName>
-    </FileBasedModelProvider>
+    <ProjectBasedModelProvider>
+      <ProjectGuid>{c118165d-0ec5-477e-9e7b-24ca0b569154}</ProjectGuid>
+      <Name>pilotsLogbookDB_local</Name>
+    </ProjectBasedModelProvider>
   </SourceModelProvider>
+  <TargetModelProvider>
+    <ConnectionBasedModelProvider>
+      <ConnectionString>Data Source=tcp:lynaxpqazo.database.windows.net,1433;Initial Catalog=win8pilotslogbook_db;Persist Security Info=True;User ID=DavidHoul52@lynaxpqazo;Pooling=False</ConnectionString>
+    </ConnectionBasedModelProvider>
+  </TargetModelProvider>
   <SchemaCompareSettingsService>
     <SchemaCompareSettingsService>
       <PropertyElementName>

@@ -9,21 +9,21 @@ namespace LogbookApp.Data
 {
     public class Lookups
     {
-        private Microsoft.WindowsAzure.MobileServices.MobileServiceClient MobileService;
+       // private Microsoft.WindowsAzure.MobileServices.MobileServiceClient MobileService;
 
-        public Lookups(Microsoft.WindowsAzure.MobileServices.MobileServiceClient mobileService)
-        {
+        //public Lookups(Microsoft.WindowsAzure.MobileServices.MobileServiceClient mobileService)
+        //{
             
-            this.MobileService = mobileService;
+        //    this.MobileService = mobileService;
             
-        }
+        //}
 
 
         public async void Load()
         {
-            AcTypes = await MobileService.GetTable<AcType>().ReadAsync();
-            Capacity = await MobileService.GetTable<Capacity>().ReadAsync();
-            Airfields = await MobileService.GetTable<Airfield>().ReadAsync();
+            //AcTypes = await MobileService.GetTable<AcType>().ReadAsync();
+            //Capacity = await MobileService.GetTable<Capacity>().ReadAsync();
+            //Airfields = await MobileService.GetTable<Airfield>().ReadAsync();
         }
 
 

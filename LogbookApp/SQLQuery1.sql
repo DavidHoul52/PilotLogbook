@@ -1,1 +1,1 @@
-﻿select * from win8pilotslogbook.Airfield
+﻿select * from win8pilotslogbook.flight

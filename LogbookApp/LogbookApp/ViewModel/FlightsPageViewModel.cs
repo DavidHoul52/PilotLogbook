@@ -13,7 +13,8 @@ namespace LogbookApp.ViewModel
 {
     public class FlightsPageViewModel : ViewModelBase
     {
-        private MobileServiceClient MobileService = new MobileServiceClient( "https://win8pilotslogbook.azure-mobile.net/",  "muBOJHLaoxgRzKMhnmjhbqfSeVfInI19");
+        private MobileServiceClient MobileService = new MobileServiceClient( "https://win8pilotslogbook.azure-mobile.net/",
+            "muBOJHLaoxgRzKMhnmjhbqfSeVfInI19");
         private FlightDataService flightDataService;
 
         public FlightsPageViewModel()
@@ -46,9 +47,11 @@ namespace LogbookApp.ViewModel
 
         }
 
-        private void DeleteFlight(Flight f)
+        private async void DeleteFlight(Flight f)
         {
-            Flights.Remove(f);
+            bool deleted= await flightDataService.DeleteFlight(f);   
+            if (deleted)
+               Flights.Remove(f);
         }
 
         public ObservableCollection<Flight> Flights { get; set; }

@@ -11,7 +11,8 @@ namespace LogbookApp.Data
    
     public class Flight 
     {
-        
+        public int Id { get; set; }
+
         public DateTime Date { get; set; }
        
         [IgnoreDataMember]
@@ -40,7 +41,7 @@ namespace LogbookApp.Data
 
 
         
-        public int Id { get; set; }
+        
 
    
         //public string FromTo

@@ -25,36 +25,59 @@ namespace LogbookApp.Data
         public IEnumerable<Capacity> Capacitys { get; set; }
 
 
-        public async Task<List<Flight>> GetFlights()
+        public async Task<IEnumerable<Flight>> GetFlights()
         {
 
-            var flights = await _mobileService.GetTable<Flight>().ReadAsync() ;
+ 
             AcTypes = await _mobileService.GetTable<AcType>().ReadAsync();
             Airfields = await _mobileService.GetTable<Airfield>().ReadAsync();
             Capacitys = await _mobileService.GetTable<Capacity>().ReadAsync();
-            Lookups = await GetLookups(); 
-
-            return flights.Select(x => {
+            Lookups = await GetLookups();
+            var flights = await _mobileService.GetTable<Flight>().ReadAsync() ;
+            Flights = flights.Select(x => {
+              
                 x.AcType = AcTypes.Where(a => a.Id == x.AcTypeId).FirstOrDefault();
                 x.Capacity = Capacitys.Where(c=>c.Id==x.CapacityId).FirstOrDefault();
                 x.From = Airfields.Where(airfield=>airfield.Id==x.FromAirfieldId).FirstOrDefault();
                 x.To = Airfields.Where(airfield=>airfield.Id==x.ToAirfieldId).FirstOrDefault();
                 x.Lookups = Lookups;
                 return x;
-            }).ToList();
+            });
+
+            return Flights;
 
             
         }
 
         public async Task<Lookups> GetLookups()
         {
-            var lookups = new Lookups(_mobileService);
+            var lookups = new Lookups();
             lookups.Load();
             return lookups;
 
         }
 
         public Lookups Lookups { get; set; }
+
+        public async Task<bool> InsertFlight(Flight flight)
+        {
+           await _mobileService.GetTable<Flight>().InsertAsync(flight);
+           return true;
+        }
+
+        public async Task<bool> UpdateFlight(Flight flight)
+        {
+            await _mobileService.GetTable<Flight>().UpdateAsync(flight);
+            return true;
+        }
+
+
+        public async Task<bool> DeleteFlight(Flight flight)
+        {
+            await _mobileService.GetTable<Flight>().DeleteAsync(flight);
+            return true;
+        }
+
 
 
 
