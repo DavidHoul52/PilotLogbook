@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
+using System.Data.Services.Common;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -555,6 +556,7 @@ namespace WCFData.EntityFramework
     [EdmEntityTypeAttribute(NamespaceName="PilotsLogBook", Name="Flight")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
+    [DataServiceKey("Id")]
     public partial class Flight : EntityObject
     {
         #region Factory Method
@@ -579,6 +581,7 @@ namespace WCFData.EntityFramework
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
+        
         public global::System.Int64 Id
         {
             get

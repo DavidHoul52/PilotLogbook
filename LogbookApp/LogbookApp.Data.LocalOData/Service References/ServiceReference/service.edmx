@@ -1,0 +1,123 @@
+﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices m:DataServiceVersion="1.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="PilotsLogBook" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityType Name="AcType">
+        <Key>
+          <PropertyRef Name="id" />
+        </Key>
+        <Property Name="id" Type="Edm.Int64" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Code" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Flights" Relationship="PilotsLogBook.flight_actypeid_fk" ToRole="Flight" FromRole="AcType" />
+      </EntityType>
+      <EntityType Name="Airfield">
+        <Key>
+          <PropertyRef Name="id" />
+        </Key>
+        <Property Name="id" Type="Edm.Int64" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="ICAOCode" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Name" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Flights" Relationship="PilotsLogBook.flight_fromairfieldid_fk" ToRole="Flight" FromRole="Airfield" />
+        <NavigationProperty Name="Flights1" Relationship="PilotsLogBook.flight_toairfieldid_fk" ToRole="Flight" FromRole="Airfield" />
+      </EntityType>
+      <EntityType Name="Capacity">
+        <Key>
+          <PropertyRef Name="id" />
+        </Key>
+        <Property Name="id" Type="Edm.Int64" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Code" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Flights" Relationship="PilotsLogBook.flight_capacity_fk" ToRole="Flight" FromRole="Capacity" />
+      </EntityType>
+      <EntityType Name="Flight">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int64" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Reg" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Depart" Type="Edm.DateTimeOffset" />
+        <Property Name="Captain" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Arrival" Type="Edm.DateTimeOffset" />
+        <Property Name="Date" Type="Edm.DateTimeOffset" />
+        <Property Name="AcTypeId" Type="Edm.Int64" />
+        <Property Name="FromAirfieldId" Type="Edm.Int64" />
+        <Property Name="CapacityId" Type="Edm.Int64" />
+        <Property Name="ToAirfieldId" Type="Edm.Int64" />
+        <NavigationProperty Name="AcType" Relationship="PilotsLogBook.flight_actypeid_fk" ToRole="AcType" FromRole="Flight" />
+        <NavigationProperty Name="Airfield" Relationship="PilotsLogBook.flight_fromairfieldid_fk" ToRole="Airfield" FromRole="Flight" />
+        <NavigationProperty Name="Airfield1" Relationship="PilotsLogBook.flight_toairfieldid_fk" ToRole="Airfield" FromRole="Flight" />
+        <NavigationProperty Name="Capacity" Relationship="PilotsLogBook.flight_capacity_fk" ToRole="Capacity" FromRole="Flight" />
+      </EntityType>
+      <Association Name="flight_actypeid_fk">
+        <End Type="PilotsLogBook.AcType" Role="AcType" Multiplicity="0..1" />
+        <End Type="PilotsLogBook.Flight" Role="Flight" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="AcType">
+            <PropertyRef Name="id" />
+          </Principal>
+          <Dependent Role="Flight">
+            <PropertyRef Name="AcTypeId" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="flight_fromairfieldid_fk">
+        <End Type="PilotsLogBook.Airfield" Role="Airfield" Multiplicity="0..1" />
+        <End Type="PilotsLogBook.Flight" Role="Flight" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Airfield">
+            <PropertyRef Name="id" />
+          </Principal>
+          <Dependent Role="Flight">
+            <PropertyRef Name="FromAirfieldId" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="flight_toairfieldid_fk">
+        <End Type="PilotsLogBook.Airfield" Role="Airfield" Multiplicity="0..1" />
+        <End Type="PilotsLogBook.Flight" Role="Flight" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Airfield">
+            <PropertyRef Name="id" />
+          </Principal>
+          <Dependent Role="Flight">
+            <PropertyRef Name="ToAirfieldId" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="flight_capacity_fk">
+        <End Type="PilotsLogBook.Capacity" Role="Capacity" Multiplicity="0..1" />
+        <End Type="PilotsLogBook.Flight" Role="Flight" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Capacity">
+            <PropertyRef Name="id" />
+          </Principal>
+          <Dependent Role="Flight">
+            <PropertyRef Name="CapacityId" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+    </Schema>
+    <Schema Namespace="WCFData.EntityFramework" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityContainer Name="PilotsLogBookContainer" m:IsDefaultEntityContainer="true" p6:LazyLoadingEnabled="true" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntitySet Name="AcTypes" EntityType="PilotsLogBook.AcType" />
+        <EntitySet Name="Airfields" EntityType="PilotsLogBook.Airfield" />
+        <EntitySet Name="Capacities" EntityType="PilotsLogBook.Capacity" />
+        <EntitySet Name="Flights" EntityType="PilotsLogBook.Flight" />
+        <AssociationSet Name="flight_actypeid_fk" Association="PilotsLogBook.flight_actypeid_fk">
+          <End Role="AcType" EntitySet="AcTypes" />
+          <End Role="Flight" EntitySet="Flights" />
+        </AssociationSet>
+        <AssociationSet Name="flight_fromairfieldid_fk" Association="PilotsLogBook.flight_fromairfieldid_fk">
+          <End Role="Airfield" EntitySet="Airfields" />
+          <End Role="Flight" EntitySet="Flights" />
+        </AssociationSet>
+        <AssociationSet Name="flight_toairfieldid_fk" Association="PilotsLogBook.flight_toairfieldid_fk">
+          <End Role="Airfield" EntitySet="Airfields" />
+          <End Role="Flight" EntitySet="Flights" />
+        </AssociationSet>
+        <AssociationSet Name="flight_capacity_fk" Association="PilotsLogBook.flight_capacity_fk">
+          <End Role="Capacity" EntitySet="Capacities" />
+          <End Role="Flight" EntitySet="Flights" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
