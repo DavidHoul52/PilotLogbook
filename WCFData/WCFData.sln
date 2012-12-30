@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFData.EntityFramework", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFData.WCFService", "WCFData.WCFService\WCFData.WCFService.csproj", "{63B883D9-3A2A-4B20-86E1-ABF6571E2A1F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogbookData", "..\DataCommon\LogbookData\LogbookData.csproj", "{0EB679E8-66C0-4CAD-839A-04EC6A9E5756}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{63B883D9-3A2A-4B20-86E1-ABF6571E2A1F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{63B883D9-3A2A-4B20-86E1-ABF6571E2A1F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{63B883D9-3A2A-4B20-86E1-ABF6571E2A1F}.Release|x86.ActiveCfg = Release|Any CPU
+		{0EB679E8-66C0-4CAD-839A-04EC6A9E5756}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EB679E8-66C0-4CAD-839A-04EC6A9E5756}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EB679E8-66C0-4CAD-839A-04EC6A9E5756}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0EB679E8-66C0-4CAD-839A-04EC6A9E5756}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0EB679E8-66C0-4CAD-839A-04EC6A9E5756}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0EB679E8-66C0-4CAD-839A-04EC6A9E5756}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EB679E8-66C0-4CAD-839A-04EC6A9E5756}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EB679E8-66C0-4CAD-839A-04EC6A9E5756}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0EB679E8-66C0-4CAD-839A-04EC6A9E5756}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0EB679E8-66C0-4CAD-839A-04EC6A9E5756}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
