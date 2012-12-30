@@ -71,6 +71,8 @@ namespace LogbookApp.Data.LocalOData
             
             return data.Select(x => new Flight { Id = (int)x.Id  });
 
+            // TODO: complete the object graph
+
         }
 
         public Task<Lookups> GetLookups()

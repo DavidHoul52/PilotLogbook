@@ -12,7 +12,6 @@ using System.ComponentModel;
 using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.Services.Common;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -34,14 +33,14 @@ namespace WCFData.EntityFramework
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    public partial class PilotsLogBookContainer : ObjectContext
+    public partial class PilotsLogBookContainerNotUsed : ObjectContext
     {
         #region Constructors
     
         /// <summary>
         /// Initializes a new PilotsLogBookContainer object using the connection string found in the 'PilotsLogBookContainer' section of the application configuration file.
         /// </summary>
-        public PilotsLogBookContainer() : base("name=PilotsLogBookContainer", "PilotsLogBookContainer")
+        public PilotsLogBookContainerNotUsed() : base("name=PilotsLogBookContainer", "PilotsLogBookContainer")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
@@ -50,7 +49,7 @@ namespace WCFData.EntityFramework
         /// <summary>
         /// Initialize a new PilotsLogBookContainer object.
         /// </summary>
-        public PilotsLogBookContainer(string connectionString) : base(connectionString, "PilotsLogBookContainer")
+        public PilotsLogBookContainerNotUsed(string connectionString) : base(connectionString, "PilotsLogBookContainer")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
@@ -59,7 +58,8 @@ namespace WCFData.EntityFramework
         /// <summary>
         /// Initialize a new PilotsLogBookContainer object.
         /// </summary>
-        public PilotsLogBookContainer(EntityConnection connection) : base(connection, "PilotsLogBookContainer")
+        public PilotsLogBookContainerNotUsed(EntityConnection connection)
+            : base(connection, "PilotsLogBookContainer")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
@@ -556,7 +556,6 @@ namespace WCFData.EntityFramework
     [EdmEntityTypeAttribute(NamespaceName="PilotsLogBook", Name="Flight")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    [DataServiceKey("Id")]
     public partial class Flight : EntityObject
     {
         #region Factory Method
@@ -581,7 +580,6 @@ namespace WCFData.EntityFramework
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        
         public global::System.Int64 Id
         {
             get

@@ -67,6 +67,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PilotsLogBook.edmx</DependentUpon>
     </Compile>
+    <Compile Include="PilotsLogBookContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
