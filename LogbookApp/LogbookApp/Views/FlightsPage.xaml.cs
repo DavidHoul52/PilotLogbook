@@ -35,7 +35,8 @@ namespace LogbookApp
         public FlightsPage()
         {
             this.InitializeComponent();
-            viewModel = new FlightsPageViewModel();
+            viewModel = new FlightsPageViewModel(new FlightDataService(new MobileServiceClient( "https://win8pilotslogbook.azure-mobile.net/",
+            "muBOJHLaoxgRzKMhnmjhbqfSeVfInI19")));
             viewModel.ShowDetail = ActionShowDetail; 
             DataContext = viewModel;
             viewModel.Load();

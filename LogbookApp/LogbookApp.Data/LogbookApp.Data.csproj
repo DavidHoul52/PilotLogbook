@@ -107,6 +107,7 @@
     <Compile Include="Airfield.cs" />
     <Compile Include="Capacity.cs" />
     <Compile Include="Flight.cs" />
+    <Compile Include="IFlightDataService.cs" />
     <Compile Include="Lookups.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

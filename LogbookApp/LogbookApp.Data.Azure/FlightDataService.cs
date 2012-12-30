@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LogbookApp.Data
 {
-    public class FlightDataService
+    public class FlightDataService : IFlightDataService
     {
         private MobileServiceClient _mobileService;
 
