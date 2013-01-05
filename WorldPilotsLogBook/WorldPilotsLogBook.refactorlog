@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="bbd9d2be-33e1-450f-a30a-e0810e386906" ChangeDateTime="01/05/2013 12:42:34">
+    <Property Name="ElementName" Value="[WorldPilotsLogBook].[Flight].[TimeFrom]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[WorldPilotsLogBook].[Flight]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[Depart]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0773b3c2-b774-4293-ba2d-746bf4774e77" ChangeDateTime="01/05/2013 12:43:18">
+    <Property Name="ElementName" Value="[WorldPilotsLogBook].[Flight].[TimeTo]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[WorldPilotsLogBook].[Flight]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[Arrival]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4952248b-e895-4cff-9eef-73f702e45d8f" ChangeDateTime="01/05/2013 12:43:59">
+    <Property Name="ElementName" Value="[WorldPilotsLogBook].[Flight].[Aircraft]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[WorldPilotsLogBook].[Flight]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[AircraftId]" />
+  </Operation>
+</Operations>

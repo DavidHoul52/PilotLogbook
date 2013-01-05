@@ -123,6 +123,8 @@
     <Build Include="Security\rNVZefpBkWLoginUser.sql" />
     <Build Include="Security\rNVZefpBkWLogin.sql" />
     <Build Include="Security\win8pilotslogbook.sql" />
+    <Build Include="WorldPilotsLogBook.sql" />
+    <Build Include="WorldPilotsLogBook_1.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="pilotsLogbookDB_local.publish.xml" />

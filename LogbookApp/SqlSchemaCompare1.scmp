@@ -2,15 +2,15 @@
 <SchemaComparison>
   <Version>10</Version>
   <SourceModelProvider>
-    <ProjectBasedModelProvider>
-      <ProjectGuid>{c118165d-0ec5-477e-9e7b-24ca0b569154}</ProjectGuid>
-      <Name>pilotsLogbookDB_local</Name>
-    </ProjectBasedModelProvider>
+    <ConnectionBasedModelProvider>
+      <ConnectionString>Data Source=tcp:lynaxpqazo.database.windows.net,1433;Initial Catalog=worldPilotsLogBook_db;User ID=DavidHoul52;Pooling=False;MultipleActiveResultSets=False;Packet Size=4096;Application Name="Microsoft SQL Server Data Tools, Schema Compare"</ConnectionString>
+    </ConnectionBasedModelProvider>
   </SourceModelProvider>
   <TargetModelProvider>
-    <ConnectionBasedModelProvider>
-      <ConnectionString>Data Source=tcp:lynaxpqazo.database.windows.net,1433;Initial Catalog=win8pilotslogbook_db;Persist Security Info=True;User ID=DavidHoul52@lynaxpqazo;Pooling=False</ConnectionString>
-    </ConnectionBasedModelProvider>
+    <ProjectBasedModelProvider>
+      <ProjectGuid>{ea5d4dc8-dac1-41ff-b464-e144cb61b71b}</ProjectGuid>
+      <Name>WorldPilotsLogBook</Name>
+    </ProjectBasedModelProvider>
   </TargetModelProvider>
   <SchemaCompareSettingsService>
     <SchemaCompareSettingsService>

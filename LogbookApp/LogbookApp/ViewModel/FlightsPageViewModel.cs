@@ -31,8 +31,8 @@ namespace LogbookApp.ViewModel
 
         public async void Load()
         {
-            
-            Flights = new ObservableCollection<Flight>(await flightDataService.GetFlights());
+            bool loaded = await flightDataService.GetFlights();
+            Flights = new ObservableCollection<Flight>(flightDataService.Flights);
             RaisePropertyChanged(() => Flights);
             
         }

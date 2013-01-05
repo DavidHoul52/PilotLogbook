@@ -12,7 +12,7 @@ namespace LogbookApp.Data
         IEnumerable<AcType> AcTypes { get; set; }
         IEnumerable<Airfield> Airfields { get; set; }
         IEnumerable<Capacity> Capacitys { get; set; }
-        Task<IEnumerable<Flight>> GetFlights();
+        Task<bool> GetFlights();
         Task<Lookups> GetLookups();
         Lookups Lookups { get; set; }
         Task<bool> InsertFlight(Flight flight);

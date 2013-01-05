@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PilotsLogBook.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="PilotsLogBook.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="PilotsLogBookStoreContainer">
-          <EntitySet Name="AcType" EntityType="PilotsLogBook.Store.AcType" store:Type="Tables" Schema="win8pilotslogbook" />
-          <EntitySet Name="Airfield" EntityType="PilotsLogBook.Store.Airfield" store:Type="Tables" Schema="win8pilotslogbook" />
-          <EntitySet Name="Capacity" EntityType="PilotsLogBook.Store.Capacity" store:Type="Tables" Schema="win8pilotslogbook" />
-          <EntitySet Name="Flight" EntityType="PilotsLogBook.Store.Flight" store:Type="Tables" Schema="win8pilotslogbook" />
+          <EntitySet Name="AcType" EntityType="PilotsLogBook.Store.AcType" store:Type="Tables" Schema="win8pilotslogbook" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Airfield" EntityType="PilotsLogBook.Store.Airfield" store:Type="Tables" Schema="win8pilotslogbook" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Capacity" EntityType="PilotsLogBook.Store.Capacity" store:Type="Tables" Schema="win8pilotslogbook" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Flight" EntityType="PilotsLogBook.Store.Flight" store:Type="Tables" Schema="win8pilotslogbook" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <AssociationSet Name="flight_actypeid_fk" Association="PilotsLogBook.Store.flight_actypeid_fk">
             <End Role="AcType" EntitySet="AcType" />
             <End Role="Flight" EntitySet="Flight" />
@@ -115,8 +115,8 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="PilotsLogBook" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
-        <EntityContainer Name="PilotsLogBookContainer" annotation:LazyLoadingEnabled="true">
+      <Schema Namespace="PilotsLogBook" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PilotsLogBookContainer" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <EntitySet Name="AcTypes" EntityType="PilotsLogBook.AcType" />
           <EntitySet Name="Airfields" EntityType="PilotsLogBook.Airfield" />
           <EntitySet Name="Capacities" EntityType="PilotsLogBook.Capacity" />
@@ -142,7 +142,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Type="Int64" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Code" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Flights" Relationship="PilotsLogBook.flight_actypeid_fk" FromRole="AcType" ToRole="Flight" />
         </EntityType>
@@ -150,7 +150,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Type="Int64" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="ICAOCode" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Name" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Flights" Relationship="PilotsLogBook.flight_fromairfieldid_fk" FromRole="Airfield" ToRole="Flight" />
@@ -160,7 +160,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Type="Int64" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Code" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Flights" Relationship="PilotsLogBook.flight_capacity_fk" FromRole="Capacity" ToRole="Flight" />
         </EntityType>
@@ -168,7 +168,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Reg" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="DateTimeOffset" Name="Depart" />
           <Property Type="String" Name="Captain" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -235,7 +235,7 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs" Space="C-S">
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <Alias Key="Model" Value="PilotsLogBook" />
         <Alias Key="Target" Value="PilotsLogBook.Store" />
         <EntityContainerMapping CdmEntityContainer="PilotsLogBookContainer" StorageEntityContainer="PilotsLogBookStoreContainer">
@@ -285,41 +285,41 @@
     </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <edmx:Designer>
     <edmx:Connection>
-      <DesignerInfoPropertySet>
+      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
       </DesignerInfoPropertySet>
     </edmx:Connection>
     <edmx:Options>
-      <DesignerInfoPropertySet>
+      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Default" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram Name="PilotsLogBook" >
+      <Diagram Name="PilotsLogBook" xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
         <EntityTypeShape EntityType="PilotsLogBook.AcType" Width="1.5" PointX="0.75" PointY="6.375" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="PilotsLogBook.Airfield" Width="1.5" PointX="0.75" PointY="3.375" Height="1.9802864583333339" />
         <EntityTypeShape EntityType="PilotsLogBook.Capacity" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="PilotsLogBook.Flight" Width="1.5" PointX="3" PointY="2.5" Height="3.7109993489583313" />
-        <AssociationConnector Association="PilotsLogBook.flight_actypeid_fk" >
+        <AssociationConnector Association="PilotsLogBook.flight_actypeid_fk">
           <ConnectorPoint PointX="2.25" PointY="7.172841796875" />
           <ConnectorPoint PointX="3.75" PointY="7.172841796875" />
           <ConnectorPoint PointX="3.75" PointY="6.2109993489583317" />
         </AssociationConnector>
-        <AssociationConnector Association="PilotsLogBook.flight_fromairfieldid_fk" >
+        <AssociationConnector Association="PilotsLogBook.flight_fromairfieldid_fk">
           <ConnectorPoint PointX="2.25" PointY="4.3651432291666667" />
           <ConnectorPoint PointX="3" PointY="4.3651432291666667" />
         </AssociationConnector>
-        <AssociationConnector Association="PilotsLogBook.flight_toairfieldid_fk" >
+        <AssociationConnector Association="PilotsLogBook.flight_toairfieldid_fk">
           <ConnectorPoint PointX="2.25" PointY="3.8075716145833334" />
           <ConnectorPoint PointX="3" PointY="3.8075716145833334" />
         </AssociationConnector>
-        <AssociationConnector Association="PilotsLogBook.flight_capacity_fk" >
+        <AssociationConnector Association="PilotsLogBook.flight_capacity_fk">
           <ConnectorPoint PointX="2.25" PointY="1.5478417968749998" />
           <ConnectorPoint PointX="3.75" PointY="1.5478417968749998" />
           <ConnectorPoint PointX="3.75" PointY="2.5" />

@@ -10,57 +10,15 @@ namespace LogbookApp.Data.LocalOData
     public class LocalFlightDataService : IFlightDataService
     {
 
+
+
+        public IEnumerable<Flight> Flights { get; set; }
+        public IEnumerable<AcType> AcTypes{ get; set; }
+        public IEnumerable<Airfield> Airfields { get; set; }
+        public IEnumerable<Capacity> Capacitys  {get; set;}
         
 
-        public IEnumerable<Flight> Flights
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public IEnumerable<AcType> AcTypes
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public IEnumerable<Airfield> Airfields
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public IEnumerable<Capacity> Capacitys
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public async Task<IEnumerable<Flight>> GetFlights()
+        public async Task<bool> GetFlights()
         {
             var _serviceUri = @"http://localhost:49960/PilotsLogBookData.svc/";
             var _oDataClient = new ServiceReference.PilotsLogBookContainer(new Uri(_serviceUri));
@@ -69,7 +27,8 @@ namespace LogbookApp.Data.LocalOData
             var data = await query.ExecuteAsync<ServiceReference.Flight>(); // extention class below
 
             
-            return data.Select(x => new Flight { Id = (int)x.Id  });
+            this.Flights= data.Select(x => new Flight { Id = (int)x.Id  });
+            return true;
 
             // TODO: complete the object graph
 
@@ -80,17 +39,8 @@ namespace LogbookApp.Data.LocalOData
             throw new NotImplementedException();
         }
 
-        public Lookups Lookups
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public Lookups Lookups { get; set; }
+        
 
         public Task<bool> InsertFlight(Flight flight)
         {

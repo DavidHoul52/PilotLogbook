@@ -21,4 +21,28 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="[flight_fromairfieldid_fk]" />
   </Operation>
+  <Operation Name="Move Schema" Key="e5d71085-8790-413c-b15e-670322d4ae60" ChangeDateTime="01/03/2013 21:37:34">
+    <Property Name="ElementName" Value="[win8pilotslogbook].[AcType]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="WorldPilotsLogBook" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="c2770371-45f8-485e-a3ea-0673eabe5bf6" ChangeDateTime="01/03/2013 22:34:40">
+    <Property Name="ElementName" Value="[win8pilotslogbook].[Airfield]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="WorldPilotsLogBook" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="1d451cc5-bf9f-423e-8cb6-ade23238c8c4" ChangeDateTime="01/03/2013 22:34:52">
+    <Property Name="ElementName" Value="[win8pilotslogbook].[Capacity]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="WorldPilotsLogBook" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="d6d760d5-77ce-4d49-a1d0-2a9126e3dfb8" ChangeDateTime="01/03/2013 22:35:10">
+    <Property Name="ElementName" Value="[win8pilotslogbook].[Flight]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="WorldPilotsLogBook" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
 </Operations>

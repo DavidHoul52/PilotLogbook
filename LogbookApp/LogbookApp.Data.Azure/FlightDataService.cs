@@ -25,7 +25,7 @@ namespace LogbookApp.Data
         public IEnumerable<Capacity> Capacitys { get; set; }
 
 
-        public async Task<IEnumerable<Flight>> GetFlights()
+        public async Task<bool> GetFlights()
         {
 
  
@@ -38,13 +38,13 @@ namespace LogbookApp.Data
               
                 x.AcType = AcTypes.Where(a => a.Id == x.AcTypeId).FirstOrDefault();
                 x.Capacity = Capacitys.Where(c=>c.Id==x.CapacityId).FirstOrDefault();
-                x.From = Airfields.Where(airfield=>airfield.Id==x.FromAirfieldId).FirstOrDefault();
-                x.To = Airfields.Where(airfield=>airfield.Id==x.ToAirfieldId).FirstOrDefault();
+                x.From = Airfields.Where(airfield=>airfield.Id==x.AirfieldFromId).FirstOrDefault();
+                x.To = Airfields.Where(airfield=>airfield.Id==x.AirfieldToId).FirstOrDefault();
                 x.Lookups = Lookups;
                 return x;
             });
 
-            return Flights;
+            return true;
 
             
         }
@@ -77,6 +77,14 @@ namespace LogbookApp.Data
             await _mobileService.GetTable<Flight>().DeleteAsync(flight);
             return true;
         }
+
+
+        public async Task<bool> InsertAcType(AcType acType)
+        {
+            await _mobileService.GetTable<AcType>().InsertAsync(acType);
+            return true;
+        }
+
 
 
 

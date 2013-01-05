@@ -21,6 +21,7 @@ namespace LogbookApp.Data
         public AcType AcType { get; set; }
         
         public int AcTypeId { get; set; }
+        [IgnoreDataMember]
         public string Reg { get; set; }
         public string Captain { get; set; }
 
@@ -31,13 +32,14 @@ namespace LogbookApp.Data
 
         [IgnoreDataMember]
         public Airfield From { get; set; }
-        public int FromAirfieldId { get; set; }
+        public int AirfieldFromId { get; set; }
         [IgnoreDataMember]
         public Airfield To { get; set; }
-        public int ToAirfieldId { get; set; }
+        public int AirfieldToId { get; set; }
         public DateTime Depart { get; set; }
         public DateTime Arrival { get; set; }
 
+        public int AircraftId { get; set; }
         [IgnoreDataMember]
         public Lookups Lookups { get; set; }
 
