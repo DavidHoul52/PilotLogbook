@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace LogbookApp.Data
@@ -13,7 +8,6 @@ namespace LogbookApp.Data
     public class Flight 
     {
         
-
 
         public int id { get; set; }
 
@@ -24,8 +18,11 @@ namespace LogbookApp.Data
         
         public int AcTypeId
         {
-            get { return  AcType.Id; }
-            set {  AcType.Id = value; }
+            get { if (AcType != null) return  AcType.Id;
+                return 0;
+
+            }
+            set { if (AcType != null) AcType.Id = value; }
         }
 
         [IgnoreDataMember]
@@ -37,8 +34,10 @@ namespace LogbookApp.Data
 
         public int CapacityId
         {
-            get { return Capacity.Id; }
-            set { Capacity.Id = value; }
+            get { if (Capacity != null) return Capacity.Id;
+            return 0;
+            }
+            set { if (Capacity != null) Capacity.Id = value; }
         }
 
         [IgnoreDataMember]
@@ -46,8 +45,10 @@ namespace LogbookApp.Data
 
         public int AirfieldFromId
         {
-            get { return From.Id; }
-            set { From.Id = value; }
+            get { if (From != null) return From.Id;
+            return 0;
+            }
+            set { if (From != null) From.Id = value; }
         }
 
         [IgnoreDataMember]
@@ -55,14 +56,26 @@ namespace LogbookApp.Data
 
         public int AirfieldToId
         {
-            get { return To.Id; }
-            set { To.Id = value; }
+            get { if (To != null) return To.Id;
+            return 0;
+            }
+            set { if (To != null) To.Id = value; }
         }
 
         public DateTime Depart { get; set; }
         public DateTime Arrival { get; set; }
-        
-        public int AircraftId { get; set; }
+       
+        [IgnoreDataMember]
+        public Aircraft Aircraft { get; set; }
+
+        public int AircraftId 
+        {
+            get { if (Aircraft != null) return Aircraft.id;
+                return 0; 
+            }
+            set { if (Aircraft != null) Aircraft.id = value; }
+        }
+
         [IgnoreDataMember]
         public ILookups Lookups { get; set; }
           [IgnoreDataMember]

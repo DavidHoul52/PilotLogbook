@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcType.cs" />
+    <Compile Include="Aircraft.cs" />
     <Compile Include="Airfield.cs" />
     <Compile Include="Capacity.cs" />
     <Compile Include="Flight.cs" />
