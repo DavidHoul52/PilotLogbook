@@ -13,12 +13,10 @@ namespace LogbookApp.Data
         IEnumerable<Airfield> Airfields { get; set; }
         IEnumerable<Capacity> Capacitys { get; set; }
         Task<bool> GetFlights();
-        Task<Lookups> GetLookups();
-        Lookups Lookups { get; set; }
+        Task<ILookups> GetLookups();
+        ILookups Lookups { get; set; }
         Task<bool> InsertFlight(Flight flight);
         Task<bool> UpdateFlight(Flight flight);
         Task<bool> DeleteFlight(Flight flight);
     }
-
-    
 }

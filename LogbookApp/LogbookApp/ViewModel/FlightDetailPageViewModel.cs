@@ -15,7 +15,7 @@ namespace LogbookApp.ViewModel
         }
 
 
-        public Lookups Lookups { get; set; }
+        public ILookups Lookups { get; set; }
 
         private Flight _flight;
         public Flight Flight {

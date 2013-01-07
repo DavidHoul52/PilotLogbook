@@ -41,7 +41,7 @@ namespace LogbookApp.Data
 
         public int AircraftId { get; set; }
         [IgnoreDataMember]
-        public Lookups Lookups { get; set; }
+        public ILookups Lookups { get; set; }
 
 
         

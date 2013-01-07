@@ -34,12 +34,12 @@ namespace LogbookApp.Data.LocalOData
 
         }
 
-        public Task<Lookups> GetLookups()
+        public Task<ILookups> GetLookups()
         {
             throw new NotImplementedException();
         }
 
-        public Lookups Lookups { get; set; }
+        public ILookups Lookups { get; set; }
         
 
         public Task<bool> InsertFlight(Flight flight)

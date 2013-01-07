@@ -49,15 +49,15 @@ namespace LogbookApp.Data
             
         }
 
-        public async Task<Lookups> GetLookups()
+        public async Task<ILookups> GetLookups()
         {
-            var lookups = new Lookups();
+            var lookups = new Lookups(_mobileService);
             lookups.Load();
             return lookups;
 
         }
 
-        public Lookups Lookups { get; set; }
+        public ILookups Lookups { get; set; }
 
         public async Task<bool> InsertFlight(Flight flight)
         {
@@ -79,15 +79,36 @@ namespace LogbookApp.Data
         }
 
 
-        public async Task<bool> InsertAcType(AcType acType)
+    
+
+        public async Task<bool> ClearAcTypes()
         {
-            await _mobileService.GetTable<AcType>().InsertAsync(acType);
+            var actypes= await _mobileService.GetTable<AcType>().ReadAsync();
+            foreach (var actype in actypes)
+            {
+                await _mobileService.GetTable<AcType>().DeleteAsync(actype);
+            }
             return true;
+
+        }
+
+        
+
+            public async Task<bool> ClearTable<T>()
+        {
+            var items= await _mobileService.GetTable<T>().ReadAsync();
+            foreach (var item in items)
+            {
+                await _mobileService.GetTable<T>().DeleteAsync(item);
+            }
+            return true;
+
         }
 
 
-
-
-
+        public async Task Insert<T>(T item)
+        {
+            await _mobileService.GetTable<T>().InsertAsync(item);
+        }
     }
 }
