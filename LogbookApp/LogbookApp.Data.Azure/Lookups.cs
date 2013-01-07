@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace LogbookApp.Data
 {
@@ -14,7 +15,7 @@ namespace LogbookApp.Data
         }
 
 
-        public async void Load()
+        public async Task Load()
         {
             AcTypes = await MobileService.GetTable<AcType>().ReadAsync();
             Capacity = await MobileService.GetTable<Capacity>().ReadAsync();

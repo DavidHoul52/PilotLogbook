@@ -40,7 +40,8 @@ namespace LogbookApp.ViewModel
 
         private void AddFlight()
         {
-            Flights.Add(new Flight { Lookups= flightDataService.Lookups });
+            Flights.Add(new Flight { Lookups= flightDataService.Lookups, IsNew = true, DataService = flightDataService,
+            Date = DateTime.Today, AircraftId = 1});
             SelectedFlight = Flights.Last();
             ShowDetail(SelectedFlight);
 

@@ -19,7 +19,7 @@ namespace LogbookApp.Data
         }
 
      
-        public IEnumerable<Flight> Flights { get; set; }
+        public List<Flight> Flights { get; set; }
         public IEnumerable<AcType> AcTypes {get; set;}
         public IEnumerable<Airfield> Airfields { get; set; }
         public IEnumerable<Capacity> Capacitys { get; set; }
@@ -32,7 +32,7 @@ namespace LogbookApp.Data
             AcTypes = await _mobileService.GetTable<AcType>().ReadAsync();
             Airfields = await _mobileService.GetTable<Airfield>().ReadAsync();
             Capacitys = await _mobileService.GetTable<Capacity>().ReadAsync();
-            Lookups = await GetLookups();
+            
             var flights = await _mobileService.GetTable<Flight>().ReadAsync() ;
             Flights = flights.Select(x => {
               
@@ -42,18 +42,18 @@ namespace LogbookApp.Data
                 x.To = Airfields.Where(airfield=>airfield.Id==x.AirfieldToId).FirstOrDefault();
                 x.Lookups = Lookups;
                 return x;
-            });
+            }).ToList();
 
             return true;
 
             
         }
 
-        public async Task<ILookups> GetLookups()
+        public async Task GetLookups()
         {
-            var lookups = new Lookups(_mobileService);
-            lookups.Load();
-            return lookups;
+            Lookups = new Lookups(_mobileService);
+            await Lookups.Load();
+            
 
         }
 
@@ -78,8 +78,23 @@ namespace LogbookApp.Data
             return true;
         }
 
+        public async void SaveFlight(Flight flight)
+        {
+            if (flight.IsNew)
+               await _mobileService.GetTable<Flight>().InsertAsync(flight);
+            else
+                await _mobileService.GetTable<Flight>().UpdateAsync(flight);
+        }
 
-    
+        public void SaveFlights()
+        {
+            foreach (var flight in Flights)
+            {
+                SaveFlight(flight);
+            }
+            
+        }
+
 
         public async Task<bool> ClearAcTypes()
         {

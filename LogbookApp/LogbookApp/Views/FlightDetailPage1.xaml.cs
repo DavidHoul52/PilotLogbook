@@ -61,6 +61,12 @@ namespace LogbookApp.Views
         {
         }
 
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            viewModel.SaveFlights();
+            base.OnNavigatingFrom(e);
+        }
+
        
     }
 }

@@ -44,6 +44,12 @@ namespace DefaultDataLoader
             await data.Insert(new Airfield { ICAOCode = "EGHR", Name = "Goodwood"});
             await data.ClearTable<Capacity>();
             await data.Insert(new Capacity {Description = "P1"});
+            await data.GetLookups();
+            await data.Insert(new Flight { AcType = data.Lookups.AcTypes.FirstOrDefault(), Arrival = DateTime.Now,
+            Date = DateTime.Today,Depart = DateTime.Now,From = data.Lookups.Airfields.FirstOrDefault(),
+            To = data.Lookups.Airfields.FirstOrDefault(),Capacity = data.Lookups.Capacity.FirstOrDefault(),
+            Captain = "haddock",AircraftId = 1});
+
 
         }
     }

@@ -1,9 +1,5 @@
 ﻿using LogbookApp.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogbookApp.ViewModel
 {
@@ -68,11 +64,12 @@ namespace LogbookApp.ViewModel
             }
         }
 
-        
 
-       
-        
-        
-        
+        public void SaveFlights()
+        {
+            if (Flight.IsNew)
+                Flight.DataService.Flights.Add(this.Flight);
+            Flight.DataService.SaveFlights();
+        }
     }
 }

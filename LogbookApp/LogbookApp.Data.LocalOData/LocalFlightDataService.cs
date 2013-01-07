@@ -12,7 +12,7 @@ namespace LogbookApp.Data.LocalOData
 
 
 
-        public IEnumerable<Flight> Flights { get; set; }
+        public List<Flight> Flights { get; set; }
         public IEnumerable<AcType> AcTypes{ get; set; }
         public IEnumerable<Airfield> Airfields { get; set; }
         public IEnumerable<Capacity> Capacitys  {get; set;}
@@ -27,14 +27,14 @@ namespace LogbookApp.Data.LocalOData
             var data = await query.ExecuteAsync<ServiceReference.Flight>(); // extention class below
 
             
-            this.Flights= data.Select(x => new Flight { Id = (int)x.Id  });
+            this.Flights= data.Select(x => new Flight { id = (int)x.Id  }).ToList();
             return true;
 
             // TODO: complete the object graph
 
         }
 
-        public Task<ILookups> GetLookups()
+        public Task GetLookups()
         {
             throw new NotImplementedException();
         }
@@ -53,6 +53,16 @@ namespace LogbookApp.Data.LocalOData
         }
 
         public Task<bool> DeleteFlight(Flight flight)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveFlight(Flight flight)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveFlights()
         {
             throw new NotImplementedException();
         }
