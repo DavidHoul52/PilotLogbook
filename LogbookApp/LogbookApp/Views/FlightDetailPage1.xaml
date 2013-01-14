@@ -54,10 +54,13 @@
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
-                <ComboBox Width="200"  HorizontalAlignment="Left" ItemsSource="{Binding Lookups.AcTypes}" DisplayMemberPath="Code" 
+                <ComboBox Width="200"  HorizontalAlignment="Left" ItemsSource="{Binding Lookups.AcTypes}"
+                          DisplayMemberPath="Code" 
                           SelectedValue="{Binding Flight.AcType,Mode=TwoWay}" ></ComboBox>
                 <Rectangle Width="30"></Rectangle>
-                <TextBox  Text="{Binding Flight.Reg}" Width="200" HorizontalAlignment="Left"></TextBox>
+              <ComboBox Width="200"  HorizontalAlignment="Left" ItemsSource="{Binding Lookups.Aircraft}" 
+                        DisplayMemberPath="Reg" 
+                          SelectedValue="{Binding Flight.Aircraft,Mode=TwoWay}" ></ComboBox>
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">

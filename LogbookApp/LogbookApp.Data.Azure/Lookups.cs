@@ -15,14 +15,14 @@ namespace LogbookApp.Data
         }
 
 
-        public IEnumerable<Aircraft> Aircaft { get; set; }
+        public IEnumerable<Aircraft> Aircraft { get; set; }
 
         public async Task Load()
         {
             AcTypes = await MobileService.GetTable<AcType>().ReadAsync();
             Capacity = await MobileService.GetTable<Capacity>().ReadAsync();
             Airfields = await MobileService.GetTable<Airfield>().ReadAsync();
-            Aircaft = await MobileService.GetTable<Aircraft>().ReadAsync();
+            Aircraft = await MobileService.GetTable<Aircraft>().ReadAsync();
         }
 
 
