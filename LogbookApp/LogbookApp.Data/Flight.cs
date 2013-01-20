@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.Serialization;
 
 
@@ -7,81 +8,108 @@ namespace LogbookApp.Data
    
     public class Flight 
     {
-        
+        private AcType _acType;
+        private Capacity _capacity;
+        private Airfield _from;
+        private Airfield _to;
+        private Aircraft _aircraft;
+
 
         public int id { get; set; }
 
         public DateTime Date { get; set; }
        
         [IgnoreDataMember]
-        public AcType AcType { get; set; }
-        
-        public int AcTypeId
+        public AcType AcType
         {
-            get { if (AcType != null) return  AcType.Id;
-                return 0;
-
+            get { return _acType; }
+            set
+            {
+                _acType = value;
+                if (_acType != null)
+                    AcTypeId = AcType.Id;
             }
-            set { if (AcType != null) AcType.Id = value; }
         }
+
+        public int AcTypeId { get; set; }
+       
 
         [IgnoreDataMember]
         public string Reg { get; set; }
         public string Captain { get; set; }
 
         [IgnoreDataMember]
-        public Capacity Capacity { get; set; }
-
-        public int CapacityId
+        public Capacity Capacity
         {
-            get { if (Capacity != null) return Capacity.Id;
-            return 0;
+            get { return _capacity; }
+            set
+            {
+                _capacity = value;
+                if (_capacity != null)
+                    CapacityId = value.Id;
             }
-            set { if (Capacity != null) Capacity.Id = value; }
         }
+
+        public int CapacityId { get; set; }
+     
+        [IgnoreDataMember]
+        public Airfield From
+        {
+            get { return _from; }
+            set
+            {
+                _from = value;
+                if (value != null)
+                    AirfieldFromId = value.Id;
+
+            }
+        }
+
+        public int AirfieldFromId { get; set; }
+       
 
         [IgnoreDataMember]
-        public Airfield From { get; set; }
-
-        public int AirfieldFromId
+        public Airfield To
         {
-            get { if (From != null) return From.Id;
-            return 0;
+            get { return _to; }
+            set
+            {
+                _to = value;
+                if (value != null)
+                    AirfieldToId = value.Id;
             }
-            set { if (From != null) From.Id = value; }
         }
 
-        [IgnoreDataMember]
-        public Airfield To { get; set; }
-
-        public int AirfieldToId
-        {
-            get { if (To != null) return To.Id;
-            return 0;
-            }
-            set { if (To != null) To.Id = value; }
-        }
+        public int AirfieldToId { get; set; }
+      
 
         public DateTime Depart { get; set; }
         public DateTime Arrival { get; set; }
        
         [IgnoreDataMember]
-        public Aircraft Aircraft { get; set; }
-
-        public int AircraftId 
+        public Aircraft Aircraft
         {
-            get { if (Aircraft != null) return Aircraft.id;
-                return 0; 
+            get { return _aircraft; }
+            set
+            {
+                _aircraft = value;
+                if (value != null)
+                    AircraftId = value.id;
             }
-            set { if (Aircraft != null) Aircraft.id = value; }
         }
+
+        public int AircraftId { get; set; }
+      
 
         [IgnoreDataMember]
         public ILookups Lookups { get; set; }
           [IgnoreDataMember]
         public IFlightDataService DataService { get; set; }
+
+
         public void Save()
         {
+            
             if (DataService != null) DataService.SaveFlight(this);
         }
 

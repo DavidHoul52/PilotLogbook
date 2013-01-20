@@ -13,8 +13,7 @@ namespace LogbookApp.Data.LocalOData
 
 
         public List<Flight> Flights { get; set; }
-        public IEnumerable<AcType> AcTypes{ get; set; }
-        public IEnumerable<Airfield> Airfields { get; set; }
+       
         public IEnumerable<Capacity> Capacitys  {get; set;}
         
 
@@ -63,6 +62,11 @@ namespace LogbookApp.Data.LocalOData
         }
 
         public void SaveFlights()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveTest()
         {
             throw new NotImplementedException();
         }

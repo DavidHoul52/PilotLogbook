@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace LogbookApp.Data
@@ -15,20 +16,21 @@ namespace LogbookApp.Data
         }
 
 
-        public IEnumerable<Aircraft> Aircraft { get; set; }
+      
 
         public async Task Load()
         {
-            AcTypes = await MobileService.GetTable<AcType>().ReadAsync();
-            Capacity = await MobileService.GetTable<Capacity>().ReadAsync();
-            Airfields = await MobileService.GetTable<Airfield>().ReadAsync();
-            Aircraft = await MobileService.GetTable<Aircraft>().ReadAsync();
+            AcTypes = new ObservableCollection<AcType>(await MobileService.GetTable<AcType>().ReadAsync());
+            Capacity = new ObservableCollection<Capacity>(await MobileService.GetTable<Capacity>().ReadAsync());
+            Airfields = new ObservableCollection<Airfield>(await MobileService.GetTable<Airfield>().ReadAsync());
+            Aircraft =  new ObservableCollection<Aircraft>(await MobileService.GetTable<Aircraft>().ReadAsync());
         }
 
 
-        public IEnumerable<AcType> AcTypes {get; set;}
-        public IEnumerable<Capacity> Capacity { get; set; }
-        public IEnumerable<Airfield> Airfields {get; set;}
+        public ObservableCollection<AcType> AcTypes {get; set;}
+        public ObservableCollection<Capacity> Capacity { get; set; }
+        public ObservableCollection<Airfield> Airfields { get; set; }
+        public ObservableCollection<Aircraft> Aircraft { get; set; }
 
     }
 }

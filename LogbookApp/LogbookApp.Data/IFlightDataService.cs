@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LogbookApp.Data
@@ -9,9 +6,7 @@ namespace LogbookApp.Data
     public interface IFlightDataService
     {
         List<Flight> Flights { get; set; }
-        IEnumerable<AcType> AcTypes { get; set; }
-        IEnumerable<Airfield> Airfields { get; set; }
-        IEnumerable<Capacity> Capacitys { get; set; }
+       
         Task<bool> GetFlights();
         Task GetLookups();
         ILookups Lookups { get; set; }
@@ -20,5 +15,6 @@ namespace LogbookApp.Data
         Task<bool> DeleteFlight(Flight flight);
         void SaveFlight(Flight flight);
         void SaveFlights();
+        void SaveTest();
     }
 }

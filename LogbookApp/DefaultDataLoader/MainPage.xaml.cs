@@ -47,10 +47,10 @@ namespace DefaultDataLoader
             await data.ClearTable<Aircraft>();
             await data.Insert(new Aircraft {  Reg = "C-152" });
             await data.GetLookups();
-            //await data.Insert(new Flight { AcType = data.Lookups.AcTypes.FirstOrDefault(), Arrival = DateTime.Now,
-            //Date = DateTime.Today,Depart = DateTime.Now,From = data.Lookups.Airfields.FirstOrDefault(),
-            //To = data.Lookups.Airfields.FirstOrDefault(),Capacity = data.Lookups.Capacity.FirstOrDefault(),
-            //Captain = "haddock",Aircraft = data.Lookups.Aircaft.FirstOrDefault()});
+            await data.Insert(new Flight { AcType = data.Lookups.AcTypes.FirstOrDefault(), Arrival = DateTime.Now,
+            Date = DateTime.Today,Depart = DateTime.Now,From = data.Lookups.Airfields.FirstOrDefault(),
+            To = data.Lookups.Airfields.FirstOrDefault(),Capacity = data.Lookups.Capacity.FirstOrDefault(),
+            Captain = "haddock",Aircraft = data.Lookups.Aircraft.FirstOrDefault()});
 
 
         }

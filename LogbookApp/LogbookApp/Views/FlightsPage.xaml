@@ -16,7 +16,7 @@
         <!-- Collection of items displayed by this page -->
         <CollectionViewSource
             x:Name="itemsViewSource"
-            Source="{Binding Items}"/>
+            Source="{Binding Flights}"/>
 
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <x:String x:Key="AppName">Pilots Logbook</x:String>
@@ -73,7 +73,7 @@
                     <Grid Margin="10">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="150"  >
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Capacity.Code}" Foreground="#FFFF06B0" FontSize="18" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="{Binding Capacity.Description}" Foreground="#FFFF06B0" FontSize="18" VerticalAlignment="Center"></TextBlock>
                             <Rectangle Width="10"/>
                             <TextBlock Text="{Binding DateStr}" FontSize="14" VerticalAlignment="Center" ></TextBlock>
                         </StackPanel>

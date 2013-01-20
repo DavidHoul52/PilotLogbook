@@ -20,27 +20,26 @@ namespace LogbookApp.Data
 
      
         public List<Flight> Flights { get; set; }
-        public IEnumerable<AcType> AcTypes {get; set;}
-        public IEnumerable<Airfield> Airfields { get; set; }
-        public IEnumerable<Capacity> Capacitys { get; set; }
+     
 
 
         public async Task<bool> GetFlights()
         {
 
  
-            AcTypes = await _mobileService.GetTable<AcType>().ReadAsync();
-            Airfields = await _mobileService.GetTable<Airfield>().ReadAsync();
-            Capacitys = await _mobileService.GetTable<Capacity>().ReadAsync();
-            
+            //AcTypes = await _mobileService.GetTable<AcType>().ReadAsync();
+            //Airfields = await _mobileService.GetTable<Airfield>().ReadAsync();
+            //Capacitys = await _mobileService.GetTable<Capacity>().ReadAsync();
+            await GetLookups();
             var flights = await _mobileService.GetTable<Flight>().ReadAsync() ;
             Flights = flights.Select(x => {
               
-                x.AcType = AcTypes.Where(a => a.Id == x.AcTypeId).FirstOrDefault();
-                x.Capacity = Capacitys.Where(c=>c.Id==x.CapacityId).FirstOrDefault();
-                x.From = Airfields.Where(airfield=>airfield.Id==x.AirfieldFromId).FirstOrDefault();
-                x.To = Airfields.Where(airfield=>airfield.Id==x.AirfieldToId).FirstOrDefault();
+                x.AcType = Lookups.AcTypes.Where(a => a.Id == x.AcTypeId).FirstOrDefault();
+                x.Capacity = Lookups.Capacity.Where(c=>c.Id==x.CapacityId).FirstOrDefault();
+                x.From = Lookups.Airfields.Where(airfield=>airfield.Id==x.AirfieldFromId).FirstOrDefault();
+                x.To = Lookups.Airfields.Where(airfield=>airfield.Id==x.AirfieldToId).FirstOrDefault();
                 x.Lookups = Lookups;
+                x.DataService = this;
                 return x;
             }).ToList();
 
@@ -80,8 +79,9 @@ namespace LogbookApp.Data
 
         public async void SaveFlight(Flight flight)
         {
+         
             if (flight.IsNew)
-               await _mobileService.GetTable<Flight>().InsertAsync(flight);
+               await InsertFlight(flight);
             else
                 await _mobileService.GetTable<Flight>().UpdateAsync(flight);
         }
@@ -93,6 +93,31 @@ namespace LogbookApp.Data
                 SaveFlight(flight);
             }
             
+        }
+
+        public async void SaveTest()
+        {
+            //await ClearTable<AcType>();
+            //await Insert(new AcType { Code = "C-152" });
+            //await ClearTable<Airfield>();
+            //await Insert(new Airfield { ICAOCode = "EGHR", Name = "Goodwood" });
+            //await ClearTable<Capacity>();
+            //await Insert(new Capacity { Description = "P1" });
+            //await ClearTable<Aircraft>();
+            //await Insert(new Aircraft { Reg = "C-152" });
+         //   await GetLookups();
+            await Insert(new Flight
+            {
+                AcType = Lookups.AcTypes.FirstOrDefault(),
+                Arrival = DateTime.Now,
+                Date = DateTime.Today,
+                Depart = DateTime.Now,
+                From = Lookups.Airfields.FirstOrDefault(),
+                To = Lookups.Airfields.FirstOrDefault(),
+                Capacity = Lookups.Capacity.FirstOrDefault(),
+                Captain = "haddock",
+                Aircraft = Lookups.Aircraft.FirstOrDefault()
+            });
         }
 
 

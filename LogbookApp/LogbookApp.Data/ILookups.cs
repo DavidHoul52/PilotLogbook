@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace LogbookApp.Data
 {
     public interface ILookups
     {
-       IEnumerable<AcType> AcTypes { get; set; }
-       IEnumerable<Capacity> Capacity { get; set; }
-       IEnumerable<Airfield> Airfields { get; set; }
-       IEnumerable<Aircraft> Aircraft { get; set; }
+       ObservableCollection<AcType> AcTypes { get; set; }
+       ObservableCollection<Capacity> Capacity { get; set; }
+       ObservableCollection<Airfield> Airfields { get; set; }
+       ObservableCollection<Aircraft> Aircraft { get; set; }
 
         Task Load();
     }

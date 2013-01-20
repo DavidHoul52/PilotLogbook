@@ -1,4 +1,6 @@
-﻿using LogbookApp.Data;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using LogbookApp.Data;
 using System;
 
 namespace LogbookApp.ViewModel
@@ -11,7 +13,9 @@ namespace LogbookApp.ViewModel
         }
 
 
-        public ILookups Lookups { get; set; }
+        
+
+       
 
         private Flight _flight;
         public Flight Flight {
@@ -22,16 +26,19 @@ namespace LogbookApp.ViewModel
             set
             {
                 _flight = value;
+               
+             
+             
                 RaisePropertyChanged(() => Flight);
                 RaisePropertyChanged(() => Depart);
                 RaisePropertyChanged(() => Arrival);
-                Lookups = _flight.Lookups;
-                RaisePropertyChanged(() => Lookups);
-            
+           
+
             }
             }
 
-        
+
+     public AcType SelectedAcType { get; set; }
 
         public DateTime? Depart
         {
@@ -67,9 +74,25 @@ namespace LogbookApp.ViewModel
 
         public void SaveFlights()
         {
-            if (Flight.IsNew)
-                Flight.DataService.Flights.Add(this.Flight);
-            Flight.DataService.SaveFlights();
+          //  Flight.DataService.SaveTest();
+            //var flight = new Flight
+            //    {
+            //        AcType = Lookups.AcTypes.FirstOrDefault(),
+            //        Arrival = DateTime.Now,
+            //        Date = DateTime.Today,
+            //        Depart = DateTime.Now,
+            //        From = Lookups.Airfields.FirstOrDefault(),
+            //        To = Lookups.Airfields.FirstOrDefault(),
+            //        Capacity = Lookups.Capacity.FirstOrDefault(),
+            //        Captain = "haddock",
+            //        Aircraft = Lookups.Aircraft.FirstOrDefault(),
+            //        IsNew = true
+            //    };
+            Flight.DataService.SaveFlight(this.Flight);
+
+            //if (Flight.IsNew)
+            //    Flight.DataService.Flights.Add(this.Flight);
+            //Flight.DataService.SaveFlights();
         }
     }
 }

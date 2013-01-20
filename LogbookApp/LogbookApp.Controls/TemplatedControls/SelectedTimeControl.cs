@@ -28,16 +28,22 @@ namespace LogbookApp.Controls.TemplatedControls
         public SelectedTimeControl()
         {
             this.DefaultStyleKey = typeof(SelectedTimeControl);
-            SetInternals(DateTime.Now);
+            SetInternals(RoundedTime(DateTime.Now));
         }
 
-        private void SetInternals(DateTime time)
+        private static DateTime RoundedTime(DateTime time)
         {
-            _hour = time.Hour;
-            _min = time.Minute;
+
+
+            int minute = Convert.ToInt32(Math.Ceiling((double)time.Minute / 5) * 5);
+            if (Convert.ToInt32(minute) == 60)
+                minute = 0;
+            
+         
+
+            return new DateTime(time.Year, time.Month, time.Day, time.Hour, minute, 0);
         }
 
-      
 
         protected override void OnApplyTemplate()
         {
@@ -70,6 +76,13 @@ namespace LogbookApp.Controls.TemplatedControls
         {
             Time = new DateTime(_baseDate.Year,_baseDate.Month,_baseDate.Day,(int)hourComboBox.SelectedItem,  (int)minComboBox.SelectedItem,0);
         }
+
+        private void SetInternals(DateTime time)
+        {
+            _hour = time.Hour;
+            _min = time.Minute;
+        }
+
 
         private void SetControls()
         {
@@ -107,7 +120,7 @@ namespace LogbookApp.Controls.TemplatedControls
             if (e.NewValue != null)
             {
                 SelectedTimeControl control = (SelectedTimeControl)d;
-                DateTime time = (DateTime)e.NewValue;
+                DateTime time = RoundedTime((DateTime)e.NewValue);
                 if (control.hourComboBox != null)
                     control.SetControls(time);
                 else
