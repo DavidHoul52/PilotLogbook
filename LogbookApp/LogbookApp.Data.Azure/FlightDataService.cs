@@ -38,6 +38,9 @@ namespace LogbookApp.Data
                 x.Capacity = Lookups.Capacity.Where(c=>c.Id==x.CapacityId).FirstOrDefault();
                 x.From = Lookups.Airfields.Where(airfield=>airfield.Id==x.AirfieldFromId).FirstOrDefault();
                 x.To = Lookups.Airfields.Where(airfield=>airfield.Id==x.AirfieldToId).FirstOrDefault();
+                                              x.Aircraft =
+                                                  Lookups.Aircraft.Where(aircraft => aircraft.id == x.AircraftId)
+                                                         .FirstOrDefault();
                 x.Lookups = Lookups;
                 x.DataService = this;
                 return x;

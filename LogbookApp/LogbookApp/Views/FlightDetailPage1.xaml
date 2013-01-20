@@ -60,7 +60,7 @@
                 <Rectangle Width="30"></Rectangle>
               <ComboBox Width="200"  HorizontalAlignment="Left" ItemsSource="{Binding Flight.Lookups.Aircraft}" 
                         DisplayMemberPath="Reg" 
-                          SelectedValue="{Binding Flight.Aircraft,Mode=TwoWay}" ></ComboBox>
+                          SelectedItem="{Binding Flight.Aircraft,Mode=TwoWay}" ></ComboBox>
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
@@ -72,7 +72,7 @@
                   <TextBox Width="200" Text="{Binding Flight.Captain,Mode=TwoWay}" HorizontalAlignment="Left"></TextBox>
                    <Rectangle Width="30"></Rectangle>
                   <ComboBox Width="200" HorizontalAlignment="Left" ItemsSource="{Binding Flight.Lookups.Capacity}" 
-                            SelectedValue="{Binding Flight.Capacity,Mode=TwoWay}"
+                            SelectedItem="{Binding Flight.Capacity,Mode=TwoWay}"
                             DisplayMemberPath="Description"></ComboBox>
                   </StackPanel>
                 <Rectangle Height="10"></Rectangle>
@@ -83,11 +83,11 @@
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
                     <ComboBox Width="200" ItemsSource="{Binding Flight.Lookups.Airfields}" DisplayMemberPath="Name"
-                              SelectedValue="{Binding Flight.From, Mode=TwoWay}"
+                              SelectedItem="{Binding Flight.From, Mode=TwoWay}"
                               HorizontalAlignment="Left"></ComboBox>
                     <Rectangle Width="30"></Rectangle>
                     <ComboBox Width="200" ItemsSource="{Binding Flight.Lookups.Airfields}" DisplayMemberPath="Name" 
-                              SelectedValue="{Binding Flight.To, Mode=TwoWay}"
+                              SelectedItem="{Binding Flight.To, Mode=TwoWay}"
                               HorizontalAlignment="Left"></ComboBox>
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>
