@@ -15,9 +15,13 @@ namespace LogbookApp.ViewModel
             {
                 Aircraft.Add(new Aircraft { Reg = "G_WIZZ" });
             }
-            
+            IsEditing = true;
+            RaisePropertyChanged(()=>IsEditing);
+
         }
 
         public ObservableCollection<Aircraft> Aircraft { get; set; }
+
+        public bool IsEditing { get; set; }
     }
 }
