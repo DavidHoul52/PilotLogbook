@@ -9,11 +9,13 @@ namespace LogbookApp.ViewModel
     {
         public FlightDetailPageViewModel()
         {
-         
+        //    AddAircraftCommand = new DelegateCommand<Flight>((f) => AddAircraft(), (f) => { return true; });
+        //    RaisePropertyChanged(() => AddAircraftCommand);
         }
 
 
-        
+
+        //public RelayCommand AddAircraftCommand { get; set; }
 
        
 
