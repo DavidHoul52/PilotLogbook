@@ -9,13 +9,18 @@ namespace LogbookApp.ViewModel
     {
         public FlightDetailPageViewModel()
         {
-        //    AddAircraftCommand = new DelegateCommand<Flight>((f) => AddAircraft(), (f) => { return true; });
-        //    RaisePropertyChanged(() => AddAircraftCommand);
+            AddAircraftCommand = new DelegateCommand<Flight>((f) => AddAircraft(), (f) => { return true; });
+            RaisePropertyChanged(() => AddAircraftCommand);
+            
+        }
+
+        private void AddAircraft()
+        {
+            ShowAircraftList(Flight);
         }
 
 
-
-        //public RelayCommand AddAircraftCommand { get; set; }
+       
 
        
 
@@ -41,6 +46,9 @@ namespace LogbookApp.ViewModel
 
 
      public AcType SelectedAcType { get; set; }
+
+        public DelegateCommand<Flight> AddAircraftCommand { get; set; }
+        public DelegateCommand<Flight> AddAirfieldCommand { get; set; }
 
         public DateTime? Depart
         {
@@ -72,6 +80,8 @@ namespace LogbookApp.ViewModel
                 RaisePropertyChanged(() => Flight);
             }
         }
+
+        public Action<Flight> ShowAircraftList { get; set; }
 
 
         public void SaveFlights()

@@ -118,6 +118,9 @@
     <Compile Include="ViewModel\FlightDetailPageViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="Views\AircraftListBasicPage.xaml.cs">
+      <DependentUpon>AircraftListBasicPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AircraftView.xaml.cs">
       <DependentUpon>AircraftView.xaml</DependentUpon>
     </Compile>
@@ -158,6 +161,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Design\FlightItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AircraftListBasicPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -9,7 +9,7 @@
     
    >
     
-    <Grid>
+    <Grid Background="Blue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="98"/>
             <ColumnDefinition Width="9"/>
@@ -20,9 +20,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
-        <TextBlock HorizontalAlignment="Right" Foreground="White" Text="Reg :" FontSize="16"
+        <TextBlock HorizontalAlignment="Right" Foreground="White" Text="Reg :" FontSize="22"
                    VerticalAlignment="Bottom" Height="32" Width="70"/>
-        <TextBox Grid.Column="2" HorizontalAlignment="Left"  Text="{Binding Aircraft.Reg,Mode=TwoWay}" VerticalAlignment="Bottom" Width="254"/>
+        <TextBox Grid.Column="2" HorizontalAlignment="Left"  Text="{Binding Aircraft.Reg,Mode=TwoWay}"  FontSize="22" VerticalAlignment="Bottom" Width="254"/>
 
     </Grid>
 </UserControl>

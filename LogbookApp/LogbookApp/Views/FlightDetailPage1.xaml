@@ -22,6 +22,20 @@
             <Setter Property="AutomationProperties.AutomationId" Value="AddAppBarButton"/>
             <Setter Property="AutomationProperties.Name" Value="Add Aircraft"/>
             <Setter Property="Content" Value="&#xE109;"/>
+            <Setter Property="Foreground" Value="Yellow"></Setter>
+        </Style>
+
+        <Style x:Key="AddAircraftTypeButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+            <Setter Property="AutomationProperties.AutomationId" Value="AddAppBarButton"/>
+            <Setter Property="AutomationProperties.Name" Value="Add Aircraft Type"/>
+            <Setter Property="Content" Value="&#xE109;"/>
+            <Setter Property="Foreground" Value="Orange"></Setter>
+        </Style>
+        <Style x:Key="AddAirfieldButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+            <Setter Property="AutomationProperties.AutomationId" Value="AddAppBarButton"/>
+            <Setter Property="AutomationProperties.Name" Value="Add Airfield"/>
+            <Setter Property="Content" Value="&#xE109;"/>
+            <Setter Property="Foreground" Value="Green"></Setter>
         </Style>
     </Page.Resources>
 
@@ -30,12 +44,16 @@
         * Row 0 contains the back button and page title
         * Row 1 contains the rest of the page layout
     -->
-    <Page.TopAppBar>
-        <AppBar x:Name="topAppBar" Padding="10,0,10,0">
+    <Page.BottomAppBar>
+        <AppBar x:Name="btmAppBar" Padding="10,0,10,0">
             <Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button Style="{StaticResource AddAircraftButtonStyle}"  Command="{Binding AddAircraftCommand,Mode=TwoWay}"  />
-                    
+                    <Button Style="{StaticResource AddAircraftButtonStyle}" 
+                            Command="{Binding AddAircraftCommand,Mode=TwoWay}"   />
+                    <Button Style="{StaticResource AddAircraftTypeButtonStyle}" 
+                            Command="{Binding AddAircraftCommand,Mode=TwoWay}"  />
+                    <Button Style="{StaticResource AddAirfieldButtonStyle}" 
+                            Command="{Binding AddAirfieldCommand,Mode=TwoWay}"  />
 
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -44,7 +62,7 @@
                 </StackPanel>
             </Grid>
         </AppBar>
-    </Page.TopAppBar>
+    </Page.BottomAppBar>
     <Grid Style="{StaticResource LayoutRootStyle}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="51*"/>

@@ -1,7 +1,4 @@
-﻿
-using LogbookApp.Data;
-using LogbookApp.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,19 +19,11 @@ namespace LogbookApp.Views
     /// <summary>
     /// A basic page that provides characteristics common to most applications.
     /// </summary>
-    public sealed partial class FlightDetailPage1 : LogbookApp.Common.LayoutAwarePage
+    public sealed partial class AircraftListBasicPage : LogbookApp.Common.LayoutAwarePage
     {
-        private FlightDetailPageViewModel viewModel;
-    
-
-
-        public FlightDetailPage1()
+        public AircraftListBasicPage()
         {
-            InitializeComponent();
-            viewModel = new FlightDetailPageViewModel();
-            viewModel.ShowAircraftList = ActionShowAircraftList; 
-            DataContext = viewModel;
-            
+            this.InitializeComponent();
         }
 
         /// <summary>
@@ -48,8 +37,6 @@ namespace LogbookApp.Views
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-           viewModel.Flight = navigationParameter as Flight;
-            
         }
 
         /// <summary>
@@ -61,17 +48,5 @@ namespace LogbookApp.Views
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
         }
-
-        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
-        {
-            viewModel.SaveFlights();
-            base.OnNavigatingFrom(e);
-        }
-
-        private void ActionShowAircraftList(Flight flight)
-        {
-            Frame.Navigate(typeof(AircraftListBasicPage), flight);
-        }
-       
     }
 }
