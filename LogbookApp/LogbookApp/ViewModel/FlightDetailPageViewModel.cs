@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using LogbookApp.Commands;
 using LogbookApp.Data;
 using System;
 
@@ -11,14 +12,42 @@ namespace LogbookApp.ViewModel
         {
             AddAircraftCommand = new DelegateCommand<Flight>((f) => AddAircraft(), (f) => { return true; });
             RaisePropertyChanged(() => AddAircraftCommand);
+            AddAircraftTypeCommand = new DelegateCommand<Flight>((f) => AddAircraftType(), (f) => { return true; });
+            RaisePropertyChanged(() => AddAircraftTypeCommand);
             
+        }
+
+
+        private FlightActionCommand FlightActionCommand()
+        {
+            return new FlightActionCommand
+                {
+                    Flight = this.Flight,
+                    OnCompleted = (f) =>
+                        {
+                            Flight = f;
+
+
+                        }
+                };
+        }
+
+
+
+        private void AddAircraftType()
+        {
+            Flight.AcType = new AcType() { };
+
+            ShowAircraftType(FlightActionCommand());
         }
 
         private void AddAircraft()
         {
             Flight.Aircraft = new Aircraft { };
+
+            ShowAircraft(FlightActionCommand());
+
             
-            ShowAircraft(Flight);
         }
 
 
@@ -51,6 +80,7 @@ namespace LogbookApp.ViewModel
      public AcType SelectedAcType { get; set; }
 
         public DelegateCommand<Flight> AddAircraftCommand { get; set; }
+        public DelegateCommand<Flight> AddAircraftTypeCommand { get; set; }
         public DelegateCommand<Flight> AddAirfieldCommand { get; set; }
 
         public DateTime? Depart
@@ -84,7 +114,8 @@ namespace LogbookApp.ViewModel
             }
         }
 
-        public Action<Flight> ShowAircraft { get; set; }
+        public Action<FlightActionCommand> ShowAircraft { get; set; }
+        public Action<FlightActionCommand> ShowAircraftType { get; set; }
 
 
         public void SaveFlights()

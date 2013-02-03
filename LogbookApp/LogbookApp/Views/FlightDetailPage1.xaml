@@ -51,7 +51,7 @@
                     <Button Style="{StaticResource AddAircraftButtonStyle}" 
                             Command="{Binding AddAircraftCommand,Mode=TwoWay}"   />
                     <Button Style="{StaticResource AddAircraftTypeButtonStyle}" 
-                            Command="{Binding AddAircraftCommand,Mode=TwoWay}"  />
+                            Command="{Binding AddAircraftTypeCommand,Mode=TwoWay}"  />
                     <Button Style="{StaticResource AddAirfieldButtonStyle}" 
                             Command="{Binding AddAirfieldCommand,Mode=TwoWay}"  />
 

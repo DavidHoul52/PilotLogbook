@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using LogbookApp.Commands;
-using LogbookApp.Data;
-using LogbookApp.ViewModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,20 +20,15 @@ namespace LogbookApp.Views
     /// <summary>
     /// A basic page that provides characteristics common to most applications.
     /// </summary>
-    /// 
-
-       
-    
-    public sealed partial class AircraftBasicPage : LogbookApp.Common.LayoutAwarePage
+    public sealed partial class AircraftTypeBasicPage : LogbookApp.Common.LayoutAwarePage
     {
-
-        private AircraftViewModel viewModel;
+        private AircraftTypeViewModel viewModel;
         private FlightActionCommand flightActionCommand;
 
-        public AircraftBasicPage()
+        public AircraftTypeBasicPage()
         {
             this.InitializeComponent();
-            viewModel = new AircraftViewModel();
+            viewModel = new AircraftTypeViewModel();
 
             DataContext = viewModel;
         }
@@ -49,32 +42,21 @@ namespace LogbookApp.Views
         /// </param>
         /// <param name="pageState">A dictionary of state preserved by this page during an earlier
         /// session.  This will be null the first time a page is visited.</param>
-     
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             flightActionCommand = navigationParameter as FlightActionCommand;
             if (flightActionCommand != null) viewModel.Flight = flightActionCommand.Flight;
         }
 
-
-        protected async override void SaveState(Dictionary<String, Object> pageState)
+       
+        protected override void SaveState(Dictionary<String, Object> pageState)
         {
-        
-        }
-
-        protected async override void OnNavigatingFrom(NavigatingCancelEventArgs e)
-        {
-          
-            
-          
-            
-            base.OnNavigatingFrom(e);
         }
 
         private new async void GoBack(object sender, RoutedEventArgs e)
         {
-           await viewModel.Save();
-           Frame.GoBack();
+            await viewModel.Save();
+            Frame.GoBack();
         }
     }
 }

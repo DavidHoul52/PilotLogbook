@@ -75,6 +75,11 @@ namespace LogbookApp.Data.LocalOData
         {
             throw new NotImplementedException();
         }
+
+        public Task InsertAircraftType(AcType acType)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public static class WcfDataServicesExtensions

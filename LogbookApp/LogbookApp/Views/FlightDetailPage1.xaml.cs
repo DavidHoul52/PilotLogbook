@@ -33,7 +33,8 @@ namespace LogbookApp.Views
         {
             InitializeComponent();
             viewModel = new FlightDetailPageViewModel();
-            viewModel.ShowAircraft = ActionAddAircraft; 
+            viewModel.ShowAircraft = ActionAddAircraft;
+            viewModel.ShowAircraftType = ActionAddAircraftType;
             DataContext = viewModel;
             
         }
@@ -65,20 +66,16 @@ namespace LogbookApp.Views
             base.OnNavigatingFrom(e);
         }
 
-        private void ActionAddAircraft(Flight flight)
+        private void ActionAddAircraft(FlightActionCommand flightActionCommand)
         {
-            Frame.Navigate(typeof(AircraftBasicPage), new FlightActionCommand {Flight = flight, OnCompleted = (f)=>
-                {
-                    viewModel.Flight = f;
-                
-                                                          
-            }});
+            Frame.Navigate(typeof(AircraftBasicPage), flightActionCommand);
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void ActionAddAircraftType(FlightActionCommand flightActionCommand)
         {
-          
-            base.OnNavigatedTo(e);
+            Frame.Navigate(typeof(AircraftTypeBasicPage), flightActionCommand);
         }
+
+        
     }
 }
