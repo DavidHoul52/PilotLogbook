@@ -124,6 +124,13 @@ namespace LogbookApp.Data
         }
 
 
+        public async Task InsertAircraft(Aircraft aircraft)
+        {
+            
+            await Insert<Aircraft>(aircraft);
+            
+        }
+
         public async Task<bool> ClearAcTypes()
         {
             var actypes= await _mobileService.GetTable<AcType>().ReadAsync();

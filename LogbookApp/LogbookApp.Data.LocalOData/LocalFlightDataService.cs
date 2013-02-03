@@ -70,6 +70,11 @@ namespace LogbookApp.Data.LocalOData
         {
             throw new NotImplementedException();
         }
+
+        public Task InsertAircraft(Aircraft aircraft)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public static class WcfDataServicesExtensions

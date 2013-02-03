@@ -175,7 +175,7 @@
                     <Button Content="Delete" VerticalAlignment="Top" ></Button>
                     </StackPanel>
                      <Grid Grid.Row="2">
-                         <localviews:AircraftView Visibility="{Binding Converter={StaticResource bool2Vis},Path=IsEditing}" ></localviews:AircraftView>
+                         
                      </Grid>
                 </Grid>
                

@@ -104,6 +104,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\FlightActionCommand.cs" />
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BooleanNegationConverter.cs" />
     <Compile Include="Common\BooleanToVisibilityConverter.cs" />
@@ -114,15 +115,16 @@
       <DependentUpon>FlightItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AircraftSettingsFlyoutViewModel.cs" />
+    <Compile Include="ViewModel\AircraftViewModel.cs" />
     <Compile Include="ViewModel\DelegateCommand.cs" />
     <Compile Include="ViewModel\FlightDetailPageViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="Views\AircraftBasicPage.xaml.cs">
+      <DependentUpon>AircraftBasicPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AircraftListBasicPage.xaml.cs">
       <DependentUpon>AircraftListBasicPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AircraftView.xaml.cs">
-      <DependentUpon>AircraftView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FlightDetailPage1.xaml.cs">
       <DependentUpon>FlightDetailPage1.xaml</DependentUpon>
@@ -164,11 +166,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AircraftListBasicPage.xaml">
+    <Page Include="Views\AircraftBasicPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AircraftView.xaml">
+    <Page Include="Views\AircraftListBasicPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

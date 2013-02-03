@@ -10,6 +10,7 @@ namespace LogbookApp.Data
     {
         public int id { get; set; }
         public string Reg { get; set; }
+        
        
     }
 }

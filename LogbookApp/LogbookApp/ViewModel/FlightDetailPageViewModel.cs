@@ -16,7 +16,9 @@ namespace LogbookApp.ViewModel
 
         private void AddAircraft()
         {
-            ShowAircraftList(Flight);
+            Flight.Aircraft = new Aircraft { };
+            
+            ShowAircraft(Flight);
         }
 
 
@@ -33,12 +35,13 @@ namespace LogbookApp.ViewModel
             set
             {
                 _flight = value;
-               
-             
-             
+
+
+                RaisePropertyChanged(() => Flight.Lookups.Aircraft);
                 RaisePropertyChanged(() => Flight);
                 RaisePropertyChanged(() => Depart);
                 RaisePropertyChanged(() => Arrival);
+              
            
 
             }
@@ -81,7 +84,7 @@ namespace LogbookApp.ViewModel
             }
         }
 
-        public Action<Flight> ShowAircraftList { get; set; }
+        public Action<Flight> ShowAircraft { get; set; }
 
 
         public void SaveFlights()
@@ -106,5 +109,9 @@ namespace LogbookApp.ViewModel
             //    Flight.DataService.Flights.Add(this.Flight);
             //Flight.DataService.SaveFlights();
         }
+
+      
+
+       
     }
 }
