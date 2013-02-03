@@ -1,11 +1,9 @@
-﻿
-using LogbookApp.Commands;
-using LogbookApp.Data;
-using LogbookApp.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using LogbookApp.Commands;
+using LogbookApp.ViewModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -23,21 +21,17 @@ namespace LogbookApp.Views
     /// <summary>
     /// A basic page that provides characteristics common to most applications.
     /// </summary>
-    public sealed partial class FlightDetailPage1 : LogbookApp.Common.LayoutAwarePage
+    public sealed partial class AirfieldBasicPage : LogbookApp.Common.LayoutAwarePage
     {
-        private FlightDetailPageViewModel viewModel;
-    
+        private AirfieldViewModel viewModel;
+        private FlightAirfieldActionCommand flightActionCommand;
 
-
-        public FlightDetailPage1()
+        public AirfieldBasicPage()
         {
-            InitializeComponent();
-            viewModel = new FlightDetailPageViewModel();
-            viewModel.ShowAircraft = ActionAddAircraft;
-            viewModel.ShowAircraftType = ActionAddAircraftType;
-            viewModel.ShowAirfield = ActionAddAirfield;
+            this.InitializeComponent();
+            viewModel = new AirfieldViewModel();
+
             DataContext = viewModel;
-            
         }
 
         /// <summary>
@@ -51,38 +45,30 @@ namespace LogbookApp.Views
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-           viewModel.Flight = navigationParameter as Flight;
-
-            
+            flightActionCommand = navigationParameter as FlightAirfieldActionCommand;
+            if (flightActionCommand != null) viewModel.Flight = flightActionCommand.Flight;
         }
 
-       
+        
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
         }
 
-        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        private new async void GoBack(object sender, RoutedEventArgs e)
         {
-            viewModel.SaveFlights();
-            base.OnNavigatingFrom(e);
-        }
-
-        private void ActionAddAircraft(FlightActionCommand flightActionCommand)
-        {
-            Frame.Navigate(typeof(AircraftBasicPage), flightActionCommand);
-        }
-
-        private void ActionAddAircraftType(FlightActionCommand flightActionCommand)
-        {
-            Frame.Navigate(typeof(AircraftTypeBasicPage), flightActionCommand);
-        }
-
-
-        private void ActionAddAirfield(FlightAirfieldActionCommand flightActionCommand)
-        {
+            switch (flightActionCommand.AirfieldDesignation)
+            {
+                case AirfieldDesignation.From:
+                    await viewModel.SaveFrom();
+                    break;
+                case AirfieldDesignation.To:
+                    await viewModel.SaveTo();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             
-            Frame.Navigate(typeof(AirfieldBasicPage), flightActionCommand);
+            Frame.GoBack();
         }
-        
     }
 }

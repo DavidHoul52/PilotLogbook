@@ -31,9 +31,15 @@
             <Setter Property="Content" Value="&#xE109;"/>
             <Setter Property="Foreground" Value="Orange"></Setter>
         </Style>
-        <Style x:Key="AddAirfieldButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Style x:Key="AddAirfieldFromButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
             <Setter Property="AutomationProperties.AutomationId" Value="AddAppBarButton"/>
             <Setter Property="AutomationProperties.Name" Value="Add Airfield"/>
+            <Setter Property="Content" Value="&#xE109;"/>
+            <Setter Property="Foreground" Value="Green"></Setter>
+        </Style>
+        <Style x:Key="AddAirfieldToButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+            <Setter Property="AutomationProperties.AutomationId" Value="AddAppBarButton"/>
+            <Setter Property="AutomationProperties.Name" Value="Add Airfield To"/>
             <Setter Property="Content" Value="&#xE109;"/>
             <Setter Property="Foreground" Value="Green"></Setter>
         </Style>
@@ -52,8 +58,10 @@
                             Command="{Binding AddAircraftCommand,Mode=TwoWay}"   />
                     <Button Style="{StaticResource AddAircraftTypeButtonStyle}" 
                             Command="{Binding AddAircraftTypeCommand,Mode=TwoWay}"  />
-                    <Button Style="{StaticResource AddAirfieldButtonStyle}" 
-                            Command="{Binding AddAirfieldCommand,Mode=TwoWay}"  />
+                    <Button Style="{StaticResource AddAirfieldFromButtonStyle}" 
+                            Command="{Binding AddAirfieldFromCommand,Mode=TwoWay}"  />
+                    <Button Style="{StaticResource AddAirfieldToButtonStyle}" 
+                            Command="{Binding AddAirfieldToCommand,Mode=TwoWay}"  />
 
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

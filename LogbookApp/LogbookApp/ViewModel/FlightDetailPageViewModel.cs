@@ -14,13 +14,20 @@ namespace LogbookApp.ViewModel
             RaisePropertyChanged(() => AddAircraftCommand);
             AddAircraftTypeCommand = new DelegateCommand<Flight>((f) => AddAircraftType(), (f) => { return true; });
             RaisePropertyChanged(() => AddAircraftTypeCommand);
+            AddAirfieldFromCommand = new DelegateCommand<Flight>((f) => AddAirfield(AirfieldDesignation.From), (f) => { return true; });
+            RaisePropertyChanged(() => AddAirfieldFromCommand);
+            AddAirfieldToCommand = new DelegateCommand<Flight>((f) => AddAirfield(AirfieldDesignation.To), (f) => { return true; });
+            RaisePropertyChanged(() => AddAirfieldToCommand);
             
         }
 
+     
 
-        private FlightActionCommand FlightActionCommand()
+
+        private T FlightActionCommand<T>()
+            where T:FlightActionCommand, new()
         {
-            return new FlightActionCommand
+            return new T
                 {
                     Flight = this.Flight,
                     OnCompleted = (f) =>
@@ -38,19 +45,38 @@ namespace LogbookApp.ViewModel
         {
             Flight.AcType = new AcType() { };
 
-            ShowAircraftType(FlightActionCommand());
+            ShowAircraftType(FlightActionCommand<FlightActionCommand>());
         }
 
         private void AddAircraft()
         {
             Flight.Aircraft = new Aircraft { };
 
-            ShowAircraft(FlightActionCommand());
+            ShowAircraft(FlightActionCommand<FlightActionCommand>());
 
             
         }
 
+        private void AddAirfield(AirfieldDesignation airfieldDesignation)
+        {
 
+            switch (airfieldDesignation)
+            {
+                case AirfieldDesignation.From:
+                    Flight.From = new Airfield { };
+                    break;
+                case AirfieldDesignation.To:
+                    Flight.To = new Airfield();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("airfieldDesignation");
+            }
+
+
+            FlightAirfieldActionCommand flightAirfieldActionCommand = FlightActionCommand<FlightAirfieldActionCommand>();
+            flightAirfieldActionCommand.AirfieldDesignation = airfieldDesignation;
+            ShowAirfield(flightAirfieldActionCommand);
+        }
        
 
        
@@ -81,7 +107,8 @@ namespace LogbookApp.ViewModel
 
         public DelegateCommand<Flight> AddAircraftCommand { get; set; }
         public DelegateCommand<Flight> AddAircraftTypeCommand { get; set; }
-        public DelegateCommand<Flight> AddAirfieldCommand { get; set; }
+        public DelegateCommand<Flight> AddAirfieldFromCommand { get; set; }
+        public DelegateCommand<Flight> AddAirfieldToCommand { get; set; }
 
         public DateTime? Depart
         {
@@ -116,6 +143,8 @@ namespace LogbookApp.ViewModel
 
         public Action<FlightActionCommand> ShowAircraft { get; set; }
         public Action<FlightActionCommand> ShowAircraftType { get; set; }
+
+        public Action<FlightAirfieldActionCommand> ShowAirfield { get; set; }
 
 
         public void SaveFlights()

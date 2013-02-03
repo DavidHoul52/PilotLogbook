@@ -1,8 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using LogbookApp.ViewModel;
 
-namespace LogbookApp.Views
+namespace LogbookApp.ViewModel
 {
     public class AircraftTypeViewModel : LookupViewModelBase
     {

@@ -80,6 +80,11 @@ namespace LogbookApp.Data.LocalOData
         {
             throw new NotImplementedException();
         }
+
+        public Task InsertAirfield(Airfield @from)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public static class WcfDataServicesExtensions

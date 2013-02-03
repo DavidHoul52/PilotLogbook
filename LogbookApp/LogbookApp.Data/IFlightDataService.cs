@@ -18,5 +18,6 @@ namespace LogbookApp.Data
         void SaveTest();
         Task InsertAircraft(Aircraft aircraft);
         Task InsertAircraftType(AcType acType);
+        Task InsertAirfield(Airfield from);
     }
 }
