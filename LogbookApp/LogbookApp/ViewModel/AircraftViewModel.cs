@@ -13,7 +13,7 @@ namespace LogbookApp.ViewModel
         
             Flight.AircraftId =
                 Flight.DataService.Lookups.Aircraft.Where(x => x.Reg == Flight.Aircraft.Reg).First().id;
-            Flight.Save();
+        
         }
     }
 }

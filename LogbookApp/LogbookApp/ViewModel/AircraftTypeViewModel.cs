@@ -12,7 +12,7 @@ namespace LogbookApp.ViewModel
 
             Flight.AcTypeId =
                 Flight.DataService.Lookups.AcTypes.Where(x => x.Code == Flight.AcType.Code).First().Id;
-            Flight.Save();
+         
         }
     }
 }

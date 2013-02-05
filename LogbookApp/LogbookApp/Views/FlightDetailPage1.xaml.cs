@@ -63,7 +63,7 @@ namespace LogbookApp.Views
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            viewModel.SaveFlights();
+           
             base.OnNavigatingFrom(e);
         }
 
@@ -82,6 +82,11 @@ namespace LogbookApp.Views
         {
             
             Frame.Navigate(typeof(AirfieldBasicPage), flightActionCommand);
+        }
+
+        private void GoBack(object sender, RoutedEventArgs e)
+        {
+            viewModel.SaveFlights();
         }
         
     }

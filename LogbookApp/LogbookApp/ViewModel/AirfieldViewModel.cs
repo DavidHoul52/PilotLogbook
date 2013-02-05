@@ -20,7 +20,7 @@ namespace LogbookApp.ViewModel
             
             
 
-            Flight.Save();
+           // Flight.Save();
         }
 
         public async Task SaveFrom()

@@ -69,8 +69,14 @@ namespace LogbookApp.Controls.TemplatedControls
 
         private void SetDateFromControls()
         {
-            Date = new DateTime((int)yearComboBox.SelectedItem, (int)months.FindIndex((s) => { return s == monthComboBox.SelectedItem; }) + 1,
-                (int)dayComboBox.SelectedItem);
+            int year = (int) yearComboBox.SelectedItem;
+            int month = (int) months.FindIndex((s) => { return s == monthComboBox.SelectedItem; }) + 1;
+            int day = (int) dayComboBox.SelectedItem;
+            if (day<= DateTime.DaysInMonth(year,month))
+               Date = new DateTime(year,month, day);
+            else
+                Date = new DateTime(year, month, DateTime.DaysInMonth(year, month));
+            
         }
 
         public void SetControls()
