@@ -58,7 +58,7 @@
             AutomationProperties.Name="Items"
             TabIndex="1"
                 
-            Grid.RowSpan="2"
+            Grid.RowSpan="3"
             Padding="116,136,116,46"
             ItemsSource="{Binding Flights}"
             
@@ -79,10 +79,13 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
 
-                            <TextBlock Text="{Binding Reg}"></TextBlock>
+                                <TextBlock Text="{Binding AcType.Code}"></TextBlock>
+                                <Rectangle Width="25"/>
+                                <TextBlock Text="{Binding Aircraft.Reg}"></TextBlock>
+                        
+                         </StackPanel>
+                            <TextBlock Text="{Binding Captain}"></TextBlock>
                             <Rectangle Width="25"/>
-                            <TextBlock Text="{Binding AcType.Code}"></TextBlock>
-                        </StackPanel>
                             <TextBlock  Text="{Binding DurationStr}" FontSize="30" 
                        ></TextBlock>
                         <TextBlock Text="{Binding FromTo}"></TextBlock>
