@@ -88,9 +88,10 @@
                             <Rectangle Width="25"/>
                             <TextBlock  Text="{Binding DurationStr}" FontSize="30" 
                        ></TextBlock>
-                        <TextBlock Text="{Binding FromTo}"></TextBlock>
+                        <TextBlock Text="{Binding FromTo}" Foreground="Green"></TextBlock>
+                            <TextBlock Text="{Binding Remarks}" Foreground="LightBlue"></TextBlock>
 
-                    </StackPanel>
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>
