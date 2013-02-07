@@ -18,6 +18,13 @@ namespace LogbookApp.ViewModel
             RaisePropertyChanged(() => AddAirfieldFromCommand);
             AddAirfieldToCommand = new DelegateCommand<Flight>((f) => AddAirfield(AirfieldDesignation.To), (f) => { return true; });
             RaisePropertyChanged(() => AddAirfieldToCommand);
+            Numbers = new ObservableCollection<int>();
+            for (int i = 0; i <= 20; i++)
+            {
+                Numbers.Add(i);
+            }
+            RaisePropertyChanged(() => Numbers);
+
             
         }
 
@@ -170,6 +177,8 @@ namespace LogbookApp.ViewModel
             //Flight.DataService.SaveFlights();
         }
 
+
+        public ObservableCollection<int> Numbers { get; set; }
       
 
        

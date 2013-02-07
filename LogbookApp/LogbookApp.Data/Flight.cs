@@ -8,6 +8,15 @@ namespace LogbookApp.Data
    
     public class Flight 
     {
+        public Flight()
+        {
+            TODay = 1;
+            LDGDay = 1;
+            TONight = 0;
+            LDGNight = 0;
+        }
+
+
         private AcType _acType;
         private Capacity _capacity;
         private Airfield _from;
@@ -158,6 +167,16 @@ namespace LogbookApp.Data
         }
           [IgnoreDataMember]
         public bool IsNew { get; set; }
+
+          public string Remarks { get; set; }
+
+          public int? TODay { get; set; }
+
+          public int? LDGDay { get; set; }
+
+          public int? TONight { get; set; }
+
+          public int? LDGNight { get; set; }
         
     }
 }

@@ -151,6 +151,33 @@
                     <TextBlock Width="150" Text="{Binding Flight.DurationStr}" Foreground="Yellow" FontSize="32"></TextBlock>
                 </StackPanel>
 
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <TextBlock Text="Day:  TO/LDG" Width="230" VerticalAlignment="Bottom"/>
+                    <TextBlock Text="Night:  TO/LDG"  VerticalAlignment="Bottom"/>
+                </StackPanel>
+                <Rectangle Height="10"></Rectangle>
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox Width="85" SelectedValue="{Binding Flight.TODay,Mode=TwoWay}"  ItemsSource="{Binding Numbers}"></ComboBox>
+                    <Rectangle Width="20"></Rectangle>
+                    <ComboBox Width="85"  SelectedValue="{Binding Flight.LDGDay,Mode=TwoWay}"  ItemsSource="{Binding Numbers}"></ComboBox>
+                    
+
+                    <Rectangle Width="40"></Rectangle>
+                    <ComboBox Width="85" SelectedValue="{Binding Flight.TONight,Mode=TwoWay}"   ItemsSource="{Binding Numbers}"></ComboBox>
+                    <Rectangle Width="20"></Rectangle>
+                    <ComboBox Width="85"  SelectedValue="{Binding Flight.LDGNight,Mode=TwoWay}"  ItemsSource="{Binding Numbers}"></ComboBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Remarks:"/>
+                    
+                </StackPanel>
+                <Rectangle Height="10"></Rectangle>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="662" Text="{Binding Flight.Remarks,Mode=TwoWay}"></TextBox>
+                    
+                </StackPanel>
+
 
 
 
