@@ -1,6 +1,6 @@
 ﻿<common:LayoutAwarePage
     x:Name="pageRoot"
-    x:Class="LogbookApp.Views.AircraftBasicPage"
+    x:Class="LogbookApp.Views.TotalsPage"
     DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,15 +8,17 @@
     xmlns:common="using:LogbookApp.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    
     mc:Ignorable="d">
 
     <Page.Resources>
 
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="AppName">Aircraft</x:String>
-        <Style TargetType="TextBlock">
+        <x:String x:Key="AppName">Totals</x:String>
+          <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="26"></Setter>
         </Style>
+        <common:TimeSpanConverter x:Key="TimeSpanConverter"></common:TimeSpanConverter>
     </Page.Resources>
 
     <!--
@@ -25,6 +27,7 @@
         * Row 1 contains the rest of the page layout
     -->
     <Grid Style="{StaticResource LayoutRootStyle}">
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="51*"/>
             <ColumnDefinition Width="632*"/>
@@ -32,44 +35,46 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
-
         </Grid.RowDefinitions>
+
         <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
 
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.ColumnSpan="2">
+            
 
-              
-                <Rectangle Height="10"></Rectangle>
-                <StackPanel Orientation="Horizontal">
-                    <!--<TextBlock Text="Type:" Width="230" />-->
-                    <TextBlock Text="Reg:"/>
-                </StackPanel>
-                <Rectangle Height="10"></Rectangle>
-                <StackPanel Orientation="Horizontal">
-                 
-                    <TextBox Width="200" Text="{Binding Flight.Aircraft.Reg,Mode=TwoWay}" HorizontalAlignment="Left"></TextBox>
-                </StackPanel>
-                <Rectangle Height="10"></Rectangle>
-                <StackPanel Orientation="Horizontal">
-                 
-                    <TextBlock Text="Class:"/>
-                </StackPanel>
-                <Rectangle Height="10"></Rectangle>
-                <StackPanel Orientation="Horizontal">
-                    <ComboBox ItemsSource="{Binding Classes}" Width="200"></ComboBox>
-                    
-                </StackPanel>
+            <TextBlock Text="Total Hours :"/>
+            <TextBlock Grid.Column="1" 
+                       Text="{Binding Converter={StaticResource TimeSpanConverter},Path=Totals.Total.GrandTotal}"/>
+            <TextBlock Grid.Row="1" Text="Total SEP (PIC) :"/>
+            <TextBlock  Grid.Row="1" Grid.Column="1"
+                        Text="{Binding Converter={StaticResource TimeSpanConverter},Path=Totals.Total.SEPpic}"/>
+                        
+            <TextBlock Grid.Row="2" Text="Total SEP (P2/Dual) :"/>
+            <TextBlock  Grid.Row="2" Grid.Column="1"
+                        Text="{Binding Converter={StaticResource TimeSpanConverter},Path=Totals.Total.SEPp2Dual}"/>
+            <TextBlock Grid.Row="3" Text="Last 90 Days :"/>
+            <TextBlock  Grid.Row="3" Grid.Column="1"
+                        Text="{Binding Converter={StaticResource TimeSpanConverter},Path= Totals.Currency90Days.GrandTotal}"/>
+            <TextBlock Grid.Row="4" Text="Last 28 Days :"/>
+            <TextBlock  Grid.Row="4" Grid.Column="1"
+                        Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.Currency28Days.GrandTotal}"/>
 
-
-
-
-            </StackPanel>
         </Grid>
         <!-- Back button and page title -->
         <Grid Grid.ColumnSpan="2">
@@ -77,7 +82,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="backButton"  Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
+            <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
 

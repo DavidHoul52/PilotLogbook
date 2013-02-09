@@ -3,6 +3,7 @@ using System.Linq;
 using LogbookApp.Commands;
 using LogbookApp.Data;
 using System;
+using System.Collections.Generic;
 
 namespace LogbookApp.ViewModel
 {
@@ -24,8 +25,15 @@ namespace LogbookApp.ViewModel
                 Numbers.Add(i);
             }
             RaisePropertyChanged(() => Numbers);
-
             
+            TotalsCommand = new DelegateCommand<Flight>((f) => ShowTotals(), (f) => { return true; });
+            RaisePropertyChanged(() => TotalsCommand);
+            
+        }
+
+        private void ShowTotals()
+        {
+            ShowTotalsAction(new TotalsActionCommand { Flights= Flight.DataService.Flights, ToDate=Flight.Date});
         }
 
      
@@ -179,8 +187,12 @@ namespace LogbookApp.ViewModel
 
 
         public ObservableCollection<int> Numbers { get; set; }
-      
 
-       
+
+
+
+        public DelegateCommand<Flight> TotalsCommand { get; set; }
+
+        public Action<TotalsActionCommand> ShowTotalsAction;
     }
 }

@@ -105,12 +105,14 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Commands\FlightActionCommand.cs" />
+    <Compile Include="Commands\TotalsActionCommand.cs" />
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BooleanNegationConverter.cs" />
     <Compile Include="Common\BooleanToVisibilityConverter.cs" />
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Common\TimeSpanConverter.cs" />
     <Compile Include="Design\FlightItem.xaml.cs">
       <DependentUpon>FlightItem.xaml</DependentUpon>
     </Compile>
@@ -120,6 +122,7 @@
     <Compile Include="ViewModel\FlightDetailPageViewModel.cs" />
     <Compile Include="ViewModel\LookupViewModelBase.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="ViewModel\TotalsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="Views\AircraftBasicPage.xaml.cs">
       <DependentUpon>AircraftBasicPage.xaml</DependentUpon>
@@ -146,6 +149,9 @@
     <Compile Include="ViewModel\FlightsPageViewModel.cs" />
     <Compile Include="Views\AircraftSettingsFlyout.xaml.cs">
       <DependentUpon>AircraftSettingsFlyout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TotalsPage.xaml.cs">
+      <DependentUpon>TotalsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -204,8 +210,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\TotalsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FlightTimes\FlightTimes.csproj">
+      <Project>{6839bcfb-3893-4aca-b5d2-9362bb164cb0}</Project>
+      <Name>FlightTimes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogbookApp.Controls\LogbookApp.Controls.csproj">
       <Project>{A9F8058B-2F54-4543-BAB7-58BBD0430F28}</Project>
       <Name>LogbookApp.Controls</Name>

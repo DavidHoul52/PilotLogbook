@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using LogbookApp.Data;
 using Microsoft.WindowsAzure.MobileServices;
 using Windows.UI.Xaml.Navigation;
+using LogbookApp.Commands;
 
 
 namespace LogbookApp.ViewModel
@@ -26,14 +27,23 @@ namespace LogbookApp.ViewModel
             RaisePropertyChanged(() => DeleteCommand);
             AddCommand = new DelegateCommand<Flight>((f) => AddFlight(), (f) => { return true; });
             RaisePropertyChanged(() => AddCommand);
+            TotalsCommand = new DelegateCommand<List<Flight>>((f) => ShowTotals(new TotalsActionCommand
+            {
+                Flights = Flights.ToList(),
+                ToDate = DateTime.Now
+            })
+                , (f) => { return true; });
+            RaisePropertyChanged(() => TotalsCommand);
+
         }
 
+      
 
         public async void Load()
         {
          
             bool loaded = await flightDataService.GetFlights();
-            Flights = new ObservableCollection<Flight>(flightDataService.Flights.OrderByDescending(x=>x.Date));
+            Flights = new ObservableCollection<Flight>(flightDataService.Flights.OrderByDescending(x=>x.Depart).OrderByDescending(x=>x.Date));
             RaisePropertyChanged(() => Flights);
             
         }
@@ -48,6 +58,9 @@ namespace LogbookApp.ViewModel
 
         }
 
+       
+
+
         private async void DeleteFlight(Flight f)
         {
             bool deleted= await flightDataService.DeleteFlight(f);   
@@ -59,6 +72,8 @@ namespace LogbookApp.ViewModel
 
 
         public Action<Flight> ShowDetail;
+
+        public Action<TotalsActionCommand> ShowTotals;
 
 
 
@@ -90,6 +105,12 @@ namespace LogbookApp.ViewModel
         }
 
         public DelegateCommand<Flight> AddCommand
+        {
+            get;
+            set;
+        }
+
+        public DelegateCommand<List<Flight>> TotalsCommand
         {
             get;
             set;

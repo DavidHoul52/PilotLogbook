@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using LogbookApp.Commands;
 
 // The Items Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234233
 
@@ -40,8 +41,9 @@ namespace LogbookApp
             "https://worldpilotslogbook.azure-mobile.net/", "LRlXCJsDuLcggcInPASNkoyofIwtuk47"));
 
             viewModel = new FlightsPageViewModel(data);
-         // viewModel = new FlightsPageViewModel(new LocalFlightDataService());
-            viewModel.ShowDetail = ActionShowDetail; 
+         
+            viewModel.ShowDetail = ActionShowDetail;
+            viewModel.ShowTotals = ActionShowTotals;
             DataContext = viewModel;
             viewModel.Load();
             
@@ -64,6 +66,11 @@ namespace LogbookApp
         private void ActionShowDetail(Flight flight )
         {
             Frame.Navigate(typeof(FlightDetailPage1), flight);
+        }
+
+        private void ActionShowTotals(TotalsActionCommand command)
+        {
+            Frame.Navigate(typeof(TotalsPage),command);
         }
     }
 }

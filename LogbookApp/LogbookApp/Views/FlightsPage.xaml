@@ -20,6 +20,8 @@
 
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <x:String x:Key="AppName">Pilots Logbook</x:String>
+       
+
     </Page.Resources>
     <Page.TopAppBar>
         <AppBar x:Name="topAppBar" Padding="10,0,10,0">
@@ -37,6 +39,19 @@
             </Grid>
         </AppBar>
     </Page.TopAppBar>
+
+    <Page.BottomAppBar>
+        <AppBar x:Name="bottomAppBar" Padding="10,0,10,0">
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button Style="{StaticResource TotalsAppBarButtonStyle}"  Command="{Binding TotalsCommand,Mode=TwoWay}"  />
+                 
+
+                </StackPanel>
+                
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
     <!--
         This grid acts as a root panel for the page that defines two rows:
         * Row 0 contains the back button and page title
@@ -86,9 +101,9 @@
                          </StackPanel>
                             <TextBlock Text="{Binding Captain}"></TextBlock>
                             <Rectangle Width="25"/>
-                            <TextBlock  Text="{Binding DurationStr}" FontSize="30" 
+                            <TextBlock  Text="{Binding DurationStr}" FontSize="30" Foreground="Yellow"
                        ></TextBlock>
-                        <TextBlock Text="{Binding FromTo}" Foreground="Green"></TextBlock>
+                        <TextBlock Text="{Binding FromTo}" Foreground="Teal"></TextBlock>
                             <TextBlock Text="{Binding Remarks}" Foreground="LightBlue"></TextBlock>
 
                         </StackPanel>

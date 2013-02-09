@@ -14,7 +14,13 @@
                  -->
                 <ResourceDictionary Source="Common/StandardStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="TotalsAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource CalculatorAppBarButtonStyle}">
+                <Setter Property="AutomationProperties.AutomationId" Value="TotalAppBarButton"/>
+                <Setter Property="AutomationProperties.Name" Value="Totals"/>
 
+                <Setter Property="Foreground" Value="Cyan"></Setter>
+            </Style>
         </ResourceDictionary>
+     
     </Application.Resources>
 </Application>
