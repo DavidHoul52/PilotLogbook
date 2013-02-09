@@ -173,7 +173,7 @@ namespace LogbookApp.Data
 
           public int? LDG { get; set; }
 
-          public bool? Night { get; set; }
+          public bool Night { get; set; }
 
           public DateTime? InstrumentFlying { get; set; }
 

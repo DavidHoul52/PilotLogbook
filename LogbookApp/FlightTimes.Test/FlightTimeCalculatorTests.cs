@@ -144,5 +144,49 @@ namespace FlightTimes.Test
         }
 
 
+
+        [TestMethod]
+        public void ShouldCalcNight()
+        {
+            var flights = new List<Flight> { new Flight {
+                Date= new DateTime(2013,1,1),
+                Capacity = new Capacity{ Id = (int)CapacityEnum.P1 },
+                Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,0,10,0) 
+            },
+            new Flight { 
+                Date = new DateTime(2013,1,1),
+                    Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                Capacity = new Capacity{ Id = (int)CapacityEnum.Put },
+                Night = true,
+                Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,1,10,0) }
+            };
+            var result = target.Calc(flights, new DateTime(2013, 1, 1), new DateTime(2013, 3, 1));
+            TimeSpan expected = new TimeSpan(1, 10, 0);
+            Assert.AreEqual(expected, result.Night.MEp2Dual);
+        }
+
+        [TestMethod]
+        public void ShouldCalcDay()
+        {
+            var flights = new List<Flight> { new Flight {
+                Date= new DateTime(2013,1,1),
+                Capacity = new Capacity{ Id = (int)CapacityEnum.Put },
+                Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,0,10,0) 
+            },
+            new Flight { 
+                Date = new DateTime(2013,1,1),
+                    Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                Capacity = new Capacity{ Id = (int)CapacityEnum.Put },
+                Night = true,
+                Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,1,10,0) }
+            };
+            var result = target.Calc(flights, new DateTime(2013, 1, 1), new DateTime(2013, 3, 1));
+            TimeSpan expected = new TimeSpan(0, 10, 0);
+            Assert.AreEqual(expected, result.Day.MEp2Dual);
+        }
+
+
     }
 }

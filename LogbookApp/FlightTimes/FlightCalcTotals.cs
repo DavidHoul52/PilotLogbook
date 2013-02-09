@@ -14,5 +14,7 @@ namespace FlightTimes
 
 
         public FlightCalcResult Total { get; set;}
+        public FlightCalcResult Night { get; set; }
+        public FlightCalcResult Day { get; set; }
     }
 }

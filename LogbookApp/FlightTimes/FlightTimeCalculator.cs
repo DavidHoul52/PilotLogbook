@@ -14,6 +14,8 @@ namespace FlightTimes
         
             var result = new FlightCalcTotals(); 
              result.Total = CalcTimePeriod(flights, FromDate, ToDate);
+             result.Night = CalcTimePeriod(flights.Where(x=>x.Night).ToList(), FromDate, ToDate);
+             result.Day = CalcTimePeriod(flights.Where(x => !x.Night).ToList(), FromDate, ToDate);
              return result;
         }
 
