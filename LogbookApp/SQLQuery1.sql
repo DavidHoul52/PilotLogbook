@@ -1,1 +1,1 @@
-﻿select * from win8pilotslogbook.flight
+﻿update WorldPilotsLogBook.Flight set ldg=1 ,Takeoffs=1

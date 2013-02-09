@@ -33,7 +33,7 @@ namespace LogbookApp.ViewModel
         {
          
             bool loaded = await flightDataService.GetFlights();
-            Flights = new ObservableCollection<Flight>(flightDataService.Flights);
+            Flights = new ObservableCollection<Flight>(flightDataService.Flights.OrderByDescending(x=>x.Date));
             RaisePropertyChanged(() => Flights);
             
         }

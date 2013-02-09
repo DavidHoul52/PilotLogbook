@@ -28,7 +28,7 @@ namespace LogbookApp.Controls.TemplatedControls
         public SelectedTimeControl()
         {
             this.DefaultStyleKey = typeof(SelectedTimeControl);
-            SetInternals(RoundedTime(DateTime.Now));
+          //  SetInternals(RoundedTime(DateTime.Now));
         }
 
         private static DateTime RoundedTime(DateTime time)

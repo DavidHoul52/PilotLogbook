@@ -9,13 +9,16 @@
     [Captain]        VARCHAR (MAX) NOT NULL,
     [AircraftId]     INT           NOT NULL,
     [Date]           DATETIME      NOT NULL,
-    [Remarks] NVARCHAR(50) NULL, 
-    [TODay] INT NULL, 
-    [LDGDay] INT NULL, 
-    [TONight] INT NULL, 
-    [LDGNight] INT NULL, 
+    [Remarks]        NVARCHAR (50) NULL,
+    [Takeoffs]       INT           NULL,
+    [LDG]            INT           NULL,
+    [Night]          BIT           NULL,
+    [SimulatedInstrumentFlying] DATETIME NULL, 
+    [InstrumentFlying] DATETIME NULL, 
     PRIMARY KEY CLUSTERED ([id] ASC)
 );
+
+
 
 
 

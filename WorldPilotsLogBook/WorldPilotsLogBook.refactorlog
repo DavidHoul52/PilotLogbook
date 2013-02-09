@@ -21,4 +21,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="[AircraftId]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="bc21c325-f89f-4931-8c2c-34abda91cfa8" ChangeDateTime="02/09/2013 10:10:47">
+    <Property Name="ElementName" Value="[WorldPilotsLogBook].[Flight].[TODay]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[WorldPilotsLogBook].[Flight]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="TO" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="fe973903-65d3-49ab-ac54-24f75fc5b1ba" ChangeDateTime="02/09/2013 10:10:51">
+    <Property Name="ElementName" Value="[WorldPilotsLogBook].[Flight].[LDGDay]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[WorldPilotsLogBook].[Flight]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LDG" />
+  </Operation>
 </Operations>

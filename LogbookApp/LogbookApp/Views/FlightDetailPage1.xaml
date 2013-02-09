@@ -152,20 +152,17 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <TextBlock Text="Day:  TO/LDG" Width="230" VerticalAlignment="Bottom"/>
-                    <TextBlock Text="Night:  TO/LDG"  VerticalAlignment="Bottom"/>
+                    <TextBlock Text="TO" VerticalAlignment="Bottom" Width="85"/>
+                    <Rectangle Width="20"></Rectangle>
+                    <TextBlock Text="LDG" VerticalAlignment="Bottom"/>
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
-                    <ComboBox Width="85" SelectedValue="{Binding Flight.TODay,Mode=TwoWay}"  ItemsSource="{Binding Numbers}"></ComboBox>
+                    <ComboBox Width="85" SelectedValue="{Binding Flight.Takeoffs,Mode=TwoWay}"  ItemsSource="{Binding Numbers}"></ComboBox>
                     <Rectangle Width="20"></Rectangle>
-                    <ComboBox Width="85"  SelectedValue="{Binding Flight.LDGDay,Mode=TwoWay}"  ItemsSource="{Binding Numbers}"></ComboBox>
-                    
-
+                    <ComboBox Width="85"  SelectedValue="{Binding Flight.LDG,Mode=TwoWay}"  ItemsSource="{Binding Numbers}"></ComboBox>
                     <Rectangle Width="40"></Rectangle>
-                    <ComboBox Width="85" SelectedValue="{Binding Flight.TONight,Mode=TwoWay}"   ItemsSource="{Binding Numbers}"></ComboBox>
-                    <Rectangle Width="20"></Rectangle>
-                    <ComboBox Width="85"  SelectedValue="{Binding Flight.LDGNight,Mode=TwoWay}"  ItemsSource="{Binding Numbers}"></ComboBox>
+                    <CheckBox Content="Night" IsChecked="{Binding Flight.Night,Mode=TwoWay}" FontSize="26" VerticalContentAlignment="Center"></CheckBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
@@ -177,7 +174,19 @@
                     <TextBox Width="662" Text="{Binding Flight.Remarks,Mode=TwoWay}"></TextBox>
                     
                 </StackPanel>
+                <Rectangle Height="10"></Rectangle>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Instrument Flying:" Width="230"/>
+                    <TextBlock Text="Simulated Instrument Flying:" />
+                </StackPanel>
+                <Rectangle Height="10"></Rectangle>
+                <StackPanel Orientation="Horizontal">
+                    <controls:SelectedTimeControl  Time="{Binding Flight.InstrumentFlying,Mode=TwoWay}" HorizontalAlignment="Left"></controls:SelectedTimeControl>
 
+                    <Rectangle Width="30"></Rectangle>
+                    <controls:SelectedTimeControl  Time="{Binding Flight.SimulatedInstrumentFlying,Mode=TwoWay}" HorizontalAlignment="Left"></controls:SelectedTimeControl>
+                    
+                </StackPanel>
 
 
 

@@ -10,10 +10,9 @@ namespace LogbookApp.Data
     {
         public Flight()
         {
-            TODay = 1;
-            LDGDay = 1;
-            TONight = 0;
-            LDGNight = 0;
+            Takeoffs = 1;
+            LDG = 1;
+            
         }
 
 
@@ -170,13 +169,15 @@ namespace LogbookApp.Data
 
           public string Remarks { get; set; }
 
-          public int? TODay { get; set; }
+          public int? Takeoffs { get; set; }
 
-          public int? LDGDay { get; set; }
+          public int? LDG { get; set; }
 
-          public int? TONight { get; set; }
+          public bool? Night { get; set; }
 
-          public int? LDGNight { get; set; }
+          public DateTime? InstrumentFlying { get; set; }
+
+          public DateTime? SimulatedInstrumentFlying { get; set; }
         
     }
 }
