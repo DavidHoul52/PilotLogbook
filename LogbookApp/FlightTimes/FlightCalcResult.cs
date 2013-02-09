@@ -11,9 +11,11 @@ namespace FlightTimes
         {
             GrandTotal = new TimeSpan(0,0,0);
             SEPpic = new TimeSpan(0, 0, 0);
+            SEPp2Dual = new TimeSpan(0, 0, 0);
             MEpic = new TimeSpan(0, 0, 0);
             MEp2Dual = new TimeSpan(0, 0, 0);
-            
+            InstrumentFlying = new TimeSpan(0, 0, 0);
+            SimInstrumentFlying = new TimeSpan(0, 0, 0);
         }
 
 
@@ -26,5 +28,11 @@ namespace FlightTimes
         public TimeSpan MEpic { get; set; }
 
         public TimeSpan MEp2Dual { get; set; }
+
+        public TimeSpan InstrumentFlying { get; set; }
+
+        public TimeSpan SimInstrumentFlying { get; set; }
+
+        public int Landings { get; set; }
     }
 }

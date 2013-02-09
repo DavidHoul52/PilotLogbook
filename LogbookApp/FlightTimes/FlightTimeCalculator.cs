@@ -16,6 +16,8 @@ namespace FlightTimes
              result.Total = CalcTimePeriod(flights, FromDate, ToDate);
              result.Night = CalcTimePeriod(flights.Where(x=>x.Night).ToList(), FromDate, ToDate);
              result.Day = CalcTimePeriod(flights.Where(x => !x.Night).ToList(), FromDate, ToDate);
+             result.Currency90Days = CalcTimePeriod(flights, ToDate.AddDays(-90), ToDate);
+             result.Currency28Days = CalcTimePeriod(flights, ToDate.AddDays(-28), ToDate);
              return result;
         }
 
@@ -29,6 +31,7 @@ namespace FlightTimes
                 if (flight.Date >= FromDate && flight.Date <= ToDate)
                 {
                     result.GrandTotal += flight.Duration;
+                    result.Landings += flight.LDG.GetValueOrDefault(0);
                     if (flight.Aircraft != null && flight.Aircraft.AcClass == AcClass.SEP)
                     {
                         if (flight.Capacity != null && flight.Capacity.CapacityEnum == CapacityEnum.P1)
@@ -43,6 +46,12 @@ namespace FlightTimes
                         else
                             result.MEp2Dual += flight.Duration;
                     };
+
+                    if (flight.InstrumentFlying != null)
+                        result.InstrumentFlying +=  new TimeSpan(flight.InstrumentFlying.Value.Ticks);
+                    if (flight.SimulatedInstrumentFlying != null)
+                        result.SimInstrumentFlying += new TimeSpan(flight.SimulatedInstrumentFlying.Value.Ticks);
+
                 }
                 
             }

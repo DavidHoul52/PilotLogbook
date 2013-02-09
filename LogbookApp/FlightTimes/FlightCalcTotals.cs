@@ -9,12 +9,16 @@ namespace FlightTimes
     {
         public FlightCalcTotals()
         {
-            Total = new FlightCalcResult();
+            
+            
         }
 
 
         public FlightCalcResult Total { get; set;}
         public FlightCalcResult Night { get; set; }
         public FlightCalcResult Day { get; set; }
+
+        public FlightCalcResult Currency90Days { get; set; }
+        public FlightCalcResult Currency28Days { get; set; }
     }
 }
