@@ -3,13 +3,14 @@
   <Version>10</Version>
   <SourceModelProvider>
     <ConnectionBasedModelProvider>
-      <ConnectionString>Data Source=(localdb)\Projects;Initial Catalog=CompanyReturnsTackerAzure;Integrated Security=True;Pooling=False;Connect Timeout=30</ConnectionString>
+      <ConnectionString>Data Source=tcp:lynaxpqazo.database.windows.net,1433;Initial Catalog=worldPilotsLogBook_db;User ID=DavidHoul52;Pooling=False;MultipleActiveResultSets=False;Application Name="Microsoft SQL Server Data Tools, Schema Compare"</ConnectionString>
     </ConnectionBasedModelProvider>
   </SourceModelProvider>
   <TargetModelProvider>
-    <ConnectionBasedModelProvider>
-      <ConnectionString>Data Source=h1k2vfhy9p.database.windows.net;Initial Catalog=ConAcc;User ID=DavidHoul52;Pooling=False;MultipleActiveResultSets=False;Packet Size=4096;Application Name="Microsoft SQL Server Data Tools, Schema Compare"</ConnectionString>
-    </ConnectionBasedModelProvider>
+    <ProjectBasedModelProvider>
+      <ProjectGuid>{ea5d4dc8-dac1-41ff-b464-e144cb61b71b}</ProjectGuid>
+      <Name>WorldPilotsLogBook</Name>
+    </ProjectBasedModelProvider>
   </TargetModelProvider>
   <SchemaCompareSettingsService>
     <SchemaCompareSettingsService>
