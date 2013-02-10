@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LogbookApp.Data
 {
 
-    public enum CapacityEnum  {P1,P2,Put, Dual}
+    public enum CapacityEnum  {P1,P2,Put, Dual, P1S}
 
     public class Capacity
     {
@@ -22,5 +22,9 @@ namespace LogbookApp.Data
             }
         }
 
-    }
+    
+      public  bool InCommand { get
+      
+         { return CapacityEnum==CapacityEnum.P1 || CapacityEnum == CapacityEnum.P1S ;}
+      }}
 }
