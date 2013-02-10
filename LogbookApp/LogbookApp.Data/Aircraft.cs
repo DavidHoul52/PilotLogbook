@@ -13,7 +13,13 @@ namespace LogbookApp.Data
     {
         public int id { get; set; }
         public string Reg { get; set; }
-       
+
+        public Aircraft()
+        {
+            AcClass = AcClass.SEP;
+        }
+
+
         [IgnoreDataMember]
         public AcClass AcClass { get; set; }
 
