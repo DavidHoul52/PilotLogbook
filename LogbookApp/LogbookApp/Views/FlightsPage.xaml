@@ -86,7 +86,7 @@
                 
                 <DataTemplate>
                     <Grid Margin="10">
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="150"  >
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="auto"  >
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Capacity.Description}" Foreground="#FFFF06B0" FontSize="18" VerticalAlignment="Center"></TextBlock>
                             <Rectangle Width="10"/>
@@ -110,7 +110,19 @@
                     </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>
-            
+            <GridView.ItemContainerStyle>
+                <Style
+        TargetType="GridViewItem">
+                    <!-- note - for GridView you should specify GridViewItem, for ListBox - ListBoxItem, etc. -->
+                    <Setter
+            Property="Height"
+            Value="Auto" />
+                    <!-- this is where you can specify the size of your ListView items -->
+                    <Setter
+            Property="Width"
+            Value="Auto" />
+                </Style>
+            </GridView.ItemContainerStyle>
         </GridView>
 
         <!-- Vertical scrolling list only used when snapped -->

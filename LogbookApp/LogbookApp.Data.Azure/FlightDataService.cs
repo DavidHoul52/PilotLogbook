@@ -31,7 +31,7 @@ namespace LogbookApp.Data
             //Airfields = await _mobileService.GetTable<Airfield>().ReadAsync();
             //Capacitys = await _mobileService.GetTable<Capacity>().ReadAsync();
             await GetLookups();
-            var flights = await _mobileService.GetTable<Flight>().ReadAsync() ;
+            var flights = await _mobileService.GetTable<Flight>().Take(500).ToListAsync() ;
             Flights = flights.Select(x => {
               
                 x.AcType = Lookups.AcTypes.Where(a => a.Id == x.AcTypeId).FirstOrDefault();
