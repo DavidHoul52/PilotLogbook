@@ -35,7 +35,8 @@ namespace LogbookApp.ViewModel
             set
             {
                 _command = value;
-                Totals = calculator.Calc(value.Flights, DateTime.MinValue, value.ToDate);
+                Totals = calculator.Calc(value.Flights, value.FromDate, value.ToDate);
+                
                 RaisePropertyChanged(() => Totals);
             }
         }

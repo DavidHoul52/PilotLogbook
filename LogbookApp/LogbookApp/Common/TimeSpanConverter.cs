@@ -16,7 +16,10 @@ namespace LogbookApp.Common
                 TimeSpan timeSpan = (TimeSpan)value;
                 if (timeSpan.Days==0)
                   return ((TimeSpan)value).ToString(@"hh\:mm");
-                return string.Format("{0}:{1}", timeSpan.TotalHours.ToString("00"), timeSpan.Minutes.ToString("00"));
+                // beware : TotalHours rounds up 
+                int totalHours = (int)timeSpan.TotalHours;
+                
+                return string.Format("{0}:{1}", totalHours.ToString("00"), timeSpan.Minutes.ToString("00"));
             }
             return null;
         }

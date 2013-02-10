@@ -33,7 +33,9 @@ namespace LogbookApp.ViewModel
 
         private void ShowTotals()
         {
-            ShowTotalsAction(new TotalsActionCommand { Flights= Flight.DataService.Flights, ToDate=Flight.Date});
+            ShowTotalsAction(new TotalsActionCommand { Flights= Flight.DataService.Flights,
+                FromDate = new DateTime(1900,1,1),
+                ToDate=Flight.Date});
         }
 
      

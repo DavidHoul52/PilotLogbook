@@ -11,5 +11,7 @@ namespace LogbookApp.Commands
     {
         public List<Flight> Flights { get; set; }
         public DateTime ToDate { get; set; }
+
+        public DateTime FromDate { get; set; }
     }
 }
