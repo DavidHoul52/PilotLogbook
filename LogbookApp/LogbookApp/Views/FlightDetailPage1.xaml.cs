@@ -85,10 +85,13 @@ namespace LogbookApp.Views
             Frame.Navigate(typeof(AirfieldBasicPage), flightActionCommand);
         }
 
-        private void GoBack(object sender, RoutedEventArgs e)
+        private async void GoBack(object sender, RoutedEventArgs e)
         {
-            viewModel.SaveFlight();
-            Frame.GoBack();
+            if (await viewModel.SaveFlight())
+              Frame.GoBack();
+            
+              
+
         }
 
         private void ActionShowTotals(TotalsActionCommand command)

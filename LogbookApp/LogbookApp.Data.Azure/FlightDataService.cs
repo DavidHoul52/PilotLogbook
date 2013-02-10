@@ -80,13 +80,18 @@ namespace LogbookApp.Data
             return true;
         }
 
-        public async void SaveFlight(Flight flight)
+        public async Task<bool> SaveFlight(Flight flight)
         {
-         
+
+            if (!flight.Valid)
+                return false;
+
             if (flight.IsNew)
-               await InsertFlight(flight);
+                await InsertFlight(flight);
+           
             else
                 await _mobileService.GetTable<Flight>().UpdateAsync(flight);
+            return true;
         }
 
         public void SaveFlights()

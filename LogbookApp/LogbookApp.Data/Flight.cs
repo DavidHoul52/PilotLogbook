@@ -188,6 +188,14 @@ namespace LogbookApp.Data
           public DateTime? InstrumentFlying { get; set; }
 
           public DateTime? SimulatedInstrumentFlying { get; set; }
-        
+
+
+          public bool Valid
+          {
+              get
+              {
+                  return Depart != DateTime.MinValue && Arrival != DateTime.MinValue;
+              }
+          }
     }
 }

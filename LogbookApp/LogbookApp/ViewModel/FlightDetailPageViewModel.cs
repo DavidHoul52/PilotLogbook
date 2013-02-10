@@ -4,6 +4,7 @@ using LogbookApp.Commands;
 using LogbookApp.Data;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace LogbookApp.ViewModel
 {
@@ -164,10 +165,10 @@ namespace LogbookApp.ViewModel
         public Action<FlightAirfieldActionCommand> ShowAirfield { get; set; }
 
 
-        public void SaveFlight()
+        public async Task<bool> SaveFlight()
         {
           
-            Flight.DataService.SaveFlight(Flight);
+            return await Flight.DataService.SaveFlight(Flight);
 
         }
 

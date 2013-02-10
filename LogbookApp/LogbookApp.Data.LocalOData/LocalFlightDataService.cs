@@ -56,7 +56,7 @@ namespace LogbookApp.Data.LocalOData
             throw new NotImplementedException();
         }
 
-        public void SaveFlight(Flight flight)
+        public Task<bool> SaveFlight(Flight flight)
         {
             throw new NotImplementedException();
         }
