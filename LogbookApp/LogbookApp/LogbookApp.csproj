@@ -116,6 +116,7 @@
     <Compile Include="Design\FlightItem.xaml.cs">
       <DependentUpon>FlightItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\MobileService.cs" />
     <Compile Include="ViewModel\AircraftSettingsFlyoutViewModel.cs" />
     <Compile Include="ViewModel\AircraftViewModel.cs" />
     <Compile Include="ViewModel\DelegateCommand.cs" />
@@ -239,7 +240,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="MobileServicesManagedClient, Version=0.2.0.0">

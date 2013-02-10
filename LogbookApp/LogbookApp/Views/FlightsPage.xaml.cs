@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using LogbookApp.Commands;
+using LogbookApp.Services;
 
 // The Items Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234233
 
@@ -37,8 +38,9 @@ namespace LogbookApp
         public FlightsPage()
         {
             this.InitializeComponent();
-            FlightDataService data = new FlightDataService(new MobileServiceClient(
-            "https://worldpilotslogbook.azure-mobile.net/", "LRlXCJsDuLcggcInPASNkoyofIwtuk47"));
+            FlightDataService data = MobileService.Client;
+                
+                
 
             viewModel = new FlightsPageViewModel(data);
          

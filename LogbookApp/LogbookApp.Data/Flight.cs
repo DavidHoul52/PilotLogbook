@@ -149,7 +149,7 @@ namespace LogbookApp.Data
                 if (Duration != default(TimeSpan))
                     return Duration.ToString(@"hh\:mm");
                 else
-                    return "Invalid";
+                    return "";
             }
         }
 
