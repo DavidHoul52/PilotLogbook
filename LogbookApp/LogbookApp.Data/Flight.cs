@@ -88,7 +88,17 @@ namespace LogbookApp.Data
             }
         }
 
-        public int AirfieldToId { get; set; }
+        private int _airfieldToId;
+        public int AirfieldToId
+        {
+            get
+            {   
+                return _airfieldToId;}
+            set
+            {
+                _airfieldToId = value; ;
+            }
+        }
       
 
         public DateTime Depart { get; set; }

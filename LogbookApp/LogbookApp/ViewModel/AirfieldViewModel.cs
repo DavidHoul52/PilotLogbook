@@ -28,8 +28,7 @@ namespace LogbookApp.ViewModel
             await Flight.DataService.InsertAirfield(Airfield);
             Flight.Lookups.Airfields.Add(Airfield);
             Flight.From = Airfield;
-            Flight.AirfieldFromId =
-                Flight.DataService.Lookups.Airfields.Where(x => x.ICAOCode == Flight.From.ICAOCode).First().Id;
+         
             await Save();
 
         }
@@ -39,8 +38,7 @@ namespace LogbookApp.ViewModel
             await Flight.DataService.InsertAirfield(Airfield);
             Flight.Lookups.Airfields.Add(Airfield);
             Flight.To = Airfield;
-            Flight.AirfieldToId =
-                Flight.DataService.Lookups.Airfields.Where(x => x.ICAOCode == Flight.From.ICAOCode).First().Id;
+           
            await Save();
         }
     }

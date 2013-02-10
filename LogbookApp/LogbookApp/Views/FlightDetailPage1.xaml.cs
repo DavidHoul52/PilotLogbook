@@ -87,7 +87,7 @@ namespace LogbookApp.Views
 
         private void GoBack(object sender, RoutedEventArgs e)
         {
-            viewModel.SaveFlights();
+            viewModel.SaveFlight();
             Frame.GoBack();
         }
 

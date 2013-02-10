@@ -162,27 +162,11 @@ namespace LogbookApp.ViewModel
         public Action<FlightAirfieldActionCommand> ShowAirfield { get; set; }
 
 
-        public void SaveFlights()
+        public void SaveFlight()
         {
-          //  Flight.DataService.SaveTest();
-            //var flight = new Flight
-            //    {
-            //        AcType = Lookups.AcTypes.FirstOrDefault(),
-            //        Arrival = DateTime.Now,
-            //        Date = DateTime.Today,
-            //        Depart = DateTime.Now,
-            //        From = Lookups.Airfields.FirstOrDefault(),
-            //        To = Lookups.Airfields.FirstOrDefault(),
-            //        Capacity = Lookups.Capacity.FirstOrDefault(),
-            //        Captain = "haddock",
-            //        Aircraft = Lookups.Aircraft.FirstOrDefault(),
-            //        IsNew = true
-            //    };
-            Flight.DataService.SaveFlight(this.Flight);
+          
+            Flight.DataService.SaveFlight(Flight);
 
-            //if (Flight.IsNew)
-            //    Flight.DataService.Flights.Add(this.Flight);
-            //Flight.DataService.SaveFlights();
         }
 
 
