@@ -22,8 +22,9 @@ namespace LogbookApp.Data
         {
             AcTypes = new ObservableCollection<AcType>(await MobileService.GetTable<AcType>().ReadAsync());
             Capacity = new ObservableCollection<Capacity>(await MobileService.GetTable<Capacity>().ReadAsync());
-            Airfields = new ObservableCollection<Airfield>(await MobileService.GetTable<Airfield>().ReadAsync());
-            Aircraft =  new ObservableCollection<Aircraft>(await MobileService.GetTable<Aircraft>().ReadAsync());
+            Airfields = new ObservableCollection<Airfield>(await MobileService.GetTable<Airfield>().Take(500).OrderBy(x=>x.Name).
+                ToListAsync());
+            Aircraft =  new ObservableCollection<Aircraft>(await MobileService.GetTable<Aircraft>().Take(500).OrderBy(x=>x.Reg).ToListAsync());
         }
 
 

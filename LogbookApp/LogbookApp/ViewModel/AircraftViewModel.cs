@@ -12,6 +12,7 @@ namespace LogbookApp.ViewModel
         {
             Classes = new ObservableCollection<string> { "SEP", "Multi" };
 
+
         }
 
 
@@ -20,8 +21,8 @@ namespace LogbookApp.ViewModel
              await Flight.DataService.InsertAircraft(Flight.Aircraft);
             Flight.Lookups.Aircraft.Add(Flight.Aircraft);
         
-            Flight.AircraftId =
-                Flight.DataService.Lookups.Aircraft.Where(x => x.Reg == Flight.Aircraft.Reg).First().id;
+            //Flight.AircraftId =
+            //    Flight.DataService.Lookups.Aircraft.Where(x => x.Reg == Flight.Aircraft.Reg).First().id;
         
         }
 

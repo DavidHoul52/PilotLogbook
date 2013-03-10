@@ -84,7 +84,7 @@ namespace LogbookApp.Data
         {
 
             if (!flight.Valid)
-                return false;
+                return flight.IsNew; // simply cancel if new and not complete
 
             if (flight.IsNew)
                 await InsertFlight(flight);
