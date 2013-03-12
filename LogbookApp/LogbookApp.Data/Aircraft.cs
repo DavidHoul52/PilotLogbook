@@ -5,9 +5,10 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace LogbookApp.Data
 {
-    public enum AcClass { SEP, ME };
+  
 
     public class Aircraft 
     {
@@ -16,28 +17,35 @@ namespace LogbookApp.Data
 
         public Aircraft()
         {
-            AcClass = AcClass.SEP;
+            AircraftClass = AircraftClass.Items.First();
         }
 
 
         [IgnoreDataMember]
-        public AcClass AcClass { get; set; }
+        public AircraftClass AircraftClass { get; set; }
 
 
         
-        public int? AcClassId
+        public int? AcClassId 
         {
             get
             {
-                return (int)AcClass;
+                if (AircraftClass!=null)
+                  return AircraftClass.Id;
+                return null;
             }
             set
             {
-                if (value!=null)
-                  AcClass = (AcClass)value.Value;
+                if (AircraftClass != null && value!=null)
+                {
+                    AircraftClass.Id = value.Value;
+                    AircraftClass = AircraftClass.Items.Where(x => x.Id == value.Value).FirstOrDefault();
+                }
             }
         }
-        
+
+
+      
        
     }
 }

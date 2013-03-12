@@ -65,13 +65,13 @@ namespace FlightTimes.Test
             var flights = new List<Flight> { new Flight {
                 Date= new DateTime(2013,1,1),
                 Capacity = new Capacity{ Id = (int)CapacityEnum.P1 },
-                   Aircraft= new Aircraft{ AcClass = AcClass.SEP },
+                   Aircraft= new Aircraft{ AircraftClass = AircraftClass.SEP },
                 Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,0,10,0) 
             },
             new Flight { 
                 Date = new DateTime(2013,1,1),
                 Capacity = new Capacity{ Id = (int)CapacityEnum.Put },
-                     Aircraft= new Aircraft{ AcClass = AcClass.SEP },
+                     Aircraft= new Aircraft{ AircraftClass = AircraftClass.SEP },
                 Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,1,10,0) }
             };
             var result = target.Calc(flights, new DateTime(2013, 1, 1), new DateTime(2013, 3, 1));
@@ -86,13 +86,13 @@ namespace FlightTimes.Test
             var flights = new List<Flight> { new Flight {
                 Date= new DateTime(2013,1,1),
                 Capacity = new Capacity{ Id = (int)CapacityEnum.P1 },
-                     Aircraft= new Aircraft{ AcClass = AcClass.SEP },
+                     Aircraft= new Aircraft{ AircraftClass = AircraftClass.SEP },
                 Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,0,10,0) 
             },
             new Flight { 
                 Date = new DateTime(2013,1,1),
                 Capacity = new Capacity{ Id = (int)CapacityEnum.Put },
-                     Aircraft= new Aircraft{ AcClass = AcClass.SEP },
+                     Aircraft= new Aircraft{ AircraftClass = AircraftClass.SEP },
                 Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,1,10,0) }
             };
             var result = target.Calc(flights, new DateTime(2013, 1, 1), new DateTime(2013, 3, 1));
@@ -107,12 +107,12 @@ namespace FlightTimes.Test
             var flights = new List<Flight> { new Flight {
                 Date= new DateTime(2013,1,1),
                 Capacity = new Capacity{ Id = (int)CapacityEnum.P1 },
-                Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,0,10,0) 
             },
             new Flight { 
                 Date = new DateTime(2013,1,1),
-                    Aircraft= new Aircraft{ AcClass = AcClass.SEP },
+                    Aircraft= new Aircraft{ AircraftClass = AircraftClass.SEP },
                 Capacity = new Capacity{ Id = (int)CapacityEnum.Put },
                 Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,1,10,0) }
             };
@@ -129,12 +129,12 @@ namespace FlightTimes.Test
             var flights = new List<Flight> { new Flight {
                 Date= new DateTime(2013,1,1),
                 Capacity = new Capacity{ Id = (int)CapacityEnum.P1 },
-                Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,0,10,0) 
             },
             new Flight { 
                 Date = new DateTime(2013,1,1),
-                    Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                    Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 Capacity = new Capacity{ Id = (int)CapacityEnum.Put },
                 Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,1,10,0) }
             };
@@ -151,12 +151,12 @@ namespace FlightTimes.Test
             var flights = new List<Flight> { new Flight {
                 Date= new DateTime(2013,1,1),
                 Capacity = new Capacity{ Id = (int)CapacityEnum.P1 },
-                Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,0,10,0) 
             },
             new Flight { 
                 Date = new DateTime(2013,1,1),
-                    Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                    Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 Capacity = new Capacity{ Id = (int)CapacityEnum.Put },
                 Night = true,
                 Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,1,10,0) }
@@ -172,12 +172,12 @@ namespace FlightTimes.Test
             var flights = new List<Flight> { new Flight {
                 Date= new DateTime(2013,1,1),
                 Capacity = new Capacity{ Id = (int)CapacityEnum.Put },
-                Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,0,10,0) 
             },
             new Flight { 
                 Date = new DateTime(2013,1,1),
-                    Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                    Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 Capacity = new Capacity{ Id = (int)CapacityEnum.Put },
                 Night = true,
                 Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,1,10,0) }
@@ -193,12 +193,12 @@ namespace FlightTimes.Test
             var flights = new List<Flight> { new Flight {
                 Date= new DateTime(2013,1,1),
                 Capacity = new Capacity{ Id = (int)CapacityEnum.P1 },
-                Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,0,10,0) 
             },
             new Flight { 
                 Date = new DateTime(2013,1,1),
-                    Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                    Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 Capacity = new Capacity{ Id = (int)CapacityEnum.Put },
                 Night = true,
                 InstrumentFlying = new DateTime(1,1,1,0,20,0),
@@ -217,12 +217,12 @@ namespace FlightTimes.Test
             var flights = new List<Flight> { new Flight {
                 Date= new DateTime(2013,1,1),
                 Capacity = new Capacity{ Id = (int)CapacityEnum.P1 },
-                Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,0,10,0) 
             },
             new Flight { 
                 Date = new DateTime(2013,1,1),
-                    Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                    Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 Capacity = new Capacity{ Id = (int)CapacityEnum.Put },
                 Night = true,
                 SimulatedInstrumentFlying = new DateTime(1,1,1,0,20,0),
@@ -242,12 +242,12 @@ namespace FlightTimes.Test
             var flights = new List<Flight> { new Flight {
                 Date= new DateTime(2011,1,1),
                 Capacity = new Capacity{ Id = (int)CapacityEnum.P1 },
-                Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,0,10,0) 
             },
             new Flight { 
                 Date = new DateTime(2012,11,1),
-                    Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                    Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 Capacity = new Capacity{ Id = (int)CapacityEnum.Put },
                 Night = true,
                 SimulatedInstrumentFlying = new DateTime(1,1,1,0,20,0),
@@ -266,12 +266,12 @@ namespace FlightTimes.Test
             var flights = new List<Flight> { new Flight {
                 Date= new DateTime(2012,11,21),
                 Capacity = new Capacity{ Id = (int)CapacityEnum.P1 },
-                Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,0,10,0) 
             },
             new Flight { 
                 Date = new DateTime(2012,12,5),
-                    Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                    Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 Capacity = new Capacity{ Id = (int)CapacityEnum.Put },
                 Night = true,
                 SimulatedInstrumentFlying = new DateTime(1,1,1,0,20,0),
@@ -290,12 +290,12 @@ namespace FlightTimes.Test
                 Date= new DateTime(2011,1,1),
                 Capacity = new Capacity{ Id = (int)CapacityEnum.P1 },
                 LDG=1,
-                Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,0,10,0) 
             },
             new Flight { 
                 Date = new DateTime(2012,11,1),
-                    Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                    Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 Capacity = new Capacity{ Id = (int)CapacityEnum.Put },
                 Night = true,
                 LDG=2,
@@ -313,13 +313,13 @@ namespace FlightTimes.Test
             var flights = new List<Flight> { new Flight {
                 Date= new DateTime(2012,11,21),
                 Capacity = new Capacity{ Id = (int)CapacityEnum.P1 },
-                Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 LDG=52,
                 Depart = new DateTime(1,1,1,0,0,0), Arrival = new DateTime(1,1,1,0,10,0) 
             },
             new Flight { 
                 Date = new DateTime(2012,12,5),
-                    Aircraft= new Aircraft{ AcClass = AcClass.ME },
+                    Aircraft= new Aircraft{ AircraftClass = AircraftClass.Multi },
                 Capacity = new Capacity{ Id = (int)CapacityEnum.Put },
                 Night = true,
                 LDG=2,

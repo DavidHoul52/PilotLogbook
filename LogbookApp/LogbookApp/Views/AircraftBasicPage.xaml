@@ -62,7 +62,7 @@
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
-                    <ComboBox   ItemsSource="{Binding Classes}"  Width="200"></ComboBox>
+                    <ComboBox   ItemsSource="{Binding Classes}" DisplayMemberPath="Text" SelectedItem="{Binding AircraftClass,Mode=TwoWay}" Width="200"></ComboBox>
                     
                 </StackPanel>
 

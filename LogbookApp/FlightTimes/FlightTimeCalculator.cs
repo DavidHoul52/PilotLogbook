@@ -35,14 +35,14 @@ namespace FlightTimes
                     result.GrandTotal = result.GrandTotal.Add(flight.Duration);
                  
                     result.Landings += flight.LDG.GetValueOrDefault(0);
-                    if (flight.Aircraft != null && flight.Aircraft.AcClass == AcClass.SEP)
+                    if (flight.Aircraft != null && flight.Aircraft.AircraftClass == AircraftClass.SEP)
                     {
                         if (flight.Capacity != null && flight.Capacity.InCommand)
                             result.SEPpic = result.SEPpic.Add(flight.Duration);
                         else
                             result.SEPp2Dual = result.SEPp2Dual.Add(flight.Duration);
                     };
-                    if (flight.Aircraft != null && flight.Aircraft.AcClass == AcClass.ME)
+                    if (flight.Aircraft != null && flight.Aircraft.AircraftClass == AircraftClass.Multi)
                     {
                         if (flight.Capacity != null && flight.Capacity.InCommand)
                             result.MEpic = result.MEpic.Add(flight.Duration);

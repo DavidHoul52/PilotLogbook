@@ -10,7 +10,7 @@ namespace LogbookApp.ViewModel
 
         public AircraftViewModel()
         {
-            Classes = new ObservableCollection<string> { "SEP", "Multi" };
+            Classes = new ObservableCollection<AircraftClass>(AircraftClass.Items);
 
 
         }
@@ -26,6 +26,6 @@ namespace LogbookApp.ViewModel
         
         }
 
-        public ObservableCollection<string> Classes { get; set; }
+        public ObservableCollection<AircraftClass> Classes { get; set; }
     }
 }
