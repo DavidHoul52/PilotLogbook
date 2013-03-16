@@ -52,6 +52,7 @@ namespace LogbookApp.ViewModel
 
         protected override void OnFlightUpdated()
         {
+            base.OnFlightUpdated();
             Aircraft = Flight.Aircraft;
         }
 
