@@ -41,16 +41,14 @@ namespace LogbookApp.ViewModel
 
         private void Add()
         {
-            //Flights.Add(new Flight
-            //{
-            //    Lookups = flightDataService.Lookups,
-            //    IsNew = true,
-            //    DataService = flightDataService,
-            //    Date = DateTime.Today,
-            //    AircraftId = 1
-            //});
-            //SelectedFlight = Flights.Last();
-            //ShowDetail(SelectedFlight);
+            Aircraft.Add(new Aircraft
+            {
+                AircraftClass = AircraftClass.SEP,
+                IsNew = true
+                
+            });
+            SelectedAircraft = Aircraft.Last();
+            ShowDetail(new AircraftActionCommand { Aircraft = SelectedAircraft, DataService = flightDataService });
 
         }
 
