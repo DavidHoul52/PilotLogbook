@@ -152,6 +152,12 @@ namespace LogbookApp.Data
             await Update(Aircraft);
         }
 
+        public async Task<bool> DeleteAircraft(Aircraft f)
+        {
+            await Delete(f);
+            return true;
+        }
+
 
         public async Task<bool> ClearAcTypes()
         {
@@ -186,6 +192,11 @@ namespace LogbookApp.Data
         public async Task Update<T>(T item)
         {
             await _mobileService.GetTable<T>().UpdateAsync(item);
+        }
+
+        public async Task Delete<T>(T item)
+        {
+            await _mobileService.GetTable<T>().DeleteAsync(item);
         }
     }
 }

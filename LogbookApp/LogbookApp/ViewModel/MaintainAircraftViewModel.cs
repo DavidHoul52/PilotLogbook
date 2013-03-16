@@ -57,9 +57,9 @@ namespace LogbookApp.ViewModel
 
         private async void Delete(Aircraft f)
         {
-            //bool deleted = await flightDataService.DeleteFlight(f);
-            //if (deleted)
-            //    Flights.Remove(f);
+            bool deleted = await flightDataService.DeleteAircraft(f);
+            if (deleted)
+                Aircraft.Remove(f);
         }
 
 

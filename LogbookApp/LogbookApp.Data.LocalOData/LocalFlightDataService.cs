@@ -92,6 +92,11 @@ namespace LogbookApp.Data.LocalOData
             throw new NotImplementedException();
         }
 
+        public Task<bool> DeleteAircraft(Aircraft f)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 
     public static class WcfDataServicesExtensions

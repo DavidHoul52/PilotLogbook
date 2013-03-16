@@ -21,5 +21,7 @@ namespace LogbookApp.Data
         Task InsertAirfield(Airfield from);
 
         Task UpdateAircraft(Aircraft Aircraft);
+
+        Task<bool> DeleteAircraft(Aircraft f);
     }
 }
