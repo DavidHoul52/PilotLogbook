@@ -104,7 +104,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Commands\AircraftActionCommand.cs" />
+    <Compile Include="Commands\MaintainActionCommand.cs" />
     <Compile Include="Commands\FlightActionCommand.cs" />
     <Compile Include="Commands\TotalsActionCommand.cs" />
     <Compile Include="Common\BindableBase.cs" />
@@ -124,6 +124,7 @@
     <Compile Include="ViewModel\FlightDetailPageViewModel.cs" />
     <Compile Include="ViewModel\LookupViewModelBase.cs" />
     <Compile Include="ViewModel\MaintainAircraftViewModel.cs" />
+    <Compile Include="ViewModel\MaintainViewModelBase.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\TotalsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
@@ -153,6 +154,10 @@
     <Compile Include="Views\MaintainAircraft.xaml.cs">
       <DependentUpon>MaintainAircraft.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MaintainAirfields.xaml.cs">
+      <DependentUpon>MaintainAirfields.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\MaintainAirfieldsViewModel.cs" />
     <Compile Include="Views\TotalsPage.xaml.cs">
       <DependentUpon>TotalsPage.xaml</DependentUpon>
     </Compile>
@@ -210,6 +215,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MaintainAircraft.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MaintainAirfields.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

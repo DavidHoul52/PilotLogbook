@@ -10,7 +10,7 @@ namespace LogbookApp.Data
 {
   
 
-    public class Aircraft 
+    public class Aircraft : Entity 
     {
         public int id { get; set; }
         public string Reg { get; set; }
@@ -24,8 +24,7 @@ namespace LogbookApp.Data
         [IgnoreDataMember]
         public AircraftClass AircraftClass { get; set; }
 
-        [IgnoreDataMember]
-        public bool IsNew { get; set; }
+      
         
         public int? AcClassId 
         {

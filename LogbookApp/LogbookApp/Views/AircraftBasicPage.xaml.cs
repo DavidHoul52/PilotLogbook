@@ -31,7 +31,7 @@ namespace LogbookApp.Views
 
         private AircraftViewModel viewModel;
         private FlightActionCommand flightActionCommand;
-        private AircraftActionCommand aircraftActionCommand;
+        private MaintainActionCommand<Aircraft> aircraftActionCommand;
 
         public AircraftBasicPage()
         {
@@ -58,12 +58,12 @@ namespace LogbookApp.Views
                 flightActionCommand = navigationParameter as FlightActionCommand;
                 if (flightActionCommand != null) viewModel.Flight = flightActionCommand.Flight;
             }
-            if (navigationParameter is AircraftActionCommand)
+            if (navigationParameter is MaintainActionCommand<Aircraft>)
             {
-                aircraftActionCommand = navigationParameter as AircraftActionCommand;
+                aircraftActionCommand = navigationParameter as MaintainActionCommand<Aircraft>;
                 if (aircraftActionCommand != null)
                 {
-                    viewModel.Aircraft = aircraftActionCommand.Aircraft;
+                    viewModel.Aircraft = aircraftActionCommand.Item;
                     viewModel.DataService = aircraftActionCommand.DataService;
                 }
             }

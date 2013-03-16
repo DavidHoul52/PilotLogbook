@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using LogbookApp.Commands;
+using LogbookApp.Data;
+
+namespace LogbookApp.ViewModel
+{
+    public class MaintainAirfieldsViewModel  : MaintainViewModelBase<Airfield>
+    {
+        public MaintainAirfieldsViewModel(IFlightDataService flightDataService)
+        {
+            this.flightDataService = flightDataService;
+            EditCommand = new DelegateCommand<Airfield>((f) => ShowDetail(new MaintainActionCommand<Airfield>
+            { Item= f, DataService = flightDataService}),
+                (f) => { return f != null; });
+            RaisePropertyChanged(() => EditCommand);
+            DeleteCommand = new DelegateCommand<Airfield>((f) => Delete(f), (f) => { return f != null; });
+            RaisePropertyChanged(() => DeleteCommand);
+            AddCommand = new DelegateCommand<Airfield>((f) => Add(), (f) => { return true; });
+            RaisePropertyChanged(() => AddCommand);
+        }
+
+
+        protected override void Add()
+        {
+            Airfields.Add(new Airfield
+            {
+                
+                IsNew = true
+
+            });
+            Selected = Airfields.Last();
+            ShowDetail(new MaintainActionCommand<Airfield> { Item = Selected, DataService = flightDataService });
+        }
+
+        protected async override void Delete(Airfield f)
+        {
+            bool deleted = await flightDataService.DeleteAirfield(f);
+            if (deleted)
+                Airfields.Remove(f);
+        }
+
+        public async override void Load()
+        {
+            await flightDataService.GetLookups();
+            Airfields = new ObservableCollection<Airfield>(flightDataService.Lookups.Airfields.OrderBy(x => x.Name));
+
+            RaisePropertyChanged(() => Airfields);
+        }
+
+        public ObservableCollection<Airfield> Airfields { get; set; }
+    }
+}

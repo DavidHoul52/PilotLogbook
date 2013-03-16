@@ -9,14 +9,15 @@ using LogbookApp.Data;
 
 namespace LogbookApp.ViewModel
 {
-    public class MaintainAircraftViewModel : ViewModelBase
+    public class MaintainAircraftViewModel : MaintainViewModelBase<Aircraft>
     {
-        private IFlightDataService flightDataService;
+    
 
         public MaintainAircraftViewModel(IFlightDataService flightDataService)
         {
             this.flightDataService = flightDataService;
-            EditCommand = new DelegateCommand<Aircraft>((f) => ShowDetail(new AircraftActionCommand { Aircraft= f, DataService = flightDataService}),
+            EditCommand = new DelegateCommand<Aircraft>((f) => ShowDetail(new MaintainActionCommand<Aircraft>
+            { Item= f, DataService = flightDataService}),
                 (f) => { return f != null; });
             RaisePropertyChanged(() => EditCommand);
             DeleteCommand = new DelegateCommand<Aircraft>((f) => Delete(f), (f) => { return f != null; });
@@ -39,7 +40,7 @@ namespace LogbookApp.ViewModel
             }
         }
 
-        private void Add()
+        protected override void Add()
         {
             Aircraft.Add(new Aircraft
             {
@@ -48,14 +49,14 @@ namespace LogbookApp.ViewModel
                 
             });
             SelectedAircraft = Aircraft.Last();
-            ShowDetail(new AircraftActionCommand { Aircraft = SelectedAircraft, DataService = flightDataService });
+            ShowDetail(new MaintainActionCommand<Aircraft> { Item = SelectedAircraft, DataService = flightDataService });
 
         }
 
 
 
 
-        private async void Delete(Aircraft f)
+        protected async override void Delete(Aircraft f)
         {
             bool deleted = await flightDataService.DeleteAircraft(f);
             if (deleted)
@@ -63,18 +64,14 @@ namespace LogbookApp.ViewModel
         }
 
 
-        public Action<AircraftActionCommand> ShowDetail { get; set; }        
+        
 
 
-        public DelegateCommand<Aircraft> EditCommand { get; set; }
-
-        public DelegateCommand<Aircraft> DeleteCommand { get; set; }
-
-        public DelegateCommand<Aircraft> AddCommand { get; set; }
+    
 
         public ObservableCollection<Aircraft> Aircraft { get; set; }
 
-        public async void Load()
+        public async override void Load()
         {
 
              await flightDataService.GetLookups();

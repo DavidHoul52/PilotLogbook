@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogbookApp.Data
 {
-    public class Airfield
+    public class Airfield :Entity
     {
 
         public int Id { get; set; }

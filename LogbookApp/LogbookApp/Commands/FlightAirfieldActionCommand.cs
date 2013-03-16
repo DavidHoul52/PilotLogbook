@@ -1,4 +1,5 @@
-﻿namespace LogbookApp.Commands
+﻿using LogbookApp.Data;
+namespace LogbookApp.Commands
 {
 
     public enum AirfieldDesignation
@@ -11,5 +12,7 @@
     public class FlightAirfieldActionCommand :FlightActionCommand
     {
         public AirfieldDesignation AirfieldDesignation { get; set; }
+
+        public Airfield Airfield { get; set; }
     }
 }

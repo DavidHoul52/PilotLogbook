@@ -8,38 +8,61 @@ namespace LogbookApp.ViewModel
     {
         public AirfieldViewModel()
         {
-            Airfield = new Airfield();
+          
         }
 
-        public Airfield Airfield { get; set; }
+        private Airfield airfield;
+        public Airfield Airfield
+        {
+            get
+            { return airfield ;}
+            set
+            { 
+                airfield=value;
+                RaisePropertyChanged(() => Airfield);
+            
+            }
+        }
 
 
         public override async Task Save()
         {
+            if (Airfield.IsNew)
+            {
+                await DataService.InsertAirfield(Airfield);
+                if (Flight!=null)
+                   Flight.Lookups.Airfields.Add(Airfield);
+            }
+            else
+                await DataService.UpdateAirfield(Airfield);
 
             
             
 
-           // Flight.Save();
+           
         }
 
         public async Task SaveFrom()
         {
-            await Flight.DataService.InsertAirfield(Airfield);
-            Flight.Lookups.Airfields.Add(Airfield);
+            await Save();
             Flight.From = Airfield;
          
-            await Save();
+            
 
         }
 
         public async Task SaveTo()
         {
-            await Flight.DataService.InsertAirfield(Airfield);
-            Flight.Lookups.Airfields.Add(Airfield);
+            await Save();
             Flight.To = Airfield;
            
-           await Save();
+           
+        }
+
+        protected override void OnFlightUpdated()
+        {
+            base.OnFlightUpdated();
+            
         }
     }
 }

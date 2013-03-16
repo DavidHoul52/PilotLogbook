@@ -7,9 +7,9 @@ using LogbookApp.Data;
 
 namespace LogbookApp.Commands
 {
-    public class AircraftActionCommand
+    public class MaintainActionCommand<T>
     {
-        public Aircraft Aircraft { get; set; }
+        public T Item { get; set; }
         public IFlightDataService DataService { get; set; }
     }
 }

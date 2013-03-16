@@ -27,6 +27,13 @@
             <Setter Property="Foreground" Value="Yellow"></Setter>
         </Style>
 
+        <Style x:Key="MaintainAirfieldButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource EditAppBarButtonStyle}">
+            <Setter Property="AutomationProperties.AutomationId" Value="AddAppBarButton"/>
+            <Setter Property="AutomationProperties.Name" Value="Airfields"/>
+
+            <Setter Property="Foreground" Value="Green"></Setter>
+        </Style>
+
     </Page.Resources>
     <Page.TopAppBar>
         <AppBar x:Name="topAppBar" Padding="10,0,10,0">
@@ -54,7 +61,9 @@
 
                     <Button Style="{StaticResource MaintainAircraftButtonStyle}"  Command="{Binding MaintainAircraftCommand,Mode=TwoWay}"  />
 
-                    </StackPanel>
+                    <Button Style="{StaticResource MaintainAirfieldButtonStyle}"  Command="{Binding MaintainAirfieldsCommand,Mode=TwoWay}"  />
+
+                </StackPanel>
                 
             </Grid>
         </AppBar>

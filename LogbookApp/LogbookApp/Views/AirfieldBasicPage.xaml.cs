@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using LogbookApp.Commands;
+using LogbookApp.Data;
 using LogbookApp.ViewModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -45,8 +46,25 @@ namespace LogbookApp.Views
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            flightActionCommand = navigationParameter as FlightAirfieldActionCommand;
-            if (flightActionCommand != null) viewModel.Flight = flightActionCommand.Flight;
+            if (navigationParameter is FlightAirfieldActionCommand)
+            {
+                flightActionCommand = navigationParameter as FlightAirfieldActionCommand;
+                if (flightActionCommand != null)
+                {
+                    viewModel.Flight = flightActionCommand.Flight;
+                    viewModel.Airfield = flightActionCommand.Airfield;
+                }
+            }
+
+            if (navigationParameter is MaintainActionCommand<Airfield>)
+            {
+                var actionCommand = navigationParameter as MaintainActionCommand<Airfield>;
+                if (actionCommand != null)
+                {
+                    viewModel.Airfield = actionCommand.Item;
+                    viewModel.DataService = actionCommand.DataService;
+                }
+            }
         }
 
         
@@ -56,17 +74,20 @@ namespace LogbookApp.Views
 
         private new async void GoBack(object sender, RoutedEventArgs e)
         {
-            switch (flightActionCommand.AirfieldDesignation)
-            {
-                case AirfieldDesignation.From:
-                    await viewModel.SaveFrom();
-                    break;
-                case AirfieldDesignation.To:
-                    await viewModel.SaveTo();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            if (flightActionCommand != null)
+                switch (flightActionCommand.AirfieldDesignation)
+                {
+                    case AirfieldDesignation.From:
+                        await viewModel.SaveFrom();
+                        break;
+                    case AirfieldDesignation.To:
+                        await viewModel.SaveTo();
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            else
+                viewModel.Save();
             
             Frame.GoBack();
         }

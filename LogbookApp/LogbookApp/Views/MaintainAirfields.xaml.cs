@@ -23,30 +23,26 @@ namespace LogbookApp.Views
     /// <summary>
     /// A basic page that provides characteristics common to most applications.
     /// </summary>
-    public sealed partial class MaintainAircraft : LogbookApp.Common.LayoutAwarePage
+    public sealed partial class MaintainAirfields : LogbookApp.Common.LayoutAwarePage
     {
-        private MaintainAircraftViewModel viewModel;
 
-        public MaintainAircraft()
+        private MaintainAirfieldsViewModel viewModel;
+
+        public MaintainAirfields()
         {
             this.InitializeComponent();
-         
             FlightDataService data = MobileService.Client;
 
 
 
-            viewModel = new MaintainAircraftViewModel(data);
+            viewModel = new MaintainAirfieldsViewModel(data);
 
             viewModel.ShowDetail = ActionShowDetail;
-            
-            
+
+
             DataContext = viewModel;
             viewModel.Load();
-        }
 
-        private void ActionShowDetail(MaintainActionCommand<Aircraft> command)
-        {
-            Frame.Navigate(typeof(AircraftBasicPage), command);
         }
 
         /// <summary>
@@ -71,5 +67,11 @@ namespace LogbookApp.Views
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
         }
+
+        private void ActionShowDetail(MaintainActionCommand<Airfield> command)
+        {
+            Frame.Navigate(typeof(AirfieldBasicPage), command);
+        }
+
     }
 }

@@ -198,5 +198,18 @@ namespace LogbookApp.Data
         {
             await _mobileService.GetTable<T>().DeleteAsync(item);
         }
+
+
+        public async Task UpdateAirfield(Airfield Airfield)
+        {
+             await Update(Airfield);
+        }
+
+
+        public async Task<bool> DeleteAirfield(Airfield f)
+        {
+            await Delete(f);
+            return true;
+        }
     }
 }

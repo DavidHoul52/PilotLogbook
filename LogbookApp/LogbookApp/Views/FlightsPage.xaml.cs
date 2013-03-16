@@ -47,6 +47,7 @@ namespace LogbookApp
             viewModel.ShowDetail = ActionShowDetail;
             viewModel.ShowTotals = ActionShowTotals;
             viewModel.ShowAircraft = ActionShowAircraft;
+            viewModel.ShowAirfields = ActionShowAirfields;
             DataContext = viewModel;
             viewModel.Load();
             
@@ -80,6 +81,11 @@ namespace LogbookApp
         private void ActionShowAircraft()
         {
             Frame.Navigate(typeof(MaintainAircraft));
+        }
+
+        private void ActionShowAirfields()
+        {
+            Frame.Navigate(typeof(MaintainAirfields));
         }
     }
 }

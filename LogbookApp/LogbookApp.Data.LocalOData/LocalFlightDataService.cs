@@ -97,6 +97,16 @@ namespace LogbookApp.Data.LocalOData
             throw new NotImplementedException();
         }
 
+        public Task UpdateAirfield(Airfield Airfield)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteAirfield(Airfield f)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 
     public static class WcfDataServicesExtensions

@@ -48,6 +48,7 @@ namespace LogbookApp.ViewModel
             return new T
                 {
                     Flight = this.Flight,
+                    
                     OnCompleted = (f) =>
                         {
                             Flight = f;
@@ -78,21 +79,14 @@ namespace LogbookApp.ViewModel
         private void AddAirfield(AirfieldDesignation airfieldDesignation)
         {
 
-            switch (airfieldDesignation)
-            {
-                case AirfieldDesignation.From:
-                    Flight.From = new Airfield { };
-                    break;
-                case AirfieldDesignation.To:
-                    Flight.To = new Airfield();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("airfieldDesignation");
-            }
-
-
             FlightAirfieldActionCommand flightAirfieldActionCommand = FlightActionCommand<FlightAirfieldActionCommand>();
             flightAirfieldActionCommand.AirfieldDesignation = airfieldDesignation;
+            flightAirfieldActionCommand.Airfield = new Airfield { IsNew = true };
+        
+
+
+            
+            
             ShowAirfield(flightAirfieldActionCommand);
         }
        
