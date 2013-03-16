@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using LogbookApp.Commands;
 using LogbookApp.Data;
 using LogbookApp.Services;
 using LogbookApp.ViewModel;
@@ -43,9 +44,9 @@ namespace LogbookApp.Views
             viewModel.Load();
         }
 
-        private void ActionShowDetail(Aircraft aircraft)
+        private void ActionShowDetail(AircraftActionCommand command)
         {
-            Frame.Navigate(typeof(FlightDetailPage1), aircraft);
+            Frame.Navigate(typeof(AircraftBasicPage), command);
         }
 
         /// <summary>

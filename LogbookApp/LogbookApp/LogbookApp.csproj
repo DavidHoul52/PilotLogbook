@@ -104,6 +104,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\AircraftActionCommand.cs" />
     <Compile Include="Commands\FlightActionCommand.cs" />
     <Compile Include="Commands\TotalsActionCommand.cs" />
     <Compile Include="Common\BindableBase.cs" />

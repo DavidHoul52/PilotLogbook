@@ -19,5 +19,7 @@ namespace LogbookApp.Data
         Task InsertAircraft(Aircraft aircraft);
         Task InsertAircraftType(AcType acType);
         Task InsertAirfield(Airfield from);
+
+        Task UpdateAircraft(Aircraft Aircraft);
     }
 }

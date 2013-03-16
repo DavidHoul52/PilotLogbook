@@ -53,7 +53,7 @@
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
                  
-                    <TextBox Width="200" Text="{Binding Flight.Aircraft.Reg,Mode=TwoWay}" HorizontalAlignment="Left"></TextBox>
+                    <TextBox Width="200" Text="{Binding Aircraft.Reg,Mode=TwoWay}" HorizontalAlignment="Left"></TextBox>
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
@@ -62,7 +62,8 @@
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
-                    <ComboBox   ItemsSource="{Binding Classes}" DisplayMemberPath="Text" SelectedItem="{Binding AircraftClass,Mode=TwoWay}" Width="200"></ComboBox>
+                    <ComboBox   ItemsSource="{Binding Classes}" DisplayMemberPath="Text" 
+                                SelectedItem="{Binding Aircraft.AircraftClass,Mode=TwoWay}" Width="200"></ComboBox>
                     
                 </StackPanel>
 

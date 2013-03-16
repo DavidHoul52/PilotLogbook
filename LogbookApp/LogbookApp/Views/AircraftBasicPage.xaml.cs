@@ -31,6 +31,7 @@ namespace LogbookApp.Views
 
         private AircraftViewModel viewModel;
         private FlightActionCommand flightActionCommand;
+        private AircraftActionCommand aircraftActionCommand;
 
         public AircraftBasicPage()
         {
@@ -52,8 +53,21 @@ namespace LogbookApp.Views
      
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            flightActionCommand = navigationParameter as FlightActionCommand;
-            if (flightActionCommand != null) viewModel.Flight = flightActionCommand.Flight;
+            if (navigationParameter is FlightActionCommand)
+            {
+                flightActionCommand = navigationParameter as FlightActionCommand;
+                if (flightActionCommand != null) viewModel.Flight = flightActionCommand.Flight;
+            }
+            if (navigationParameter is AircraftActionCommand)
+            {
+                aircraftActionCommand = navigationParameter as AircraftActionCommand;
+                if (aircraftActionCommand != null)
+                {
+                    viewModel.Aircraft = aircraftActionCommand.Aircraft;
+                    viewModel.DataService = aircraftActionCommand.DataService;
+                }
+            }
+            
         }
 
 

@@ -146,6 +146,13 @@ namespace LogbookApp.Data
             await Insert(from);
         }
 
+
+        public async Task UpdateAircraft(Aircraft Aircraft)
+        {
+            await Update(Aircraft);
+        }
+
+
         public async Task<bool> ClearAcTypes()
         {
             var actypes= await _mobileService.GetTable<AcType>().ReadAsync();
@@ -174,6 +181,11 @@ namespace LogbookApp.Data
         public async Task Insert<T>(T item)
         {
             await _mobileService.GetTable<T>().InsertAsync(item);
+        }
+
+        public async Task Update<T>(T item)
+        {
+            await _mobileService.GetTable<T>().UpdateAsync(item);
         }
     }
 }

@@ -23,8 +23,10 @@
             <Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <Button Style="{StaticResource AddAppBarButtonStyle}"  Command="{Binding AddCommand,Mode=TwoWay}"  />
-                    <Button Style="{StaticResource EditAppBarButtonStyle}" Command="{Binding EditCommand,Mode=TwoWay}" CommandParameter="{Binding SelectedFlight}" />
-                    <Button Style="{StaticResource RemoveAppBarButtonStyle}" Command="{Binding DeleteCommand,Mode=TwoWay}" CommandParameter="{Binding SelectedFlight}" />
+                    <Button Style="{StaticResource EditAppBarButtonStyle}" Command="{Binding EditCommand,Mode=TwoWay}" 
+                            CommandParameter="{Binding SelectedAircraft}" />
+                    <Button Style="{StaticResource RemoveAppBarButtonStyle}" Command="{Binding DeleteCommand,Mode=TwoWay}" 
+                            CommandParameter="{Binding SelectedAircraft}" />
 
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

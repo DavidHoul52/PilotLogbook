@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LogbookApp.Commands;
 using LogbookApp.Data;
 
 namespace LogbookApp.ViewModel
@@ -15,12 +16,27 @@ namespace LogbookApp.ViewModel
         public MaintainAircraftViewModel(IFlightDataService flightDataService)
         {
             this.flightDataService = flightDataService;
-            EditCommand = new DelegateCommand<Aircraft>((f) => ShowDetail(f), (f) => { return f != null; });
+            EditCommand = new DelegateCommand<Aircraft>((f) => ShowDetail(new AircraftActionCommand { Aircraft= f, DataService = flightDataService}),
+                (f) => { return f != null; });
             RaisePropertyChanged(() => EditCommand);
             DeleteCommand = new DelegateCommand<Aircraft>((f) => Delete(f), (f) => { return f != null; });
             RaisePropertyChanged(() => DeleteCommand);
             AddCommand = new DelegateCommand<Aircraft>((f) => Add(), (f) => { return true; });
             RaisePropertyChanged(() => AddCommand);
+        }
+
+        private Aircraft selected;
+        public Aircraft SelectedAircraft
+        {
+            get
+            { return selected; ;}
+
+            set
+            {
+                selected = value;
+                RaisePropertyChanged(() => SelectedAircraft);
+
+            }
         }
 
         private void Add()
@@ -49,7 +65,7 @@ namespace LogbookApp.ViewModel
         }
 
 
-        public Action<Aircraft> ShowDetail { get; set; }        
+        public Action<AircraftActionCommand> ShowDetail { get; set; }        
 
 
         public DelegateCommand<Aircraft> EditCommand { get; set; }

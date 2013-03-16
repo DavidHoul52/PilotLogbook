@@ -68,7 +68,7 @@ namespace LogbookApp.ViewModel
 
         private void AddAircraft()
         {
-            Flight.Aircraft = new Aircraft { };
+            Flight.Aircraft = new Aircraft { IsNew = true };
 
             ShowAircraft(FlightActionCommand<FlightActionCommand>());
 

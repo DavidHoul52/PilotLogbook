@@ -18,14 +18,42 @@ namespace LogbookApp.ViewModel
 
         public override async Task Save()
         {
-             await Flight.DataService.InsertAircraft(Flight.Aircraft);
-            Flight.Lookups.Aircraft.Add(Flight.Aircraft);
-        
+            if (Aircraft.IsNew)
+            {
+                await DataService.InsertAircraft(Aircraft);
+                Flight.Lookups.Aircraft.Add(Flight.Aircraft);
+            }
+            else
+            {
+                await DataService.UpdateAircraft(Aircraft);
+            }
+
+
             //Flight.AircraftId =
             //    Flight.DataService.Lookups.Aircraft.Where(x => x.Reg == Flight.Aircraft.Reg).First().id;
-        
+
         }
 
         public ObservableCollection<AircraftClass> Classes { get; set; }
+
+        private Aircraft aircraft;
+        public Aircraft Aircraft
+        {
+            get
+
+            { return aircraft; }
+
+            set
+
+            { aircraft = value; 
+            RaisePropertyChanged(()=>Aircraft);}
+        }
+
+        protected override void OnFlightUpdated()
+        {
+            Aircraft = Flight.Aircraft;
+        }
+
+        
     }
 }

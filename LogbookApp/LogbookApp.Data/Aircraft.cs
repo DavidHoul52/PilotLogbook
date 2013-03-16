@@ -24,7 +24,8 @@ namespace LogbookApp.Data
         [IgnoreDataMember]
         public AircraftClass AircraftClass { get; set; }
 
-
+        [IgnoreDataMember]
+        public bool IsNew { get; set; }
         
         public int? AcClassId 
         {
