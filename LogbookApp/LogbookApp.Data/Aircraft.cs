@@ -36,9 +36,9 @@ namespace LogbookApp.Data
             }
             set
             {
-                if (AircraftClass != null && value!=null)
+                if (value!=null)
                 {
-                    AircraftClass.Id = value.Value;
+                    
                     AircraftClass = AircraftClass.Items.Where(x => x.Id == value.Value).FirstOrDefault();
                 }
             }

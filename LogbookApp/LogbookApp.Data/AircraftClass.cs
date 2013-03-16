@@ -30,18 +30,25 @@ namespace LogbookApp.Data
 
         public override bool Equals(object obj)
         {
-            return ((AircraftClass)obj).Id == this.Id;
+            if (obj!=null)
+               return ((AircraftClass)obj).Id == this.Id;
+            return false;
 
         }
 
         public static bool operator ==(AircraftClass A, AircraftClass B)
         {
-            return (A.Id == B.Id);
+            
+            if ((object)A != null && (object)B != null)
+              return (A.Id == B.Id);
+            return false;
 
         }
         public static bool operator !=(AircraftClass A, AircraftClass B)
         {
-            return !(A.Id == B.Id);
+            if ((object)A!=null && (object)B!=null)
+              return !(A.Id == B.Id);
+            return true;
         }
     }
 }

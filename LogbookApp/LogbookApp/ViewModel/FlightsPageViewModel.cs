@@ -35,8 +35,13 @@ namespace LogbookApp.ViewModel
             })
                 , (f) => { return true; });
             RaisePropertyChanged(() => TotalsCommand);
+            MaintainAircraftCommand = new DelegateCommand<List<Flight>>((f) => ShowAircraft() , (f) => { return true; });
+            RaisePropertyChanged(() => MaintainAircraftCommand);
 
         }
+
+      
+     
 
       
 
@@ -73,11 +78,11 @@ namespace LogbookApp.ViewModel
         public ObservableCollection<Flight> Flights { get; set; }
 
 
-        public Action<Flight> ShowDetail;
+        public Action<Flight> ShowDetail { get; set; }
 
-        public Action<TotalsActionCommand> ShowTotals;
+        public Action<TotalsActionCommand> ShowTotals { get; set; }
 
-
+        public Action ShowAircraft { get; set; }
 
 
         private Flight selectedFlight;
@@ -117,5 +122,7 @@ namespace LogbookApp.ViewModel
             get;
             set;
         }
+
+        public DelegateCommand<List<Flight>> MaintainAircraftCommand { get; set; }
     }
 }

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using LogbookApp.Data;
+using LogbookApp.Services;
+using LogbookApp.ViewModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -19,11 +22,30 @@ namespace LogbookApp.Views
     /// <summary>
     /// A basic page that provides characteristics common to most applications.
     /// </summary>
-    public sealed partial class AircraftListBasicPage : LogbookApp.Common.LayoutAwarePage
+    public sealed partial class MaintainAircraft : LogbookApp.Common.LayoutAwarePage
     {
-        public AircraftListBasicPage()
+        private MaintainAircraftViewModel viewModel;
+
+        public MaintainAircraft()
         {
             this.InitializeComponent();
+            this.InitializeComponent();
+            FlightDataService data = MobileService.Client;
+
+
+
+            viewModel = new MaintainAircraftViewModel(data);
+
+            viewModel.ShowDetail = ActionShowDetail;
+            
+            
+            DataContext = viewModel;
+            viewModel.Load();
+        }
+
+        private void ActionShowDetail(Aircraft aircraft)
+        {
+            Frame.Navigate(typeof(FlightDetailPage1), aircraft);
         }
 
         /// <summary>

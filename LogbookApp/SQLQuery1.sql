@@ -1,1 +1,1 @@
-﻿update WorldPilotsLogBook.Flight set ldg=1 ,Takeoffs=1
+﻿update worldPilotsLogBook.Aircraft set AcClassId=1

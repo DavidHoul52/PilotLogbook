@@ -122,14 +122,12 @@
     <Compile Include="ViewModel\DelegateCommand.cs" />
     <Compile Include="ViewModel\FlightDetailPageViewModel.cs" />
     <Compile Include="ViewModel\LookupViewModelBase.cs" />
+    <Compile Include="ViewModel\MaintainAircraftViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\TotalsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="Views\AircraftBasicPage.xaml.cs">
       <DependentUpon>AircraftBasicPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AircraftListBasicPage.xaml.cs">
-      <DependentUpon>AircraftListBasicPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AircraftTypeBasicPage.xaml.cs">
       <DependentUpon>AircraftTypeBasicPage.xaml</DependentUpon>
@@ -150,6 +148,9 @@
     <Compile Include="ViewModel\FlightsPageViewModel.cs" />
     <Compile Include="Views\AircraftSettingsFlyout.xaml.cs">
       <DependentUpon>AircraftSettingsFlyout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MaintainAircraft.xaml.cs">
+      <DependentUpon>MaintainAircraft.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TotalsPage.xaml.cs">
       <DependentUpon>TotalsPage.xaml</DependentUpon>
@@ -187,10 +188,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AircraftListBasicPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\AircraftTypeBasicPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -208,6 +205,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AircraftSettingsFlyout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MaintainAircraft.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
