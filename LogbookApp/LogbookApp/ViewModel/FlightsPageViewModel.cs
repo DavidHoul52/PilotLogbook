@@ -39,6 +39,8 @@ namespace LogbookApp.ViewModel
             RaisePropertyChanged(() => MaintainAircraftCommand);
             MaintainAirfieldsCommand = new DelegateCommand<List<Flight>>((f) => ShowAirfields(), (f) => { return true; });
             RaisePropertyChanged(() => MaintainAirfieldsCommand);
+            MaintainAircraftTypesCommand = new DelegateCommand<List<Flight>>((f) => ShowAircraftTypes(), (f) => { return true; });
+            RaisePropertyChanged(() => MaintainAircraftTypesCommand);
 
         }
 
@@ -88,6 +90,8 @@ namespace LogbookApp.ViewModel
 
         public Action ShowAirfields { get; set; }
 
+        public Action ShowAircraftTypes { get; set; }
+        
 
         private Flight selectedFlight;
         public Flight SelectedFlight
@@ -130,5 +134,9 @@ namespace LogbookApp.ViewModel
         public DelegateCommand<List<Flight>> MaintainAircraftCommand { get; set; }
 
         public DelegateCommand<List<Flight>> MaintainAirfieldsCommand { get; set; }
+
+        public DelegateCommand<List<Flight>> MaintainAircraftTypesCommand { get; set; }
+
+        
     }
 }

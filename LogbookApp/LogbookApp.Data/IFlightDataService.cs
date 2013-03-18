@@ -27,5 +27,11 @@ namespace LogbookApp.Data
         Task UpdateAirfield(Airfield Airfield);
 
         Task<bool> DeleteAirfield(Airfield f);
+
+        Task UpdateAcType(AcType AcType);
+
+        Task InsertAcType(AcType AcType);
+
+        Task<bool> Delete<T1>(T1 item);
     }
 }

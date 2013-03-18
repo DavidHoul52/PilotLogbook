@@ -194,9 +194,10 @@ namespace LogbookApp.Data
             await _mobileService.GetTable<T>().UpdateAsync(item);
         }
 
-        public async Task Delete<T>(T item)
+        public async Task<bool> Delete<T>(T item)
         {
             await _mobileService.GetTable<T>().DeleteAsync(item);
+            return true;
         }
 
 
@@ -208,8 +209,20 @@ namespace LogbookApp.Data
 
         public async Task<bool> DeleteAirfield(Airfield f)
         {
-            await Delete(f);
-            return true;
+            return await Delete(f);
+            
+        }
+
+
+        public async Task UpdateAcType(AcType AcType)
+        {
+            await Update(AcType);
+        }
+
+
+        public async Task InsertAcType(AcType AcType)
+        {
+            await Insert(AcType);
         }
     }
 }

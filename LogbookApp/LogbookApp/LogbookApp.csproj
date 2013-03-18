@@ -123,6 +123,7 @@
     <Compile Include="ViewModel\DelegateCommand.cs" />
     <Compile Include="ViewModel\FlightDetailPageViewModel.cs" />
     <Compile Include="ViewModel\LookupViewModelBase.cs" />
+    <Compile Include="ViewModel\MaintainAircraftTypesViewModel.cs" />
     <Compile Include="ViewModel\MaintainAircraftViewModel.cs" />
     <Compile Include="ViewModel\MaintainViewModelBase.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
@@ -153,6 +154,9 @@
     </Compile>
     <Compile Include="Views\MaintainAircraft.xaml.cs">
       <DependentUpon>MaintainAircraft.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MaintainAircraftTypes.xaml.cs">
+      <DependentUpon>MaintainAircraftTypes.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MaintainAirfields.xaml.cs">
       <DependentUpon>MaintainAirfields.xaml</DependentUpon>
@@ -215,6 +219,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MaintainAircraft.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MaintainAircraftTypes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

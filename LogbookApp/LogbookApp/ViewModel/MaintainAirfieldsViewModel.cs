@@ -10,17 +10,9 @@ namespace LogbookApp.ViewModel
 {
     public class MaintainAirfieldsViewModel  : MaintainViewModelBase<Airfield>
     {
-        public MaintainAirfieldsViewModel(IFlightDataService flightDataService)
+        public MaintainAirfieldsViewModel(IFlightDataService flightDataService) : base(flightDataService)
         {
-            this.flightDataService = flightDataService;
-            EditCommand = new DelegateCommand<Airfield>((f) => ShowDetail(new MaintainActionCommand<Airfield>
-            { Item= f, DataService = flightDataService}),
-                (f) => { return f != null; });
-            RaisePropertyChanged(() => EditCommand);
-            DeleteCommand = new DelegateCommand<Airfield>((f) => Delete(f), (f) => { return f != null; });
-            RaisePropertyChanged(() => DeleteCommand);
-            AddCommand = new DelegateCommand<Airfield>((f) => Add(), (f) => { return true; });
-            RaisePropertyChanged(() => AddCommand);
+        
         }
 
 

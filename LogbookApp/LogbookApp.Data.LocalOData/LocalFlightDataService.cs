@@ -107,6 +107,24 @@ namespace LogbookApp.Data.LocalOData
             throw new NotImplementedException();
         }
 
+
+
+        public Task UpdateAcType(AcType AcType)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Task InsertAcType(AcType AcType)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Task<bool> Delete<T1>(T1 item)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public static class WcfDataServicesExtensions

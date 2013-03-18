@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogbookApp.Data
 {
-    public class AcType
+    public class AcType : Entity
     {
 
         public int Id { get; set; }

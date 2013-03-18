@@ -13,17 +13,9 @@ namespace LogbookApp.ViewModel
     {
     
 
-        public MaintainAircraftViewModel(IFlightDataService flightDataService)
+        public MaintainAircraftViewModel(IFlightDataService flightDataService) : base(flightDataService)
         {
-            this.flightDataService = flightDataService;
-            EditCommand = new DelegateCommand<Aircraft>((f) => ShowDetail(new MaintainActionCommand<Aircraft>
-            { Item= f, DataService = flightDataService}),
-                (f) => { return f != null; });
-            RaisePropertyChanged(() => EditCommand);
-            DeleteCommand = new DelegateCommand<Aircraft>((f) => Delete(f), (f) => { return f != null; });
-            RaisePropertyChanged(() => DeleteCommand);
-            AddCommand = new DelegateCommand<Aircraft>((f) => Add(), (f) => { return true; });
-            RaisePropertyChanged(() => AddCommand);
+        
         }
 
         private Aircraft selected;

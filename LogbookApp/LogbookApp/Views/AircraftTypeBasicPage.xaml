@@ -53,7 +53,7 @@
                           DisplayMemberPath="Code" 
                           SelectedItem="{Binding Flight.AcType,Mode=TwoWay}" ></ComboBox>
                     <Rectangle Width="30"></Rectangle>-->
-                    <TextBox Width="200" Text="{Binding Flight.AcType.Code,Mode=TwoWay}" HorizontalAlignment="Left"></TextBox>
+                    <TextBox Width="200" Text="{Binding AcType.Code,Mode=TwoWay}" HorizontalAlignment="Left"></TextBox>
                 </StackPanel>
 
 

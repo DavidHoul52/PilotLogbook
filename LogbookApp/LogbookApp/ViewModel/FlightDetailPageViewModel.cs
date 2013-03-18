@@ -62,7 +62,7 @@ namespace LogbookApp.ViewModel
 
         private void AddAircraftType()
         {
-            Flight.AcType = new AcType() { };
+            Flight.AcType = new AcType { IsNew = true };
 
             ShowAircraftType(FlightActionCommand<FlightActionCommand>());
         }
