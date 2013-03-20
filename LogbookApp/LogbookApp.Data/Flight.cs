@@ -16,7 +16,7 @@ namespace LogbookApp.Data
         }
 
 
-        private AcType _acType;
+      
         private Capacity _capacity;
         private Airfield _from;
         private Airfield _to;
@@ -26,20 +26,8 @@ namespace LogbookApp.Data
         public int id { get; set; }
 
         public DateTime Date { get; set; }
-       
-        [IgnoreDataMember]
-        public AcType AcType
-        {
-            get { return _acType; }
-            set
-            {
-                _acType = value;
-                if (_acType != null)
-                    AcTypeId = AcType.Id;
-            }
-        }
 
-        public int AcTypeId { get; set; }
+    
        
 
         [IgnoreDataMember]

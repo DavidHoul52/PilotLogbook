@@ -34,11 +34,11 @@ namespace LogbookApp.Data
             var flights = await _mobileService.GetTable<Flight>().Take(500).ToListAsync() ;
             Flights = flights.Select(x => {
               
-                x.AcType = Lookups.AcTypes.Where(a => a.Id == x.AcTypeId).FirstOrDefault();
+                
                 x.Capacity = Lookups.Capacity.Where(c=>c.Id==x.CapacityId).FirstOrDefault();
                 x.From = Lookups.Airfields.Where(airfield=>airfield.Id==x.AirfieldFromId).FirstOrDefault();
                 x.To = Lookups.Airfields.Where(airfield=>airfield.Id==x.AirfieldToId).FirstOrDefault();
-                                              x.Aircraft =
+                x.Aircraft =
                                                   Lookups.Aircraft.Where(aircraft => aircraft.id == x.AircraftId)
                                                          .FirstOrDefault();
                 x.Lookups = Lookups;
@@ -103,30 +103,7 @@ namespace LogbookApp.Data
             
         }
 
-        public async void SaveTest()
-        {
-            //await ClearTable<AcType>();
-            //await Insert(new AcType { Code = "C-152" });
-            //await ClearTable<Airfield>();
-            //await Insert(new Airfield { ICAOCode = "EGHR", Name = "Goodwood" });
-            //await ClearTable<Capacity>();
-            //await Insert(new Capacity { Description = "P1" });
-            //await ClearTable<Aircraft>();
-            //await Insert(new Aircraft { Reg = "C-152" });
-         //   await GetLookups();
-            await Insert(new Flight
-            {
-                AcType = Lookups.AcTypes.FirstOrDefault(),
-                Arrival = DateTime.Now,
-                Date = DateTime.Today,
-                Depart = DateTime.Now,
-                From = Lookups.Airfields.FirstOrDefault(),
-                To = Lookups.Airfields.FirstOrDefault(),
-                Capacity = Lookups.Capacity.FirstOrDefault(),
-                Captain = "haddock",
-                Aircraft = Lookups.Aircraft.FirstOrDefault()
-            });
-        }
+      
 
 
         public async Task InsertAircraft(Aircraft aircraft)

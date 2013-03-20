@@ -35,29 +35,7 @@ namespace DefaultDataLoader
         /// property is typically used to configure the page.</param>
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            FlightDataService data = new FlightDataService(new MobileServiceClient(
-               "https://worldpilotslogbook.azure-mobile.net/",  "LRlXCJsDuLcggcInPASNkoyofIwtuk47"));
-            await data.ClearTable<Flight>();
-            await data.ClearTable<AcType>();
-            await data.Insert(new AcType {Code = "C-152"});
-            await data.Insert(new AcType { Code = "C-172" });
-            await data.Insert(new AcType { Code = "PA-28" });
-            await data.Insert(new AcType { Code = "PA-38" });
-            await data.ClearTable<Airfield>();
-            await data.Insert(new Airfield { ICAOCode = "EGHR", Name = "Goodwood"});
-            await data.Insert(new Airfield { ICAOCode = "EGSS", Name = "Timbuctoo" });
-            await data.ClearTable<Capacity>();
-            await data.Insert(new Capacity {Description = "P1"});
-            await data.Insert(new Capacity { Description = "P2" });
-            await data.Insert(new Capacity { Description = "Put" });
-            await data.ClearTable<Aircraft>();
-            await data.Insert(new Aircraft {  Reg = "G-ABCD" });
-            await data.Insert(new Aircraft { Reg = "G-XRDR" });
-            await data.GetLookups();
-            await data.Insert(new Flight { AcType = data.Lookups.AcTypes.FirstOrDefault(), Arrival = DateTime.Now,
-            Date = DateTime.Today,Depart = DateTime.Now,From = data.Lookups.Airfields.FirstOrDefault(),
-            To = data.Lookups.Airfields.FirstOrDefault(),Capacity = data.Lookups.Capacity.FirstOrDefault(),
-            Captain = "haddock",Aircraft = data.Lookups.Aircraft.FirstOrDefault()});
+        
 
 
         }

@@ -56,8 +56,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <Button Style="{StaticResource AddAircraftButtonStyle}" 
                             Command="{Binding AddAircraftCommand,Mode=TwoWay}"   />
-                    <Button Style="{StaticResource AddAircraftTypeButtonStyle}" 
-                            Command="{Binding AddAircraftTypeCommand,Mode=TwoWay}"  />
+                    
                     <Button Style="{StaticResource AddAirfieldFromButtonStyle}" 
                             Command="{Binding AddAirfieldFromCommand,Mode=TwoWay}"  />
                     <Button Style="{StaticResource AddAirfieldToButtonStyle}" 
@@ -98,15 +97,12 @@
                 <controls:DavidsDateControl Date="{Binding Flight.Date,Mode=TwoWay}"></controls:DavidsDateControl>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Type:" Width="230" />
-                    <TextBlock Text="Reg:"/>
+                    
+                    <TextBlock Text="Aircraft:"/>
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
-                <ComboBox Width="200"  HorizontalAlignment="Left" ItemsSource="{Binding Flight.Lookups.AcTypes}"
-                          DisplayMemberPath="Code" 
-                          SelectedItem="{Binding Flight.AcType,Mode=TwoWay}" ></ComboBox>
-                <Rectangle Width="30"></Rectangle>
+               
               <ComboBox Width="200"  HorizontalAlignment="Left" ItemsSource="{Binding Flight.Lookups.Aircraft}" 
                         DisplayMemberPath="Reg" 
                           SelectedItem="{Binding Flight.Aircraft,Mode=TwoWay}" ></ComboBox>

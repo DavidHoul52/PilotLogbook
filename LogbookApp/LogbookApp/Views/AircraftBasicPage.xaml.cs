@@ -63,8 +63,9 @@ namespace LogbookApp.Views
                 aircraftActionCommand = navigationParameter as MaintainActionCommand<Aircraft>;
                 if (aircraftActionCommand != null)
                 {
-                    viewModel.Aircraft = aircraftActionCommand.Item;
                     viewModel.DataService = aircraftActionCommand.DataService;
+                    viewModel.Aircraft = aircraftActionCommand.Item;
+                    
                 }
             }
             

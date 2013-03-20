@@ -73,6 +73,12 @@
                                 <TextBlock Text="{Binding Reg}" Foreground="White" FontSize="28" VerticalAlignment="Center"></TextBlock>
                                 <Rectangle Width="10"/>
                                 
+                                
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                
+                                <TextBlock Text="{Binding AcType.Code}" Foreground="Yellow" FontSize="18" VerticalAlignment="Center"></TextBlock>
+
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
 

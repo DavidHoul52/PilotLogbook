@@ -48,6 +48,16 @@
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
                     <!--<TextBlock Text="Type:" Width="230" />-->
+                    <TextBlock Text="Type:"/>
+                </StackPanel>
+                <Rectangle Height="10"></Rectangle>
+
+                <ComboBox Width="200"  HorizontalAlignment="Left" DisplayMemberPath="Code"  ItemsSource="{Binding Lookups.AcTypes}"
+                          
+                          SelectedItem="{Binding Aircraft.AcType,Mode=TwoWay}" ></ComboBox>
+                <Rectangle Height="10"></Rectangle>
+                <StackPanel Orientation="Horizontal">
+                    <!--<TextBlock Text="Type:" Width="230" />-->
                     <TextBlock Text="Reg:"/>
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>

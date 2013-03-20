@@ -14,8 +14,7 @@ namespace LogbookApp.ViewModel
         {
             AddAircraftCommand = new DelegateCommand<Flight>((f) => AddAircraft(), (f) => { return true; });
             RaisePropertyChanged(() => AddAircraftCommand);
-            AddAircraftTypeCommand = new DelegateCommand<Flight>((f) => AddAircraftType(), (f) => { return true; });
-            RaisePropertyChanged(() => AddAircraftTypeCommand);
+            
             AddAirfieldFromCommand = new DelegateCommand<Flight>((f) => AddAirfield(AirfieldDesignation.From), (f) => { return true; });
             RaisePropertyChanged(() => AddAirfieldFromCommand);
             AddAirfieldToCommand = new DelegateCommand<Flight>((f) => AddAirfield(AirfieldDesignation.To), (f) => { return true; });
@@ -60,12 +59,7 @@ namespace LogbookApp.ViewModel
 
 
 
-        private void AddAircraftType()
-        {
-            Flight.AcType = new AcType { IsNew = true };
-
-            ShowAircraftType(FlightActionCommand<FlightActionCommand>());
-        }
+    
 
         private void AddAircraft()
         {

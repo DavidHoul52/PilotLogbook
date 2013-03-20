@@ -15,7 +15,7 @@ namespace LogbookApp.Data
         Task<bool> DeleteFlight(Flight flight);
         Task<bool> SaveFlight(Flight flight);
         void SaveFlights();
-        void SaveTest();
+        
         Task InsertAircraft(Aircraft aircraft);
         Task InsertAircraftType(AcType acType);
         Task InsertAirfield(Airfield from);

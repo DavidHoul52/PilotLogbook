@@ -24,15 +24,16 @@ namespace LogbookApp.Data
         [IgnoreDataMember]
         public AircraftClass AircraftClass { get; set; }
 
-      
-        
+
+
+        private int? acClassId;
         public int? AcClassId 
         {
             get
             {
-                if (AircraftClass!=null)
-                  return AircraftClass.Id;
-                return null;
+                return acClassId;
+                
+                
             }
             set
             {
@@ -40,10 +41,27 @@ namespace LogbookApp.Data
                 {
                     
                     AircraftClass = AircraftClass.Items.Where(x => x.Id == value.Value).FirstOrDefault();
+                    
                 }
+                acClassId = value;
             }
         }
 
+
+        private AcType _acType;
+        [IgnoreDataMember]
+        public AcType AcType
+        {
+            get { return _acType; }
+            set
+            {
+                _acType = value;
+                if (_acType != null)
+                    AcTypeId = AcType.Id;
+            }
+        }
+
+        public int AcTypeId { get; set; }
 
       
        

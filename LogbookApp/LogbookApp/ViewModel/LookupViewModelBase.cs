@@ -21,10 +21,26 @@ namespace LogbookApp.ViewModel
         protected virtual void OnFlightUpdated()
         {
             DataService = Flight.DataService;
+            
         }
 
         public abstract Task Save();
 
-        public IFlightDataService DataService { get; set; }
+        private IFlightDataService dataService;
+        public IFlightDataService DataService {
+            get {
+                   return dataService;}
+            set
+            {
+                dataService = value;
+                if (value != null)
+                {
+                    Lookups = dataService.Lookups;
+                    RaisePropertyChanged(() => Lookups);
+                }
+                ;}
+        }
+
+        public ILookups Lookups { get; set; }
     }
 }

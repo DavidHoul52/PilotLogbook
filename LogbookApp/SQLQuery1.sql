@@ -1,1 +1,1 @@
-﻿update worldPilotsLogBook.Aircraft set AcClassId=1
+﻿update WorldPilotsLogBook.Aircraft set AcTypeId=25

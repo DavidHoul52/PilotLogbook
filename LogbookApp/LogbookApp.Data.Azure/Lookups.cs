@@ -1,6 +1,8 @@
 ﻿
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace LogbookApp.Data
 {
@@ -25,6 +27,11 @@ namespace LogbookApp.Data
             Airfields = new ObservableCollection<Airfield>(await MobileService.GetTable<Airfield>().Take(500).OrderBy(x=>x.Name).
                 ToListAsync());
             Aircraft =  new ObservableCollection<Aircraft>(await MobileService.GetTable<Aircraft>().Take(500).OrderBy(x=>x.Reg).ToListAsync());
+            foreach (var ac in Aircraft)
+            {
+                ac.AcType = AcTypes.Where(a => a.Id == ac.AcTypeId).FirstOrDefault();
+                
+            }
         }
 
 

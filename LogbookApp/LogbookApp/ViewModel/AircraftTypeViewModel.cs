@@ -43,10 +43,6 @@ namespace LogbookApp.ViewModel
          
         }
 
-        protected override void OnFlightUpdated()
-        {
-            base.OnFlightUpdated();
-            AcType = Flight.AcType;
-        }
+      
     }
 }

@@ -121,7 +121,7 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
 
-                                <TextBlock Text="{Binding AcType.Code}"></TextBlock>
+                                <TextBlock Text="{Binding Aircraft.AcType.Code}"></TextBlock>
                                 <Rectangle Width="25"/>
                                 <TextBlock Text="{Binding Aircraft.Reg}"></TextBlock>
                         
