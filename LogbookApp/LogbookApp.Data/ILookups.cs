@@ -11,6 +11,6 @@ namespace LogbookApp.Data
        ObservableCollection<Airfield> Airfields { get; set; }
        ObservableCollection<Aircraft> Aircraft { get; set; }
 
-        Task Load();
+       Task Load(int userId);
     }
 }

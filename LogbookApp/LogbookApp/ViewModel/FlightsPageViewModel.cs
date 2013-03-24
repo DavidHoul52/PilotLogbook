@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using LogbookApp.Data;
-using Microsoft.WindowsAzure.MobileServices;
-using Windows.UI.Xaml.Navigation;
 using LogbookApp.Commands;
+using Windows.System.UserProfile;
 
 
 namespace LogbookApp.ViewModel
@@ -16,11 +13,13 @@ namespace LogbookApp.ViewModel
     {
      
         private IFlightDataService flightDataService;
+        
 
         public FlightsPageViewModel(IFlightDataService flightDataService)
         {
-
             this.flightDataService = flightDataService;
+            
+            
             EditCommand = new DelegateCommand<Flight>((f) => ShowDetail(f), (f) => { return f!=null; });
             RaisePropertyChanged(() => EditCommand);
             DeleteCommand = new DelegateCommand<Flight>((f) => DeleteFlight(f), (f) => { return f != null; });
@@ -44,6 +43,10 @@ namespace LogbookApp.ViewModel
 
         }
 
+       
+
+        
+
       
      
 
@@ -51,8 +54,8 @@ namespace LogbookApp.ViewModel
 
         public async void Load()
         {
-         
-            bool loaded = await flightDataService.GetFlights();
+            string displayname = await UserInformation.GetDisplayNameAsync();
+            bool loaded = await flightDataService.GetFlights(displayname);
             Flights = new ObservableCollection<Flight>(flightDataService.Flights.OrderByDescending(x=>x.Depart).
                 OrderByDescending(x=>x.Date));
             RaisePropertyChanged(() => Flights);

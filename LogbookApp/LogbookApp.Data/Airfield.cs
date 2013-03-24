@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LogbookApp.Data
+﻿namespace LogbookApp.Data
 {
     public class Airfield :Entity
     {
@@ -14,5 +8,7 @@ namespace LogbookApp.Data
         public string ICAOCode { get; set; }
 
         public string Name { get; set; }
+        
+        public int? UserId { get; set; }
     }
 }

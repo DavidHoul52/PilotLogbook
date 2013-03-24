@@ -7,7 +7,7 @@ namespace LogbookApp.Data
     {
         List<Flight> Flights { get; set; }
        
-        Task<bool> GetFlights();
+        Task<bool> GetFlights(string displayName);
         Task GetLookups();
         ILookups Lookups { get; set; }
         Task<bool> InsertFlight(Flight flight);
@@ -33,5 +33,12 @@ namespace LogbookApp.Data
         Task InsertAcType(AcType AcType);
 
         Task<bool> Delete<T1>(T1 item);
+
+        Task InsertUser(User user);
+
+
+        Task GetUser(string displayName);
+
+        User User { get; }
     }
 }

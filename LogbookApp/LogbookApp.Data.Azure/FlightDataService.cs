@@ -10,28 +10,30 @@ namespace LogbookApp.Data
     public class FlightDataService : IFlightDataService
     {
         private MobileServiceClient _mobileService;
+        private IUserManager _userManager;
 
         public FlightDataService(MobileServiceClient mobileService)
         {
 
             _mobileService = mobileService;
+            _userManager = new UserManager();
             
         }
 
      
         public List<Flight> Flights { get; set; }
-     
 
+        
+        
 
-        public async Task<bool> GetFlights()
+        public async Task<bool> GetFlights(string displayName)
         {
-
- 
-            //AcTypes = await _mobileService.GetTable<AcType>().ReadAsync();
-            //Airfields = await _mobileService.GetTable<Airfield>().ReadAsync();
-            //Capacitys = await _mobileService.GetTable<Capacity>().ReadAsync();
+            _userManager.DisplayName = displayName;
+            await _userManager.GetUser(this);
+            User = _userManager.User;
             await GetLookups();
-            var flights = await _mobileService.GetTable<Flight>().Take(500).ToListAsync() ;
+            
+            var flights = await _mobileService.GetTable<Flight>().Where(x=>x.UserId==User.Id).Take(500).ToListAsync() ;
             Flights = flights.Select(x => {
               
                 
@@ -54,7 +56,7 @@ namespace LogbookApp.Data
         public async Task GetLookups()
         {
             Lookups = new Lookups(_mobileService);
-            await Lookups.Load();
+            await Lookups.Load(User.Id);
             
 
         }
@@ -87,8 +89,11 @@ namespace LogbookApp.Data
                 return flight.IsNew; // simply cancel if new and not complete
 
             if (flight.IsNew)
+            {
+                flight.UserId = User.Id;
                 await InsertFlight(flight);
-           
+            }
+
             else
                 await _mobileService.GetTable<Flight>().UpdateAsync(flight);
             return true;
@@ -108,19 +113,21 @@ namespace LogbookApp.Data
 
         public async Task InsertAircraft(Aircraft aircraft)
         {
-            
+            aircraft.UserId = User.Id;
             await Insert<Aircraft>(aircraft);
             
         }
 
         public async Task InsertAircraftType(AcType acType)
         {
+            
             await Insert(acType);
         }
 
-        public async Task InsertAirfield(Airfield from)
+        public async Task InsertAirfield(Airfield airfield)
         {
-            await Insert(from);
+            airfield.UserId = User.Id;
+            await Insert(airfield);
         }
 
 
@@ -200,6 +207,25 @@ namespace LogbookApp.Data
         public async Task InsertAcType(AcType AcType)
         {
             await Insert(AcType);
+        }
+
+
+        public async Task InsertUser(User user)
+        {
+            User = user;
+            await Insert(user);
+        }
+
+        public User User { get; private set; }
+    
+
+        public async Task GetUser(string displayName)
+        {
+           var users= await _mobileService.GetTable<User>()
+                              .Where(x => x.DisplayName == displayName)
+                              .ToListAsync();
+            User = users.FirstOrDefault();
+
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace LogbookApp.Data
 {
    
-    public class Flight 
+    public class Flight :Entity
     {
         public Flight()
         {
@@ -24,6 +24,7 @@ namespace LogbookApp.Data
 
 
         public int id { get; set; }
+        public int? UserId { get; set; }
 
         public DateTime Date { get; set; }
 
@@ -162,8 +163,7 @@ namespace LogbookApp.Data
                     return default(TimeSpan);
             }
         }
-          [IgnoreDataMember]
-        public bool IsNew { get; set; }
+      
 
           public string Remarks { get; set; }
 

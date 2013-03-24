@@ -125,6 +125,12 @@ namespace LogbookApp.Data.LocalOData
         {
             throw new NotImplementedException();
         }
+
+
+        public Task InsertUser(User user)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public static class WcfDataServicesExtensions
