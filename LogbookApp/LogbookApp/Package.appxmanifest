@@ -15,9 +15,9 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="LogbookApp.App">
-      <VisualElements DisplayName="LogbookApp" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="LogbookApp" ForegroundText="light" BackgroundColor="#464646">
+      <VisualElements DisplayName="Pilot's Logbook" Logo="Assets\3937820236_de190f8378.jpg" SmallLogo="Assets\SmallLogo.png" Description="LogbookApp" ForegroundText="light" BackgroundColor="#464646">
         <DefaultTile ShowName="allLogos" />
-        <SplashScreen Image="Assets\SplashScreen.png" />
+        <SplashScreen Image="Assets\3937008655_355989317c.jpg" />
       </VisualElements>
     </Application>
   </Applications>
