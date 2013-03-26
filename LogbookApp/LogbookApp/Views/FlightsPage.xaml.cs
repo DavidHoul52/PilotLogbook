@@ -1,4 +1,5 @@
 ﻿
+using Windows.Foundation;
 using LogbookApp.Data;
 using LogbookApp.ViewModel;
 using LogbookApp.Views;
@@ -80,6 +81,17 @@ namespace LogbookApp
         private void ActionShowAircraftTypes()
         {
             Frame.Navigate(typeof(MaintainAircraftTypes));
+        }
+
+        internal Rect SplashImageRect;
+        internal bool Dismissed; 
+
+        public void SetExtendedSplashInfo(Rect splashImageRect, bool dismissed)
+        {
+            SplashImageRect = splashImageRect;
+            Dismissed = dismissed;
+
+          
         }
     }
 }

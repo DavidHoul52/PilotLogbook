@@ -1,0 +1,25 @@
+﻿<Page
+    x:Class="LogbookApp.Views.ExtendedSplash"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LogbookApp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="180"/>
+        </Grid.RowDefinitions>
+        <Canvas Grid.Row="0">
+            <Image x:Name="extendedSplashImage" Source="ms-appx:///Assets/3937008655_355989317c.jpg"  />
+        </Canvas>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+            <TextBlock Style="{StaticResource BasicTextStyle}" TextWrapping="Wrap" TextAlignment="Center" Padding="5" HorizontalAlignment="Center"> 
+            The splash screen was dismissed and the image above was positioned using the splash screen API.
+            </TextBlock>
+            <Button x:Name="LearnMoreButton" Content="Learn More" HorizontalAlignment="Center" />
+        </StackPanel>
+    </Grid>
+</Page>

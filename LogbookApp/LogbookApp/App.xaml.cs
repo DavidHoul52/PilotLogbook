@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using LogbookApp.Common;
 using LogbookApp.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -45,36 +46,14 @@ namespace LogbookApp
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
-
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
-            if (rootFrame == null)
+            if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
-                // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
-
-                if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    //TODO: Load state from previously suspended application
-                }
-
-                // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
+                bool loadState = (args.PreviousExecutionState == ApplicationExecutionState.Terminated);
+                ExtendedSplash extendedSplash = new ExtendedSplash(args.SplashScreen, loadState);
+                Window.Current.Content = extendedSplash;
             }
 
-            if (rootFrame.Content == null)
-            {
-                // When the navigation stack isn't restored navigate to the first page,
-                // configuring the new page by passing required information as a navigation
-                // parameter
-                if (!rootFrame.Navigate(typeof(FlightsPage), args.Arguments))
-                {
-                    throw new Exception("Failed to create initial page");
-                }
-            }
-            // Ensure the current window is active
-            Window.Current.Activate();
+            Window.Current.Activate(); 
         }
 
         /// <summary>
@@ -84,102 +63,22 @@ namespace LogbookApp
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
-            var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
-            deferral.Complete();
+            SuspendingDeferral deferral = e.SuspendingOperation.GetDeferral();
+            await SuspensionManager.SaveAsync();
+            deferral.Complete(); 
         }
 
-        protected override void OnWindowCreated(WindowCreatedEventArgs args)
-        {
+       
 
-            windowBounds = Window.Current.Bounds;
+     
 
-            // Added to listen for events when the window size is updated.
-            Window.Current.SizeChanged += OnWindowSizeChanged;
-            SettingsPane.GetForCurrentView().CommandsRequested += onCommandsRequested;
-        }
-
-        /// <summary>
-        /// Invoked when the window size is updated.
-        /// </summary>
-        /// <param name="sender">Instance that triggered the event.</param>
-        /// <param name="e">Event data describing the conditions that led to the event.</param>
-        void OnWindowSizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
-        {
-            windowBounds = Window.Current.Bounds;
-        }
-
-
-        private void onCommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
-        {
-            UICommandInvokedHandler handler = new UICommandInvokedHandler(onSettingsCommand);
-
-            SettingsCommand generalCommand = new SettingsCommand("AircraftId", "Aircraft", handler);
-            args.Request.ApplicationCommands.Add(generalCommand);
-        }
-
-        private Popup settingsPopup;
-
-        // Desired width for the settings UI. UI guidelines specify this should be 346 or 646 depending on your needs.
-        private double settingsWidth = 646;
-
-        // Used to determine the correct height to ensure our custom UI fills the screen.
-        private Rect windowBounds;
+       
         
 
-        void onSettingsCommand(IUICommand command)
-        {
-            
-
-            // Create a Popup window which will contain our flyout.
-            settingsPopup = new Popup();
-            settingsPopup.Closed += OnPopupClosed;
-            Window.Current.Activated += OnWindowActivated;
-            settingsPopup.IsLightDismissEnabled = true;
-            settingsPopup.Width = settingsWidth;
-            settingsPopup.Height = windowBounds.Height;
-
-            // Add the proper animation for the panel.
-            settingsPopup.ChildTransitions = new TransitionCollection();
-            settingsPopup.ChildTransitions.Add(new PaneThemeTransition()
-            {
-                Edge = (SettingsPane.Edge == SettingsEdgeLocation.Right) ?
-                       EdgeTransitionLocation.Right :
-                       EdgeTransitionLocation.Left
-            });
-
-            // Create a SettingsFlyout the same dimenssions as the Popup.
-            AircraftSettingsFlyout mypane = new AircraftSettingsFlyout();
-            mypane.Width = settingsWidth;
-            mypane.Height = windowBounds.Height;
-
-            // Place the SettingsFlyout inside our Popup window.
-            settingsPopup.Child = mypane;
-
-            // Let's define the location of our Popup.
-            settingsPopup.SetValue(Canvas.LeftProperty, SettingsPane.Edge == SettingsEdgeLocation.Right ? (windowBounds.Width - settingsWidth) : 0);
-            settingsPopup.SetValue(Canvas.TopProperty, 0);
-            settingsPopup.IsOpen = true;
-        }
-
-        private void OnWindowActivated(object sender, Windows.UI.Core.WindowActivatedEventArgs e)
-        {
-            if (e.WindowActivationState == Windows.UI.Core.CoreWindowActivationState.Deactivated)
-            {
-                settingsPopup.IsOpen = false;
-            }
-        }
-
-        /// <summary>
-        /// When the Popup closes we no longer need to monitor activation changes.
-        /// </summary>
-        /// <param name="sender">Instance that triggered the event.</param>
-        /// <param name="e">Event data describing the conditions that led to the event.</param>
-        void OnPopupClosed(object sender, object e)
-        {
-            Window.Current.Activated -= OnWindowActivated;
-        }
+       
+    
+      
     }
 }
