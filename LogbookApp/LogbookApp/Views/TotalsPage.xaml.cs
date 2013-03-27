@@ -31,8 +31,10 @@ namespace LogbookApp.Views
         {
             this.InitializeComponent();
             viewModel = new TotalsViewModel();
-            DataContext = viewModel;
+            DataContext = viewModel; 
         }
+
+   
 
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also
@@ -46,6 +48,7 @@ namespace LogbookApp.Views
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             viewModel.Command = navigationParameter as TotalsActionCommand;
+            
         }
 
         /// <summary>

@@ -14,12 +14,14 @@
         </Grid.RowDefinitions>
         <Canvas Grid.Row="0">
             <Image x:Name="extendedSplashImage" Source="ms-appx:///Assets/3937008655_355989317c.jpg"  />
+            <ProgressRing x:Name="ProgressRing" Foreground="White" 
+HorizontalAlignment="Center" IsActive="True" 
+        MaxHeight="40" MinHeight="40" MaxWidth="40" 
+MinWidth="40"></ProgressRing>
         </Canvas>
+      
         <StackPanel Grid.Row="1" HorizontalAlignment="Center">
-            <TextBlock Style="{StaticResource BasicTextStyle}" TextWrapping="Wrap" TextAlignment="Center" Padding="5" HorizontalAlignment="Center"> 
-            The splash screen was dismissed and the image above was positioned using the splash screen API.
-            </TextBlock>
-            <Button x:Name="LearnMoreButton" Content="Learn More" HorizontalAlignment="Center" />
+           <TextBlock Text="Pilot's LogBook" FontSize="38"></TextBlock>
         </StackPanel>
     </Grid>
 </Page>

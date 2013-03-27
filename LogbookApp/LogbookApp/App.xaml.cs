@@ -48,13 +48,25 @@ namespace LogbookApp
         {
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
+                  // Begin executing setup operations.
+                PerformSetupTasks();
                 bool loadState = (args.PreviousExecutionState == ApplicationExecutionState.Terminated);
                 ExtendedSplash extendedSplash = new ExtendedSplash(args.SplashScreen, loadState);
+                
                 Window.Current.Content = extendedSplash;
+            
             }
 
             Window.Current.Activate(); 
         }
+
+        private void PerformSetupTasks()
+        {
+            // Tear down the extended splash screen after all operations are complete.
+           // RemoveExtendedSplash(); ;
+        }
+
+        
 
         /// <summary>
         /// Invoked when application execution is being suspended.  Application state is saved

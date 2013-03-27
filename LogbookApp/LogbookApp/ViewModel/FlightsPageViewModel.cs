@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using LogbookApp.Data;
 using LogbookApp.Commands;
 using Windows.System.UserProfile;
@@ -52,7 +53,7 @@ namespace LogbookApp.ViewModel
 
       
 
-        public async void Load()
+        public async Task Load()
         {
             string displayname = await UserInformation.GetDisplayNameAsync();
             bool loaded = await flightDataService.GetFlights(displayname);

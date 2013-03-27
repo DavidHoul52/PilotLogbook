@@ -30,12 +30,17 @@ namespace LogbookApp.Views
         internal Frame rootFrame;
 
         private SplashScreen splash; // Variable to hold the splash screen object. 
+        private FlightsPage flightsPage;
+
+
+        
+
 
         public ExtendedSplash(SplashScreen splashscreen, bool loadState)
         {
             this.InitializeComponent();
 
-            LearnMoreButton.Click += new RoutedEventHandler(LearnMoreButton_Click); 
+           
             // Listen for window resize events to reposition the extended splash screen image accordingly. 
             // This is important to ensure that the extended splash screen is formatted properly in response to snapping, unsnapping, rotation, etc... 
             Window.Current.SizeChanged += new WindowSizeChangedEventHandler(ExtendedSplash_OnResize);
@@ -53,28 +58,25 @@ namespace LogbookApp.Views
             }
 
             // Create a Frame to act as the navigation context  
-            rootFrame = new Frame();
+           // rootFrame = new Frame();
 
             // Restore the saved session state if necessary 
             RestoreStateAsync(loadState); 
+
         }
 
-        private void LearnMoreButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Navigate to mainpage     
-            rootFrame.Navigate(typeof (FlightsPage));
-
-            // Set extended splash info on main page 
-            ((FlightsPage)rootFrame.Content).SetExtendedSplashInfo(splashImageRect, dismissed);
-
-            // Place the frame in the current Window  
-            Window.Current.Content = rootFrame; 
-        }
+     
 
         private async void RestoreStateAsync(bool loadState)
         {
             if (loadState)
                 await SuspensionManager.RestoreAsync();
+            flightsPage = new FlightsPage();
+            await flightsPage.Load();
+            Window.Current.Content = flightsPage;
+            Window.Current.Activate();
+            
+            
 
             // Normally you should start the time consuming task asynchronously here and  
             // dismiss the extended splash screen in the completed handler of that task 
@@ -86,13 +88,21 @@ namespace LogbookApp.Views
             extendedSplashImage.SetValue(Canvas.LeftProperty, splashImageRect.X);
             extendedSplashImage.SetValue(Canvas.TopProperty, splashImageRect.Y);
             extendedSplashImage.Height = splashImageRect.Height;
-            extendedSplashImage.Width = splashImageRect.Width; 
+            extendedSplashImage.Width = splashImageRect.Width;
+
+            // Position the extended splash screen's progress ring.
+            this.ProgressRing.SetValue(Canvas.TopProperty, splash.ImageLocation.Y + splash.ImageLocation.Height + 32);
+            this.ProgressRing.SetValue(Canvas.LeftProperty,
+         splash.ImageLocation.X +
+                 (splash.ImageLocation.Width / 2) - 15);
         }
 
         // Include code to be executed when the system has transitioned from the splash screen to the extended splash screen (application's first view). 
         private void DismissedEventHandler(SplashScreen sender, object args)
         {
             dismissed = true;
+            
+            
 
             // Navigate away from the app's extended splash screen after completing setup operations here...
         }
@@ -116,5 +126,7 @@ namespace LogbookApp.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
         }
+
+     
     }
 }

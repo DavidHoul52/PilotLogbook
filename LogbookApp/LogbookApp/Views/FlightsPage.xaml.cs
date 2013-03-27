@@ -1,5 +1,8 @@
 ﻿
+using System.Threading.Tasks;
 using Windows.Foundation;
+using Windows.Media.PlayTo;
+using Windows.UI.Xaml;
 using LogbookApp.Data;
 using LogbookApp.ViewModel;
 using LogbookApp.Views;
@@ -22,10 +25,12 @@ namespace LogbookApp
 
     public sealed partial class FlightsPage : LogbookApp.Common.LayoutAwarePage
     {
+        
         private FlightsPageViewModel viewModel;
 
         public FlightsPage()
         {
+        
             this.InitializeComponent();
             FlightDataService data = MobileService.Client;
                 
@@ -39,7 +44,7 @@ namespace LogbookApp
             viewModel.ShowAirfields = ActionShowAirfields;
             viewModel.ShowAircraftTypes = ActionShowAircraftTypes;
             DataContext = viewModel;
-            viewModel.Load();
+        
             
         }
 
@@ -64,7 +69,8 @@ namespace LogbookApp
 
         private void ActionShowTotals(TotalsActionCommand command)
         {
-            Frame.Navigate(typeof(TotalsPage),command);
+          
+            Frame.Navigate(typeof(TotalsPage), command);
         }
 
 
@@ -92,6 +98,11 @@ namespace LogbookApp
             Dismissed = dismissed;
 
           
+        }
+
+        public async Task Load()
+        {
+            await viewModel.Load();
         }
     }
 }
