@@ -26,7 +26,9 @@ namespace LogbookApp.Views
     public sealed partial class MaintainAircraftTypes : LogbookApp.Common.LayoutAwarePage
     {
         private MaintainAircraftTypesViewModel viewModel;
-        public MaintainAircraftTypes()
+        
+
+        public MaintainAircraftTypes(FlightsPage flightsPage)
         {
             this.InitializeComponent();
             FlightDataService data = MobileService.Client;
@@ -36,6 +38,7 @@ namespace LogbookApp.Views
             viewModel = new MaintainAircraftTypesViewModel(data);
 
             viewModel.ShowDetail = ActionShowDetail;
+            viewModel.GoBack = () => Window.Current.Content = flightsPage;
 
 
             DataContext = viewModel;
@@ -44,7 +47,8 @@ namespace LogbookApp.Views
 
         private void ActionShowDetail(MaintainActionCommand<AcType> command)
         {
-            Frame.Navigate(typeof(AircraftTypeBasicPage), command);
+            Window.Current.Content = new AircraftTypeBasicPage(command, this);
+            
         }
 
         /// <summary>

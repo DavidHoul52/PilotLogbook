@@ -38,7 +38,7 @@ namespace LogbookApp.Views
             viewModel.Flight = flight;
             viewModel.GoBack = ()=> GoBack(flightsPage);
             viewModel.ShowAircraft = ActionAddAircraft;
-            viewModel.ShowAircraftType = ActionAddAircraftType;
+            
             viewModel.ShowAirfield = ActionAddAirfield;
             viewModel.ShowTotalsAction = ActionShowTotals;
             DataContext = viewModel; ;
@@ -79,11 +79,7 @@ namespace LogbookApp.Views
             
         }
 
-        private void ActionAddAircraftType(FlightActionCommand flightActionCommand)
-        {
-            Frame.Navigate(typeof(AircraftTypeBasicPage), flightActionCommand);
-        }
-
+       
 
         private void ActionAddAirfield(FlightAirfieldActionCommand flightActionCommand)
         {

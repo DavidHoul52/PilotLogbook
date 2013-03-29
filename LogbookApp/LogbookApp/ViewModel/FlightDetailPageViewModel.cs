@@ -1,9 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using System.Linq;
 using LogbookApp.Commands;
 using LogbookApp.Data;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LogbookApp.ViewModel
@@ -143,7 +141,7 @@ namespace LogbookApp.ViewModel
         }
 
         public Action<FlightActionCommand> ShowAircraft { get; set; }
-        public Action<FlightActionCommand> ShowAircraftType { get; set; }
+        
 
         public Action<FlightAirfieldActionCommand> ShowAirfield { get; set; }
 

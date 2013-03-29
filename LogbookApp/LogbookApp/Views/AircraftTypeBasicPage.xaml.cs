@@ -27,12 +27,23 @@ namespace LogbookApp.Views
         private AircraftTypeViewModel viewModel;
         private FlightActionCommand flightActionCommand;
 
-        public AircraftTypeBasicPage()
+        public AircraftTypeBasicPage(Page callingPage)
         {
             this.InitializeComponent();
             viewModel = new AircraftTypeViewModel();
+            viewModel.GoBack = () => GoBack(callingPage);
 
             DataContext = viewModel;
+        }
+
+        public AircraftTypeBasicPage(MaintainActionCommand<AcType> actionCommand, Page callingPage)
+            : this(callingPage)
+        {
+            if (actionCommand != null)
+            {
+                viewModel.AcType = actionCommand.Item;
+                viewModel.DataService = actionCommand.DataService;
+            }
         }
 
         /// <summary>
@@ -58,15 +69,7 @@ namespace LogbookApp.Views
                 }
             }
 
-            if (navigationParameter is MaintainActionCommand<AcType>)
-            {
-                var actionCommand = navigationParameter as MaintainActionCommand<AcType>;
-                if (actionCommand != null)
-                {
-                    viewModel.AcType = actionCommand.Item;
-                    viewModel.DataService = actionCommand.DataService;
-                }
-            }
+    
         }
 
        
@@ -74,10 +77,10 @@ namespace LogbookApp.Views
         {
         }
 
-        private new async void GoBack(object sender, RoutedEventArgs e)
+        private new async void GoBack(Page callingPage)
         {
             await viewModel.Save();
-            Frame.GoBack();
+            Window.Current.Content = callingPage;
         }
     }
 }

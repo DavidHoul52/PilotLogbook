@@ -89,7 +89,8 @@ namespace LogbookApp
 
         private void ActionShowAircraftTypes()
         {
-            Frame.Navigate(typeof(MaintainAircraftTypes));
+            Window.Current.Content = new MaintainAircraftTypes(this);
+            
         }
 
         internal Rect SplashImageRect;

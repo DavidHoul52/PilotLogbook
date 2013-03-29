@@ -81,6 +81,7 @@ namespace LogbookApp.Views
         private async void GoBack(Page callingPage)
         {
             if (flightActionCommand != null)
+            {
                 switch (flightActionCommand.AirfieldDesignation)
                 {
                     case AirfieldDesignation.From:
@@ -92,8 +93,11 @@ namespace LogbookApp.Views
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
+
+                flightActionCommand.OnCompleted(flightActionCommand.Flight);
+            }
             else
-               await viewModel.Save();
+                await viewModel.Save();
 
             Window.Current.Content = callingPage;
         }
