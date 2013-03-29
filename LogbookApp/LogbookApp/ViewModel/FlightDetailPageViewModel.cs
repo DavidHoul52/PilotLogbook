@@ -102,7 +102,6 @@ namespace LogbookApp.ViewModel
                 RaisePropertyChanged(() => Flight);
                 RaisePropertyChanged(() => Depart);
                 RaisePropertyChanged(() => Arrival);
-                RaisePropertyChanged(() => Landings);
               
            
 
@@ -110,19 +109,6 @@ namespace LogbookApp.ViewModel
             }
 
 
-        public int Landings
-        {
-            get
-            {
-                
-                if (Flight.LDG != null) return Flight.LDG.Value;
-                return 0;
-            }
-            set
-            {
-                Flight.LDG = value;
-            }
-        }
 
         public AcType SelectedAcType { get; set; }
 

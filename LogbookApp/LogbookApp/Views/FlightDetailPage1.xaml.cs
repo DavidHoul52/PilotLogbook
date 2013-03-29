@@ -35,13 +35,14 @@ namespace LogbookApp.Views
         {
             InitializeComponent();
             viewModel = new FlightDetailPageViewModel();
+            DataContext = viewModel; 
             viewModel.Flight = flight;
             viewModel.GoBack = ()=> GoBack(flightsPage, onCompleted);
             viewModel.ShowAircraft = ActionAddAircraft;
             
             viewModel.ShowAirfield = ActionAddAirfield;
             viewModel.ShowTotalsAction = ActionShowTotals;
-            DataContext = viewModel; ;
+           ;
         }
 
         

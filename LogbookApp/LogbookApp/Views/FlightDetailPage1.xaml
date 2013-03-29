@@ -156,7 +156,7 @@
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
-                    <ComboBox Width="88" SelectedValue="{Binding Landings,Mode=TwoWay}" 
+                    <ComboBox Width="88"  SelectedValue="{Binding Flight.LDG,Mode=TwoWay}"  
                               ItemsSource="{Binding LandingTimes}" HorizontalContentAlignment="Center"></ComboBox>
 
                     <Rectangle Width="70"></Rectangle>
