@@ -57,10 +57,14 @@ namespace LogbookApp.ViewModel
         {
             string displayname = await UserInformation.GetDisplayNameAsync();
             bool loaded = await flightDataService.GetFlights(displayname);
-            Flights = new ObservableCollection<Flight>(flightDataService.Flights.OrderByDescending(x=>x.Depart).
-                OrderByDescending(x=>x.Date));
+            Refresh();
+        }
+
+        public void Refresh()
+        {
+            Flights = new ObservableCollection<Flight>(flightDataService.Flights.OrderByDescending(x => x.Depart).
+                                                                         OrderByDescending(x => x.Date));
             RaisePropertyChanged(() => Flights);
-            
         }
 
 
