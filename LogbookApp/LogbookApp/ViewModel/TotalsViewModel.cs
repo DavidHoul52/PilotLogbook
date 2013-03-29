@@ -16,13 +16,15 @@ namespace LogbookApp.ViewModel
         public TotalsViewModel()
         {
             calculator = new FlightTimeCalculator();
+       
             
         }
 
-        
+    
 
         public List<Flight> Flights { get; set; }
 
+    
 
         public FlightCalcTotals Totals { get; set; }
 

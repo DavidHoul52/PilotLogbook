@@ -85,7 +85,7 @@ namespace LogbookApp.Data
         public async Task<bool> SaveFlight(Flight flight)
         {
 
-            if (!flight.Valid)
+            if (!flight.Valid())
                 return flight.IsNew; // simply cancel if new and not complete
 
             if (flight.IsNew)

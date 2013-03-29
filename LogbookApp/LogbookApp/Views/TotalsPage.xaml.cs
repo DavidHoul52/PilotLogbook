@@ -1,19 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using LogbookApp.Commands;
-using LogbookApp.Data;
-using LogbookApp.ViewModel;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
+using LogbookApp.Commands;
+using LogbookApp.ViewModel;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
@@ -24,6 +14,7 @@ namespace LogbookApp.Views
     /// </summary>
     public sealed partial class TotalsPage : LogbookApp.Common.LayoutAwarePage
     {
+        private readonly Page _callingPage;
 
         private TotalsViewModel viewModel;
 
@@ -34,7 +25,23 @@ namespace LogbookApp.Views
             DataContext = viewModel; 
         }
 
-   
+        public TotalsPage(TotalsActionCommand command, Page callingPage)
+        {
+            _callingPage = callingPage;
+            this.InitializeComponent();
+            viewModel = new TotalsViewModel();
+            DataContext = viewModel;
+            viewModel.Command = command;
+            viewModel.GoBack = GoBackToCallingPage;
+        }
+
+        private void GoBackToCallingPage()
+        {
+
+            Window.Current.Content = _callingPage;
+
+        }
+
 
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also

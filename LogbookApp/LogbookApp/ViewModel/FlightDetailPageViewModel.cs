@@ -76,11 +76,6 @@ namespace LogbookApp.ViewModel
             FlightAirfieldActionCommand flightAirfieldActionCommand = FlightActionCommand<FlightAirfieldActionCommand>();
             flightAirfieldActionCommand.AirfieldDesignation = airfieldDesignation;
             flightAirfieldActionCommand.Airfield = new Airfield { IsNew = true };
-        
-
-
-            
-            
             ShowAirfield(flightAirfieldActionCommand);
         }
        

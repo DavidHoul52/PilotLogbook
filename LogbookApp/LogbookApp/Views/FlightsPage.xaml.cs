@@ -64,24 +64,27 @@ namespace LogbookApp
 
         private void ActionShowDetail(Flight flight )
         {
-            Frame.Navigate(typeof(FlightDetailPage1), flight);
+            Window.Current.Content = new FlightDetailPage1(flight, this);
+            
         }
 
         private void ActionShowTotals(TotalsActionCommand command)
         {
-          
-            Frame.Navigate(typeof(TotalsPage), command);
+            Window.Current.Content = new TotalsPage(command, this);
+            
         }
 
 
         private void ActionShowAircraft()
         {
-            Frame.Navigate(typeof(MaintainAircraft));
+            Window.Current.Content = new MaintainAircraft(this);
+            
         }
 
         private void ActionShowAirfields()
         {
-            Frame.Navigate(typeof(MaintainAirfields));
+            Window.Current.Content = new MaintainAirfields(this);
+            
         }
 
         private void ActionShowAircraftTypes()

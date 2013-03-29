@@ -10,5 +10,10 @@
         public string Name { get; set; }
         
         public int? UserId { get; set; }
+
+        public override bool Valid()
+        {
+            return !string.IsNullOrEmpty(Name);
+        }
     }
 }

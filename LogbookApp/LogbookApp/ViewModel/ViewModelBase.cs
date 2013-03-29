@@ -1,16 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace LogbookApp.ViewModel
 {
     public class ViewModelBase :INotifyPropertyChanged
     {
+        public ViewModelBase()
+        {
+            GoBackCommand = new RelayCommand(() =>
+            {
+                GoBack();
+            }) { IsEnabled = true };
+        }
+
+        public RelayCommand GoBackCommand { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void RaisePropertyChanged<TViewModel>(Expression<Func<TViewModel>> property)
@@ -26,6 +31,8 @@ namespace LogbookApp.ViewModel
                 }
             }
         }
+
+        public Action GoBack { get; set; }
 
         
     }

@@ -7,6 +7,12 @@ namespace LogbookApp.Data
         [IgnoreDataMember]
         public bool IsNew { get; set; }
 
+        
+        public virtual bool Valid()
+        {
+            return true;
+        }
+
     
     }
 }

@@ -28,21 +28,19 @@ namespace LogbookApp.Views
 
         private MaintainAirfieldsViewModel viewModel;
 
-        public MaintainAirfields()
+        
+        public MaintainAirfields(FlightsPage flightsPage)
         {
             this.InitializeComponent();
             FlightDataService data = MobileService.Client;
-
-
-
             viewModel = new MaintainAirfieldsViewModel(data);
 
+            viewModel.GoBack = () => Window.Current.Content = flightsPage;
             viewModel.ShowDetail = ActionShowDetail;
 
 
             DataContext = viewModel;
             viewModel.Load();
-
         }
 
         /// <summary>
@@ -70,7 +68,8 @@ namespace LogbookApp.Views
 
         private void ActionShowDetail(MaintainActionCommand<Airfield> command)
         {
-            Frame.Navigate(typeof(AirfieldBasicPage), command);
+            Window.Current.Content = new AirfieldBasicPage(command, this);
+
         }
 
     }

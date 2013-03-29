@@ -61,7 +61,10 @@ namespace LogbookApp.Data
 
         public int AcTypeId { get; set; }
 
-      
-       
+
+        public override bool Valid()
+        {
+            return (AircraftClass != null && AcType != null);
+        }
     }
 }

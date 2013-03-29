@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using LogbookApp.Commands;
 using LogbookApp.Data;
 using LogbookApp.ViewModel;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
@@ -30,15 +22,35 @@ namespace LogbookApp.Views
     {
 
         private AircraftViewModel viewModel;
-        private FlightActionCommand flightActionCommand;
-        private MaintainActionCommand<Aircraft> aircraftActionCommand;
+        private FlightActionCommand _flightActionCommand;
+        private MaintainActionCommand<Aircraft> _aircraftActionCommand;
 
-        public AircraftBasicPage()
+        public AircraftBasicPage(Page callingPage)
         {
             this.InitializeComponent();
             viewModel = new AircraftViewModel();
-
+            viewModel.GoBack = () => GoBack(callingPage);
             DataContext = viewModel;
+        }
+
+        
+
+        public AircraftBasicPage(FlightActionCommand flightActionCommand, Page callingPage) : this(callingPage)
+        {
+            _flightActionCommand = flightActionCommand;
+            if (_flightActionCommand != null) viewModel.Flight = _flightActionCommand.Flight;
+        }
+
+        public AircraftBasicPage(MaintainActionCommand<Aircraft> aircraftActionCommand, Page callingPage)
+            : this(callingPage)
+        {
+            _aircraftActionCommand = aircraftActionCommand;
+            if (_aircraftActionCommand != null)
+            {
+                viewModel.DataService = _aircraftActionCommand.DataService;
+                viewModel.Aircraft = _aircraftActionCommand.Item;
+
+            }
         }
 
         /// <summary>
@@ -53,22 +65,7 @@ namespace LogbookApp.Views
      
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            if (navigationParameter is FlightActionCommand)
-            {
-                flightActionCommand = navigationParameter as FlightActionCommand;
-                if (flightActionCommand != null) viewModel.Flight = flightActionCommand.Flight;
-            }
-            if (navigationParameter is MaintainActionCommand<Aircraft>)
-            {
-                aircraftActionCommand = navigationParameter as MaintainActionCommand<Aircraft>;
-                if (aircraftActionCommand != null)
-                {
-                    viewModel.DataService = aircraftActionCommand.DataService;
-                    viewModel.Aircraft = aircraftActionCommand.Item;
-                    
-                }
-            }
-            
+          
         }
 
 
@@ -86,10 +83,11 @@ namespace LogbookApp.Views
             base.OnNavigatingFrom(e);
         }
 
-        private new async void GoBack(object sender, RoutedEventArgs e)
+        private async void GoBack(Page callingPage)
         {
            await viewModel.Save();
-           Frame.GoBack();
+            
+           Window.Current.Content = callingPage;
         }
     }
 }

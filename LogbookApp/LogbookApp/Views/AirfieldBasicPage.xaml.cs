@@ -26,13 +26,37 @@ namespace LogbookApp.Views
     {
         private AirfieldViewModel viewModel;
         private FlightAirfieldActionCommand flightActionCommand;
+        
 
-        public AirfieldBasicPage()
+        public AirfieldBasicPage(Page callingPage)
         {
             this.InitializeComponent();
             viewModel = new AirfieldViewModel();
+            viewModel.GoBack = () => GoBack(callingPage);
 
             DataContext = viewModel;
+        }
+
+        public AirfieldBasicPage(MaintainActionCommand<Airfield> command, Page callingPage): this(callingPage)
+        {
+            if (command != null)
+            {
+                viewModel.Airfield = command.Item;
+                viewModel.DataService = command.DataService;
+            }
+            
+        }
+
+        public AirfieldBasicPage(FlightAirfieldActionCommand command, Page callingPage)
+            : this(callingPage)
+        {
+            flightActionCommand = command;
+            if (flightActionCommand != null)
+            {
+                viewModel.Flight = flightActionCommand.Flight;
+                viewModel.Airfield = flightActionCommand.Airfield;
+            }
+
         }
 
         /// <summary>
@@ -46,25 +70,7 @@ namespace LogbookApp.Views
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            if (navigationParameter is FlightAirfieldActionCommand)
-            {
-                flightActionCommand = navigationParameter as FlightAirfieldActionCommand;
-                if (flightActionCommand != null)
-                {
-                    viewModel.Flight = flightActionCommand.Flight;
-                    viewModel.Airfield = flightActionCommand.Airfield;
-                }
-            }
-
-            if (navigationParameter is MaintainActionCommand<Airfield>)
-            {
-                var actionCommand = navigationParameter as MaintainActionCommand<Airfield>;
-                if (actionCommand != null)
-                {
-                    viewModel.Airfield = actionCommand.Item;
-                    viewModel.DataService = actionCommand.DataService;
-                }
-            }
+          
         }
 
         
@@ -72,7 +78,7 @@ namespace LogbookApp.Views
         {
         }
 
-        private new async void GoBack(object sender, RoutedEventArgs e)
+        private async void GoBack(Page callingPage)
         {
             if (flightActionCommand != null)
                 switch (flightActionCommand.AirfieldDesignation)
@@ -87,9 +93,9 @@ namespace LogbookApp.Views
                         throw new ArgumentOutOfRangeException();
                 }
             else
-                viewModel.Save();
-            
-            Frame.GoBack();
+               await viewModel.Save();
+
+            Window.Current.Content = callingPage;
         }
     }
 }

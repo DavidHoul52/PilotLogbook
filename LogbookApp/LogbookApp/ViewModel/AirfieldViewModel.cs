@@ -27,19 +27,22 @@ namespace LogbookApp.ViewModel
 
         public override async Task Save()
         {
-            if (Airfield.IsNew)
+            if (Airfield.Valid())
             {
-                await DataService.InsertAirfield(Airfield);
-                if (Flight!=null)
-                   Flight.Lookups.Airfields.Add(Airfield);
+                if (Airfield.IsNew)
+                {
+                    await DataService.InsertAirfield(Airfield);
+                    if (Flight != null)
+                        Flight.Lookups.Airfields.Add(Airfield);
+                }
+                else
+                    await DataService.UpdateAirfield(Airfield);
             }
-            else
-                await DataService.UpdateAirfield(Airfield);
 
-            
-            
 
-           
+
+
+
         }
 
         public async Task SaveFrom()

@@ -29,17 +29,22 @@ namespace LogbookApp.Views
     
 
 
-        public FlightDetailPage1()
+       
+
+        public FlightDetailPage1(Flight flight, FlightsPage flightsPage)
         {
             InitializeComponent();
             viewModel = new FlightDetailPageViewModel();
+            viewModel.Flight = flight;
+            viewModel.GoBack = ()=> GoBack(flightsPage);
             viewModel.ShowAircraft = ActionAddAircraft;
             viewModel.ShowAircraftType = ActionAddAircraftType;
             viewModel.ShowAirfield = ActionAddAirfield;
             viewModel.ShowTotalsAction = ActionShowTotals;
-            DataContext = viewModel;
-            
+            DataContext = viewModel; ;
         }
+
+        
 
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also
@@ -70,7 +75,8 @@ namespace LogbookApp.Views
 
         private void ActionAddAircraft(FlightActionCommand flightActionCommand)
         {
-            Frame.Navigate(typeof(AircraftBasicPage), flightActionCommand);
+            Window.Current.Content = new AircraftBasicPage(flightActionCommand,this);
+            
         }
 
         private void ActionAddAircraftType(FlightActionCommand flightActionCommand)
@@ -81,22 +87,23 @@ namespace LogbookApp.Views
 
         private void ActionAddAirfield(FlightAirfieldActionCommand flightActionCommand)
         {
+            Window.Current.Content = new AirfieldBasicPage(flightActionCommand, this);
             
-            Frame.Navigate(typeof(AirfieldBasicPage), flightActionCommand);
         }
 
-        private async void GoBack(object sender, RoutedEventArgs e)
+        private async void GoBack(FlightsPage flightsPage)
         {
             if (await viewModel.SaveFlight())
-              Frame.GoBack();
-            
-              
+                Window.Current.Content = flightsPage;
+
+
 
         }
 
         private void ActionShowTotals(TotalsActionCommand command)
         {
-            Frame.Navigate(typeof(TotalsPage), command);
+            Window.Current.Content = new TotalsPage(command, this);
+            
         }
         
     }

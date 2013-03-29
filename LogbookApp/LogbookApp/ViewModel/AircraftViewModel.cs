@@ -18,20 +18,22 @@ namespace LogbookApp.ViewModel
 
         public override async Task Save()
         {
-            if (Aircraft.IsNew)
+            if (Aircraft.Valid())
             {
-                await DataService.InsertAircraft(Aircraft);
-                if (Flight!=null)
-                   Flight.Lookups.Aircraft.Add(Aircraft);
-            }
-            else
-            {
-                await DataService.UpdateAircraft(Aircraft);
+                if (Aircraft.IsNew)
+                {
+                    await DataService.InsertAircraft(Aircraft);
+                    if (Flight != null)
+                        Flight.Lookups.Aircraft.Add(Aircraft);
+                }
+                else
+                {
+                    await DataService.UpdateAircraft(Aircraft);
+                }
             }
 
 
-            //Flight.AircraftId =
-            //    Flight.DataService.Lookups.Aircraft.Where(x => x.Reg == Flight.Aircraft.Reg).First().id;
+       
 
         }
 
