@@ -9,7 +9,7 @@ namespace LogbookApp.ViewModel
 {
     public class FlightDetailPageViewModel : ViewModelBase
     {
-        public FlightDetailPageViewModel()
+        public FlightDetailPageViewModel():base()
         {
             Init();
         }
