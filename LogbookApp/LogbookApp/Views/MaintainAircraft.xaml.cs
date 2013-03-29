@@ -49,6 +49,7 @@ namespace LogbookApp.Views
 
         private void ActionShowDetail(MaintainActionCommand<Aircraft> command)
         {
+            command.OnCompleted = () => viewModel.Load();
             Window.Current.Content = new AircraftBasicPage(command,this);
             
         }

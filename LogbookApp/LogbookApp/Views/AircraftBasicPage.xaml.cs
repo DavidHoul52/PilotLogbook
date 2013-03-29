@@ -82,6 +82,8 @@ namespace LogbookApp.Views
 
             if (_flightActionCommand != null)
                 _flightActionCommand.OnCompleted(_flightActionCommand.Flight);
+            if (_aircraftActionCommand != null)
+                _aircraftActionCommand.OnCompleted();
            Window.Current.Content = callingPage;
         }
     }

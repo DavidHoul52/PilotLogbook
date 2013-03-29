@@ -67,10 +67,16 @@ namespace LogbookApp.ViewModel
         {
 
              await flightDataService.GetLookups();
-            Aircraft = new ObservableCollection<Aircraft>(flightDataService.Lookups.Aircraft.OrderBy(x => x.Reg));
+            Refresh();
                 
-            RaisePropertyChanged(() => Aircraft);
+         
 
+        }
+
+        public void Refresh()
+        {
+            Aircraft = new ObservableCollection<Aircraft>(flightDataService.Lookups.Aircraft.OrderBy(x => x.Reg));
+            RaisePropertyChanged(() => Aircraft);
         }
     }
 }

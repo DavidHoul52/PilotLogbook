@@ -26,6 +26,7 @@ namespace LogbookApp.Views
     {
         private AirfieldViewModel viewModel;
         private FlightAirfieldActionCommand flightActionCommand;
+        private MaintainActionCommand<Airfield> maintainActionCommand;
         
 
         public AirfieldBasicPage(Page callingPage)
@@ -39,10 +40,11 @@ namespace LogbookApp.Views
 
         public AirfieldBasicPage(MaintainActionCommand<Airfield> command, Page callingPage): this(callingPage)
         {
-            if (command != null)
+            maintainActionCommand = command;
+            if (maintainActionCommand != null)
             {
-                viewModel.Airfield = command.Item;
-                viewModel.DataService = command.DataService;
+                viewModel.Airfield = maintainActionCommand.Item;
+                viewModel.DataService = maintainActionCommand.DataService;
             }
             
         }
@@ -97,7 +99,11 @@ namespace LogbookApp.Views
                 flightActionCommand.OnCompleted(flightActionCommand.Flight);
             }
             else
+            {
                 await viewModel.Save();
+                if (maintainActionCommand != null)
+                    maintainActionCommand.OnCompleted();
+            }
 
             Window.Current.Content = callingPage;
         }

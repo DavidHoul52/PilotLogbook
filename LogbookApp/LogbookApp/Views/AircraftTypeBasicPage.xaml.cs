@@ -26,6 +26,7 @@ namespace LogbookApp.Views
     {
         private AircraftTypeViewModel viewModel;
         private FlightActionCommand flightActionCommand;
+        private MaintainActionCommand<AcType> maintainActionCommand;
 
         public AircraftTypeBasicPage(Page callingPage)
         {
@@ -39,6 +40,7 @@ namespace LogbookApp.Views
         public AircraftTypeBasicPage(MaintainActionCommand<AcType> actionCommand, Page callingPage)
             : this(callingPage)
         {
+            maintainActionCommand = actionCommand;
             if (actionCommand != null)
             {
                 viewModel.AcType = actionCommand.Item;
@@ -80,6 +82,8 @@ namespace LogbookApp.Views
         private new async void GoBack(Page callingPage)
         {
             await viewModel.Save();
+            if (maintainActionCommand != null)
+                maintainActionCommand.OnCompleted();
             Window.Current.Content = callingPage;
         }
     }
