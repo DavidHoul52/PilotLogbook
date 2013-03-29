@@ -31,12 +31,12 @@ namespace LogbookApp.Views
 
        
 
-        public FlightDetailPage1(Flight flight, FlightsPage flightsPage)
+        public FlightDetailPage1(Flight flight, FlightsPage flightsPage, Action onCompleted)
         {
             InitializeComponent();
             viewModel = new FlightDetailPageViewModel();
             viewModel.Flight = flight;
-            viewModel.GoBack = ()=> GoBack(flightsPage);
+            viewModel.GoBack = ()=> GoBack(flightsPage, onCompleted);
             viewModel.ShowAircraft = ActionAddAircraft;
             
             viewModel.ShowAirfield = ActionAddAirfield;
@@ -87,10 +87,11 @@ namespace LogbookApp.Views
             
         }
 
-        private async void GoBack(FlightsPage flightsPage)
+        private async void GoBack(FlightsPage flightsPage, Action onCompleted)
         {
-            if (await viewModel.SaveFlight())
-                Window.Current.Content = flightsPage;
+            await viewModel.SaveFlight();
+            onCompleted();
+            Window.Current.Content = flightsPage;
 
 
 

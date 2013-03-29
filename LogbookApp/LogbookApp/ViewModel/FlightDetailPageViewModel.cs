@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using LogbookApp.Commands;
 using LogbookApp.Data;
 using System;
@@ -10,23 +11,29 @@ namespace LogbookApp.ViewModel
     {
         public FlightDetailPageViewModel()
         {
+            Init();
+        }
+
+        private void Init()
+        {
             AddAircraftCommand = new DelegateCommand<Flight>((f) => AddAircraft(), (f) => { return true; });
             RaisePropertyChanged(() => AddAircraftCommand);
-            
-            AddAirfieldFromCommand = new DelegateCommand<Flight>((f) => AddAirfield(AirfieldDesignation.From), (f) => { return true; });
+
+            AddAirfieldFromCommand = new DelegateCommand<Flight>((f) => AddAirfield(AirfieldDesignation.From),
+                                                                 (f) => { return true; });
             RaisePropertyChanged(() => AddAirfieldFromCommand);
-            AddAirfieldToCommand = new DelegateCommand<Flight>((f) => AddAirfield(AirfieldDesignation.To), (f) => { return true; });
+            AddAirfieldToCommand = new DelegateCommand<Flight>((f) => AddAirfield(AirfieldDesignation.To),
+                                                               (f) => { return true; });
             RaisePropertyChanged(() => AddAirfieldToCommand);
-            Numbers = new ObservableCollection<int>();
+            LandingTimes = new ObservableCollection<int>();
             for (int i = 0; i <= 20; i++)
             {
-                Numbers.Add(i);
+                LandingTimes.Add(i);
             }
-            RaisePropertyChanged(() => Numbers);
-            
+            RaisePropertyChanged(() => LandingTimes);
+
             TotalsCommand = new DelegateCommand<Flight>((f) => ShowTotals(), (f) => { return true; });
             RaisePropertyChanged(() => TotalsCommand);
-            
         }
 
         private void ShowTotals()
@@ -62,7 +69,7 @@ namespace LogbookApp.ViewModel
         private void AddAircraft()
         {
             Flight.Aircraft = new Aircraft { IsNew = true };
-
+            
             ShowAircraft(FlightActionCommand<FlightActionCommand>());
 
             
@@ -95,6 +102,7 @@ namespace LogbookApp.ViewModel
                 RaisePropertyChanged(() => Flight);
                 RaisePropertyChanged(() => Depart);
                 RaisePropertyChanged(() => Arrival);
+                RaisePropertyChanged(() => Landings);
               
            
 
@@ -102,7 +110,21 @@ namespace LogbookApp.ViewModel
             }
 
 
-     public AcType SelectedAcType { get; set; }
+        public int Landings
+        {
+            get
+            {
+                
+                if (Flight.LDG != null) return Flight.LDG.Value;
+                return 0;
+            }
+            set
+            {
+                Flight.LDG = value;
+            }
+        }
+
+        public AcType SelectedAcType { get; set; }
 
         public DelegateCommand<Flight> AddAircraftCommand { get; set; }
         public DelegateCommand<Flight> AddAircraftTypeCommand { get; set; }
@@ -154,7 +176,7 @@ namespace LogbookApp.ViewModel
         }
 
 
-        public ObservableCollection<int> Numbers { get; set; }
+        public ObservableCollection<int> LandingTimes { get; set; }
 
 
 
@@ -162,5 +184,6 @@ namespace LogbookApp.ViewModel
         public DelegateCommand<Flight> TotalsCommand { get; set; }
 
         public Action<TotalsActionCommand> ShowTotalsAction;
+        
     }
 }

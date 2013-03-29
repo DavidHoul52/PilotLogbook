@@ -156,8 +156,9 @@
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
-                    <ComboBox Width="85" SelectedValue="{Binding Flight.LDG,Mode=TwoWay}"  ItemsSource="{Binding Numbers}"></ComboBox>
-                    
+                    <ComboBox Width="88" SelectedValue="{Binding Landings,Mode=TwoWay}" 
+                              ItemsSource="{Binding LandingTimes}" HorizontalContentAlignment="Center"></ComboBox>
+
                     <Rectangle Width="70"></Rectangle>
                     <CheckBox Content="Night" IsChecked="{Binding Flight.Night,Mode=TwoWay}" FontSize="26" VerticalContentAlignment="Center"></CheckBox>
                 </StackPanel>
