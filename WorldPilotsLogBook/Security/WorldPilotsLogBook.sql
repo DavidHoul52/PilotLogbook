@@ -12,6 +12,12 @@
 
 
 
+
+
+
+
+
+
 GO
 GRANT CONTROL
     ON SCHEMA::[WorldPilotsLogBook] TO [pRqNhWyTDLLoginUser]
