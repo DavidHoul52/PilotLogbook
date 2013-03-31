@@ -1,0 +1,1 @@
+﻿update WorldPilotsLogBook.aircraft set AcTypeId=33 where AcTypeId =0

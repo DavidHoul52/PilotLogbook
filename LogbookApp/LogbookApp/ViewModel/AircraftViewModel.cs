@@ -24,7 +24,10 @@ namespace LogbookApp.ViewModel
                 {
                     await DataService.InsertAircraft(Aircraft);
                     if (Flight != null)
+                    {
                         Flight.Lookups.Aircraft.Add(Aircraft);
+                        Flight.Aircraft = Aircraft;
+                    }
                 }
                 else
                 {

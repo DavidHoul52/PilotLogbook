@@ -55,8 +55,8 @@ namespace LogbookApp.ViewModel
                     
                     OnCompleted = (f) =>
                         {
-                            //Flight = f;
-                           // RaisePropertyChanged(() => Flight.Lookups.Aircraft);
+                            //_flight = f;
+                            //RaisePropertyChanged(() => Flight.Lookups.Aircraft);
                             RaisePropertyChanged(() => Flight);
                             //RaisePropertyChanged(() => Depart);
                             //RaisePropertyChanged(() => Arrival);
