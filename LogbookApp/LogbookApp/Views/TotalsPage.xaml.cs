@@ -25,12 +25,9 @@ namespace LogbookApp.Views
             DataContext = viewModel; 
         }
 
-        public TotalsPage(TotalsActionCommand command, Page callingPage)
+        public TotalsPage(TotalsActionCommand command, Page callingPage): this()
         {
             _callingPage = callingPage;
-            this.InitializeComponent();
-            viewModel = new TotalsViewModel();
-            DataContext = viewModel;
             viewModel.Command = command;
             viewModel.GoBack = GoBackToCallingPage;
         }
@@ -39,6 +36,7 @@ namespace LogbookApp.Views
         {
 
             Window.Current.Content = _callingPage;
+            Window.Current.Activate();
 
         }
 

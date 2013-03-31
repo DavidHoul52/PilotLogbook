@@ -64,7 +64,7 @@ namespace LogbookApp
 
         private void ActionShowDetail(Flight flight )
         {
-            Window.Current.Content = new FlightDetailPage1(flight, this,()=>viewModel.Load());
+            Window.Current.Content = new FlightDetailPage1(flight, this,()=>viewModel.Refresh());
             Window.Current.Activate();
             
         }
