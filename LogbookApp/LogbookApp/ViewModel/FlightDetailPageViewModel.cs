@@ -161,7 +161,13 @@ namespace LogbookApp.ViewModel
         public async Task<bool> SaveFlight()
         {
           
-            return await Flight.DataService.SaveFlight(Flight);
+            bool result =await Flight.DataService.SaveFlight(Flight);
+            if (result)
+            {
+                Flight.IsNew = false;
+                Flight.DataService.Flights.Add(Flight);
+            }
+            return result;
 
         }
 
