@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Windows.Devices.Geolocation;
+using Windows.Foundation.Metadata;
 using LogbookApp.Common;
+using LogbookApp.Data;
 using LogbookApp.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -11,13 +14,11 @@ using Windows.Foundation.Collections;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using LogbookApp.Services;
+using Windows.System.UserProfile;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Navigation;
+using System.Threading.Tasks;
+
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
@@ -36,7 +37,11 @@ namespace LogbookApp
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            
         }
+
+        public static IFlightDataService Data { get; set; }
+        public static string DisplayName { get; set; }
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
@@ -44,29 +49,47 @@ namespace LogbookApp
         /// search results, and so forth.
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        /// 
+        /// 
+        private Frame _rootFrame;
+        protected async override void OnLaunched(LaunchActivatedEventArgs args)
         {
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
                   // Begin executing setup operations.
-                PerformSetupTasks();
+              
                 bool loadState = (args.PreviousExecutionState == ApplicationExecutionState.Terminated);
+              
+
+                // Place the frame in the current Window
                 ExtendedSplash extendedSplash = new ExtendedSplash(args.SplashScreen, loadState);
                 
                 Window.Current.Content = extendedSplash;
+                Window.Current.Activate();
             
             }
 
-            Window.Current.Activate(); 
+            await PerformDataFetch();
         }
 
-        private void PerformSetupTasks()
+        private async Task PerformDataFetch()
         {
+            DisplayName = await UserInformation.GetDisplayNameAsync();
+            Data = MobileService.Client;
+            await Data.GetFlights(DisplayName);
             // Tear down the extended splash screen after all operations are complete.
-           // RemoveExtendedSplash(); ;
+            RemoveExtendedSplash(); 
+
         }
 
-        
+        private void RemoveExtendedSplash()
+        {
+            if (_rootFrame == null)
+                _rootFrame = new Frame();
+            if (_rootFrame != null) _rootFrame.Navigate(typeof(FlightsPage));
+            Window.Current.Content = _rootFrame;
+        }
+
 
         /// <summary>
         /// Invoked when application execution is being suspended.  Application state is saved

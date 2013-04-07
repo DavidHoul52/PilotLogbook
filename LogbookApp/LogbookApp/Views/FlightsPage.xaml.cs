@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
 using LogbookApp.Commands;
-using LogbookApp.Services;
+
 
 // The Items Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234233
 
@@ -32,11 +32,11 @@ namespace LogbookApp
         {
         
             this.InitializeComponent();
-            FlightDataService data = MobileService.Client;
+       
                 
                 
 
-            viewModel = new FlightsPageViewModel(data);
+            viewModel = new FlightsPageViewModel(App.Data);
          
             viewModel.ShowDetail = ActionShowDetail;
             viewModel.ShowTotals = ActionShowTotals;
@@ -59,6 +59,7 @@ namespace LogbookApp
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+           viewModel.Load();
             // TODO: Assign a bindable collection of items to this.DefaultViewModel["Items"]
         }
 
@@ -105,9 +106,6 @@ namespace LogbookApp
           
         }
 
-        public async Task Load()
-        {
-            await viewModel.Load();
-        }
+       
     }
 }

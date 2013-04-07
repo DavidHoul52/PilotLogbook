@@ -71,10 +71,7 @@ namespace LogbookApp.Views
         {
             if (loadState)
                 await SuspensionManager.RestoreAsync();
-            flightsPage = new FlightsPage();
-            await flightsPage.Load();
-            Window.Current.Content = flightsPage;
-            Window.Current.Activate();
+         
             
             
 

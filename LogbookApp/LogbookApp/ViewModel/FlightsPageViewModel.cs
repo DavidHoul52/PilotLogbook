@@ -53,16 +53,16 @@ namespace LogbookApp.ViewModel
 
       
 
-        public async Task Load()
+        public void  Load()
         {
-            _displayname = await UserInformation.GetDisplayNameAsync();
+           
          
             Refresh();
         }
 
-        public async void Refresh()
+        public void Refresh()
         {
-            bool loaded = await flightDataService.GetFlights(_displayname);
+            
             Flights = new ObservableCollection<Flight>(flightDataService.Flights.OrderByDescending(x => x.Depart).
                                                                          OrderByDescending(x => x.Date));
             RaisePropertyChanged(() => Flights);
@@ -103,7 +103,7 @@ namespace LogbookApp.ViewModel
         
 
         private Flight selectedFlight;
-        private string _displayname;
+        
         public Flight SelectedFlight
         {
             get
