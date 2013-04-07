@@ -53,10 +53,10 @@
                     <Button Style="{StaticResource RemoveAppBarButtonStyle}" Command="{Binding DeleteCommand,Mode=TwoWay}" CommandParameter="{Binding SelectedFlight}" />
                     
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Style="{StaticResource RefreshAppBarButtonStyle}" />
                     <Button Style="{StaticResource HelpAppBarButtonStyle}" />
-                </StackPanel>
+                </StackPanel>-->
             </Grid>
         </AppBar>
     </Page.TopAppBar>
