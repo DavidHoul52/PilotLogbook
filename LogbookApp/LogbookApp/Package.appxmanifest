@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="c5196853-7a83-4a5b-8c6a-f267f8f55f3c" Publisher="CN=David" Version="1.0.0.0" />
+  <Identity Name="c5196853-7a83-4a5b-8c6a-f267f8f55f3c" Publisher="CN=David" Version="1.0.0.2" />
   <Properties>
     <DisplayName>LogbookApp</DisplayName>
     <PublisherDisplayName>David</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <Logo>Assets\StoreLogoLogBook.png</Logo>
   </Properties>
   <Prerequisites>
     <OSMinVersion>6.2.1</OSMinVersion>
@@ -16,13 +16,12 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="LogbookApp.App">
       <VisualElements DisplayName="Pilot's Logbook" Logo="Assets\3937820236_de190f8378.jpg" SmallLogo="Assets\SmallLogo.png" Description="LogbookApp" ForegroundText="light" BackgroundColor="#464646">
-        <DefaultTile ShowName="allLogos" />
+        <DefaultTile ShowName="allLogos" WideLogo="Assets\WideLogo.png" />
         <SplashScreen Image="Assets\3937008655_355989317c.jpg" BackgroundColor="black" />
       </VisualElements>
     </Application>
   </Applications>
   <Capabilities>
-    <Capability Name="enterpriseAuthentication" />
     <Capability Name="internetClient" />
   </Capabilities>
 </Package>
