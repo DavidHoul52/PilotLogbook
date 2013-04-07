@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using LogbookApp.Data;
+using LogbookApp.Views;
 
 namespace LogbookApp.ViewModel
 {
@@ -42,5 +43,7 @@ namespace LogbookApp.ViewModel
         }
 
         public ILookups Lookups { get; set; }
+
+        public IMessager Messager { get; set; }
     }
 }

@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using LogbookApp.Data;
+using LogbookApp.Views;
 
 namespace LogbookApp.ViewModel
 {
@@ -27,6 +29,13 @@ namespace LogbookApp.ViewModel
 
         public override async Task Save()
         {
+            if (IsDuplicate())
+            {
+                await Messager.ShowMessage("This airfield has already been added.");
+                return;
+            }
+
+
             if (Airfield.Valid())
             {
                 if (Airfield.IsNew)
@@ -43,6 +52,11 @@ namespace LogbookApp.ViewModel
 
 
 
+        }
+
+        private bool IsDuplicate()
+        {
+            return Lookups.Airfields.FirstOrDefault(x => x.Name == Airfield.Name && x!=Airfield) != null;
         }
 
         public async Task SaveFrom()

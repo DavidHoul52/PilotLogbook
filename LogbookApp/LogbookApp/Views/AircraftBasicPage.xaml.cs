@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Windows.Networking.Proximity;
 using LogbookApp.Commands;
 using LogbookApp.Data;
 using LogbookApp.ViewModel;
@@ -30,6 +31,7 @@ namespace LogbookApp.Views
             this.InitializeComponent();
             viewModel = new AircraftViewModel();
             viewModel.GoBack = () => GoBack(callingPage);
+            viewModel.Messager = new Messager();
             DataContext = viewModel;
         }
 

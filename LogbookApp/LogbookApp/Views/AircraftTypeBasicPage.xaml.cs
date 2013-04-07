@@ -33,6 +33,7 @@ namespace LogbookApp.Views
             this.InitializeComponent();
             viewModel = new AircraftTypeViewModel();
             viewModel.GoBack = () => GoBack(callingPage);
+            viewModel.Messager = new Messager();
 
             DataContext = viewModel;
         }

@@ -29,7 +29,7 @@ namespace LogbookApp.Views
 
     
 
-        public MaintainAircraft(FlightsPage flightsPage)
+        public MaintainAircraft()
         {
             this.InitializeComponent();
 
@@ -40,7 +40,7 @@ namespace LogbookApp.Views
             viewModel = new MaintainAircraftViewModel(data);
 
             viewModel.ShowDetail = ActionShowDetail;
-            viewModel.GoBack = () => Window.Current.Content = flightsPage;
+            viewModel.GoBack = () => Frame.GoBack();
 
 
             DataContext = viewModel;

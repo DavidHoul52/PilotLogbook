@@ -1,7 +1,4 @@
-﻿
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Media.PlayTo;
+﻿using Windows.Foundation;
 using Windows.UI.Xaml;
 using LogbookApp.Data;
 using LogbookApp.ViewModel;
@@ -79,7 +76,8 @@ namespace LogbookApp
 
         private void ActionShowAircraft()
         {
-            Window.Current.Content = new MaintainAircraft(this);
+            Frame.Navigate(typeof (MaintainAircraft));
+            
             
         }
 
@@ -89,10 +87,11 @@ namespace LogbookApp
             
         }
 
-        private void ActionShowAircraftTypes()
+        private async void ActionShowAircraftTypes()
         {
-            Window.Current.Content = new MaintainAircraftTypes(this);
-            
+           Window.Current.Content = new MaintainAircraftTypes(this);
+           
+
         }
 
         internal Rect SplashImageRect;

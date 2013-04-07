@@ -1,7 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Activation;
 using LogbookApp.Data;
+using LogbookApp.Views;
 
 namespace LogbookApp.ViewModel
 {
@@ -18,6 +20,13 @@ namespace LogbookApp.ViewModel
 
         public override async Task Save()
         {
+            if (IsDuplicate())
+            {
+                await Messager.ShowMessage("This aircraft has already been added.");
+                return;
+            }
+
+
             if (Aircraft.Valid())
             {
                 if (Aircraft.IsNew)
@@ -40,6 +49,11 @@ namespace LogbookApp.ViewModel
 
         }
 
+        private bool IsDuplicate()
+        {
+            return Lookups.Aircraft.FirstOrDefault(x => x.Reg == Aircraft.Reg && Aircraft!=x) != null;
+        }
+
         public ObservableCollection<AircraftClass> Classes { get; set; }
 
         private Aircraft aircraft;
@@ -54,6 +68,9 @@ namespace LogbookApp.ViewModel
             { aircraft = value; 
             RaisePropertyChanged(()=>Aircraft);}
         }
+
+       
+        
 
         protected override void OnFlightUpdated()
         {

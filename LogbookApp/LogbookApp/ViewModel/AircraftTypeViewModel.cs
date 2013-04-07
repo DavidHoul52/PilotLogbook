@@ -25,10 +25,14 @@ namespace LogbookApp.ViewModel
 
         public async override Task Save()
         {
-            
 
-            //Flight.AcTypeId =
-            //    Flight.DataService.Lookups.AcTypes.Where(x => x.Code == Flight.AcType.Code).First().Id;
+
+            if (AcType.IsNew && IsDuplicate())
+            {
+                await Messager.ShowMessage("This Aircraft Type has already been added.");
+                return;
+            }
+
 
             if (AcType.IsNew)
             {
@@ -43,6 +47,9 @@ namespace LogbookApp.ViewModel
          
         }
 
-      
+        private bool IsDuplicate()
+        {
+            return Lookups.AcTypes.FirstOrDefault(x => x.Code == AcType.Code && AcType!=x) != null;
+        }
     }
 }

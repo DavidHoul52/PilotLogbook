@@ -152,6 +152,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\FlightsPageViewModel.cs" />
+    <Compile Include="Views\IMessager.cs" />
     <Compile Include="Views\MaintainAircraft.xaml.cs">
       <DependentUpon>MaintainAircraft.xaml</DependentUpon>
     </Compile>
@@ -162,6 +163,7 @@
       <DependentUpon>MaintainAirfields.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MaintainAirfieldsViewModel.cs" />
+    <Compile Include="Views\Messager.cs" />
     <Compile Include="Views\TotalsPage.xaml.cs">
       <DependentUpon>TotalsPage.xaml</DependentUpon>
     </Compile>
