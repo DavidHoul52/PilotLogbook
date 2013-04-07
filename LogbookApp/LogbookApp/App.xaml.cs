@@ -77,9 +77,8 @@ namespace LogbookApp
         {
             if (loadState)
             {
-                // TODO: reset after testing
-                DisplayName = "test";
-                //await UserInformation.GetDisplayNameAsync();
+                
+                DisplayName = await UserInformation.GetDisplayNameAsync();
                 Data = MobileService.Client;
                 await Data.GetFlights(DisplayName);
             }
