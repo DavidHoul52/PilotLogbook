@@ -36,11 +36,29 @@ namespace LogbookApp.ViewModel
             ShowDetail(new MaintainActionCommand<T> { Item = Selected, DataService = flightDataService });
         }
 
-        protected async virtual void Delete(T f)
+       
+
+
+        protected async void Delete(T item)
         {
-            bool deleted = await flightDataService.Delete<T>(f);
+            bool deleted;
+            try
+            {
+                deleted = await flightDataService.Delete<T>(item);
+            }
+            catch (Exception)
+            {
+
+                deleted = false;
+            }
+
+
             if (deleted)
-                Items.Remove(f);
+                Items.Remove(item);
+            else
+            {
+                await Messager.ShowMessage("Unable to remove this item");
+            }
         }
 
         public abstract void Load();

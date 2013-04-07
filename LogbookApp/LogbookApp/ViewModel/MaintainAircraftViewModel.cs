@@ -18,50 +18,19 @@ namespace LogbookApp.ViewModel
         
         }
 
-        private Aircraft selected;
-        public Aircraft SelectedAircraft
-        {
-            get
-            { return selected; ;}
-
-            set
-            {
-                selected = value;
-                RaisePropertyChanged(() => SelectedAircraft);
-
-            }
-        }
 
         protected override void Add()
         {
-            Aircraft.Add(new Aircraft
+            Items.Add(new Aircraft
             {
                 AircraftClass = AircraftClass.SEP,
                 IsNew = true
                 
             });
-            SelectedAircraft = Aircraft.Last();
-            ShowDetail(new MaintainActionCommand<Aircraft> { Item = SelectedAircraft, DataService = flightDataService });
+            Selected = Items.Last();
+            ShowDetail(new MaintainActionCommand<Aircraft> { Item = Selected, DataService = flightDataService });
 
         }
-
-
-
-
-        protected async override void Delete(Aircraft f)
-        {
-            bool deleted = await flightDataService.DeleteAircraft(f);
-            if (deleted)
-                Aircraft.Remove(f);
-        }
-
-
-        
-
-
-    
-
-        public ObservableCollection<Aircraft> Aircraft { get; set; }
 
         public async override void Load()
         {
@@ -75,8 +44,8 @@ namespace LogbookApp.ViewModel
 
         public void Refresh()
         {
-            Aircraft = new ObservableCollection<Aircraft>(flightDataService.Lookups.Aircraft.OrderBy(x => x.Reg));
-            RaisePropertyChanged(() => Aircraft);
+            Items = new ObservableCollection<Aircraft>(flightDataService.Lookups.Aircraft.OrderBy(x => x.Reg));
+            RaisePropertyChanged(() => Items);
         }
     }
 }

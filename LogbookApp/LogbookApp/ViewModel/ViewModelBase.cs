@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using LogbookApp.Views;
 
 namespace LogbookApp.ViewModel
 {
@@ -34,6 +35,6 @@ namespace LogbookApp.ViewModel
 
         public Action GoBack { get; set; }
 
-        
+        public IMessager Messager { get; set; }
     }
 }

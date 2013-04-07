@@ -37,6 +37,7 @@ namespace LogbookApp.Views
 
             viewModel.GoBack = () => Window.Current.Content = flightsPage;
             viewModel.ShowDetail = ActionShowDetail;
+            viewModel.Messager = new Messager();
 
 
             DataContext = viewModel;

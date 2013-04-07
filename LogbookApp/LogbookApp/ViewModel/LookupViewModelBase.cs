@@ -44,6 +44,6 @@ namespace LogbookApp.ViewModel
 
         public ILookups Lookups { get; set; }
 
-        public IMessager Messager { get; set; }
+        
     }
 }

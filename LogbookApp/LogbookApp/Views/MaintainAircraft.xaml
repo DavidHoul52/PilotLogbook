@@ -14,7 +14,7 @@
         <!-- Collection of items displayed by this page -->
         <CollectionViewSource
             x:Name="itemsViewSource"
-            Source="{Binding Aircraft}"/>
+            Source="{Binding Itens          }"/>
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <x:String x:Key="AppName">Aircraft</x:String>
     </Page.Resources>
@@ -24,9 +24,9 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <Button Style="{StaticResource AddAppBarButtonStyle}"  Command="{Binding AddCommand,Mode=TwoWay}"  />
                     <Button Style="{StaticResource EditAppBarButtonStyle}" Command="{Binding EditCommand,Mode=TwoWay}" 
-                            CommandParameter="{Binding SelectedAircraft}" />
+                            CommandParameter="{Binding Selected}" />
                     <Button Style="{StaticResource RemoveAppBarButtonStyle}" Command="{Binding DeleteCommand,Mode=TwoWay}" 
-                            CommandParameter="{Binding SelectedAircraft}" />
+                            CommandParameter="{Binding Selected}" />
 
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -57,9 +57,9 @@
                 
             Grid.RowSpan="3"
             Padding="116,136,116,46"
-            ItemsSource="{Binding Aircraft}"
+            ItemsSource="{Binding Items}"
             
-            SelectedItem="{Binding SelectedAircraft,Mode=TwoWay}"
+            SelectedItem="{Binding Selected,Mode=TwoWay}"
             
             
             IsSwipeEnabled="false">

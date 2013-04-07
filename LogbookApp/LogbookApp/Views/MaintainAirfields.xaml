@@ -13,7 +13,7 @@
     <Page.Resources>
         <CollectionViewSource
             x:Name="itemsViewSource"
-            Source="{Binding Airfields}"/>
+            Source="{Binding Items}"/>
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <x:String x:Key="AppName">Airfields</x:String>
     </Page.Resources>
@@ -56,7 +56,7 @@
                 
             Grid.RowSpan="3"
             Padding="116,136,116,46"
-            ItemsSource="{Binding Airfields}"
+            ItemsSource="{Binding Items}"
             
             SelectedItem="{Binding Selected,Mode=TwoWay}"
             

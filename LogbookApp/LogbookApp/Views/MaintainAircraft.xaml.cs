@@ -41,7 +41,7 @@ namespace LogbookApp.Views
 
             viewModel.ShowDetail = ActionShowDetail;
             viewModel.GoBack = () => Frame.GoBack();
-
+            viewModel.Messager = new Messager();
 
             DataContext = viewModel;
             viewModel.Load();
