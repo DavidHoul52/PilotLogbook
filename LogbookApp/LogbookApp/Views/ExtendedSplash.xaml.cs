@@ -36,7 +36,7 @@ namespace LogbookApp.Views
         
 
 
-        public ExtendedSplash(SplashScreen splashscreen, bool loadState)
+        public ExtendedSplash(SplashScreen splashscreen)
         {
             this.InitializeComponent();
 
@@ -57,27 +57,12 @@ namespace LogbookApp.Views
                 PositionImage();
             }
 
-            // Create a Frame to act as the navigation context  
-           // rootFrame = new Frame();
-
-            // Restore the saved session state if necessary 
-            RestoreStateAsync(loadState); 
+         
 
         }
 
      
 
-        private async void RestoreStateAsync(bool loadState)
-        {
-            if (loadState)
-                await SuspensionManager.RestoreAsync();
-         
-            
-            
-
-            // Normally you should start the time consuming task asynchronously here and  
-            // dismiss the extended splash screen in the completed handler of that task 
-        }
 
         // Position the extended splash screen image in the same location as the system splash screen image.
         private void PositionImage()

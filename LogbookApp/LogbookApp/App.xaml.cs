@@ -37,6 +37,7 @@ namespace LogbookApp
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            this.Resuming += OnResuming; 
             
         }
 
@@ -54,29 +55,32 @@ namespace LogbookApp
         private Frame _rootFrame;
         protected async override void OnLaunched(LaunchActivatedEventArgs args)
         {
+            
+            bool loadState = (args.PreviousExecutionState == ApplicationExecutionState.Terminated || args.PreviousExecutionState==ApplicationExecutionState.NotRunning );
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
                   // Begin executing setup operations.
-              
-                bool loadState = (args.PreviousExecutionState == ApplicationExecutionState.Terminated);
-              
+
 
                 // Place the frame in the current Window
-                ExtendedSplash extendedSplash = new ExtendedSplash(args.SplashScreen, loadState);
+                ExtendedSplash extendedSplash = new ExtendedSplash(args.SplashScreen);
                 
                 Window.Current.Content = extendedSplash;
                 Window.Current.Activate();
             
             }
 
-            await PerformDataFetch();
+            await PerformDataFetch(loadState);
         }
 
-        private async Task PerformDataFetch()
+        private async Task PerformDataFetch(bool loadState)
         {
-            DisplayName = await UserInformation.GetDisplayNameAsync();
-            Data = MobileService.Client;
-            await Data.GetFlights(DisplayName);
+            if (loadState)
+            {
+                DisplayName = await UserInformation.GetDisplayNameAsync();
+                Data = MobileService.Client;
+                await Data.GetFlights(DisplayName);
+            }
             // Tear down the extended splash screen after all operations are complete.
             RemoveExtendedSplash(); 
 
@@ -105,6 +109,12 @@ namespace LogbookApp
             deferral.Complete(); 
         }
 
+
+        private async void OnResuming(Object sender, Object e)
+        {
+         
+           // await PerformDataFetch(true);
+        } 
        
 
      

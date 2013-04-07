@@ -44,15 +44,6 @@ namespace LogbookApp.ViewModel
 
         }
 
-       
-
-        
-
-      
-     
-
-      
-
         public void  Load()
         {
            
