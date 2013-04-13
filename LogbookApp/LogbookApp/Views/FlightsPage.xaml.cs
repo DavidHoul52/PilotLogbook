@@ -81,8 +81,7 @@ namespace LogbookApp
 
         private void ActionShowAirfields()
         {
-            Window.Current.Content = new MaintainAirfields(this);
-            
+            Frame.Navigate(typeof(MaintainAirfields));
         }
 
         private async void ActionShowAircraftTypes()

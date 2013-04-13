@@ -85,8 +85,8 @@ namespace LogbookApp.Views
 
         private void ActionAddAirfield(FlightAirfieldActionCommand flightActionCommand)
         {
-            Window.Current.Content = new AirfieldBasicPage(flightActionCommand, this);
             
+            Frame.Navigate(typeof(AirfieldBasicPage), flightActionCommand);
         }
 
         private async void GoBack(object sender, RoutedEventArgs e)
