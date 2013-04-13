@@ -65,7 +65,8 @@
         <AppBar x:Name="bottomAppBar" Padding="10,0,10,0">
             <Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button Style="{StaticResource TotalsAppBarButtonStyle}"  Command="{Binding TotalsCommand,Mode=TwoWay}"  />
+                    <Button Style="{StaticResource TotalsAppBarButtonStyle}" 
+                            Command="{Binding TotalsCommand,Mode=TwoWay}"  />
 
                     <Button Style="{StaticResource MaintainAircraftButtonStyle}"  Command="{Binding MaintainAircraftCommand,Mode=TwoWay}"  />
 
@@ -247,7 +248,7 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
                         </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="bottomAppBar" Storyboard.TargetProperty="Visibility">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="topAppBar" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
                         </ObjectAnimationUsingKeyFrames>
 
