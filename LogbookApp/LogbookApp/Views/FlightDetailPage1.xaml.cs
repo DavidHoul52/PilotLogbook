@@ -1,4 +1,5 @@
 ﻿
+using System.Threading.Tasks;
 using LogbookApp.Commands;
 using LogbookApp.Data;
 using LogbookApp.ViewModel;
@@ -15,6 +16,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.ViewManagement;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
@@ -34,6 +36,10 @@ namespace LogbookApp.Views
         public FlightDetailPage1()
         {
             InitializeComponent();
+            Window.Current.SizeChanged += (s,e) =>
+            {
+                OnSnapped();
+            };
             viewModel = new FlightDetailPageViewModel();
             DataContext = viewModel; 
           
@@ -45,7 +51,17 @@ namespace LogbookApp.Views
            ;
         }
 
-        
+        private async Task OnSnapped()
+        {
+            ApplicationViewState myViewState = ApplicationView.Value;
+
+            if (myViewState == ApplicationViewState.Snapped)
+            {
+                await viewModel.SaveFlight();
+                this.Frame.Navigate(typeof (FlightsPage));
+            }
+        }
+
 
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also

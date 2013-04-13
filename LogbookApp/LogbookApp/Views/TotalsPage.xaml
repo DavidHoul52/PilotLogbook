@@ -15,8 +15,11 @@
 
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <x:String x:Key="AppName">Totals</x:String>
-          <Style TargetType="TextBlock">
+        <Style TargetType="ContentControl"  x:Name="NormalStyle">
             <Setter Property="FontSize" Value="26"></Setter>
+        </Style>
+      <Style TargetType="ContentControl" x:Name="SmallerStyle">
+            <Setter Property="FontSize" Value="18"></Setter>
         </Style>
         <common:TimeSpanConverter x:Key="TimeSpanConverter"></common:TimeSpanConverter>
     </Page.Resources>
@@ -26,7 +29,7 @@
         * Row 0 contains the back button and page title
         * Row 1 contains the rest of the page layout
     -->
-    <Grid Style="{StaticResource LayoutRootStyle}">
+    <Grid Style="{StaticResource LayoutRootStyle}"  >
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="51*"/>
@@ -36,10 +39,12 @@
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <Grid Grid.Row="1" Grid.Column="1">
+        <ContentControl Name="TotalsContent" Grid.Row="1" Grid.Column="1">
+        <Grid >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -59,23 +64,25 @@
             
 
             <TextBlock Text="Total Hours :"/>
-            <TextBlock Grid.Column="1" 
+            <TextBlock Grid.Column="2"
                        Text="{Binding Converter={StaticResource TimeSpanConverter},Path=Totals.Total.GrandTotal}"/>
             <TextBlock Grid.Row="1" Text="Total SEP (PIC) :"/>
-            <TextBlock  Grid.Row="1" Grid.Column="1"
+            <TextBlock  Grid.Row="1" Grid.Column="2"
                         Text="{Binding Converter={StaticResource TimeSpanConverter},Path=Totals.Total.SEPpic}"/>
                         
             <TextBlock Grid.Row="2" Text="Total SEP (P2/Dual) :"/>
-            <TextBlock  Grid.Row="2" Grid.Column="1"
+            <TextBlock  Grid.Row="2" Grid.Column="2"
                         Text="{Binding Converter={StaticResource TimeSpanConverter},Path=Totals.Total.SEPp2Dual}"/>
             <TextBlock Grid.Row="3" Text="Last 90 Days :"/>
-            <TextBlock  Grid.Row="3" Grid.Column="1"
+            <TextBlock  Grid.Row="3" Grid.Column="2"
                         Text="{Binding Converter={StaticResource TimeSpanConverter},Path= Totals.Currency90Days.GrandTotal}"/>
             <TextBlock Grid.Row="4" Text="Last 28 Days :"/>
-            <TextBlock  Grid.Row="4" Grid.Column="1"
+            <TextBlock  Grid.Row="4" Grid.Column="2"
                         Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.Currency28Days.GrandTotal}"/>
 
         </Grid>
+            
+        </ContentControl>
         <!-- Back button and page title -->
         <Grid Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
@@ -90,7 +97,13 @@
 
             <!-- Visual states reflect the application's view state -->
             <VisualStateGroup x:Name="ApplicationViewStates">
-                <VisualState x:Name="FullScreenLandscape"/>
+                <VisualState x:Name="FullScreenLandscape">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TotalsContent" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource NormalStyle}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
                 <VisualState x:Name="Filled"/>
 
                 <!-- The entire page respects the narrower 100-pixel margin convention for portrait -->
@@ -99,6 +112,7 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
+                        
                     </Storyboard>
                 </VisualState>
 
@@ -110,6 +124,9 @@
                         </ObjectAnimationUsingKeyFrames>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TotalsContent" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SmallerStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>

@@ -18,6 +18,9 @@
       <VisualElements DisplayName="Pilot's Logbook" Logo="Assets\3937820236_de190f8378.jpg" SmallLogo="Assets\SmallLogo.png" Description="LogbookApp" ForegroundText="light" BackgroundColor="#464646">
         <DefaultTile ShowName="allLogos" WideLogo="Assets\WideLogo.png" />
         <SplashScreen Image="Assets\3937008655_355989317c.jpg" BackgroundColor="black" />
+        <InitialRotationPreference>
+          <Rotation Preference="landscape" />
+        </InitialRotationPreference>
       </VisualElements>
     </Application>
   </Applications>

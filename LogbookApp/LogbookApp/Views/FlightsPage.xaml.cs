@@ -1,5 +1,6 @@
 ﻿using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Navigation;
 using LogbookApp.Data;
 using LogbookApp.ViewModel;
 using LogbookApp.Views;
@@ -29,7 +30,7 @@ namespace LogbookApp
         {
         
             this.InitializeComponent();
-       
+            //this.Loaded += (s, e) => VisualStateManager.GoToState(this, "Snapped", false);
                 
                 
 
@@ -41,9 +42,13 @@ namespace LogbookApp
             viewModel.ShowAirfields = ActionShowAirfields;
             viewModel.ShowAircraftTypes = ActionShowAircraftTypes;
             DataContext = viewModel;
-        
             
+          
+
+
         }
+
+      
 
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also
@@ -57,6 +62,7 @@ namespace LogbookApp
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
            viewModel.Load();
+           
             // TODO: Assign a bindable collection of items to this.DefaultViewModel["Items"]
         }
 

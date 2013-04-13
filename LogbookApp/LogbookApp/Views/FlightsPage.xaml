@@ -19,7 +19,7 @@
             Source="{Binding Flights}"/>
 
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="AppName">Pilots Logbook</x:String>
+        <x:String x:Key="AppName">Flights</x:String>
         <Style x:Key="MaintainAircraftButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource EditAppBarButtonStyle}">
             <Setter Property="AutomationProperties.AutomationId" Value="AddAppBarButton"/>
             <Setter Property="AutomationProperties.Name" Value="Aircraft"/>
@@ -162,21 +162,52 @@
             Visibility="Collapsed"
             Margin="0,-10,0,0"
             Padding="10,0,0,60"
-            ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
+             ItemsSource="{Binding Flights}"
+            
+            SelectedItem="{Binding SelectedFlight,Mode=TwoWay}"
             
             SelectionMode="None"
-            IsSwipeEnabled="false"/>
+            IsSwipeEnabled="false">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="10">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="auto"  >
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Capacity.Description}" Foreground="#FFFF06B0" FontSize="18" VerticalAlignment="Center"></TextBlock>
+                                <Rectangle Width="10"/>
+                                <TextBlock Text="{Binding DateStr}" FontSize="14" VerticalAlignment="Center" ></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+
+                                <TextBlock Text="{Binding Aircraft.AcType.Code}"></TextBlock>
+                                <Rectangle Width="25"/>
+                                <TextBlock Text="{Binding Aircraft.Reg}"></TextBlock>
+
+                            </StackPanel>
+                            <TextBlock Text="{Binding Captain}"></TextBlock>
+                            <Rectangle Width="25"/>
+                            <TextBlock  Text="{Binding DurationStr}" FontSize="30" Foreground="Yellow"
+                       ></TextBlock>
+                            <TextBlock Text="{Binding FromTo}" Foreground="Teal"></TextBlock>
+                            <TextBlock Text="{Binding Remarks}" Foreground="LightBlue"></TextBlock>
+
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
       
         <!-- Back button and page title -->
         
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
            
-            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>
+            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" IsHitTestVisible="false"
+                       Style="{StaticResource PageHeaderTextStyle}"/>
            
         </Grid>
 
@@ -205,9 +236,7 @@
                 -->
                 <VisualState x:Name="Snapped">
                     <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedBackButtonStyle}"/>
-                        </ObjectAnimationUsingKeyFrames>
+                      
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
@@ -218,6 +247,10 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
                         </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="bottomAppBar" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
+
                     </Storyboard>
                 </VisualState>
             </VisualStateGroup>
