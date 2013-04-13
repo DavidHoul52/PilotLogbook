@@ -35,7 +35,7 @@ namespace LogbookApp.ViewModel
         public async override void Load()
         {
 
-             await flightDataService.GetLookups();
+            await flightDataService.GetLookups();
             Refresh();
                 
          

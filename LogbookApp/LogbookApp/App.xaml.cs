@@ -78,7 +78,8 @@ namespace LogbookApp
             if (loadState)
             {
                 
-                DisplayName = await UserInformation.GetDisplayNameAsync();
+               // DisplayName = await UserInformation.GetDisplayNameAsync();
+                DisplayName = "test2";
                 Data = MobileService.Client;
                 await Data.GetFlights(DisplayName);
             }

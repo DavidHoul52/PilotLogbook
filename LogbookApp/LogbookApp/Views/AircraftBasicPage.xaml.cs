@@ -17,8 +17,8 @@ namespace LogbookApp.Views
     /// </summary>
     /// 
 
-       
-    
+
+
     public sealed partial class AircraftBasicPage : LogbookApp.Common.LayoutAwarePage
     {
 
@@ -26,68 +26,78 @@ namespace LogbookApp.Views
         private FlightActionCommand _flightActionCommand;
         private MaintainActionCommand<Aircraft> _aircraftActionCommand;
 
-        public AircraftBasicPage(Page callingPage)
+        public AircraftBasicPage()
         {
             this.InitializeComponent();
             viewModel = new AircraftViewModel();
-            viewModel.GoBack = () => GoBack(callingPage);
+
             viewModel.Messager = new Messager();
             DataContext = viewModel;
         }
 
-        
 
-        public AircraftBasicPage(FlightActionCommand flightActionCommand, Page callingPage) : this(callingPage)
-        {
-            _flightActionCommand = flightActionCommand;
-            if (_flightActionCommand != null) viewModel.Flight = _flightActionCommand.Flight;
-        }
 
-        public AircraftBasicPage(MaintainActionCommand<Aircraft> aircraftActionCommand, Page callingPage)
-            : this(callingPage)
-        {
-            _aircraftActionCommand = aircraftActionCommand;
-            if (_aircraftActionCommand != null)
-            {
-                viewModel.DataService = _aircraftActionCommand.DataService;
-                viewModel.Aircraft = _aircraftActionCommand.Item;
+        /// <summary>
+        /// Populates the page with content passed during navigation.  Any saved state is also
+        /// provided when recreating a page from a prior session.
+        /// </summary>
+        /// <param name="navigationParameter">The parameter value passed to
+        /// <see cref="Frame.Navigate(Type, Object)"/> when this page was initially requested.
+        /// </param>
+        /// <param name="pageState">A dictionary of state preserved by this page during an earlier
+        /// session.  This will be null the first time a page is visited.</param>
 
-            }
-        }
-
-   
-   
-     
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-          
+            if (navigationParameter is FlightActionCommand)
+            {
+                _flightActionCommand = navigationParameter as FlightActionCommand;
+                if (_flightActionCommand != null) viewModel.Flight = _flightActionCommand.Flight;
+            }
+            if (navigationParameter is MaintainActionCommand<Aircraft>)
+            {
+                _aircraftActionCommand = navigationParameter as MaintainActionCommand<Aircraft>;
+                if (_aircraftActionCommand != null)
+                {
+                    viewModel.DataService = _aircraftActionCommand.DataService;
+                    viewModel.Aircraft = _aircraftActionCommand.Item;
+
+                }
+            }
+
         }
 
 
         protected async override void SaveState(Dictionary<String, Object> pageState)
         {
-        
+
         }
 
         protected async override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-          
-            
-          
-            
+
+
+
+
             base.OnNavigatingFrom(e);
         }
 
-        private async void GoBack(Page callingPage)
-        {
-           await viewModel.Save();
 
-            if (_flightActionCommand != null)
-                _flightActionCommand.OnCompleted(_flightActionCommand.Flight);
-            if (_aircraftActionCommand != null)
-                _aircraftActionCommand.OnCompleted();
-           Window.Current.Content = callingPage;
-           Window.Current.Activate();
+
+
+        protected async override void GoBack(object sender, RoutedEventArgs e)
+        {
+            await viewModel.Save();
+
+            //if (_flightActionCommand != null)
+            //    _flightActionCommand.OnCompleted(_flightActionCommand.Flight);
+            //if (_aircraftActionCommand != null)
+            //    _aircraftActionCommand.OnCompleted();
+
+            Frame.GoBack();
+
+
+
         }
     }
 }

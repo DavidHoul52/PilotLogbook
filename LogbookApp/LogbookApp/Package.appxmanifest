@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="c5196853-7a83-4a5b-8c6a-f267f8f55f3c" Publisher="CN=David" Version="1.0.0.2" />
+  <Identity Name="49810WorldPilotsLogbook.PilotsLogbook" Publisher="CN=66B17444-BE7E-46FA-B8C6-32394219182A" Version="1.0.0.6" />
   <Properties>
-    <DisplayName>LogbookApp</DisplayName>
-    <PublisherDisplayName>David</PublisherDisplayName>
+    <DisplayName>PilotsLogbook</DisplayName>
+    <PublisherDisplayName>World Pilots Logbook</PublisherDisplayName>
     <Logo>Assets\StoreLogoLogBook.png</Logo>
   </Properties>
   <Prerequisites>
