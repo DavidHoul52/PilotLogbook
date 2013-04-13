@@ -67,8 +67,8 @@ namespace LogbookApp
 
         private void ActionShowTotals(TotalsActionCommand command)
         {
-            Window.Current.Content = new TotalsPage(command, this);
-            
+          
+            Frame.Navigate(typeof(TotalsPage), command);
         }
 
 
@@ -86,9 +86,7 @@ namespace LogbookApp
 
         private async void ActionShowAircraftTypes()
         {
-           Window.Current.Content = new MaintainAircraftTypes(this);
-           
-
+            Frame.Navigate(typeof(MaintainAircraftTypes));
         }
 
         internal Rect SplashImageRect;

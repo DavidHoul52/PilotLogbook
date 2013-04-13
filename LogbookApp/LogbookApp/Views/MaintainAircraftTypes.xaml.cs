@@ -1,20 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using LogbookApp.Commands;
 using LogbookApp.Data;
 using LogbookApp.Services;
 using LogbookApp.ViewModel;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
@@ -26,9 +16,7 @@ namespace LogbookApp.Views
     public sealed partial class MaintainAircraftTypes : LogbookApp.Common.LayoutAwarePage
     {
         private MaintainAircraftTypesViewModel viewModel;
-        
-
-        public MaintainAircraftTypes(FlightsPage flightsPage)
+        public MaintainAircraftTypes()
         {
             this.InitializeComponent();
             FlightDataService data = MobileService.Client;
@@ -38,7 +26,7 @@ namespace LogbookApp.Views
             viewModel = new MaintainAircraftTypesViewModel(data);
 
             viewModel.ShowDetail = ActionShowDetail;
-            viewModel.GoBack = () => Window.Current.Content = flightsPage;
+          
             viewModel.Messager = new Messager();
 
 
@@ -48,9 +36,7 @@ namespace LogbookApp.Views
 
         private void ActionShowDetail(MaintainActionCommand<AcType> command)
         {
-            command.OnCompleted = () => viewModel.Load();
-            Window.Current.Content = new AircraftTypeBasicPage(command, this);
-            
+            Frame.Navigate(typeof(AircraftTypeBasicPage), command);
         }
 
         /// <summary>

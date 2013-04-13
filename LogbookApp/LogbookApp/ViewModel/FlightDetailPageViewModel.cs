@@ -165,7 +165,7 @@ namespace LogbookApp.ViewModel
             if (result)
             {
                 Flight.IsNew = false;
-                Flight.DataService.Flights.Add(Flight);
+            //    Flight.DataService.Flights.Add(Flight);
             }
             return result;
 

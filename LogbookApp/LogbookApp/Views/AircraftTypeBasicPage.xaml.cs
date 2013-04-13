@@ -1,19 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using LogbookApp.Commands;
 using LogbookApp.Data;
 using LogbookApp.ViewModel;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
@@ -28,25 +19,14 @@ namespace LogbookApp.Views
         private FlightActionCommand flightActionCommand;
         private MaintainActionCommand<AcType> maintainActionCommand;
 
-        public AircraftTypeBasicPage(Page callingPage)
+        public AircraftTypeBasicPage()
         {
             this.InitializeComponent();
             viewModel = new AircraftTypeViewModel();
-            viewModel.GoBack = () => GoBack(callingPage);
+           
             viewModel.Messager = new Messager();
 
             DataContext = viewModel;
-        }
-
-        public AircraftTypeBasicPage(MaintainActionCommand<AcType> actionCommand, Page callingPage)
-            : this(callingPage)
-        {
-            maintainActionCommand = actionCommand;
-            if (actionCommand != null)
-            {
-                viewModel.AcType = actionCommand.Item;
-                viewModel.DataService = actionCommand.DataService;
-            }
         }
 
         /// <summary>
@@ -72,7 +52,15 @@ namespace LogbookApp.Views
                 }
             }
 
-    
+            if (navigationParameter is MaintainActionCommand<AcType>)
+            {
+                var actionCommand = navigationParameter as MaintainActionCommand<AcType>;
+                if (actionCommand != null)
+                {
+                    viewModel.AcType = actionCommand.Item;
+                    viewModel.DataService = actionCommand.DataService;
+                }
+            }
         }
 
        
@@ -80,12 +68,10 @@ namespace LogbookApp.Views
         {
         }
 
-        private new async void GoBack(Page callingPage)
+        private new async void GoBack(object sender, RoutedEventArgs e)
         {
             await viewModel.Save();
-            if (maintainActionCommand != null)
-                maintainActionCommand.OnCompleted();
-            Window.Current.Content = callingPage;
+            Frame.GoBack();
         }
     }
 }

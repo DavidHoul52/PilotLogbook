@@ -100,8 +100,7 @@ namespace LogbookApp.Views
 
         private void ActionShowTotals(TotalsActionCommand command)
         {
-            Window.Current.Content = new TotalsPage(command, this);
-            
+            Frame.Navigate(typeof(TotalsPage), command);
         }
         
     }

@@ -14,7 +14,6 @@ namespace LogbookApp.Views
     /// </summary>
     public sealed partial class TotalsPage : LogbookApp.Common.LayoutAwarePage
     {
-        private readonly Page _callingPage;
 
         private TotalsViewModel viewModel;
 
@@ -25,21 +24,7 @@ namespace LogbookApp.Views
             DataContext = viewModel; 
         }
 
-        public TotalsPage(TotalsActionCommand command, Page callingPage): this()
-        {
-            _callingPage = callingPage;
-            viewModel.Command = command;
-            viewModel.GoBack = GoBackToCallingPage;
-        }
-
-        private void GoBackToCallingPage()
-        {
-
-            Window.Current.Content = _callingPage;
-            Window.Current.Activate();
-
-        }
-
+   
 
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also

@@ -7,16 +7,6 @@ namespace LogbookApp.ViewModel
 {
     public class ViewModelBase :INotifyPropertyChanged
     {
-        public ViewModelBase()
-        {
-            GoBackCommand = new RelayCommand(() =>
-            {
-                GoBack();
-            }) { IsEnabled = true };
-        }
-
-        public RelayCommand GoBackCommand { get; set; }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void RaisePropertyChanged<TViewModel>(Expression<Func<TViewModel>> property)
