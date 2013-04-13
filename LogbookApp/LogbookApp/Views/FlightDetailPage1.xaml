@@ -16,7 +16,7 @@
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <x:String x:Key="AppName">Flight</x:String>
         <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="26"></Setter>
+            <Setter Property="FontSize" Value="22"></Setter>
         </Style>
         <Style x:Key="AddAircraftButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
             <Setter Property="AutomationProperties.AutomationId" Value="AddAppBarButton"/>
@@ -79,7 +79,7 @@
             <ColumnDefinition Width="632*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="140"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
@@ -156,7 +156,7 @@
                 </StackPanel>
                 <Rectangle Height="10"></Rectangle>
                 <StackPanel Orientation="Horizontal">
-                    <ComboBox Width="88"  SelectedValue="{Binding Flight.LDG,Mode=TwoWay}"  
+                    <ComboBox Width="88"  SelectedValue="{Binding Flight.LDG,Mode=TwoWay}" Height="28" 
                               ItemsSource="{Binding LandingTimes}" HorizontalContentAlignment="Center"></ComboBox>
 
                     <Rectangle Width="70"></Rectangle>
@@ -197,7 +197,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
+            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" 
+                       Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
 
         <VisualStateManager.VisualStateGroups>
