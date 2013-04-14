@@ -7,6 +7,8 @@ namespace FlightTimes
 {
     public class FlightCalcTotals
     {
+        
+
         public FlightCalcTotals()
         {
             
@@ -20,6 +22,8 @@ namespace FlightTimes
 
         public FlightCalcResult Currency90Days { get; set; }
         public FlightCalcResult Currency28Days { get; set; }
-        
+
+        public FlightCalcResult Currency7Days { get; set; }
+       
     }
 }
