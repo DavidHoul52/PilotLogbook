@@ -78,10 +78,10 @@ namespace LogbookApp
             if (loadState)
             {
                 
-               DisplayName = await UserInformation.GetDisplayNameAsync();
-              //  DisplayName = "test2";
+               //DisplayName = await UserInformation.GetDisplayNameAsync();
+                DisplayName = "test2";
                 Data = MobileService.Client;
-                await Data.GetFlights(DisplayName);
+                await Data.GetData(DisplayName);
             }
             // Tear down the extended splash screen after all operations are complete.
             RemoveExtendedSplash(); 
@@ -116,16 +116,13 @@ namespace LogbookApp
         {
          
            // await PerformDataFetch(true);
-        } 
-       
+        }
 
-     
 
-       
-        
-
-       
-    
-      
+        public static async Task RefreshFlightData()
+        {
+            if (Data.FlightsChanged)
+               await Data.GetFlights();
+        }
     }
 }

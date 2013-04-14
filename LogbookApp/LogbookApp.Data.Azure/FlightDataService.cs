@@ -26,31 +26,36 @@ namespace LogbookApp.Data
         
         
 
-        public async Task<bool> GetFlights(string displayName)
+        public async Task GetData(string displayName)
         {
             _userManager.DisplayName = displayName;
             await _userManager.GetUser(this);
             User = _userManager.User;
             await GetLookups();
+            await GetFlights();
             
-            var flights = await _mobileService.GetTable<Flight>().Where(x=>x.UserId==User.Id).Take(500).ToListAsync() ;
-            Flights = flights.Select(x => {
-              
-                
-                x.Capacity = Lookups.Capacity.Where(c=>c.Id==x.CapacityId).FirstOrDefault();
-                x.From = Lookups.Airfields.Where(airfield=>airfield.Id==x.AirfieldFromId).FirstOrDefault();
-                x.To = Lookups.Airfields.Where(airfield=>airfield.Id==x.AirfieldToId).FirstOrDefault();
+
+            
+        }
+
+        public async Task GetFlights()
+        {
+            FlightsChanged = false;
+            var flights = await _mobileService.GetTable<Flight>().Where(x => x.UserId == User.Id).Take(500).ToListAsync();
+            Flights = flights.Select(x =>
+            {
+                x.Capacity = Lookups.Capacity.Where(c => c.Id == x.CapacityId).FirstOrDefault();
+                x.From = Lookups.Airfields.Where(airfield => airfield.Id == x.AirfieldFromId).FirstOrDefault();
+                x.To = Lookups.Airfields.Where(airfield => airfield.Id == x.AirfieldToId).FirstOrDefault();
                 x.Aircraft =
-                                                  Lookups.Aircraft.Where(aircraft => aircraft.id == x.AircraftId)
-                                                         .FirstOrDefault();
+                    Lookups.Aircraft.Where(aircraft => aircraft.id == x.AircraftId)
+                        .FirstOrDefault();
                 x.Lookups = Lookups;
                 x.DataService = this;
                 return x;
             }).ToList();
 
-            return true;
-
-            
+         
         }
 
         public async Task GetLookups()
@@ -96,6 +101,7 @@ namespace LogbookApp.Data
 
             else
                 await _mobileService.GetTable<Flight>().UpdateAsync(flight);
+            FlightsChanged = true;
             return true;
         }
 
@@ -217,7 +223,8 @@ namespace LogbookApp.Data
         }
 
         public User User { get; private set; }
-    
+        public bool FlightsChanged { get; set; }
+
 
         public async Task GetUser(string displayName)
         {

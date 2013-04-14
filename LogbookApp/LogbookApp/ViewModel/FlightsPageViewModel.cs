@@ -44,10 +44,10 @@ namespace LogbookApp.ViewModel
 
         }
 
-        public void  Load()
+        public async void  Load()
         {
-           
-         
+
+            await App.RefreshFlightData();
             Refresh();
         }
 

@@ -12,6 +12,8 @@ namespace LogbookApp.Data
         {
             Takeoffs = 1;
             LDG = 1;
+            Depart=new DateTime(2001, 1, 1);
+            Arrival = new DateTime(2001, 1, 1);
             
         }
 
@@ -78,6 +80,8 @@ namespace LogbookApp.Data
         }
 
         private int _airfieldToId;
+        private DateTime _arrival;
+
         public int AirfieldToId
         {
             get
@@ -91,8 +95,15 @@ namespace LogbookApp.Data
       
 
         public DateTime Depart { get; set; }
-        public DateTime Arrival { get; set; }
-       
+        public DateTime Arrival
+        {
+            get { return _arrival; }
+            set
+            {
+                _arrival = value;
+            }
+        }
+
         [IgnoreDataMember]
         public Aircraft Aircraft
         {
@@ -180,7 +191,7 @@ namespace LogbookApp.Data
 
         public override bool Valid()
         {
-            return Depart != DateTime.MinValue && Arrival != DateTime.MinValue;
+            return Arrival > Depart ;
         }
 
        

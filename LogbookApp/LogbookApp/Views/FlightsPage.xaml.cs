@@ -62,8 +62,6 @@ namespace LogbookApp
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
            viewModel.Load();
-           
-            // TODO: Assign a bindable collection of items to this.DefaultViewModel["Items"]
         }
 
         private void ActionShowDetail(Flight flight )
