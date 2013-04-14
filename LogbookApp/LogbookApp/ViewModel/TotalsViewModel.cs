@@ -43,5 +43,10 @@ namespace LogbookApp.ViewModel
                 RaisePropertyChanged(() => Totals);
             }
         }
+
+        public async Task Load()
+        {
+            await App.RefreshFlightData();
+        }
     }
 }

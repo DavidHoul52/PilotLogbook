@@ -11,7 +11,7 @@ namespace LogbookApp.Data
         Task GetLookups();
         ILookups Lookups { get; set; }
         Task<bool> InsertFlight(Flight flight);
-        Task<bool> UpdateFlight(Flight flight);
+     
         Task<bool> DeleteFlight(Flight flight);
         Task<bool> SaveFlight(Flight flight);
         void SaveFlights();

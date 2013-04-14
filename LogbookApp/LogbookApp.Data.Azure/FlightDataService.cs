@@ -74,16 +74,13 @@ namespace LogbookApp.Data
            return true;
         }
 
-        public async Task<bool> UpdateFlight(Flight flight)
-        {
-            await _mobileService.GetTable<Flight>().UpdateAsync(flight);
-            return true;
-        }
+      
 
 
         public async Task<bool> DeleteFlight(Flight flight)
         {
             await _mobileService.GetTable<Flight>().DeleteAsync(flight);
+            FlightsChanged = true;
             return true;
         }
 

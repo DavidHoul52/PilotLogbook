@@ -21,6 +21,7 @@ namespace LogbookApp.Views
         {
             this.InitializeComponent();
             viewModel = new TotalsViewModel();
+            viewModel.Load();
             DataContext = viewModel; 
         }
 
