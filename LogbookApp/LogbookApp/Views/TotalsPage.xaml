@@ -79,8 +79,18 @@
             <TextBlock Grid.Row="4" Text="Last 28 Days :"/>
             <TextBlock  Grid.Row="4" Grid.Column="2"
                         Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.Currency28Days.GrandTotal}"/>
+            <TextBlock Grid.Row="5" Text="Night :"/>
+                <TextBlock  Grid.Row="5" Grid.Column="2"
+                        Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.Night.GrandTotal}"/>
+           <TextBlock Grid.Row="6" Text="Instrument Flying :"/>
+                <TextBlock  Grid.Row="6" Grid.Column="2"
+                        Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.InstrumentFlying.GrandTotal}"/>
+                <TextBlock Grid.Row="7" Text="Sim Instrument Flying :"/>
+                <TextBlock  Grid.Row="7" Grid.Column="2"
+                        Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.SimInstrumentFlying.GrandTotal}"/>
 
-        </Grid>
+
+            </Grid>
             
         </ContentControl>
         <!-- Back button and page title -->
