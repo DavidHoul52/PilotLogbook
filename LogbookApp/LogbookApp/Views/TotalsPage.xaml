@@ -84,10 +84,10 @@
                         Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.Night.GrandTotal}"/>
            <TextBlock Grid.Row="6" Text="Instrument Flying :"/>
                 <TextBlock  Grid.Row="6" Grid.Column="2"
-                        Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.InstrumentFlying.GrandTotal}"/>
+                        Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.Total.InstrumentFlying}"/>
                 <TextBlock Grid.Row="7" Text="Sim Instrument Flying :"/>
                 <TextBlock  Grid.Row="7" Grid.Column="2"
-                        Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.SimInstrumentFlying.GrandTotal}"/>
+                        Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.Total.SimInstrumentFlying}"/>
 
 
             </Grid>

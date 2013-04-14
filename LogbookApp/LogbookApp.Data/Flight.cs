@@ -81,6 +81,7 @@ namespace LogbookApp.Data
 
         private int _airfieldToId;
         private DateTime _arrival;
+        private DateTime? _instrumentFlying;
 
         public int AirfieldToId
         {
@@ -184,9 +185,17 @@ namespace LogbookApp.Data
 
           public bool Night { get; set; }
 
-          public DateTime? InstrumentFlying { get; set; }
+          public DateTime? InstrumentFlying
 
-          public DateTime? SimulatedInstrumentFlying { get; set; }
+          {
+              get { return _instrumentFlying; }
+              set
+              {
+                  _instrumentFlying = value;
+              }
+          }
+
+        public DateTime? SimulatedInstrumentFlying { get; set; }
 
 
         public override bool Valid()

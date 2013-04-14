@@ -51,9 +51,13 @@ namespace FlightTimes
                     };
 
                     if (flight.InstrumentFlying != null)
-                        result.InstrumentFlying = result.InstrumentFlying.Add(new TimeSpan(flight.InstrumentFlying.Value.Ticks));
+                    {
+                        result.InstrumentFlying = result.InstrumentFlying.Add(
+                            flight.InstrumentFlying.Value.Time());
+                    }
                     if (flight.SimulatedInstrumentFlying != null)
-                        result.SimInstrumentFlying = result.SimInstrumentFlying.Add(new TimeSpan(flight.SimulatedInstrumentFlying.Value.Ticks));
+                        result.SimInstrumentFlying = result.SimInstrumentFlying.Add
+                            (flight.SimulatedInstrumentFlying.Value.Time());
 
                 }
              
