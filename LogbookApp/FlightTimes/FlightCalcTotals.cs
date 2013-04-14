@@ -24,6 +24,7 @@ namespace FlightTimes
         public FlightCalcResult Currency28Days { get; set; }
 
         public FlightCalcResult Currency7Days { get; set; }
-       
+
+        public FlightCalcResult Currency45Days { get; set; }
     }
 }

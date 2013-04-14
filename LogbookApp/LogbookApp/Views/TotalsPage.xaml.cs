@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using LogbookApp.Commands;
 using LogbookApp.ViewModel;
@@ -21,11 +22,12 @@ namespace LogbookApp.Views
         {
             this.InitializeComponent();
             viewModel = new TotalsViewModel();
-            viewModel.Load();
+            
             DataContext = viewModel; 
         }
 
-   
+        
+
 
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also
@@ -36,10 +38,13 @@ namespace LogbookApp.Views
         /// </param>
         /// <param name="pageState">A dictionary of state preserved by this page during an earlier
         /// session.  This will be null the first time a page is visited.</param>
-        protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+        protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+       
             viewModel.Command = navigationParameter as TotalsActionCommand;
-            
+            viewModel.Load();
+
+
         }
 
         /// <summary>

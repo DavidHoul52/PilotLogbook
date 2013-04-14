@@ -1,7 +1,9 @@
 ﻿
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace LogbookApp.Data
 {
@@ -23,15 +25,28 @@ namespace LogbookApp.Data
         {
             AcTypes = new ObservableCollection<AcType>(await MobileService.GetTable<AcType>().Take(500).OrderBy(x=>x.Code).ToListAsync());
             Capacity = new ObservableCollection<Capacity>(await MobileService.GetTable<Capacity>().Take(500).OrderBy(x=>x.Description).ToListAsync());
-            Airfields = new ObservableCollection<Airfield>(await MobileService.GetTable<Airfield>().Where(x=>x.UserId==userId).Take(500).OrderBy(x=>x.Name).
+            var aircraft = await
+                MobileService.GetTable<Aircraft>()
+                    .Where(x => x.UserId == userId)
+                    .Take(500)
+                    .OrderBy(x => x.Reg)
+                    .ToListAsync();
+
+             Aircraft = new ObservableCollection<Aircraft>(aircraft.
+                Select(ac =>
+                {
+                    ac.AcType = AcTypes.FirstOrDefault(x => x.Id == ac.AcTypeId);
+                        return ac;
+                }));
+             Airfields = new ObservableCollection<Airfield>(await MobileService.GetTable<Airfield>().Where(x=>x.UserId==userId).Take(500).OrderBy(x=>x.Name).
                 ToListAsync());
-            Aircraft =  new ObservableCollection<Aircraft>(await MobileService.GetTable<Aircraft>().Where(x=>x.UserId==userId).Take(500).OrderBy(x=>x.Reg).ToListAsync());
-            foreach (var ac in Aircraft)
-            {
-                ac.AcType = AcTypes.Where(a => a.Id == ac.AcTypeId).FirstOrDefault();
-                
-            }
+   
+
+
         }
+
+   
+       
 
 
         public ObservableCollection<AcType> AcTypes {get; set;}

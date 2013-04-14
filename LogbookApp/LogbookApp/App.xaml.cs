@@ -124,5 +124,11 @@ namespace LogbookApp
             if (Data.FlightsChanged)
                await Data.GetFlights();
         }
+
+        public static async Task GetAllFlightData()
+        {
+            
+                await Data.GetData(DisplayName);
+        }
     }
 }

@@ -20,6 +20,7 @@ namespace FlightTimes
              result.Currency90Days = CalcTimePeriod(flights, ToDate.AddDays(-90), ToDate);
              result.Currency28Days = CalcTimePeriod(flights, ToDate.AddDays(-28), ToDate);
              result.Currency7Days = CalcTimePeriod(flights, ToDate.AddDays(-7), ToDate);
+             result.Currency45Days = CalcTimePeriod(flights, ToDate.AddDays(-45), ToDate);
              return result;
         }
 

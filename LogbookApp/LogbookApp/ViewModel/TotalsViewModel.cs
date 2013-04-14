@@ -38,15 +38,18 @@ namespace LogbookApp.ViewModel
             set
             {
                 _command = value;
-                Totals = calculator.Calc(value.Flights, value.FromDate, value.ToDate);
                 
-                RaisePropertyChanged(() => Totals);
+          
             }
         }
 
         public async Task Load()
         {
-            await App.RefreshFlightData();
+            await App.GetAllFlightData();
+            Totals = calculator.Calc(App.Data.Flights, _command.FromDate, _command.ToDate);
+
+            RaisePropertyChanged(() => Totals);
+            
         }
     }
 }

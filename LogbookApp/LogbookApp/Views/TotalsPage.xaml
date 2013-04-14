@@ -59,6 +59,7 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
 
                 </Grid.RowDefinitions>
@@ -87,20 +88,23 @@
                 <TextBlock Grid.Row="5" Text="Last 90 Days :"/>
                 <TextBlock  Grid.Row="5" Grid.Column="2"
                         Text="{Binding Converter={StaticResource TimeSpanConverter},Path= Totals.Currency90Days.GrandTotal}"/>
-                <TextBlock Grid.Row="6" Text="Last 28 Days :"/>
+                <TextBlock Grid.Row="6" Text="Last 45 Days :"/>
                 <TextBlock  Grid.Row="6" Grid.Column="2"
-                        Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.Currency28Days.GrandTotal}"/>
-                <TextBlock Grid.Row="7" Text="Last 7 Days :"/>
+                        Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.Currency45Days.GrandTotal}"/>
+                <TextBlock Grid.Row="7" Text="Last 28 Days :"/>
                 <TextBlock  Grid.Row="7" Grid.Column="2"
-                        Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.Currency7Days.GrandTotal}"/>
-                <TextBlock Grid.Row="8" Text="Night :"/>
+                        Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.Currency28Days.GrandTotal}"/>
+                <TextBlock Grid.Row="8" Text="Last 7 Days :"/>
                 <TextBlock  Grid.Row="8" Grid.Column="2"
-                        Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.Night.GrandTotal}"/>
-                <TextBlock Grid.Row="9" Text="Instrument Flying :"/>
+                        Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.Currency7Days.GrandTotal}"/>
+                <TextBlock Grid.Row="9" Text="Night :"/>
                 <TextBlock  Grid.Row="9" Grid.Column="2"
-                        Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.Total.InstrumentFlying}"/>
-                <TextBlock Grid.Row="10" Text="Sim Instrument Flying :"/>
+                        Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.Night.GrandTotal}"/>
+                <TextBlock Grid.Row="10" Text="Instrument Flying :"/>
                 <TextBlock  Grid.Row="10" Grid.Column="2"
+                        Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.Total.InstrumentFlying}"/>
+                <TextBlock Grid.Row="11" Text="Sim Instrument Flying :"/>
+                <TextBlock  Grid.Row="11" Grid.Column="2"
                         Text="{Binding  Converter={StaticResource TimeSpanConverter},Path=Totals.Total.SimInstrumentFlying}"/>
 
 
