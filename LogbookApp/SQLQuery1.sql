@@ -1,1 +1,1 @@
-﻿update WorldPilotsLogBook.Aircraft set AcTypeId=25
+﻿select * from WorldPilotsLogBook.Airfield order by Name

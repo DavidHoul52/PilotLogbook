@@ -20,17 +20,18 @@ namespace LogbookApp.ViewModel
 
         public override async Task Save()
         {
-            if (IsDuplicate())
-            {
-                await Messager.ShowMessage("This aircraft has already been added.");
-                return;
-            }
+           
 
 
             if (Aircraft.Valid())
             {
                 if (Aircraft.IsNew)
                 {
+                    if (IsDuplicate())
+                    {
+                        await Messager.ShowMessage("This aircraft has already been added.");
+                        return;
+                    }
                     await DataService.InsertAircraft(Aircraft);
                     if (Flight != null)
                     {

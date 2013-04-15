@@ -1,1 +1,2 @@
-﻿update WorldPilotsLogBook.aircraft set AcTypeId=33 where AcTypeId =0
+﻿
+delete from WorldPilotsLogBook.Airfield where id=68

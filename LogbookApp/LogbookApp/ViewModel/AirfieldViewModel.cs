@@ -29,17 +29,18 @@ namespace LogbookApp.ViewModel
 
         public override async Task Save()
         {
-            if (IsDuplicate())
-            {
-                await Messager.ShowMessage("This airfield has already been added.");
-                return;
-            }
+          
 
 
             if (Airfield.Valid())
             {
                 if (Airfield.IsNew)
                 {
+                    if (IsDuplicate())
+                    {
+                        await Messager.ShowMessage("This airfield has already been added.");
+                        return;
+                    }
                     await DataService.InsertAirfield(Airfield);
                     if (Flight != null)
                         Flight.Lookups.Airfields.Add(Airfield);
