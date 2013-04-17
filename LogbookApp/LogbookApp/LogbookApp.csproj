@@ -127,6 +127,7 @@
     <Compile Include="ViewModel\MaintainAircraftTypesViewModel.cs" />
     <Compile Include="ViewModel\MaintainAircraftViewModel.cs" />
     <Compile Include="ViewModel\MaintainViewModelBase.cs" />
+    <Compile Include="ViewModel\PrivacyPolicyViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\TotalsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
@@ -165,6 +166,9 @@
     </Compile>
     <Compile Include="ViewModel\MaintainAirfieldsViewModel.cs" />
     <Compile Include="Views\Messager.cs" />
+    <Compile Include="Views\PrivacyPolicy.xaml.cs">
+      <DependentUpon>PrivacyPolicy.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TotalsPage.xaml.cs">
       <DependentUpon>TotalsPage.xaml</DependentUpon>
     </Compile>
@@ -239,6 +243,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\PrivacyPolicy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\TotalsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -274,6 +282,9 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Callisto">
+      <HintPath>..\packages\Callisto.1.2.8\lib\winrt45\Callisto.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Data.Edm.WindowsStore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Data.OData.WindowsStore.5.0.0\lib\.NETCore\Microsoft.Data.Edm.WindowsStore.dll</HintPath>

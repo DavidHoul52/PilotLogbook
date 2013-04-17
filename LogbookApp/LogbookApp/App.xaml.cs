@@ -4,6 +4,11 @@ using System.IO;
 using System.Linq;
 using Windows.Devices.Geolocation;
 using Windows.Foundation.Metadata;
+using Windows.UI;
+using Windows.UI.Core;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Media;
+using Callisto.Controls;
 using LogbookApp.Common;
 using LogbookApp.Data;
 using LogbookApp.Views;
@@ -37,9 +42,12 @@ namespace LogbookApp
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            this.Resuming += OnResuming; 
-            
+            this.Resuming += OnResuming;
+         
+
         }
+
+     
 
         public static IFlightDataService Data { get; set; }
         public static string DisplayName { get; set; }
@@ -55,7 +63,7 @@ namespace LogbookApp
         private Frame _rootFrame;
         protected async override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            
+            SettingsPane.GetForCurrentView().CommandsRequested += OnCommandsRequested;
             bool loadState = (args.PreviousExecutionState == ApplicationExecutionState.Terminated || args.PreviousExecutionState==ApplicationExecutionState.NotRunning );
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
@@ -130,5 +138,27 @@ namespace LogbookApp
             
                 await Data.GetData(DisplayName);
         }
+
+        private Color _background = Color.FromArgb(255, 0, 77, 96);
+
+        void OnCommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
+        {
+            // Add an About command
+            var about = new SettingsCommand("privacy", "Privacy Policy", (handler) =>
+            {
+                var settings = new SettingsFlyout();
+                settings.Content = new PrivacyPolicy();
+                settings.HeaderBrush = new SolidColorBrush(_background);
+                settings.Background = new SolidColorBrush(_background);
+                settings.HeaderText = "Privacy Policy";
+                settings.IsOpen = true;
+            });
+
+            args.Request.ApplicationCommands.Add(about);
+
+          
+
+        }
+      
     }
 }

@@ -8,11 +8,10 @@ namespace LogbookApp.ViewModel
     {
 
         private AcType acType;
+
         public AcType AcType
         {
-            get
-
-            { return acType; }
+            get { return acType; }
 
             set
             {
@@ -23,7 +22,7 @@ namespace LogbookApp.ViewModel
 
 
 
-        public async override Task Save()
+        public override async Task Save()
         {
 
 
@@ -44,12 +43,12 @@ namespace LogbookApp.ViewModel
             {
                 await DataService.UpdateAcType(AcType);
             }
-         
+
         }
 
         private bool IsDuplicate()
         {
-            return Lookups.AcTypes.FirstOrDefault(x => x.Code == AcType.Code && AcType!=x) != null;
+            return Lookups.AcTypes.FirstOrDefault(x => x.Code == AcType.Code && AcType != x) != null;
         }
     }
-}
+}   
