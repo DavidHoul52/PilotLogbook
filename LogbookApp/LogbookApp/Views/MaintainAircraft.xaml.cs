@@ -33,7 +33,7 @@ namespace LogbookApp.Views
         {
             this.InitializeComponent();
 
-            FlightDataService data = MobileService.Client;
+            IFlightDataService data = App.Data;
 
 
 

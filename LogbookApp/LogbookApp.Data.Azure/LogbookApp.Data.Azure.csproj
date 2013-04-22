@@ -106,7 +106,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FlightDataService.cs" />
-    <Compile Include="Lookups.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

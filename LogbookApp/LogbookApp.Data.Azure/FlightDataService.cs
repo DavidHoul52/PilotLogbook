@@ -1,4 +1,6 @@
-﻿using Microsoft.WindowsAzure.MobileServices;
+﻿using System.Collections.ObjectModel;
+using System.Linq.Expressions;
+using Microsoft.WindowsAzure.MobileServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +13,7 @@ namespace LogbookApp.Data
     {
         private MobileServiceClient _mobileService;
         private IUserManager _userManager;
+        private bool _connected;
 
         public FlightDataService(MobileServiceClient mobileService)
         {
@@ -23,8 +26,10 @@ namespace LogbookApp.Data
      
         public List<Flight> Flights { get; set; }
 
+        public Action OnDisconnectedAction { get; set; }
         
-        
+          
+      
 
         public async Task GetData(string displayName)
         {
@@ -33,6 +38,8 @@ namespace LogbookApp.Data
             User = _userManager.User;
             await GetLookups();
             await GetFlights();
+            
+          
             
 
             
@@ -60,13 +67,35 @@ namespace LogbookApp.Data
 
         public async Task GetLookups()
         {
-            Lookups = new Lookups(_mobileService);
-            await Lookups.Load(User.Id);
+            Lookups = new Lookups();
+            await LoadLookups(User.Id);
             
 
         }
 
-        public ILookups Lookups { get; set; }
+        private async Task LoadLookups(int userId)
+        {
+            Lookups.AcTypes = new ObservableCollection<AcType>(await _mobileService.GetTable<AcType>().Take(500).OrderBy(x => x.Code).ToListAsync());
+            Lookups.Capacity = new ObservableCollection<Capacity>(await _mobileService.GetTable<Capacity>().Take(500).OrderBy(x => x.Description).ToListAsync());
+            var aircraft = await
+                _mobileService.GetTable<Aircraft>()
+                    .Where(x => x.UserId == userId)
+                    .Take(500)
+                    .OrderBy(x => x.Reg)
+                    .ToListAsync();
+
+            Lookups.Aircraft = new ObservableCollection<Aircraft>(aircraft.
+               Select(ac =>
+               {
+                   ac.AcType = Lookups.AcTypes.FirstOrDefault(x => x.Id == ac.AcTypeId);
+                   return ac;
+               }));
+            Lookups.Airfields = new ObservableCollection<Airfield>(await _mobileService.GetTable<Airfield>().Where(x => x.UserId == userId).Take(500).OrderBy(x => x.Name).
+               ToListAsync());
+          
+        }
+
+        public Lookups Lookups { get; set; }
 
         public async Task<bool> InsertFlight(Flight flight)
         {
@@ -225,9 +254,22 @@ namespace LogbookApp.Data
 
         public async Task GetUser(string displayName)
         {
-           var users= await _mobileService.GetTable<User>()
-                              .Where(x => x.DisplayName == displayName)
-                              .ToListAsync();
+            List<User> users;
+         
+                try
+                {
+                    users = await _mobileService.GetTable<User>()
+                        .Where(x => x.DisplayName == displayName)
+                        .ToListAsync();     
+                }
+                catch (Exception)
+                {
+                    OnDisconnectedAction();
+                    return;
+
+                }
+          
+
             User = users.FirstOrDefault();
 
         }

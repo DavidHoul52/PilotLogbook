@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 
 namespace LogbookApp.Data
@@ -121,8 +122,9 @@ namespace LogbookApp.Data
       
 
         [IgnoreDataMember]
-        public ILookups Lookups { get; set; }
-          [IgnoreDataMember]
+        public Lookups Lookups { get; set; }
+        [IgnoreDataMember]
+        [XmlIgnore]
         public IFlightDataService DataService { get; set; }
 
 

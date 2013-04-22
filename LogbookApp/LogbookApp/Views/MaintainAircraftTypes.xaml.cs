@@ -19,7 +19,7 @@ namespace LogbookApp.Views
         public MaintainAircraftTypes()
         {
             this.InitializeComponent();
-            FlightDataService data = MobileService.Client;
+            IFlightDataService data = App.Data;
 
 
 

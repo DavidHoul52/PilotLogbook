@@ -53,9 +53,9 @@ namespace LogbookApp.ViewModel
 
         public void Refresh()
         {
-            
-            Flights = new ObservableCollection<Flight>(flightDataService.Flights.OrderByDescending(x => x.Depart).
-                                                                         OrderByDescending(x => x.Date));
+            if (flightDataService.Flights != null)
+                Flights = new ObservableCollection<Flight>(flightDataService.Flights.OrderByDescending(x => x.Depart).
+                    OrderByDescending(x => x.Date));
             RaisePropertyChanged(() => Flights);
         }
 

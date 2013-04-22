@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
 using Windows.Devices.Geolocation;
 using Windows.Foundation.Metadata;
+using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -86,14 +90,31 @@ namespace LogbookApp
             if (loadState)
             {
                 
-               DisplayName = await UserInformation.GetDisplayNameAsync();
-                //DisplayName = "test2";
-                Data = MobileService.Client;
+               //DisplayName = await UserInformation.GetDisplayNameAsync();
+               DisplayName = "test2";
+                Data = new MobileService(OnDisconnected).Client;
                 await Data.GetData(DisplayName);
+                LocalStorage localStorage = new LocalStorage();
+                await localStorage.Save(Data.Flights,"flights.xml");
+                await localStorage.Restore<List<Flight>>("flights.xml");
+                //Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                //XmlSerializer x = new XmlSerializer(typeof(List<Flight>));
+                //MemoryStream s = new MemoryStream();
+                //x.Serialize(s,Data.Flights);
+
+                //var g = x.Deserialize(s);
+
+
+
             }
             // Tear down the extended splash screen after all operations are complete.
             RemoveExtendedSplash(); 
 
+        }
+
+        private void OnDisconnected()
+        {
+            new MessageDialog("You are currently not connected to the internet.").ShowAsync();
         }
 
         private void RemoveExtendedSplash()

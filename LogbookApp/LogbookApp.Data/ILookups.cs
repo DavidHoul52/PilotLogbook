@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace LogbookApp.Data
 {
+    
     public interface ILookups
     {
        ObservableCollection<AcType> AcTypes { get; set; }
@@ -11,6 +10,6 @@ namespace LogbookApp.Data
        ObservableCollection<Airfield> Airfields { get; set; }
        ObservableCollection<Aircraft> Aircraft { get; set; }
 
-       Task Load(int userId);
+ 
     }
 }

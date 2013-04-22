@@ -9,7 +9,7 @@ namespace LogbookApp.Data
        
         Task GetData(string displayName);
         Task GetLookups();
-        ILookups Lookups { get; set; }
+        Lookups Lookups { get; set; }
         Task<bool> InsertFlight(Flight flight);
      
         Task<bool> DeleteFlight(Flight flight);

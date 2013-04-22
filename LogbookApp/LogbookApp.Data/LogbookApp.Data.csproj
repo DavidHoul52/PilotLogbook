@@ -115,6 +115,7 @@
     <Compile Include="IFlightDataService.cs" />
     <Compile Include="ILookups.cs" />
     <Compile Include="IUserManager.cs" />
+    <Compile Include="Lookups.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserManager.cs" />
