@@ -41,12 +41,12 @@ namespace LogbookApp.ViewModel
                         await Messager.ShowMessage("This airfield has already been added.");
                         return;
                     }
-                    await DataService.InsertAirfield(Airfield);
+                    await DataService.InsertAirfield(Airfield, DateTime.UtcNow);
                     if (Flight != null)
                         Flight.Lookups.Airfields.Add(Airfield);
                 }
                 else
-                    await DataService.UpdateAirfield(Airfield);
+                    await DataService.UpdateAirfield(Airfield, DateTime.UtcNow);
             }
 
 

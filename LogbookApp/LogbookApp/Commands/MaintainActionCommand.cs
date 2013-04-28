@@ -6,7 +6,7 @@ namespace LogbookApp.Commands
     public class MaintainActionCommand<T>
     {
         public T Item { get; set; }
-        public IFlightDataService DataService { get; set; }
+        public IFlightDataManager DataService { get; set; }
         public Action OnCompleted { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
@@ -32,7 +33,7 @@ namespace LogbookApp.ViewModel
                         await Messager.ShowMessage("This aircraft has already been added.");
                         return;
                     }
-                    await DataService.InsertAircraft(Aircraft);
+                    await DataService.InsertAircraft(Aircraft,DateTime.UtcNow);
                     if (Flight != null)
                     {
                         Flight.Lookups.Aircraft.Add(Aircraft);
@@ -41,7 +42,7 @@ namespace LogbookApp.ViewModel
                 }
                 else
                 {
-                    await DataService.UpdateAircraft(Aircraft);
+                    await DataService.UpdateAircraft(Aircraft, DateTime.UtcNow);
                 }
             }
 

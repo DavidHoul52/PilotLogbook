@@ -53,7 +53,7 @@ namespace LogbookApp
 
      
 
-        public static IFlightDataService Data { get; set; }
+        public static IFlightDataManager Data { get; set; }
         public static string DisplayName { get; set; }
 
         /// <summary>
@@ -92,17 +92,12 @@ namespace LogbookApp
                 
                //DisplayName = await UserInformation.GetDisplayNameAsync();
                DisplayName = "test2";
-                Data = new MobileService(OnDisconnected).Client;
-                await Data.GetData(DisplayName);
-                LocalStorage localStorage = new LocalStorage();
-                await localStorage.Save(Data.Flights,"flights.xml");
-                await localStorage.Restore<List<Flight>>("flights.xml");
-                //Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-                //XmlSerializer x = new XmlSerializer(typeof(List<Flight>));
-                //MemoryStream s = new MemoryStream();
-                //x.Serialize(s,Data.Flights);
-
-                //var g = x.Deserialize(s);
+                Data = new FlightDataManager(new MobileService(OnDisconnected,DisplayName).Client,null,null);
+                await Data.GetData();
+         //       LocalStorage localStorage = new LocalStorage();
+         //       await localStorage.Save(Data.Flights,"flights.xml");
+         //       await localStorage.Restore<List<Flight>>("flights.xml");
+         
 
 
 
@@ -157,7 +152,7 @@ namespace LogbookApp
         public static async Task GetAllFlightData()
         {
             
-                await Data.GetData(DisplayName);
+                await Data.GetData();
         }
 
         private Color _background = Color.FromArgb(255, 0, 77, 96);

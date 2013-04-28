@@ -119,7 +119,6 @@
     <Compile Include="Design\FlightItem.xaml.cs">
       <DependentUpon>FlightItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LocalStorage.cs" />
     <Compile Include="Services\MobileService.cs" />
     <Compile Include="ViewModel\AircraftViewModel.cs" />
     <Compile Include="ViewModel\DelegateCommand.cs" />

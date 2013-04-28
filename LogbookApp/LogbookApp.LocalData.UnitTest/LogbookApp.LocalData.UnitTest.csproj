@@ -6,14 +6,15 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{89900CBD-6C4A-443B-93B9-67081C3308B9}</ProjectGuid>
+    <ProjectGuid>{009903D2-B05D-4478-A2C7-4A3582A42EC4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LogbookApp.Data</RootNamespace>
-    <AssemblyName>LogbookApp.Data</AssemblyName>
+    <RootNamespace>LogbookApp.LocalData.UnitTest</RootNamespace>
+    <AssemblyName>LogbookApp.LocalData.UnitTest</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PackageCertificateKeyFile>LogbookApp.LocalData.UnitTest_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -98,29 +99,52 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <AppXPackage>True</AppXPackage>
+    <AppxPackageIncludePrivateSymbols>true</AppxPackageIncludePrivateSymbols>
+  </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <!--A reference to the entire .Net Framework and Windows SDK are automatically included-->
+    <SDKReference Include="MSTestFramework, Version=11.0" />
+    <SDKReference Include="TestPlatform, Version=11.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AcType.cs" />
-    <Compile Include="Aircraft.cs" />
-    <Compile Include="AircraftClass.cs" />
-    <Compile Include="Airfield.cs" />
-    <Compile Include="Capacity.cs" />
-    <Compile Include="Entity.cs" />
-    <Compile Include="Flight.cs" />
-    <Compile Include="FlightDataService.cs" />
-    <Compile Include="IFlightDataManager.cs" />
-    <Compile Include="IFlightDataService.cs" />
-    <Compile Include="ILookups.cs" />
-    <Compile Include="IUserManager.cs" />
-    <Compile Include="Lookups.cs" />
+    <Compile Include="LocalDataManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="UserManager.cs" />
+    <Compile Include="TestLocalStorage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <None Include="LogbookApp.LocalData.UnitTest_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\UnitTestLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\UnitTestSmallLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\UnitTestSplashScreen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\UnitTestStoreLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogbookApp.Data\LogbookApp.Data.csproj">
+      <Project>{89900cbd-6c4a-443b-93b9-67081c3308b9}</Project>
+      <Name>LogbookApp.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogbookApp.LocalData\LogbookApp.LocalData.csproj">
+      <Project>{72683C7D-0662-4815-9E8E-6E03536FFBCF}</Project>
+      <Name>LogbookApp.LocalData</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Runtime" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
@@ -129,7 +153,7 @@
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
-  </Target>
+  </Target>  
   <Target Name="AfterBuild">
   </Target>
   -->

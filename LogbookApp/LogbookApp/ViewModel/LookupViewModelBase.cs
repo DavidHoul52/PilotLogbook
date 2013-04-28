@@ -27,8 +27,8 @@ namespace LogbookApp.ViewModel
 
         public abstract Task Save();
 
-        private IFlightDataService dataService;
-        public IFlightDataService DataService {
+        private IFlightDataManager dataService;
+        public IFlightDataManager DataService {
             get {
                    return dataService;}
             set

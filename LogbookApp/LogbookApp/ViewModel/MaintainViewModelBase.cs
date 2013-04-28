@@ -12,7 +12,7 @@ namespace LogbookApp.ViewModel
     public abstract class MaintainViewModelBase<T> : ViewModelBase
         where T: Entity, new()
     {
-        protected IFlightDataService flightDataService;
+        protected IFlightDataManager flightDataService;
 
 
         public DelegateCommand<T> EditCommand { get; set; }
@@ -44,7 +44,7 @@ namespace LogbookApp.ViewModel
             bool deleted;
             try
             {
-                deleted = await flightDataService.Delete<T>(item);
+                deleted = await flightDataService.Delete<T>(item,DateTime.UtcNow);
             }
             catch (Exception)
             {

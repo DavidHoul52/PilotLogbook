@@ -10,16 +10,16 @@ namespace LogbookApp.Services
     {
 
 
-        public MobileService(Action onDisconnected)
+        public MobileService(Action onDisconnected, string displayName)
         {
-            _client = new FlightDataService(new MobileServiceClient(
-               "https://worldpilotslogbook.azure-mobile.net/", "LRlXCJsDuLcggcInPASNkoyofIwtuk47"));
-            _client.OnDisconnectedAction = onDisconnected;
+            _client = new MobileFlightDataService(new MobileServiceClient(
+               "https://worldpilotslogbook.azure-mobile.net/", "LRlXCJsDuLcggcInPASNkoyofIwtuk47"),displayName);
+            
         }
 
-        private FlightDataService _client;
+        private IFlightDataService _client;
 
-        public FlightDataService Client
+        public IFlightDataService Client
         {
             get
             {

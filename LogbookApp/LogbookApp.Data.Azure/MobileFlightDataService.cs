@@ -9,21 +9,29 @@ using System.Threading.Tasks;
 
 namespace LogbookApp.Data
 {
-    public class FlightDataService : IFlightDataService
+    public class MobileFlightDataService : IFlightDataService
     {
         private MobileServiceClient _mobileService;
+        private readonly string _displayName;
         private IUserManager _userManager;
         private bool _connected;
+        private bool _available;
 
-        public FlightDataService(MobileServiceClient mobileService)
+        public MobileFlightDataService(MobileServiceClient mobileService, string displayName)
         {
 
             _mobileService = mobileService;
+            _displayName = displayName;
             _userManager = new UserManager();
             
         }
 
-     
+
+        public DataType DataType
+        {
+            get { return DataType.OnLine; }
+        }
+
         public List<Flight> Flights { get; set; }
 
         public Action OnDisconnectedAction { get; set; }
@@ -31,9 +39,9 @@ namespace LogbookApp.Data
           
       
 
-        public async Task GetData(string displayName)
+        public async Task GetData()
         {
-            _userManager.DisplayName = displayName;
+            _userManager.DisplayName = _displayName;
             await _userManager.GetUser(this);
             User = _userManager.User;
             await GetLookups();
@@ -63,6 +71,19 @@ namespace LogbookApp.Data
             }).ToList();
 
          
+        }
+
+        public async Task<bool> Available()
+        {
+            await GetUser();
+
+            return User != null;
+        }
+
+        public async Task UpdateUser(DateTime upDateTime)
+        {
+            User.LastUpdated = upDateTime;
+            await Update(User);
         }
 
         public async Task GetLookups()
@@ -100,15 +121,16 @@ namespace LogbookApp.Data
         public async Task<bool> InsertFlight(Flight flight)
         {
            await _mobileService.GetTable<Flight>().InsertAsync(flight);
+         
            return true;
         }
 
-      
 
 
         public async Task<bool> DeleteFlight(Flight flight)
         {
             await _mobileService.GetTable<Flight>().DeleteAsync(flight);
+            
             FlightsChanged = true;
             return true;
         }
@@ -126,20 +148,14 @@ namespace LogbookApp.Data
             }
 
             else
+            {
                 await _mobileService.GetTable<Flight>().UpdateAsync(flight);
+            }
             FlightsChanged = true;
             return true;
         }
 
-        public void SaveFlights()
-        {
-            foreach (var flight in Flights)
-            {
-                SaveFlight(flight);
-            }
-            
-        }
-
+      
       
 
 
@@ -148,29 +164,34 @@ namespace LogbookApp.Data
             aircraft.UserId = User.Id;
             await Insert<Aircraft>(aircraft);
             
+            
         }
 
         public async Task InsertAircraftType(AcType acType)
         {
             
             await Insert(acType);
+            
         }
 
         public async Task InsertAirfield(Airfield airfield)
         {
             airfield.UserId = User.Id;
             await Insert(airfield);
+            
         }
 
 
         public async Task UpdateAircraft(Aircraft Aircraft)
         {
             await Update(Aircraft);
+            
         }
 
         public async Task<bool> DeleteAircraft(Aircraft f)
         {
             await Delete(f);
+            
             return true;
         }
 
@@ -225,26 +246,31 @@ namespace LogbookApp.Data
 
         public async Task<bool> DeleteAirfield(Airfield f)
         {
-            return await Delete(f);
-            
+            bool result =await Delete(f);
+            await OnDataUpdated();
+            return result;
+
         }
 
 
         public async Task UpdateAcType(AcType AcType)
         {
             await Update(AcType);
+            await OnDataUpdated();
         }
 
 
         public async Task InsertAcType(AcType AcType)
         {
             await Insert(AcType);
+            await OnDataUpdated();
         }
 
 
         public async Task InsertUser(User user)
         {
             User = user;
+            User.LastUpdated=DateTime.UtcNow;
             await Insert(user);
         }
 
@@ -252,18 +278,20 @@ namespace LogbookApp.Data
         public bool FlightsChanged { get; set; }
 
 
-        public async Task GetUser(string displayName)
+        public async Task GetUser()
         {
             List<User> users;
          
                 try
                 {
                     users = await _mobileService.GetTable<User>()
-                        .Where(x => x.DisplayName == displayName)
+                        .Where(x => x.DisplayName == _displayName)
                         .ToListAsync();     
+                    
                 }
                 catch (Exception)
                 {
+                    
                     OnDisconnectedAction();
                     return;
 

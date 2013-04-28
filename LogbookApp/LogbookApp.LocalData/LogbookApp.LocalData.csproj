@@ -6,11 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{89900CBD-6C4A-443B-93B9-67081C3308B9}</ProjectGuid>
+    <ProjectGuid>{72683C7D-0662-4815-9E8E-6E03536FFBCF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LogbookApp.Data</RootNamespace>
-    <AssemblyName>LogbookApp.Data</AssemblyName>
+    <RootNamespace>LogbookApp.LocalData</RootNamespace>
+    <AssemblyName>LogbookApp.LocalData</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -100,27 +100,12 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AcType.cs" />
-    <Compile Include="Aircraft.cs" />
-    <Compile Include="AircraftClass.cs" />
-    <Compile Include="Airfield.cs" />
-    <Compile Include="Capacity.cs" />
-    <Compile Include="Entity.cs" />
-    <Compile Include="Flight.cs" />
-    <Compile Include="FlightDataService.cs" />
-    <Compile Include="IFlightDataManager.cs" />
-    <Compile Include="IFlightDataService.cs" />
-    <Compile Include="ILookups.cs" />
-    <Compile Include="IUserManager.cs" />
-    <Compile Include="Lookups.cs" />
+    <Compile Include="ILocalStorage.cs" />
+    <Compile Include="LocalDataManager.cs" />
+    <Compile Include="LocalStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="UserManager.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

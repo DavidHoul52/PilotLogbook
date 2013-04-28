@@ -105,7 +105,7 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FlightDataService.cs" />
+    <Compile Include="MobileFlightDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

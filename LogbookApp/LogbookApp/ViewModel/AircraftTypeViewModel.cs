@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using LogbookApp.Data;
 
@@ -35,13 +36,13 @@ namespace LogbookApp.ViewModel
 
             if (AcType.IsNew)
             {
-                await DataService.InsertAcType(AcType);
+                await DataService.InsertAcType(AcType, DateTime.UtcNow);
                 if (Flight != null)
                     Flight.Lookups.AcTypes.Add(AcType);
             }
             else
             {
-                await DataService.UpdateAcType(AcType);
+                await DataService.UpdateAcType(AcType, DateTime.UtcNow);
             }
 
         }

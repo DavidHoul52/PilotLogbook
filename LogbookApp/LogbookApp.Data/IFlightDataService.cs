@@ -1,20 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LogbookApp.Data
 {
+    public enum DataType
+    {
+        None,
+        OffLine,
+        OnLine
+    };
+
+
     public interface IFlightDataService
     {
+        DataType DataType { get; }
+
         List<Flight> Flights { get; set; }
        
-        Task GetData(string displayName);
+        Task GetData();
         Task GetLookups();
         Lookups Lookups { get; set; }
         Task<bool> InsertFlight(Flight flight);
      
         Task<bool> DeleteFlight(Flight flight);
         Task<bool> SaveFlight(Flight flight);
-        void SaveFlights();
+      
         
         Task InsertAircraft(Aircraft aircraft);
         Task InsertAircraftType(AcType acType);
@@ -37,10 +48,12 @@ namespace LogbookApp.Data
         Task InsertUser(User user);
 
 
-        Task GetUser(string displayName);
+        Task GetUser();
 
         User User { get; }
         bool FlightsChanged { get; set; }
         Task GetFlights();
+        Task<bool> Available();
+        Task UpdateUser(DateTime upDateTime);
     }
 }
