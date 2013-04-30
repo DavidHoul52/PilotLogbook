@@ -123,9 +123,7 @@ namespace LogbookApp.Data
 
         [IgnoreDataMember]
         public Lookups Lookups { get; set; }
-        [IgnoreDataMember]
-        [XmlIgnore]
-        public IFlightDataManager DataService { get; set; }
+     
 
 
      

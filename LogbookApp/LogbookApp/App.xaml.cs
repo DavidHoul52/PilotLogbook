@@ -92,11 +92,10 @@ namespace LogbookApp
                 
                //DisplayName = await UserInformation.GetDisplayNameAsync();
                DisplayName = "test2";
-                Data = new FlightDataManager(new MobileService(OnDisconnected,DisplayName).Client,null,null);
+                Data = new FlightDataManager(new MobileService(OnDisconnected,DisplayName).Client,null,
+                    null,DisplayName);
                 await Data.GetData();
-         //       LocalStorage localStorage = new LocalStorage();
-         //       await localStorage.Save(Data.Flights,"flights.xml");
-         //       await localStorage.Restore<List<Flight>>("flights.xml");
+       
          
 
 

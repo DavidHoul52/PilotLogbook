@@ -38,7 +38,7 @@ namespace LogbookApp.ViewModel
 
         private void ShowTotals()
         {
-            ShowTotalsAction(new TotalsActionCommand { Flights= Flight.DataService.Flights,
+            ShowTotalsAction(new TotalsActionCommand { Flights= App.Data.Flights,
                 FromDate = new DateTime(1900,1,1),
                 ToDate=Flight.Date});
         }
@@ -161,7 +161,7 @@ namespace LogbookApp.ViewModel
         public async Task<bool> SaveFlight()
         {
           
-            bool result =await Flight.DataService.SaveFlight(TODO);
+            bool result =await App.Data.SaveFlight(Flight,DateTime.UtcNow);
             if (result)
             {
                 Flight.IsNew = false;

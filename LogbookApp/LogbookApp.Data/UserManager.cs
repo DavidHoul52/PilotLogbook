@@ -10,7 +10,7 @@ namespace LogbookApp.Data
         public async Task GetUser(IFlightDataService flightDataService)
         {
 
-            await flightDataService.GetUser();
+            await flightDataService.GetUser(DisplayName);
             if (flightDataService.User == null)
             {
                 await flightDataService.InsertUser(new User {DisplayName = this.DisplayName});

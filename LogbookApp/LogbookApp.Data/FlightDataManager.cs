@@ -9,20 +9,34 @@ namespace LogbookApp.Data
         private readonly IFlightDataService _onLineData;
         private readonly IFlightDataService _localData;
         private readonly Action _onlineDataUpdatedFromOffLine;
+        private readonly string _displayName;
+        private IUserManager _userManager;
 
         public FlightDataManager(IFlightDataService onLineData, IFlightDataService localData,
-            Action onlineDataUpdatedFromOffLine)
+            Action onlineDataUpdatedFromOffLine, string displayName)
         {
             _onLineData = onLineData;
             _localData = localData;
             _onlineDataUpdatedFromOffLine = onlineDataUpdatedFromOffLine;
+            _displayName = displayName;
+            _userManager = new UserManager();
         }
 
         public DataType DataType { get; private set; }
         public List<Flight> Flights { get; set; }
+      
+
         public async Task GetData()
         {
-            await PerformDataGetAction((flightDataService)=> flightDataService.GetData());
+            await PerformDataGetAction(async (flightDataService) =>
+            {
+                _userManager.DisplayName = _displayName;
+                await _userManager.GetUser(flightDataService);
+                User = _userManager.User;
+               
+            });
+            await GetLookups();
+            await GetFlights();
         }
 
 
@@ -36,7 +50,7 @@ namespace LogbookApp.Data
 
         private async Task<IFlightDataService> GetAvailableDataService()
         {
-            if (await _onLineData.Available())
+            if (await _onLineData.Available(_displayName))
             {
                 DataType=DataType.OnLine;
                 if (_onLineData.User.LastUpdated == null ||
@@ -57,18 +71,27 @@ namespace LogbookApp.Data
 
         public async Task GetLookups()
         {
-            throw new System.NotImplementedException();
+            await PerformDataGetAction(async (flightDataService) =>
+            {
+                await flightDataService.GetLookups();
+
+            });
         }
+
+    
 
         public Lookups Lookups { get; set; }
-        public Task<bool> InsertFlight(Flight flight)
+        public async Task<bool> InsertFlight(Flight flight, DateTime insertTime)
         {
-            throw new System.NotImplementedException();
+            await PerformDataUpdateAction((flightservice) => flightservice.InsertFlight(flight), insertTime);
+            return true;
+
         }
 
-        public Task<bool> DeleteFlight(Flight flight)
+        public async Task<bool> DeleteFlight(Flight flight, DateTime deleteTime)
         {
-            throw new System.NotImplementedException();
+            await PerformDataUpdateAction((flightservice) => flightservice.DeleteFlight(flight), deleteTime);
+            return true;
         }
 
       
@@ -78,10 +101,7 @@ namespace LogbookApp.Data
             return true;
         }
 
-        public void SaveFlights()
-        {
-            throw new System.NotImplementedException();
-        }
+      
 
         public async Task InsertAircraft(Aircraft aircraft, DateTime upDateTime)
         {
@@ -148,7 +168,7 @@ namespace LogbookApp.Data
 
         public async Task GetUser()
         {
-            await PerformDataGetAction((flightservice) => flightservice.GetUser());
+            await PerformDataGetAction((flightservice) => flightservice.GetUser(_displayName));
         }
 
         public User User { get; private set; }
@@ -156,6 +176,8 @@ namespace LogbookApp.Data
         public async Task GetFlights()
         {
             await PerformDataGetAction((flightservice) => flightservice.GetFlights());
+            
+            
         }
 
         public async Task<bool> Available()

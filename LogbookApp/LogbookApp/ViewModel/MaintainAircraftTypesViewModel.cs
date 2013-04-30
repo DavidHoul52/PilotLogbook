@@ -11,7 +11,7 @@ namespace LogbookApp.ViewModel
     public class MaintainAircraftTypesViewModel : MaintainViewModelBase<AcType>
     {
 
-        public MaintainAircraftTypesViewModel(IFlightDataService flightDataService) :base (flightDataService)
+        public MaintainAircraftTypesViewModel(IFlightDataManager flightDataService) :base (flightDataService)
         {
            
         }

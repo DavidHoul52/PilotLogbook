@@ -63,7 +63,7 @@ namespace LogbookApp.Data.Test
           
         }
 
-        public async Task UpdateAircraft(Aircraft Aircraft)
+        public async Task UpdateAircraft(Aircraft aircraft)
         {
             
         }
@@ -73,7 +73,7 @@ namespace LogbookApp.Data.Test
             return true;
         }
 
-        public async Task UpdateAirfield(Airfield Airfield)
+        public async Task UpdateAirfield(Airfield airfield)
         {
            
         }
@@ -83,12 +83,12 @@ namespace LogbookApp.Data.Test
             return true;
         }
 
-        public async Task UpdateAcType(AcType AcType)
+        public async Task UpdateAcType(AcType acType)
         {
           
         }
 
-        public async Task InsertAcType(AcType AcType)
+        public async Task InsertAcType(AcType acType)
         {
           
         }
@@ -103,7 +103,7 @@ namespace LogbookApp.Data.Test
             return default(Task);
         }
 
-        public Task GetUser()
+        public Task GetUser(string displayName)
         {
             return default(Task);
         }
@@ -115,7 +115,7 @@ namespace LogbookApp.Data.Test
             return default(Task);
         }
 
-        public async Task<bool> Available()
+        public async Task<bool> Available(string displayName)
         {
             return _available;
         }

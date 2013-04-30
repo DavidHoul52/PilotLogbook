@@ -11,9 +11,10 @@ namespace LogbookApp.ViewModel
 {
     public class MaintainAircraftViewModel : MaintainViewModelBase<Aircraft>
     {
-    
 
-        public MaintainAircraftViewModel(IFlightDataService flightDataService) : base(flightDataService)
+
+        public MaintainAircraftViewModel(IFlightDataManager flightDataService)
+            : base(flightDataService)
         {
         
         }

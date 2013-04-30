@@ -29,7 +29,7 @@ namespace LogbookApp.Data.Test
             target = new FlightDataManager(_onlineTestData, _localTestData, () =>
             {
                 _onlineDataUpdatedFromOffLine = true;
-            });
+            },"david");
         }
 
         [TestMethod]

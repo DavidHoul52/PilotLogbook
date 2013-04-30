@@ -62,7 +62,7 @@ namespace LogbookApp.ViewModel
 
         private void AddFlight()
         {
-            Flights.Add(new Flight { Lookups= flightData.Lookups, IsNew = true, DataService = flightData,
+            Flights.Add(new Flight { Lookups= flightData.Lookups, IsNew = true, 
             Date = DateTime.Today, AircraftId = 1});
             SelectedFlight = Flights.Last();
             ShowDetail(SelectedFlight);
@@ -74,7 +74,7 @@ namespace LogbookApp.ViewModel
 
         private async void DeleteFlight(Flight f)
         {
-            bool deleted= await flightData.DeleteFlight(f);   
+            bool deleted= await flightData.DeleteFlight(f, DateTime.UtcNow);   
             if (deleted)
                Flights.Remove(f);
         }

@@ -13,10 +13,9 @@ namespace LogbookApp.Data
         bool FlightsChanged { get; set; }
         Task GetData();
         Task GetLookups();
-        Task<bool> InsertFlight(Flight flight);
-        Task<bool> DeleteFlight(Flight flight);
+        Task<bool> InsertFlight(Flight flight,DateTime updateTime);
+        Task<bool> DeleteFlight(Flight flight, DateTime updateTime);
         Task<bool> SaveFlight(Flight flight, DateTime saveTime);
-        void SaveFlights();
         Task InsertAircraft(Aircraft aircraft, DateTime upDateTime);
         Task InsertAircraftType(AcType acType,DateTime upDateTime);
         Task InsertAirfield(Airfield @from, DateTime upDateTime);

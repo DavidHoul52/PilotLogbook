@@ -17,7 +17,7 @@ namespace LogbookApp.LocalData.UnitTest
         {
             _localStorage = new LocalStorage();
             _flights = new List<Flight>();
-            target = new LocalDataManager(_localStorage);
+            target = new LocalDataManager(_localStorage,"","","");
         }
 
         [TestMethod]

@@ -31,7 +31,7 @@ namespace LogbookApp.Views
         public MaintainAirfields()
         {
             this.InitializeComponent();
-            IFlightDataService data = App.Data;
+            IFlightDataManager data = App.Data;
             viewModel = new MaintainAirfieldsViewModel(data);
 
             viewModel.ShowDetail = ActionShowDetail;

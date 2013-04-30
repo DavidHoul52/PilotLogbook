@@ -69,7 +69,7 @@ namespace LogbookApp.ViewModel
   
         
 
-        public MaintainViewModelBase(IFlightDataService flightDataService)
+        public MaintainViewModelBase(IFlightDataManager flightDataService)
         {
             this.flightDataService = flightDataService;
             EditCommand = new DelegateCommand<T>((f) => ShowDetail(new MaintainActionCommand<T> { Item = f, 

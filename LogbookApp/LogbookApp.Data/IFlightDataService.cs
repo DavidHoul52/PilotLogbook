@@ -18,7 +18,7 @@ namespace LogbookApp.Data
 
         List<Flight> Flights { get; set; }
        
-        Task GetData();
+   
         Task GetLookups();
         Lookups Lookups { get; set; }
         Task<bool> InsertFlight(Flight flight);
@@ -31,29 +31,29 @@ namespace LogbookApp.Data
         Task InsertAircraftType(AcType acType);
         Task InsertAirfield(Airfield from);
 
-        Task UpdateAircraft(Aircraft Aircraft);
+        Task UpdateAircraft(Aircraft aircraft);
 
         Task<bool> DeleteAircraft(Aircraft f);
 
-        Task UpdateAirfield(Airfield Airfield);
+        Task UpdateAirfield(Airfield airfield);
 
         Task<bool> DeleteAirfield(Airfield f);
 
-        Task UpdateAcType(AcType AcType);
+        Task UpdateAcType(AcType acType);
 
-        Task InsertAcType(AcType AcType);
+        Task InsertAcType(AcType acType);
 
         Task<bool> Delete<T1>(T1 item);
 
         Task InsertUser(User user);
 
 
-        Task GetUser();
+        Task GetUser(string displayName);
 
         User User { get; }
         bool FlightsChanged { get; set; }
         Task GetFlights();
-        Task<bool> Available();
+        Task<bool> Available(string displayName);
         Task UpdateUser(DateTime upDateTime);
     }
 }
