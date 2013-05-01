@@ -12,7 +12,7 @@ namespace LogbookApp.Data.Test
         {
             DataType = dataType;
             _available = false;
-            User = new User();
+            
         }
 
         public DataType DataType { get; private set; }
@@ -103,9 +103,9 @@ namespace LogbookApp.Data.Test
             return default(Task);
         }
 
-        public Task GetUser(string displayName)
+        public async Task GetUser(string displayName)
         {
-            return default(Task);
+            User= new User {DisplayName = displayName};
         }
 
         public User User { get; private set; }
@@ -128,6 +128,11 @@ namespace LogbookApp.Data.Test
         public void SetAvailable(bool available)
         {
             _available = available;
+        }
+
+        public void SetUser(User user)
+        {
+            User = user;
         }
     }
 }

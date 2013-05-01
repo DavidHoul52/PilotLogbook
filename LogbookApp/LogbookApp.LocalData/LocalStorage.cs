@@ -29,6 +29,7 @@ namespace LogbookApp
         }
 
         async public Task<T> Restore<T>(string filename)
+                where T : new()
         {
             if (await DoesFileExistAsync(filename))
             {

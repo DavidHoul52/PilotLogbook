@@ -138,6 +138,14 @@
       <Project>{89900cbd-6c4a-443b-93b9-67081c3308b9}</Project>
       <Name>LogbookApp.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LogbookApp.LocalData.Test\LogbookApp.LocalData.Test.csproj">
+      <Project>{054B79FB-C670-43DC-BC4E-EB243B24FF2C}</Project>
+      <Name>LogbookApp.LocalData.Test</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogbookApp.LocalData\LogbookApp.LocalData.csproj">
+      <Project>{72683C7D-0662-4815-9E8E-6E03536FFBCF}</Project>
+      <Name>LogbookApp.LocalData</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

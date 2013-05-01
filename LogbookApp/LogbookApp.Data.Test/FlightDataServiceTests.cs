@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using LogbookApp.LocalData.Test;
+using LogbookApp.Storage;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace LogbookApp.Data.Test
@@ -12,7 +14,7 @@ namespace LogbookApp.Data.Test
     {
         private FlightDataManager target;
         private TestFlightDataService _onlineTestData;
-        private TestFlightDataService _localTestData;
+        private LocalDataManager _localTestData;
         private bool _onlineDataUpdatedFromOffLine;
         private DateTime _oldTime;
         private DateTime _newerTime;
@@ -21,9 +23,9 @@ namespace LogbookApp.Data.Test
         public void Setup()
         {
             _onlineTestData = new TestFlightDataService(DataType.OnLine);
-            _localTestData = new TestFlightDataService(DataType.OffLine);
-            _localTestData.SetAvailable(true);
+            _localTestData = new LocalDataManager(new TestLocalStorage(), "", "", "");
             _onlineDataUpdatedFromOffLine = false;
+            _onlineTestData.SetUser(new User());
             _oldTime = new DateTime(2012, 1, 1);
             _newerTime = new DateTime(2013,1,1);
             target = new FlightDataManager(_onlineTestData, _localTestData, () =>
@@ -55,7 +57,7 @@ namespace LogbookApp.Data.Test
         }
 
         [TestMethod]
-        public void IfOnlineDataIfAvailableAndLocalNewerThenShouldUpdateOnlineData()
+        public void IfOnlineDataAvailableAndLocalNewerThenShouldUpdateOnlineData()
         {
             
             _onlineTestData.SetAvailable(true);

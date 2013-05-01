@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Callisto.Controls;
 using LogbookApp.Common;
 using LogbookApp.Data;
+using LogbookApp.Storage;
 using LogbookApp.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -92,8 +93,9 @@ namespace LogbookApp
                 
                //DisplayName = await UserInformation.GetDisplayNameAsync();
                DisplayName = "test2";
-                Data = new FlightDataManager(new MobileService(OnDisconnected,DisplayName).Client,null,
-                    null,DisplayName);
+                Data = new FlightDataManager(new MobileService(OnDisconnected,DisplayName).Client,
+                    new LocalDataManager(new LocalStorage(), "flights.xml","lookups.xml","user.xml"),null,
+                    DisplayName);
                 await Data.GetData();
        
          

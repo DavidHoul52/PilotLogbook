@@ -19,6 +19,7 @@ namespace LogbookApp.Storage
             _flightsFileName = flightsFileName;
             _lookupsFileName = lookupsFileName;
             _userFileName = userFileName;
+           
         }
 
         public DataType DataType { get; private set; }
@@ -38,6 +39,8 @@ namespace LogbookApp.Storage
         public Lookups Lookups { get; set; }
         public async Task<bool> InsertFlight(Flight flight)
         {
+            if (Flights==null)
+                Flights = new List<Flight>();
             Flights.Add(flight);
             return await SaveFlights();
             
@@ -65,7 +68,14 @@ namespace LogbookApp.Storage
 
         public async Task InsertAircraft(Aircraft aircraft)
         {
-            Lookups.Aircraft.Add(aircraft);
+            await LookupOperation(() => Lookups.Aircraft.Add(aircraft));
+        }
+
+        private async Task LookupOperation(Action action)
+        {
+            if (Lookups == null)
+                GetLookups();
+            action();
             await SaveLookups();
         }
 
@@ -77,8 +87,7 @@ namespace LogbookApp.Storage
 
         public async Task InsertAircraftType(AcType acType)
         {
-            Lookups.AcTypes.Add(acType);
-            await SaveLookups();
+            await LookupOperation(() => Lookups.AcTypes.Add(acType));
         }
 
         public async Task InsertAirfield(Airfield @from)

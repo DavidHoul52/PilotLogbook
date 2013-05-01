@@ -53,8 +53,8 @@ namespace LogbookApp.Data
             if (await _onLineData.Available(_displayName))
             {
                 DataType=DataType.OnLine;
-                if (_onLineData.User.LastUpdated == null ||
-                    _onLineData.User.LastUpdated < _localData.User.LastUpdated)
+                if (_localData.User.LastUpdated!=null && (_onLineData.User.LastUpdated == null ||
+                    _onLineData.User.LastUpdated < _localData.User.LastUpdated))
                     UpdateOnlineDataFromOffLineData();
                 return _onLineData;
             }
