@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace LogbookApp.Data
 {
@@ -7,7 +8,7 @@ namespace LogbookApp.Data
         
 
         public string DisplayName { get; set; }
-        public async Task GetUser(IFlightDataService flightDataService)
+        public async Task GetUser(IFlightDataService flightDataService, DateTime now)
         {
 
             await flightDataService.GetUser(DisplayName);
@@ -20,6 +21,9 @@ namespace LogbookApp.Data
             {
                 User = flightDataService.User;
             }
+
+            if (User.LastUpdated == null)
+                User.LastUpdated = now;
         }
 
         public User User { get; set; }

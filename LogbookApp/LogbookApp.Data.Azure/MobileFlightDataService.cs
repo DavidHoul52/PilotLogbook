@@ -33,10 +33,9 @@ namespace LogbookApp.Data
         public List<Flight> Flights { get; set; }
 
         public Action OnDisconnectedAction { get; set; }
-        
-          
-      
 
+
+        
 
         public async Task GetFlights()
         {

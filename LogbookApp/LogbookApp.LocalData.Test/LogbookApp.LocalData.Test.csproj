@@ -111,7 +111,6 @@
   <ItemGroup>
     <Compile Include="LocalDataManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestLocalStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -141,6 +140,10 @@
     <ProjectReference Include="..\LogbookApp.LocalData\LogbookApp.LocalData.csproj">
       <Project>{72683c7d-0662-4815-9e8e-6e03536ffbcf}</Project>
       <Name>LogbookApp.LocalData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogbookApp.Mocks\LogbookApp.Mocks.csproj">
+      <Project>{69426F3F-EC27-4C6F-B54F-8C014ACCBA1B}</Project>
+      <Name>LogbookApp.Mocks</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

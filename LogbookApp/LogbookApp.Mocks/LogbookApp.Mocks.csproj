@@ -6,11 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{72683C7D-0662-4815-9E8E-6E03536FFBCF}</ProjectGuid>
+    <ProjectGuid>{69426F3F-EC27-4C6F-B54F-8C014ACCBA1B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LogbookApp.LocalData</RootNamespace>
-    <AssemblyName>LogbookApp.LocalData</AssemblyName>
+    <RootNamespace>LogbookApp.Mocks</RootNamespace>
+    <AssemblyName>LogbookApp.Mocks</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -104,13 +104,15 @@
       <Project>{89900CBD-6C4A-443B-93B9-67081C3308B9}</Project>
       <Name>LogbookApp.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LogbookApp.LocalData\LogbookApp.LocalData.csproj">
+      <Project>{72683C7D-0662-4815-9E8E-6E03536FFBCF}</Project>
+      <Name>LogbookApp.LocalData</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ILocalStorage.cs" />
-    <Compile Include="LocalDataManager.cs" />
-    <Compile Include="LocalStorage.cs" />
-    <Compile Include="LocalStorageBase.cs" />
+    <Compile Include="MockFlightDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestLocalStorage.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

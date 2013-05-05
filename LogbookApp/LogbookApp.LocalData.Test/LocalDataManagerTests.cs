@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using LogbookApp.Data;
+using LogbookApp.Mocks;
 using LogbookApp.Storage;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
@@ -20,7 +21,9 @@ namespace LogbookApp.LocalData.Test
         public void Setup()
         {
             testLocalStorage = new TestLocalStorage();
+            testLocalStorage.SetExists(true); // default for these tests
             target = new LocalDataManager(testLocalStorage, _flightsFileName, _lookupsFileName, "");
+           
         }
 
         [TestMethod]
@@ -104,5 +107,23 @@ namespace LogbookApp.LocalData.Test
             Assert.AreEqual(_lookupsFileName, testLocalStorage.SavedFileName);
 
         }
+
+        [TestMethod]
+        public void ShouldCreateUserIfNull()
+        {
+            testLocalStorage.SetExists(false);
+            target.GetUser("ducckie");
+            Assert.IsNotNull(target.User);
+
+        }
+
+        //[TestMethod]
+        //public void ShouldSaveFlight()
+        //{
+
+        //    target.SaveFlight(new Flight());
+        //    Assert.IsNotNull(target.Flights.FirstOrDefault());
+        //}
+
     }
 }

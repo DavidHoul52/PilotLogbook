@@ -11,6 +11,7 @@ namespace LogbookApp.Storage
         private readonly string _flightsFileName;
         private readonly string _lookupsFileName;
         private readonly string _userFileName;
+        
 
         public LocalDataManager(ILocalStorage localStorage, string flightsFileName, string lookupsFileName,
             string userFileName)
@@ -19,6 +20,8 @@ namespace LogbookApp.Storage
             _flightsFileName = flightsFileName;
             _lookupsFileName = lookupsFileName;
             _userFileName = userFileName;
+            
+            
            
         }
 
@@ -143,10 +146,16 @@ namespace LogbookApp.Storage
         public async Task GetUser(string displayName)
         {
             User = await _localStorage.Restore<User>(_userFileName);
+            
+            if (User==null)
+                User = new User {DisplayName = displayName};
+
         }
 
         public User User { get; private set; }
         public bool FlightsChanged { get; set; }
+        
+
         public async  Task GetFlights()
         {
             await _localStorage.Restore<List<Flight>>(_flightsFileName);
@@ -154,7 +163,7 @@ namespace LogbookApp.Storage
 
         public async Task<bool> Available(string displayName)
         {
-            return true;
+            return _localStorage.Exists;
         }
 
         public async Task UpdateUser(DateTime upDateTime)
@@ -165,6 +174,12 @@ namespace LogbookApp.Storage
         private async Task SaveUser()
         {
             await _localStorage.Save(User, _userFileName);
+        }
+
+        public void SetUser(User user)
+        {
+            User = user;
+           
         }
     }
 }

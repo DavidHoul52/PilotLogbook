@@ -11,7 +11,7 @@ namespace LogbookApp.Data
         Lookups Lookups { get; set; }
         User User { get; }
         bool FlightsChanged { get; set; }
-        Task GetData();
+        Task<bool> GetData(DateTime now);
         Task GetLookups();
         Task<bool> InsertFlight(Flight flight,DateTime updateTime);
         Task<bool> DeleteFlight(Flight flight, DateTime updateTime);

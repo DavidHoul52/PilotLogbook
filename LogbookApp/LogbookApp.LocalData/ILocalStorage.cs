@@ -8,5 +8,7 @@ namespace LogbookApp
 
         Task<T> Restore<T>(string filename)
             where T : new();
+
+        bool Exists { get;  }
     }
 }

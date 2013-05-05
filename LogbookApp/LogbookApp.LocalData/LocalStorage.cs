@@ -8,14 +8,14 @@ using System.IO;
 
 namespace LogbookApp
 {
-    public class LocalStorage : ILocalStorage
+    public class LocalStorage : LocalStorageBase,  ILocalStorage
     {
       
 
         public static StorageFile file { get; set; }
 
         
-        public async Task Save<T>(T data, string filename)
+        public override async Task Save<T>(T data, string filename)
         {
             if (await DoesFileExistAsync(filename))
             {
@@ -26,12 +26,14 @@ namespace LogbookApp
             {
                 file = await ApplicationData.Current.LocalFolder.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
             }
+            base.Save(data, filename);
         }
 
         async public Task<T> Restore<T>(string filename)
                 where T : new()
         {
-            if (await DoesFileExistAsync(filename))
+            Exists = await DoesFileExistAsync(filename);
+            if (Exists)
             {
                 await Windows.System.Threading.ThreadPool.RunAsync((sender) => RestoreAsync<T>(filename).Wait(),
                     Windows.System.Threading.WorkItemPriority.Normal);
@@ -39,9 +41,12 @@ namespace LogbookApp
             else
             {
                 file = await ApplicationData.Current.LocalFolder.CreateFileAsync(filename);
+                
             }
             return default(T);
         }
+
+      
 
         static async Task<bool> DoesFileExistAsync(string fileName)
         {

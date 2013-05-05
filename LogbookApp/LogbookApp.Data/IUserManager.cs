@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace LogbookApp.Data
 {
@@ -8,7 +9,7 @@ namespace LogbookApp.Data
 
         string DisplayName { get; set; }
 
-        Task GetUser(IFlightDataService flightDataService);
+        Task GetUser(IFlightDataService flightDataService, DateTime now);
 
         User User { get; set; }
     }

@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using LogbookApp.Storage;
 
 namespace LogbookApp.Data
 {
     public class FlightDataManager : IFlightDataManager
     {
         private readonly IFlightDataService _onLineData;
-        private readonly IFlightDataService _localData;
+        private readonly LocalDataManager _localData;
         private readonly Action _onlineDataUpdatedFromOffLine;
         private readonly string _displayName;
         private IUserManager _userManager;
 
-        public FlightDataManager(IFlightDataService onLineData, IFlightDataService localData,
+        public FlightDataManager(IFlightDataService onLineData, LocalDataManager localData,
             Action onlineDataUpdatedFromOffLine, string displayName)
         {
             _onLineData = onLineData;
@@ -26,26 +27,37 @@ namespace LogbookApp.Data
         public List<Flight> Flights { get; set; }
       
 
-        public async Task GetData()
+        public async Task<bool> GetData(DateTime now)
         {
-            await PerformDataGetAction(async (flightDataService) =>
+            var success = await PerformDataGetAction(async (flightDataService) =>
             {
-                _userManager.DisplayName = _displayName;
-                await _userManager.GetUser(flightDataService);
-                User = _userManager.User;
-               
+                if (flightDataService != null)
+                {
+                    _userManager.DisplayName = _displayName;
+                    await _userManager.GetUser(flightDataService, now);
+                    User = _userManager.User;
+                }
+
             });
-            await GetLookups();
-            await GetFlights();
+            if (success)
+            {
+                await GetLookups();
+                await GetFlights();
+                return true;
+            }
+            return false;
         }
 
 
-        private async Task PerformDataGetAction(Func<IFlightDataService, Task> dataAction)
+        private async Task<bool> PerformDataGetAction(Func<IFlightDataService, Task> dataAction)
         {
             var availableData = await GetAvailableDataService();
-            await dataAction(availableData);
-            
-
+            if (availableData != null)
+            {
+                await dataAction(availableData);
+                return true;
+            }
+            return false;
         }
 
         private async Task<IFlightDataService> GetAvailableDataService()
@@ -53,13 +65,18 @@ namespace LogbookApp.Data
             if (await _onLineData.Available(_displayName))
             {
                 DataType=DataType.OnLine;
-                if (_localData.User.LastUpdated!=null && (_onLineData.User.LastUpdated == null ||
+                if (_localData.User!=null && (_onLineData.User.LastUpdated == null ||
                     _onLineData.User.LastUpdated < _localData.User.LastUpdated))
                     UpdateOnlineDataFromOffLineData();
                 return _onLineData;
             }
-            DataType=DataType.OffLine;
-            return _localData;
+            if (await _localData.Available(_displayName))
+            {
+                DataType = DataType.OffLine;
+                return _localData;
+            }
+            DataType=DataType.None;
+            return null;
 
         }
 
@@ -187,8 +204,8 @@ namespace LogbookApp.Data
 
         public async Task<bool> Delete<T>(T item, DateTime deleteTime)
         {
-            await PerformDataGetAction((flightservice) => flightservice.Delete<T>(item));
-            return true;
+            return await PerformDataGetAction((flightservice) => flightservice.Delete<T>(item));
+          
         }
     }
 }
