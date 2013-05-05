@@ -96,7 +96,7 @@ namespace LogbookApp
                 Data = new FlightDataManager(new MobileService(OnDisconnected,DisplayName).Client,
                     new LocalDataManager(new LocalStorage(), "flights.xml","lookups.xml","user.xml"),null,
                     DisplayName);
-                await Data.GetData();
+                await Data.GetData(DateTime.UtcNow);
        
          
 
@@ -153,7 +153,7 @@ namespace LogbookApp
         public static async Task GetAllFlightData()
         {
             
-                await Data.GetData();
+                await Data.GetData(DateTime.UtcNow);
         }
 
         private Color _background = Color.FromArgb(255, 0, 77, 96);

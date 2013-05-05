@@ -90,7 +90,7 @@ namespace LogbookApp.Data
         {
             await PerformDataGetAction(async (flightDataService) =>
             {
-                await flightDataService.GetLookups();
+                { Lookups= await flightDataService.GetLookups();}
 
             });
         }
@@ -130,6 +130,11 @@ namespace LogbookApp.Data
         {
             var availableData = await GetAvailableDataService();
             await dataAction(availableData);
+            if (availableData.DataType != DataType.OffLine)
+            {
+                await (dataAction(_localData));
+                await _localData.UpdateUser(upDateTime);
+            }
             await availableData.UpdateUser(upDateTime);
           
         }
@@ -192,7 +197,11 @@ namespace LogbookApp.Data
         public bool FlightsChanged { get; set; }
         public async Task GetFlights()
         {
-            await PerformDataGetAction((flightservice) => flightservice.GetFlights());
+            await PerformDataGetAction(async (flightservice) =>
+            {
+                Flights = await flightservice.GetFlights();
+
+            });
             
             
         }

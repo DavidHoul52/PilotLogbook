@@ -19,15 +19,11 @@ namespace LogbookApp.Mocks
         }
         public DataType DataType { get; private set; }
         public List<Flight> Flights { get; set; }
-        public Task GetData()
-        {
-            
-            return default(Task);
-        }
+       
 
-        public Task GetLookups()
+        public async Task<Lookups> GetLookups()
         {
-            return default(Task);
+            return new Lookups();
         }
 
         public Lookups Lookups { get; set; }
@@ -115,9 +111,9 @@ namespace LogbookApp.Mocks
         public bool FlightsChanged { get; set; }
         
 
-        public Task GetFlights()
+        public async Task<List<Flight>>  GetFlights()
         {
-            return default(Task);
+            return new List<Flight>();
         }
 
         public async Task<bool> Available(string displayName)

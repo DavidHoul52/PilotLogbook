@@ -145,6 +145,10 @@
       <Project>{72683C7D-0662-4815-9E8E-6E03536FFBCF}</Project>
       <Name>LogbookApp.LocalData</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LogbookApp.Mocks\LogbookApp.Mocks.csproj">
+      <Project>{69426F3F-EC27-4C6F-B54F-8C014ACCBA1B}</Project>
+      <Name>LogbookApp.Mocks</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

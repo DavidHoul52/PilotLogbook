@@ -9,7 +9,7 @@
     <ProjectGuid>{54D49B49-9F4C-4137-BDEA-FBE4C2043B90}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LogbookApp.FlightDataManager.Test</RootNamespace>
+    <RootNamespace>LogbookApp.FlightDataManagerTest</RootNamespace>
     <AssemblyName>LogbookApp.FlightDataManager.Test</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
@@ -109,7 +109,8 @@
     <SDKReference Include="TestPlatform, Version=11.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FlightDataServiceTests.cs" />
+    <Compile Include="FlightDataServiceTestsGetData.cs" />
+    <Compile Include="FlightDataServiceTestsSave.cs" />
     <Compile Include="FlightDataServiceTestsBase.cs" />
     <Compile Include="FlightDataServiceTestsInitialLoad.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

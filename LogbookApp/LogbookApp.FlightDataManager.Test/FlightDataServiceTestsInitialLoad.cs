@@ -95,6 +95,60 @@ namespace LogbookApp.FlightDataManagerTest
 
         }
 
+
+     
+
+        [TestMethod]
+        public void OnlineDataShouldGetUser()
+        {
+
+            OnlineTestData.SetAvailable(true);
+            Target.GetData(Now);
+            Assert.IsNotNull((OnlineTestData.User));
+        }
+
+
+        [TestMethod]
+        public void OnlineDataShouldGetUserLastUpdated()  // see also UserManagerTests
+        {
+
+            OnlineTestData.SetAvailable(true);
+            Target.GetData(Now);
+            Assert.IsNotNull((OnlineTestData.User.LastUpdated));
+
+
+        }
+
+     
+
+    
+
+
+
+        [TestMethod]
+        public void IfOnlineDataIfAvailableAndNewerThanLocalThenShouldNotUpdateOnlineData()
+        {
+
+            OnlineTestData.SetAvailable(true);
+            SetLastUpdates(OldTime, NewerTime);
+            Target.GetData(Now);
+            Assert.IsFalse(OnlineDataUpdatedFromOffLine);
+
+
+
+        }
+        [TestMethod]
+        public void IfOnlineDataIfAvailableAndLastUpdatedNullThenShouldUpdateOnlineData()
+        {
+
+            OnlineTestData.SetAvailable(true);
+            SetLastUpdates(NewerTime, null);
+            Target.GetData(Now);
+            Assert.IsTrue(OnlineDataUpdatedFromOffLine);
+
+
+
+        }
     
     }
 }

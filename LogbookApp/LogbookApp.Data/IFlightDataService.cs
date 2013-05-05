@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LogbookApp.Data
@@ -17,9 +18,9 @@ namespace LogbookApp.Data
         DataType DataType { get; }
 
         List<Flight> Flights { get; set; }
-       
-   
-        Task GetLookups();
+
+
+        Task<Lookups> GetLookups();
         Lookups Lookups { get; set; }
         Task<bool> InsertFlight(Flight flight);
      
@@ -52,7 +53,7 @@ namespace LogbookApp.Data
 
         User User { get; }
         bool FlightsChanged { get; set; }
-        Task GetFlights();
+        Task<List<Flight>>  GetFlights();
         Task<bool> Available(string displayName);
         Task UpdateUser(DateTime upDateTime);
     }

@@ -37,7 +37,7 @@ namespace LogbookApp.Data
 
         
 
-        public async Task GetFlights()
+        public async Task<List<Flight>>  GetFlights()
         {
             FlightsChanged = false;
             var flights = await _mobileService.GetTable<Flight>().Where(x => x.UserId == User.Id).Take(500).ToListAsync();
@@ -53,8 +53,8 @@ namespace LogbookApp.Data
                
                 return x;
             }).ToList();
+            return Flights;
 
-         
         }
 
         public async Task<bool> Available(string displayName)
@@ -70,11 +70,12 @@ namespace LogbookApp.Data
             await Update(User);
         }
 
-        public async Task GetLookups()
+        public async Task<Lookups> GetLookups()
         {
             Lookups = new Lookups();
             await LoadLookups(User.Id);
-            
+            return Lookups;
+
 
         }
 

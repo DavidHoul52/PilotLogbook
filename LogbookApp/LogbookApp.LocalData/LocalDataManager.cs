@@ -27,11 +27,12 @@ namespace LogbookApp.Storage
 
         public DataType DataType { get; private set; }
         public List<Flight> Flights { get; set; }
-      
 
-        public async Task GetLookups()
+
+        public async Task<Lookups> GetLookups()
         {
             await RestoreLookups();
+            return Lookups;
         }
 
         private async Task RestoreLookups()
@@ -156,9 +157,9 @@ namespace LogbookApp.Storage
         public bool FlightsChanged { get; set; }
         
 
-        public async  Task GetFlights()
+        public async  Task<List<Flight>>  GetFlights()
         {
-            await _localStorage.Restore<List<Flight>>(_flightsFileName);
+            return await _localStorage.Restore<List<Flight>>(_flightsFileName);
         }
 
         public async Task<bool> Available(string displayName)
@@ -168,7 +169,9 @@ namespace LogbookApp.Storage
 
         public async Task UpdateUser(DateTime upDateTime)
         {
+            User.LastUpdated = upDateTime;
             await SaveUser();
+            
         }
 
         private async Task SaveUser()
