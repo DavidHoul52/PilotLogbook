@@ -22,6 +22,7 @@ namespace LogbookApp.LocalData.Test
         {
             testLocalStorage = new TestLocalStorage();
             testLocalStorage.SetExists(true); // default for these tests
+            testLocalStorage.AllSaved = false;
             target = new LocalDataManager(testLocalStorage, _flightsFileName, _lookupsFileName, "");
            
         }
@@ -44,7 +45,7 @@ namespace LogbookApp.LocalData.Test
         public void ShouldInsertFlightandSave()
         {
             target.InsertFlight(new Flight());
-            Assert.AreEqual(_flightsFileName, testLocalStorage.SavedFileName);
+            Assert.IsTrue(testLocalStorage.AllSaved);
         }
 
 
@@ -64,7 +65,7 @@ namespace LogbookApp.LocalData.Test
             var flight = new Flight();
             target.InsertFlight(flight);
             target.DeleteFlight(flight);
-            Assert.AreEqual(_flightsFileName, testLocalStorage.SavedFileName);
+            Assert.IsTrue(testLocalStorage.AllSaved);
         }
 
 
@@ -73,7 +74,7 @@ namespace LogbookApp.LocalData.Test
         {
             var flight = new Flight();
             target.SaveFlight(flight);
-            Assert.AreEqual(_flightsFileName,testLocalStorage.SavedFileName);
+            Assert.IsTrue(testLocalStorage.AllSaved);
         }
 
         [TestMethod]
@@ -88,7 +89,7 @@ namespace LogbookApp.LocalData.Test
         public void ShouldInsertAircraftAndSave()
         {
             target.InsertAircraft(new Aircraft());
-            Assert.AreEqual(_lookupsFileName, testLocalStorage.SavedFileName);
+            Assert.IsTrue(testLocalStorage.AllSaved);
 
         }
 
@@ -104,26 +105,11 @@ namespace LogbookApp.LocalData.Test
         public void ShouldInsertAircraftTypeAndSave()
         {
             target.InsertAircraftType(new AcType());
-            Assert.AreEqual(_lookupsFileName, testLocalStorage.SavedFileName);
+            Assert.IsTrue(testLocalStorage.AllSaved);
 
         }
 
-        [TestMethod]
-        public void ShouldCreateUserIfNull()
-        {
-            testLocalStorage.SetExists(false);
-            target.GetUser("ducckie");
-            Assert.IsNotNull(target.User);
-
-        }
-
-        //[TestMethod]
-        //public void ShouldSaveFlight()
-        //{
-
-        //    target.SaveFlight(new Flight());
-        //    Assert.IsNotNull(target.Flights.FirstOrDefault());
-        //}
+        
 
     }
 }

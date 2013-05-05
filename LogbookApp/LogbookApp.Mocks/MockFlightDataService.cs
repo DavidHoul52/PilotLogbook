@@ -7,14 +7,13 @@ namespace LogbookApp.Mocks
 {
     public class MockFlightDataService : IFlightDataService
     {
-        private DateTime? _lastUpdate;
+        
         private bool _available;
 
         public MockFlightDataService(DataType dataType)
         {
             DataType = dataType;
-            _lastUpdate = null;
-            _available = false;
+        _available = false;
             Flights = new List<Flight>();
         }
         public DataType DataType { get; private set; }
@@ -104,7 +103,8 @@ namespace LogbookApp.Mocks
 
         public async Task GetUser(string displayName)
         {
-            User = new User {DisplayName = displayName, LastUpdated = _lastUpdate};
+            if (User==null)
+               User = new User {DisplayName = displayName};
         }
 
         public User User { get; private set; }
@@ -136,9 +136,6 @@ namespace LogbookApp.Mocks
             User = user;
         }
 
-        public void SetLastUpdated(DateTime lastupdated)
-        {
-            _lastUpdate = lastupdated;
-        }
+       
     }
 }

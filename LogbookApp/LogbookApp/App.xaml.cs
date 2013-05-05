@@ -48,6 +48,7 @@ namespace LogbookApp
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             this.Resuming += OnResuming;
+           
          
 
         }
@@ -93,12 +94,21 @@ namespace LogbookApp
                 
                //DisplayName = await UserInformation.GetDisplayNameAsync();
                DisplayName = "test2";
-                Data = new FlightDataManager(new MobileService(OnDisconnected,DisplayName).Client,
+                Data = new FlightDataManager(new MobileService(DisplayName).Client,
                     new LocalDataManager(new LocalStorage(), "flights.xml","lookups.xml","user.xml"),null,
                     DisplayName);
-                await Data.GetData(DateTime.UtcNow);
-       
-         
+               var dataAvailable=  await Data.GetData(DateTime.UtcNow);
+                if (!dataAvailable)
+                {
+                    await new MessageDialog("We are unable to set up your Logbook as you are not connected" +
+                        " to the internet.").ShowAsync();
+                    App.Current.Exit();
+                    
+                }
+
+
+
+
 
 
 
@@ -108,10 +118,7 @@ namespace LogbookApp
 
         }
 
-        private void OnDisconnected()
-        {
-            new MessageDialog("You are currently not connected to the internet.").ShowAsync();
-        }
+      
 
         private void RemoveExtendedSplash()
         {
@@ -133,6 +140,8 @@ namespace LogbookApp
         {
             SuspendingDeferral deferral = e.SuspendingOperation.GetDeferral();
             await SuspensionManager.SaveAsync();
+            
+            
             deferral.Complete(); 
         }
 

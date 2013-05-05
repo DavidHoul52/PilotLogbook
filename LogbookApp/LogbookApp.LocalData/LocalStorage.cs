@@ -35,8 +35,17 @@ namespace LogbookApp
             Exists = await DoesFileExistAsync(filename);
             if (Exists)
             {
-                await Windows.System.Threading.ThreadPool.RunAsync((sender) => RestoreAsync<T>(filename).Wait(),
+                try
+                {
+                    await Windows.System.Threading.ThreadPool.RunAsync((sender) => RestoreAsync<T>(filename).Wait(),
                     Windows.System.Threading.WorkItemPriority.Normal);
+                }
+                catch (Exception)
+                {
+
+                    return default(T);
+                }
+                
             }
             else
             {

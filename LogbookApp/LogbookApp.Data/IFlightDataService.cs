@@ -56,5 +56,6 @@ namespace LogbookApp.Data
         Task<List<Flight>>  GetFlights();
         Task<bool> Available(string displayName);
         Task UpdateUser(DateTime upDateTime);
+        
     }
 }

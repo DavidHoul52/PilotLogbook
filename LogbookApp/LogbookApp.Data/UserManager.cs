@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace LogbookApp.Data
 {
-    public class UserManager : IUserManager
+    public class UserManager 
     {
         
 

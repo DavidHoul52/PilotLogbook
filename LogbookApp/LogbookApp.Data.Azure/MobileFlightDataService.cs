@@ -32,7 +32,7 @@ namespace LogbookApp.Data
 
         public List<Flight> Flights { get; set; }
 
-        public Action OnDisconnectedAction { get; set; }
+        
 
 
         
@@ -69,6 +69,8 @@ namespace LogbookApp.Data
             User.LastUpdated = upDateTime;
             await Update(User);
         }
+
+        
 
         public async Task<Lookups> GetLookups()
         {
@@ -270,19 +272,19 @@ namespace LogbookApp.Data
                 {
                     users = await _mobileService.GetTable<User>()
                         .Where(x => x.DisplayName == displayName)
-                        .ToListAsync();     
+                        .ToListAsync();
+                    User = users.FirstOrDefault();
                     
                 }
                 catch (Exception)
                 {
-                    
-                    OnDisconnectedAction();
+                    User = null;
                     return;
 
                 }
           
 
-            User = users.FirstOrDefault();
+            
 
         }
     }

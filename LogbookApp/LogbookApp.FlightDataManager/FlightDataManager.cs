@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.UI.Core.AnimationMetrics;
 using LogbookApp.Storage;
 
 namespace LogbookApp.Data
@@ -11,7 +12,7 @@ namespace LogbookApp.Data
         private readonly LocalDataManager _localData;
         private readonly Action _onlineDataUpdatedFromOffLine;
         private readonly string _displayName;
-        private IUserManager _userManager;
+        private UserManager _userManager;
 
         public FlightDataManager(IFlightDataService onLineData, LocalDataManager localData,
             Action onlineDataUpdatedFromOffLine, string displayName)
@@ -34,8 +35,9 @@ namespace LogbookApp.Data
                 if (flightDataService != null)
                 {
                     _userManager.DisplayName = _displayName;
-                    await _userManager.GetUser(flightDataService, now);
-                    User = _userManager.User;
+                     await _userManager.GetUser(flightDataService, now);
+                     User = _userManager.User;
+                   
                 }
 
             });
@@ -62,21 +64,34 @@ namespace LogbookApp.Data
 
         private async Task<IFlightDataService> GetAvailableDataService()
         {
-            if (await _onLineData.Available(_displayName))
+            var localAvailable = await _localData.Available(_displayName);
+            var onLineAvailable = await _onLineData.Available(_displayName);
+            var localNewer = (localAvailable && onLineAvailable && _localData.User.LastUpdated >
+                _onLineData.User.LastUpdated.GetValueOrDefault(DateTime.MinValue));
+            if (!onLineAvailable && localAvailable || (localAvailable && localNewer))
+                DataType=DataType.OffLine;
+            else if (onLineAvailable)
+                DataType = DataType.OnLine;
+            else
+                DataType = DataType.None;
+
+
+            if (DataType == DataType.OffLine && onLineAvailable)
+                UpdateOnlineDataFromOffLineData();
+
+            switch (DataType)
             {
-                DataType=DataType.OnLine;
-                if (_localData.User!=null && (_onLineData.User.LastUpdated == null ||
-                    _onLineData.User.LastUpdated < _localData.User.LastUpdated))
-                    UpdateOnlineDataFromOffLineData();
-                return _onLineData;
+                case DataType.None:
+                    return null;
+                case DataType.OffLine:
+                    return _localData;
+                case DataType.OnLine:
+                    return _onLineData;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-            if (await _localData.Available(_displayName))
-            {
-                DataType = DataType.OffLine;
-                return _localData;
-            }
-            DataType=DataType.None;
-            return null;
+
+        
 
         }
 

@@ -41,5 +41,17 @@ namespace LogbookApp.FlightDataManagerTest
 
 
         }
+
+
+        [TestMethod]
+        public void ShouldGetUser()
+        {
+            OnlineTestData.SetAvailable(true);
+            Target.GetData(Now);
+            Assert.IsNotNull(Target.User);
+
+
+
+        }
     }
 }

@@ -46,27 +46,29 @@ namespace LogbookApp.Storage
             if (Flights==null)
                 Flights = new List<Flight>();
             Flights.Add(flight);
-            return await SaveFlights();
+            return await SaveAll();
             
         }
 
-        private async Task<bool> SaveFlights()
+        private async Task<bool> SaveAll()
         {
             await _localStorage.Save(Flights, _flightsFileName);
+            await _localStorage.Save(Lookups, _lookupsFileName);
+            await _localStorage.Save(User, _userFileName);
             return true;
         }
 
         public async Task<bool> DeleteFlight(Flight flight)
         {
             Flights.Remove(flight);
-            return await SaveFlights();
+            return await SaveAll();
             
 
         }
 
         public async Task<bool> SaveFlight(Flight flight)
         {
-            return await SaveFlights();
+            return await SaveAll();
             
         }
 
@@ -78,16 +80,12 @@ namespace LogbookApp.Storage
         private async Task LookupOperation(Action action)
         {
             if (Lookups == null)
-                GetLookups();
+                await GetLookups();
             action();
-            await SaveLookups();
+            await SaveAll();
         }
 
-        private async Task<bool> SaveLookups()
-        {
-            await _localStorage.Save(Lookups, _lookupsFileName);
-            return true;
-        }
+        
 
         public async Task InsertAircraftType(AcType acType)
         {
@@ -97,40 +95,40 @@ namespace LogbookApp.Storage
         public async Task InsertAirfield(Airfield @from)
         {
             Lookups.Airfields.Add(from);
-            await SaveLookups();
+            await SaveAll();
         }
 
         public async Task UpdateAircraft(Aircraft aircraft)
         {
-            await SaveLookups();
+            await SaveAll();
         }
 
         public async Task<bool> DeleteAircraft(Aircraft aircraft)
         {
             Lookups.Aircraft.Remove(aircraft);
-            return await SaveLookups();
+            return await SaveAll();
         }
 
         public async Task UpdateAirfield(Airfield airfield)
         {
-            await SaveLookups();
+            await SaveAll();
         }
 
         public async Task<bool> DeleteAirfield(Airfield airfield)
         {
             Lookups.Airfields.Remove(airfield);
-            return await SaveLookups();
+            return await SaveAll();
         }
 
         public async Task UpdateAcType(AcType acType)
         {
-            await SaveLookups();
+            await SaveAll();
         }
 
         public async Task InsertAcType(AcType acType)
         {
             Lookups.AcTypes.Add(acType);
-            await SaveLookups();
+            await SaveAll();
         }
 
         public Task<bool> Delete<T1>(T1 item)
@@ -141,19 +139,15 @@ namespace LogbookApp.Storage
         public async Task InsertUser(User user)
         {
             User = user;
-            await SaveUser();
+            await SaveAll();
         }
 
-        public async Task GetUser(string displayName)
+        public virtual async Task GetUser(string displayName)
         {
             User = await _localStorage.Restore<User>(_userFileName);
-            
-            if (User==null)
-                User = new User {DisplayName = displayName};
-
         }
 
-        public User User { get; private set; }
+        public User User { get; protected set; }
         public bool FlightsChanged { get; set; }
         
 
@@ -164,25 +158,21 @@ namespace LogbookApp.Storage
 
         public async Task<bool> Available(string displayName)
         {
-            return _localStorage.Exists;
+            await GetUser(displayName);
+
+            return User != null;
+            //return _localStorage.Exists;
         }
 
         public async Task UpdateUser(DateTime upDateTime)
         {
             User.LastUpdated = upDateTime;
-            await SaveUser();
+            await SaveAll();
             
         }
 
-        private async Task SaveUser()
-        {
-            await _localStorage.Save(User, _userFileName);
-        }
+      
 
-        public void SetUser(User user)
-        {
-            User = user;
-           
-        }
+        
     }
 }

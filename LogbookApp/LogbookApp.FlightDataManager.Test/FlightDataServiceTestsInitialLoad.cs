@@ -71,14 +71,14 @@ namespace LogbookApp.FlightDataManagerTest
 
 
         [TestMethod]
-        public void IfOnLineAndLocalDataNewerLoadOnline()
+        public void IfOnLineAndLocalDataNewerLoadLocal()
         {
 
             OnlineTestData.SetAvailable(true);
             TestLocalStorage.SetExists(true);
             SetLastUpdates(NewerTime, OldTime);
             Target.GetData(Now);
-            Assert.AreEqual(DataType.OnLine, Target.DataType);
+            Assert.AreEqual(DataType.OffLine, Target.DataType);
 
         }
 
@@ -138,7 +138,7 @@ namespace LogbookApp.FlightDataManagerTest
 
         }
         [TestMethod]
-        public void IfOnlineDataIfAvailableAndLastUpdatedNullThenShouldUpdateOnlineData()
+        public void IfOnlineDataAvailableAndLastUpdatedNullThenShouldUpdateOnlineData()
         {
 
             OnlineTestData.SetAvailable(true);

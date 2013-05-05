@@ -21,16 +21,7 @@ namespace LogbookApp.Data.Test
             target= new UserManager();
         }
 
-        [TestMethod]
-        public void ShouldGetUserLastUpdated()
-        {
-            var lastupdated = new DateTime(2013, 5, 3);
-            flightDataService.SetLastUpdated(lastupdated);
-            target.GetUser(flightDataService,_now);
-            Assert.AreEqual(lastupdated,target.User.LastUpdated);
-
-
-        }
+      
 
         [TestMethod]
         public void ShouldSetUserLastUpdated()

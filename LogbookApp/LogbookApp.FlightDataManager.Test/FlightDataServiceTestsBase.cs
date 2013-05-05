@@ -9,7 +9,7 @@ namespace LogbookApp.FlightDataManagerTest
     {
         protected FlightDataManager Target;
         protected MockFlightDataService OnlineTestData;
-        protected LocalDataManager LocalTestData;
+        protected MockLocalDataManager LocalTestData;
         protected bool OnlineDataUpdatedFromOffLine;
         protected DateTime OldTime;
         protected DateTime NewerTime;
@@ -22,7 +22,7 @@ namespace LogbookApp.FlightDataManagerTest
             
             TestLocalStorage = new TestLocalStorage { };
             TestLocalStorage.SetExists(true);
-            LocalTestData = new LocalDataManager(TestLocalStorage, "", "", "");
+            LocalTestData = new MockLocalDataManager(TestLocalStorage, "", "", "");
             OnlineDataUpdatedFromOffLine = false;
             OnlineTestData.SetUser(new User());
             OldTime = new DateTime(2012, 1, 1);
