@@ -11,29 +11,25 @@ namespace LogbookApp
     public class LocalStorage : LocalStorageBase,  ILocalStorage
     {
       
-
-        public static StorageFile file { get; set; }
-
-        
         public override async Task Save<T>(T data, string filename)
         {
-            if (await DoesFileExistAsync(filename))
+            var file = await GetFileAsync(filename);
+            if (file==null)
+                file = await ApplicationData.Current.LocalFolder.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
+            if (file!=null)
             {
                 await Windows.System.Threading.ThreadPool.RunAsync((sender) =>
                     SaveAsync<T>(data, filename).Wait(), Windows.System.Threading.WorkItemPriority.Normal);
             }
-            else
-            {
-                file = await ApplicationData.Current.LocalFolder.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
-            }
+            
             base.Save(data, filename);
         }
 
         async public Task<T> Restore<T>(string filename)
                 where T : new()
         {
-            Exists = await DoesFileExistAsync(filename);
-            if (Exists)
+            var file = await GetFileAsync(filename);
+            if (file!=null)
             {
                 try
                 {
@@ -47,26 +43,22 @@ namespace LogbookApp
                 }
                 
             }
-            else
-            {
-                file = await ApplicationData.Current.LocalFolder.CreateFileAsync(filename);
-                
-            }
+          
             return default(T);
         }
 
       
 
-        static async Task<bool> DoesFileExistAsync(string fileName)
+        static async Task<StorageFile> GetFileAsync(string fileName)
         {
             try
             {
-                await ApplicationData.Current.LocalFolder.GetFileAsync(fileName);
-                return true;
+                return await ApplicationData.Current.LocalFolder.GetFileAsync(fileName);
+                
             }
             catch
             {
-                return false;
+                return null;
             }
         }
 
@@ -91,7 +83,7 @@ namespace LogbookApp
 
          static async private Task RestoreAsync<T>( string filename)
          {
-             StorageFile sessionFile = await ApplicationData.Current.LocalFolder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
+             StorageFile sessionFile = await ApplicationData.Current.LocalFolder.GetFileAsync(filename);
              if (sessionFile == null)
              {
                  return;

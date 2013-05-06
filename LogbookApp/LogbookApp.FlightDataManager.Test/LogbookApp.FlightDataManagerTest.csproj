@@ -113,6 +113,7 @@
     <Compile Include="FlightDataServiceTestsSave.cs" />
     <Compile Include="FlightDataServiceTestsBase.cs" />
     <Compile Include="FlightDataServiceTestsInitialLoad.cs" />
+    <Compile Include="FlightDataServiceTestsSyncLocalData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

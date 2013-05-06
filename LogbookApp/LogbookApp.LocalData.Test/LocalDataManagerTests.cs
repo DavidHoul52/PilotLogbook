@@ -12,7 +12,7 @@ namespace LogbookApp.LocalData.Test
     [TestClass]
     public class LocalDataManagerTests
     {
-        private LocalDataManager target;
+        private LocalDataService target;
         private TestLocalStorage testLocalStorage;
         private string _flightsFileName = "flights";
         private string _lookupsFileName = "lookups";
@@ -23,7 +23,7 @@ namespace LogbookApp.LocalData.Test
             testLocalStorage = new TestLocalStorage();
             testLocalStorage.SetExists(true); // default for these tests
             testLocalStorage.AllSaved = false;
-            target = new LocalDataManager(testLocalStorage, _flightsFileName, _lookupsFileName, "");
+            target = new LocalDataService(testLocalStorage, _flightsFileName, _lookupsFileName, "");
            
         }
 

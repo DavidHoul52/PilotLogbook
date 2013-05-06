@@ -27,7 +27,8 @@ namespace LogbookApp.Mocks
             }
         }
 
-     
+        public bool Exists { get; set; }
+
 
         public string SavedFileName { get; set; }
         public bool AllSaved { get; set; }

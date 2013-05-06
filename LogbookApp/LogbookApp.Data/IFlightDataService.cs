@@ -51,11 +51,12 @@ namespace LogbookApp.Data
 
         Task GetUser(string displayName);
 
-        User User { get; }
+        User User { get; set; }
         bool FlightsChanged { get; set; }
         Task<List<Flight>>  GetFlights();
         Task<bool> Available(string displayName);
         Task UpdateUser(DateTime upDateTime);
+
         
     }
 }

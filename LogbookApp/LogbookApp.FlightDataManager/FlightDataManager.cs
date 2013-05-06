@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.UI.Core.AnimationMetrics;
+using LogbookApp.LocalData;
 using LogbookApp.Storage;
 
 namespace LogbookApp.Data
@@ -9,12 +10,13 @@ namespace LogbookApp.Data
     public class FlightDataManager : IFlightDataManager
     {
         private readonly IFlightDataService _onLineData;
-        private readonly LocalDataManager _localData;
+        private readonly LocalDataService _localData;
         private readonly Action _onlineDataUpdatedFromOffLine;
         private readonly string _displayName;
         private UserManager _userManager;
+        private LocalDataSyncer _localDataSyncer;
 
-        public FlightDataManager(IFlightDataService onLineData, LocalDataManager localData,
+        public FlightDataManager(IFlightDataService onLineData, LocalDataService localData,
             Action onlineDataUpdatedFromOffLine, string displayName)
         {
             _onLineData = onLineData;
@@ -22,6 +24,7 @@ namespace LogbookApp.Data
             _onlineDataUpdatedFromOffLine = onlineDataUpdatedFromOffLine;
             _displayName = displayName;
             _userManager = new UserManager();
+            _localDataSyncer = new LocalDataSyncer();
         }
 
         public DataType DataType { get; private set; }
@@ -147,6 +150,7 @@ namespace LogbookApp.Data
             await dataAction(availableData);
             if (availableData.DataType != DataType.OffLine)
             {
+               _localDataSyncer.Sync(_onLineData,_localData);
                 await (dataAction(_localData));
                 await _localData.UpdateUser(upDateTime);
             }

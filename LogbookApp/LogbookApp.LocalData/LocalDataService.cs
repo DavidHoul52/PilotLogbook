@@ -5,7 +5,7 @@ using LogbookApp.Data;
 
 namespace LogbookApp.Storage
 {
-    public class LocalDataManager : IFlightDataService
+    public class LocalDataService : IFlightDataService
     {
         private readonly ILocalStorage _localStorage;
         private readonly string _flightsFileName;
@@ -13,7 +13,7 @@ namespace LogbookApp.Storage
         private readonly string _userFileName;
         
 
-        public LocalDataManager(ILocalStorage localStorage, string flightsFileName, string lookupsFileName,
+        public LocalDataService(ILocalStorage localStorage, string flightsFileName, string lookupsFileName,
             string userFileName)
         {
             _localStorage = localStorage;
@@ -147,7 +147,7 @@ namespace LogbookApp.Storage
             User = await _localStorage.Restore<User>(_userFileName);
         }
 
-        public User User { get; protected set; }
+        public User User { get; set; }
         public bool FlightsChanged { get; set; }
         
 
@@ -158,7 +158,16 @@ namespace LogbookApp.Storage
 
         public async Task<bool> Available(string displayName)
         {
-            await GetUser(displayName);
+            try
+            {
+                await GetUser(displayName);
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+            
 
             return User != null;
             //return _localStorage.Exists;
@@ -172,7 +181,5 @@ namespace LogbookApp.Storage
         }
 
       
-
-        
     }
 }

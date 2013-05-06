@@ -107,7 +107,7 @@ namespace LogbookApp.Mocks
                User = new User {DisplayName = displayName};
         }
 
-        public User User { get; private set; }
+        public User User { get; set; }
         public bool FlightsChanged { get; set; }
         
 
@@ -125,6 +125,8 @@ namespace LogbookApp.Mocks
         {
             User.LastUpdated = upDateTime;
         }
+
+        
 
         public void SetAvailable(bool available)
         {

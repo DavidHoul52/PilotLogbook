@@ -6,9 +6,9 @@ namespace LogbookApp
     {
          public virtual async Task Save<T>(T data, string filename)
          {
-             Exists = true;
+           //  Exists = true;
          }
 
-         public bool Exists { get; protected set; }
+         //public bool Exists { get; protected set; }
     }
 }

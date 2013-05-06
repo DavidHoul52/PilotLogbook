@@ -8,7 +8,7 @@ using LogbookApp.Storage;
 
 namespace LogbookApp.Mocks
 {
-    public class MockLocalDataManager : LocalDataManager
+    public class MockLocalDataManager : LocalDataService
     {
         public MockLocalDataManager(ILocalStorage localStorage, string flightsFileName, 
             string lookupsFileName, string userFileName) : 

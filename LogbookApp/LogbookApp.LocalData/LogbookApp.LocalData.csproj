@@ -107,7 +107,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ILocalStorage.cs" />
-    <Compile Include="LocalDataManager.cs" />
+    <Compile Include="LocalDataService.cs" />
+    <Compile Include="LocalDataSyncer.cs" />
     <Compile Include="LocalStorage.cs" />
     <Compile Include="LocalStorageBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

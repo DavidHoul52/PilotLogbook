@@ -70,7 +70,7 @@ namespace LogbookApp.Data
             await Update(User);
         }
 
-        
+      
 
         public async Task<Lookups> GetLookups()
         {
@@ -260,7 +260,7 @@ namespace LogbookApp.Data
             await Insert(user);
         }
 
-        public User User { get; private set; }
+        public User User { get; set; }
         public bool FlightsChanged { get; set; }
 
 
