@@ -15,6 +15,7 @@ namespace LogbookApp.Data
         private readonly string _displayName;
         private UserManager _userManager;
         private LocalDataSyncer _localDataSyncer;
+        
 
         public FlightDataManager(IFlightDataService onLineData, LocalDataService localData,
             Action onlineDataUpdatedFromOffLine, string displayName)
@@ -25,10 +26,13 @@ namespace LogbookApp.Data
             _displayName = displayName;
             _userManager = new UserManager();
             _localDataSyncer = new LocalDataSyncer();
+
         }
 
+
+        public FlightData FlightData { get; set; }
         public DataType DataType { get; private set; }
-        public List<Flight> Flights { get; set; }
+        
       
 
         public async Task<bool> GetData(DateTime now)
@@ -39,7 +43,7 @@ namespace LogbookApp.Data
                 {
                     _userManager.DisplayName = _displayName;
                      await _userManager.GetUser(flightDataService, now);
-                     User = _userManager.User;
+                     FlightData.User = _userManager.User;
                    
                 }
 
@@ -69,8 +73,8 @@ namespace LogbookApp.Data
         {
             var localAvailable = await _localData.Available(_displayName);
             var onLineAvailable = await _onLineData.Available(_displayName);
-            var localNewer = (localAvailable && onLineAvailable && _localData.User.LastUpdated >
-                _onLineData.User.LastUpdated.GetValueOrDefault(DateTime.MinValue));
+            var localNewer = (localAvailable && onLineAvailable && _localData.LastUpdated >
+                _onLineData.LastUpdated.GetValueOrDefault(DateTime.MinValue));
             if (!onLineAvailable && localAvailable || (localAvailable && localNewer))
                 DataType=DataType.OffLine;
             else if (onLineAvailable)
@@ -108,16 +112,17 @@ namespace LogbookApp.Data
         {
             await PerformDataGetAction(async (flightDataService) =>
             {
-                { Lookups= await flightDataService.GetLookups();}
+                { FlightData.Lookups= await flightDataService.GetLookups();}
 
             });
         }
 
     
 
-        public Lookups Lookups { get; set; }
+        
         public async Task<bool> InsertFlight(Flight flight, DateTime insertTime)
         {
+            FlightData.Flights.Add(flight);
             await PerformDataUpdateAction((flightservice) => flightservice.InsertFlight(flight), insertTime);
             return true;
 
@@ -125,6 +130,7 @@ namespace LogbookApp.Data
 
         public async Task<bool> DeleteFlight(Flight flight, DateTime deleteTime)
         {
+            FlightData.Flights.Remove(flight);
             await PerformDataUpdateAction((flightservice) => flightservice.DeleteFlight(flight), deleteTime);
             return true;
         }
@@ -140,6 +146,7 @@ namespace LogbookApp.Data
 
         public async Task InsertAircraft(Aircraft aircraft, DateTime upDateTime)
         {
+            FlightData.Lookups.Aircraft.Add(aircraft);
             await PerformDataUpdateAction((flightservice) => flightservice.InsertAircraft(aircraft),upDateTime);
      
         }
@@ -160,11 +167,13 @@ namespace LogbookApp.Data
 
         public async Task InsertAircraftType(AcType acType,DateTime upDateTime)
         {
+            FlightData.Lookups.AcTypes.Add(acType);
             await PerformDataUpdateAction((flightservice) => flightservice.InsertAircraftType(acType), upDateTime);
         }
 
         public async Task InsertAirfield(Airfield @from, DateTime upDateTime)
         {
+            FlightData.Lookups.Airfields.Add(from);
             await PerformDataUpdateAction((flightservice) => flightservice.InsertAirfield(@from), upDateTime);
         }
 
@@ -175,6 +184,7 @@ namespace LogbookApp.Data
 
         public async Task<bool> DeleteAircraft(Aircraft aircraft, DateTime upDateTime)
         {
+            FlightData.Lookups.Aircraft.Remove(aircraft);
             await PerformDataUpdateAction((flightservice) => flightservice.DeleteAircraft(aircraft), upDateTime);
             return true;
         }
@@ -186,6 +196,7 @@ namespace LogbookApp.Data
 
         public async Task<bool> DeleteAirfield(Airfield airfield, DateTime upDateTime)
         {
+            FlightData.Lookups.Airfields.Remove(airfield);
             await PerformDataUpdateAction((flightservice) => flightservice.UpdateAirfield(airfield), upDateTime);
             return true;
         }
@@ -197,6 +208,7 @@ namespace LogbookApp.Data
 
         public async Task InsertAcType(AcType acType, DateTime upDateTime)
         {
+            FlightData.Lookups.AcTypes.Add(acType);
             await PerformDataUpdateAction((flightservice) => flightservice.InsertAcType(acType), upDateTime);
         }
 
@@ -204,21 +216,23 @@ namespace LogbookApp.Data
 
         public async Task InsertUser(User user, DateTime upDateTime)
         {
+            FlightData.User = user;
             await PerformDataUpdateAction((flightservice) => flightservice.InsertUser(user), upDateTime);
         }
 
         public async Task GetUser()
         {
-            await PerformDataGetAction((flightservice) => flightservice.GetUser(_displayName));
+            await PerformDataGetAction(async (flightservice) =>
+               FlightData.User= await flightservice.GetUser(_displayName));
         }
 
-        public User User { get; private set; }
+        
         public bool FlightsChanged { get; set; }
         public async Task GetFlights()
         {
             await PerformDataGetAction(async (flightservice) =>
             {
-                Flights = await flightservice.GetFlights();
+                FlightData.Flights = await flightservice.GetFlights();
 
             });
             
@@ -230,10 +244,10 @@ namespace LogbookApp.Data
             return DataType != DataType.None;
         }
 
-        public async Task<bool> Delete<T>(T item, DateTime deleteTime)
-        {
-            return await PerformDataGetAction((flightservice) => flightservice.Delete<T>(item));
+        //public async Task<bool> Delete<T>(T item, DateTime deleteTime)
+        //{
+        //    return await PerformDataGetAction((flightservice) => flightservice.Delete<T>(item));
           
-        }
+        //}
     }
 }

@@ -17,7 +17,7 @@ namespace LogbookApp.Mocks
             Flights = new List<Flight>();
         }
         public DataType DataType { get; private set; }
-        public List<Flight> Flights { get; set; }
+        
        
 
         public async Task<Lookups> GetLookups()
@@ -25,7 +25,7 @@ namespace LogbookApp.Mocks
             return new Lookups();
         }
 
-        public Lookups Lookups { get; set; }
+        
         public Task<bool> InsertFlight(Flight flight)
         {
             return default(Task<bool>); 
@@ -107,7 +107,7 @@ namespace LogbookApp.Mocks
                User = new User {DisplayName = displayName};
         }
 
-        public User User { get; set; }
+        
         public bool FlightsChanged { get; set; }
         
 

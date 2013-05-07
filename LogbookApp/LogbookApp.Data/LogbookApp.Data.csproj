@@ -112,6 +112,7 @@
     <Compile Include="Capacity.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Flight.cs" />
+    <Compile Include="FlightData.cs" />
     <Compile Include="IFlightDataManager.cs" />
     <Compile Include="IFlightDataService.cs" />
     <Compile Include="ILookups.cs" />

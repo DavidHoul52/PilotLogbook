@@ -7,9 +7,6 @@ namespace LogbookApp.Data
     public interface IFlightDataManager
     {
         DataType DataType { get; }
-        List<Flight> Flights { get; set; }
-        Lookups Lookups { get; set; }
-        User User { get; }
         bool FlightsChanged { get; set; }
         Task<bool> GetData(DateTime now);
         Task GetLookups();

@@ -30,13 +30,6 @@ namespace LogbookApp.Data
             get { return DataType.OnLine; }
         }
 
-        public List<Flight> Flights { get; set; }
-
-        
-
-
-        
-
         public async Task<List<Flight>>  GetFlights()
         {
             FlightsChanged = false;
@@ -83,6 +76,7 @@ namespace LogbookApp.Data
 
         private async Task LoadLookups(int userId)
         {
+            var Lookups = new Lookups();
             Lookups.AcTypes = new ObservableCollection<AcType>(await _mobileService.GetTable<AcType>().Take(500).OrderBy(x => x.Code).ToListAsync());
             Lookups.Capacity = new ObservableCollection<Capacity>(await _mobileService.GetTable<Capacity>().Take(500).OrderBy(x => x.Description).ToListAsync());
             var aircraft = await
@@ -103,7 +97,7 @@ namespace LogbookApp.Data
           
         }
 
-        public Lookups Lookups { get; set; }
+        
 
         public async Task<bool> InsertFlight(Flight flight)
         {
@@ -260,7 +254,7 @@ namespace LogbookApp.Data
             await Insert(user);
         }
 
-        public User User { get; set; }
+        
         public bool FlightsChanged { get; set; }
 
 
