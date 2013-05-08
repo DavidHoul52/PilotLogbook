@@ -121,6 +121,11 @@ namespace LogbookApp.Mocks
             return _available;
         }
 
+        public async Task DeleteAcType(AcType acType)
+        {
+            
+        }
+
         public async Task UpdateUser(DateTime upDateTime)
         {
             User.LastUpdated = upDateTime;

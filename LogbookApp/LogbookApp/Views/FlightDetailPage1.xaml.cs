@@ -107,8 +107,8 @@ namespace LogbookApp.Views
 
         private async void GoBack(object sender, RoutedEventArgs e)
         {
-            if (await viewModel.SaveFlight())
-              Frame.GoBack();
+            await viewModel.SaveFlight();
+            Frame.GoBack();
             
               
 

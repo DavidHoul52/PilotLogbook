@@ -13,12 +13,12 @@ namespace LogbookApp.ViewModel
     public class FlightsPageViewModel : ViewModelBase
     {
      
-        private IFlightDataManager flightData;
+        private IFlightDataManager flightDataManager;
 
 
         public FlightsPageViewModel(IFlightDataManager flightData)
         {
-            this.flightData = flightData;
+            this.flightDataManager = flightData;
             
             
             EditCommand = new DelegateCommand<Flight>((f) => ShowDetail(f), (f) => { return f!=null; });
@@ -53,8 +53,8 @@ namespace LogbookApp.ViewModel
 
         public void Refresh()
         {
-            if (flightData.Flights != null)
-                Flights = new ObservableCollection<Flight>(flightData.Flights.OrderByDescending(x => x.Depart).
+            if (flightDataManager.FlightData.Flights != null)
+                Flights = new ObservableCollection<Flight>(flightDataManager.FlightData.Flights.OrderByDescending(x => x.Depart).
                     OrderByDescending(x => x.Date));
             RaisePropertyChanged(() => Flights);
         }
@@ -62,7 +62,10 @@ namespace LogbookApp.ViewModel
 
         private void AddFlight()
         {
-            Flights.Add(new Flight { Lookups= flightData.Lookups, IsNew = true, 
+            Flights.Add(new Flight
+            {
+                Lookups = flightDataManager.FlightData.Lookups,
+                IsNew = true, 
             Date = DateTime.Today, AircraftId = 1});
             SelectedFlight = Flights.Last();
             ShowDetail(SelectedFlight);
@@ -74,9 +77,8 @@ namespace LogbookApp.ViewModel
 
         private async void DeleteFlight(Flight f)
         {
-            bool deleted= await flightData.DeleteFlight(f, DateTime.UtcNow);   
-            if (deleted)
-               Flights.Remove(f);
+            await flightDataManager.DeleteFlight(f, DateTime.UtcNow);   
+            
         }
 
         public ObservableCollection<Flight> Flights { get; set; }

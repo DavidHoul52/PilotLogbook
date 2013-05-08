@@ -12,8 +12,9 @@ namespace LogbookApp.ViewModel
     public abstract class MaintainViewModelBase<T> : ViewModelBase
         where T: Entity, new()
     {
-        protected IFlightDataManager flightDataService;
+        protected IFlightDataManager FlightDataManager;
 
+        protected FlightData FlightData;
 
         public DelegateCommand<T> EditCommand { get; set; }
 
@@ -23,6 +24,25 @@ namespace LogbookApp.ViewModel
 
         public ObservableCollection<T> Items { get; set; }
 
+        public MaintainViewModelBase(IFlightDataManager flightDataService)
+        {
+            this.FlightDataManager = flightDataService;
+            this.FlightData = flightDataService.FlightData;
+            EditCommand = new DelegateCommand<T>((f) => ShowDetail(new MaintainActionCommand<T>
+            {
+                Item = f,
+                DataService = flightDataService
+            }),
+                (f) => { return f != null; });
+            RaisePropertyChanged(() => EditCommand);
+            DeleteCommand = new DelegateCommand<T>((f) => Delete(f), (f) => { return f != null; });
+            RaisePropertyChanged(() => DeleteCommand);
+            AddCommand = new DelegateCommand<T>((f) => Add(), (f) => { return true; });
+            RaisePropertyChanged(() => AddCommand);
+        }
+
+        protected abstract void Delete(T item);
+       
 
         protected virtual void Add()
         {
@@ -33,33 +53,13 @@ namespace LogbookApp.ViewModel
 
             });
             Selected = Items.Last();
-            ShowDetail(new MaintainActionCommand<T> { Item = Selected, DataService = flightDataService });
+            ShowDetail(new MaintainActionCommand<T> { Item = Selected, DataService = FlightDataManager });
         }
 
        
 
 
-        protected async void Delete(T item)
-        {
-            bool deleted;
-            try
-            {
-                deleted = await flightDataService.Delete<T>(item,DateTime.UtcNow);
-            }
-            catch (Exception)
-            {
-
-                deleted = false;
-            }
-
-
-            if (deleted)
-                Items.Remove(item);
-            else
-            {
-                await Messager.ShowMessage("Unable to remove this item");
-            }
-        }
+      
 
         public abstract void Load();
 
@@ -69,18 +69,7 @@ namespace LogbookApp.ViewModel
   
         
 
-        public MaintainViewModelBase(IFlightDataManager flightDataService)
-        {
-            this.flightDataService = flightDataService;
-            EditCommand = new DelegateCommand<T>((f) => ShowDetail(new MaintainActionCommand<T> { Item = f, 
-                DataService = flightDataService }),
-                (f) => { return f != null; });
-            RaisePropertyChanged(() => EditCommand);
-            DeleteCommand = new DelegateCommand<T>((f) => Delete(f), (f) => { return f != null; });
-            RaisePropertyChanged(() => DeleteCommand);
-            AddCommand = new DelegateCommand<T>((f) => Add(), (f) => { return true; });
-            RaisePropertyChanged(() => AddCommand);
-        }
+    
 
         private T selected;
         public T Selected

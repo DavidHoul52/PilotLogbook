@@ -30,55 +30,48 @@ namespace LogbookApp.Data
             get { return DataType.OnLine; }
         }
 
-        public async Task<List<Flight>>  GetFlights()
+        public async Task<List<Flight>>  GetFlights(int userId)
         {
             FlightsChanged = false;
-            var flights = await _mobileService.GetTable<Flight>().Where(x => x.UserId == User.Id).Take(500).ToListAsync();
-            Flights = flights.Select(x =>
-            {
-                x.Capacity = Lookups.Capacity.Where(c => c.Id == x.CapacityId).FirstOrDefault();
-                x.From = Lookups.Airfields.Where(airfield => airfield.Id == x.AirfieldFromId).FirstOrDefault();
-                x.To = Lookups.Airfields.Where(airfield => airfield.Id == x.AirfieldToId).FirstOrDefault();
-                x.Aircraft =
-                    Lookups.Aircraft.Where(aircraft => aircraft.id == x.AircraftId)
-                        .FirstOrDefault();
-                x.Lookups = Lookups;
-               
-                return x;
-            }).ToList();
-            return Flights;
+            return await _mobileService.GetTable<Flight>().Where(x => x.UserId == userId).Take(500).ToListAsync();
+            
+            
 
         }
 
         public async Task<bool> Available(string displayName)
         {
-            await GetUser(displayName);
+           var user = await GetUser(displayName);
 
-            return User != null;
+            return user != null;
         }
 
-        public async Task UpdateUser(DateTime upDateTime)
+        public async Task UpdateUser(User user)
         {
-            User.LastUpdated = upDateTime;
-            await Update(User);
+            LastUpdated = user.LastUpdated;
+            await Update(user);
         }
 
-      
-
-        public async Task<Lookups> GetLookups()
+        public async Task DeleteAcType(AcType acType)
         {
-            Lookups = new Lookups();
-            await LoadLookups(User.Id);
-            return Lookups;
+            await Delete(acType);
+        }
+
+
+        public async Task<Lookups> GetLookups(int userId)
+        {
+
+            return await LoadLookups(userId);
+            
 
 
         }
 
-        private async Task LoadLookups(int userId)
+        private async Task<Lookups> LoadLookups(int userId)
         {
-            var Lookups = new Lookups();
-            Lookups.AcTypes = new ObservableCollection<AcType>(await _mobileService.GetTable<AcType>().Take(500).OrderBy(x => x.Code).ToListAsync());
-            Lookups.Capacity = new ObservableCollection<Capacity>(await _mobileService.GetTable<Capacity>().Take(500).OrderBy(x => x.Description).ToListAsync());
+            var lookups = new Lookups();
+            lookups.AcTypes = new ObservableCollection<AcType>(await _mobileService.GetTable<AcType>().Take(500).OrderBy(x => x.Code).ToListAsync());
+            lookups.Capacity = new ObservableCollection<Capacity>(await _mobileService.GetTable<Capacity>().Take(500).OrderBy(x => x.Description).ToListAsync());
             var aircraft = await
                 _mobileService.GetTable<Aircraft>()
                     .Where(x => x.UserId == userId)
@@ -86,45 +79,46 @@ namespace LogbookApp.Data
                     .OrderBy(x => x.Reg)
                     .ToListAsync();
 
-            Lookups.Aircraft = new ObservableCollection<Aircraft>(aircraft.
+            lookups.Aircraft = new ObservableCollection<Aircraft>(aircraft.
                Select(ac =>
                {
-                   ac.AcType = Lookups.AcTypes.FirstOrDefault(x => x.Id == ac.AcTypeId);
+                   ac.AcType = lookups.AcTypes.FirstOrDefault(x => x.Id == ac.AcTypeId);
                    return ac;
                }));
-            Lookups.Airfields = new ObservableCollection<Airfield>(await _mobileService.GetTable<Airfield>().Where(x => x.UserId == userId).Take(500).OrderBy(x => x.Name).
+            lookups.Airfields = new ObservableCollection<Airfield>(await _mobileService.GetTable<Airfield>().Where(x => x.UserId == userId).Take(500).OrderBy(x => x.Name).
                ToListAsync());
-          
+            return lookups;
+
         }
 
         
 
-        public async Task<bool> InsertFlight(Flight flight)
+        public async Task InsertFlight(Flight flight)
         {
            await _mobileService.GetTable<Flight>().InsertAsync(flight);
          
-           return true;
+           
         }
 
 
 
-        public async Task<bool> DeleteFlight(Flight flight)
+        public async Task DeleteFlight(Flight flight)
         {
             await _mobileService.GetTable<Flight>().DeleteAsync(flight);
             
             FlightsChanged = true;
-            return true;
+            
         }
 
-        public async Task<bool> SaveFlight(Flight flight)
+        public async Task SaveFlight(Flight flight)
         {
 
             if (!flight.Valid())
-                return flight.IsNew; // simply cancel if new and not complete
+                return ; // simply cancel if new and not complete
 
             if (flight.IsNew)
             {
-                flight.UserId = User.Id;
+                
                 await InsertFlight(flight);
             }
 
@@ -133,7 +127,7 @@ namespace LogbookApp.Data
                 await _mobileService.GetTable<Flight>().UpdateAsync(flight);
             }
             FlightsChanged = true;
-            return true;
+            
         }
 
       
@@ -142,9 +136,7 @@ namespace LogbookApp.Data
 
         public async Task InsertAircraft(Aircraft aircraft)
         {
-            aircraft.UserId = User.Id;
             await Insert<Aircraft>(aircraft);
-            
             
         }
 
@@ -157,7 +149,6 @@ namespace LogbookApp.Data
 
         public async Task InsertAirfield(Airfield airfield)
         {
-            airfield.UserId = User.Id;
             await Insert(airfield);
             
         }
@@ -169,12 +160,11 @@ namespace LogbookApp.Data
             
         }
 
-        public async Task<bool> DeleteAircraft(Aircraft f)
+        public async Task DeleteAircraft(Aircraft f)
         {
             await Delete(f);
             
-            return true;
-        }
+         }
 
 
         public async Task<bool> ClearAcTypes()
@@ -212,10 +202,10 @@ namespace LogbookApp.Data
             await _mobileService.GetTable<T>().UpdateAsync(item);
         }
 
-        public async Task<bool> Delete<T>(T item)
+        private async Task Delete<T>(T item)
         {
             await _mobileService.GetTable<T>().DeleteAsync(item);
-            return true;
+            
         }
 
 
@@ -225,11 +215,9 @@ namespace LogbookApp.Data
         }
 
 
-        public async Task<bool> DeleteAirfield(Airfield f)
+        public async Task DeleteAirfield(Airfield f)
         {
-            bool result =await Delete(f);
-            return result;
-
+            await Delete(f);
         }
 
 
@@ -249,31 +237,33 @@ namespace LogbookApp.Data
 
         public async Task InsertUser(User user)
         {
-            User = user;
-            User.LastUpdated=DateTime.UtcNow;
+
+            LastUpdated = user.LastUpdated;
             await Insert(user);
         }
 
-        
+        public DateTime? LastUpdated { get; set; }
+
+
         public bool FlightsChanged { get; set; }
 
 
-        public async Task GetUser(string displayName)
+        public async Task<User> GetUser(string displayName)
         {
-            List<User> users;
+            
          
                 try
                 {
-                    users = await _mobileService.GetTable<User>()
+                    var users = await _mobileService.GetTable<User>()
                         .Where(x => x.DisplayName == displayName)
                         .ToListAsync();
-                    User = users.FirstOrDefault();
+                    return users.FirstOrDefault();
                     
                 }
                 catch (Exception)
                 {
-                    User = null;
-                    return;
+                    return null;
+                    
 
                 }
           

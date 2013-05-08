@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using LogbookApp.Commands;
 using LogbookApp.Data;
@@ -7,12 +8,17 @@ namespace LogbookApp.ViewModel
 {
     public class MaintainAirfieldsViewModel  : MaintainViewModelBase<Airfield>
     {
-        public MaintainAirfieldsViewModel(IFlightDataManager flightDataService)
-            : base(flightDataService)
+        public MaintainAirfieldsViewModel(IFlightDataManager flightDataManager)
+            : base(flightDataManager)
         {
         
         }
 
+
+        protected override void Delete(Airfield item)
+        {
+            FlightDataManager.DeleteAirfield(item, DateTime.UtcNow);
+        }
 
         protected override void Add()
         {
@@ -23,7 +29,7 @@ namespace LogbookApp.ViewModel
 
             });
             Selected = Items.Last();
-            ShowDetail(new MaintainActionCommand<Airfield> { Item = Selected, DataService = flightDataService });
+            ShowDetail(new MaintainActionCommand<Airfield> { Item = Selected, DataService = FlightDataManager });
         }
 
    
@@ -31,8 +37,8 @@ namespace LogbookApp.ViewModel
      
         public async override void Load()
         {
-            await flightDataService.GetLookups();
-            Items = new ObservableCollection<Airfield>(flightDataService.Lookups.Airfields.OrderBy(x => x.Name));
+            await FlightDataManager.GetLookups();
+            Items = new ObservableCollection<Airfield>(FlightData.Lookups.Airfields.OrderBy(x => x.Name));
 
             RaisePropertyChanged(() => Items);
         }

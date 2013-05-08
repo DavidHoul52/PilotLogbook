@@ -17,30 +17,30 @@ namespace LogbookApp.Data
     {
         DataType DataType { get; }
 
-        Task<Lookups> GetLookups();
+        Task<Lookups> GetLookups(int userId);
         Task<User> GetUser(string displayName);
-        Task<List<Flight>> GetFlights();
-        Task<bool> InsertFlight(Flight flight);
-        Task<bool> DeleteFlight(Flight flight);
-        Task<bool> SaveFlight(Flight flight);
+        Task<List<Flight>> GetFlights(int userId);
+        Task InsertFlight(Flight flight);
+        Task DeleteFlight(Flight flight);
+        Task SaveFlight(Flight flight);
         Task InsertAircraft(Aircraft aircraft);
         Task InsertAircraftType(AcType acType);
         Task InsertAirfield(Airfield from);
         Task UpdateAircraft(Aircraft aircraft);
-        Task<bool> DeleteAircraft(Aircraft f);
+        Task DeleteAircraft(Aircraft f);
         Task UpdateAirfield(Airfield airfield);
-        Task<bool> DeleteAirfield(Airfield f);
+        Task DeleteAirfield(Airfield f);
         Task UpdateAcType(AcType acType);
         Task InsertAcType(AcType acType);
-        Task<bool> Delete<T1>(T1 item);
         Task InsertUser(User user);
         
         bool FlightsChanged { get; set; }
         DateTime? LastUpdated { get; set; }
 
         Task<bool> Available(string displayName);
-        Task UpdateUser(DateTime upDateTime);
+        Task UpdateUser(User user);
 
-        
+
+        Task DeleteAcType(AcType acType);
     }
 }

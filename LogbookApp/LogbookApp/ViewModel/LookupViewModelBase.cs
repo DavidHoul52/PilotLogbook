@@ -36,7 +36,7 @@ namespace LogbookApp.ViewModel
                 dataService = value;
                 if (value != null)
                 {
-                    Lookups = dataService.Lookups;
+                    Lookups = dataService.FlightData.Lookups;
                     RaisePropertyChanged(() => Lookups);
                 }
                 ;}

@@ -17,13 +17,15 @@ namespace LogbookApp.ViewModel
         }
 
 
-
-     
+        protected override void Delete(AcType item)
+        {
+            FlightDataManager.DeleteAcType(item, DateTime.UtcNow);
+        }
 
         public async override void Load()
         {
-            await flightDataService.GetLookups();
-            Items = new ObservableCollection<AcType>(flightDataService.Lookups.AcTypes.OrderBy(x => x.Code));
+            await FlightDataManager.GetLookups();
+            Items = new ObservableCollection<AcType>(FlightData.Lookups.AcTypes.OrderBy(x => x.Code));
             RaisePropertyChanged(() => Items);
         }
     }

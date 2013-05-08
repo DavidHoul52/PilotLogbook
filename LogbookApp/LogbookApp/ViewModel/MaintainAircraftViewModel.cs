@@ -20,6 +20,11 @@ namespace LogbookApp.ViewModel
         }
 
 
+        protected override void Delete(Aircraft item)
+        {
+            FlightDataManager.DeleteAircraft(item, DateTime.UtcNow);
+        }
+
         protected override void Add()
         {
             Items.Add(new Aircraft
@@ -29,14 +34,14 @@ namespace LogbookApp.ViewModel
                 
             });
             Selected = Items.Last();
-            ShowDetail(new MaintainActionCommand<Aircraft> { Item = Selected, DataService = flightDataService });
+            ShowDetail(new MaintainActionCommand<Aircraft> { Item = Selected, DataService = FlightDataManager });
 
         }
 
         public async override void Load()
         {
 
-            await flightDataService.GetLookups();
+            await FlightDataManager.GetLookups();
             Refresh();
                 
          
@@ -45,7 +50,7 @@ namespace LogbookApp.ViewModel
 
         public void Refresh()
         {
-            Items = new ObservableCollection<Aircraft>(flightDataService.Lookups.Aircraft.OrderBy(x => x.Reg));
+            Items = new ObservableCollection<Aircraft>(FlightData.Lookups.Aircraft.OrderBy(x => x.Reg));
             RaisePropertyChanged(() => Items);
         }
     }
