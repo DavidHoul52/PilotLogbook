@@ -26,6 +26,6 @@ namespace LogbookApp.Data
         Task GetUser();
         Task GetFlights();
         Task<bool> Available();
-        Task<bool> Delete<T>(T item, DateTime deleteTime);
+    
     }
 }

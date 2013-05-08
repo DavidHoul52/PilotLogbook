@@ -11,16 +11,14 @@ namespace LogbookApp.Data
         public async Task GetUser(IFlightDataService flightDataService, DateTime now)
         {
 
-            await flightDataService.GetUser(DisplayName);
-            if (flightDataService.User == null)
+            User = await flightDataService.GetUser(DisplayName);
+            if (User == null)
             {
-                await flightDataService.InsertUser(new User {DisplayName = this.DisplayName});
-                User = flightDataService.User;
+                User = new User {DisplayName = this.DisplayName};
+                await flightDataService.InsertUser(User);
+                
             }
-            else
-            {
-                User = flightDataService.User;
-            }
+            
 
             if (User.LastUpdated == null)
                 User.LastUpdated = now;
