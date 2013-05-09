@@ -13,33 +13,31 @@ namespace LogbookApp.Mocks
         public MockFlightDataService(DataType dataType)
         {
             DataType = dataType;
-        _available = false;
-            Flights = new List<Flight>();
+            _available = false;
+            
         }
         public DataType DataType { get; private set; }
-        
-       
 
-        public async Task<Lookups> GetLookups()
+
+
+        public async Task<Lookups> GetLookups(int userId)
         {
             return new Lookups();
         }
 
         
-        public Task<bool> InsertFlight(Flight flight)
+        public Task InsertFlight(Flight flight)
         {
-            return default(Task<bool>); 
+            return default(Task); 
         }
 
-        public Task<bool> DeleteFlight(Flight flight)
+        public Task DeleteFlight(Flight flight)
         {
-            return default(Task<bool>); 
+            return default(Task); 
         }
 
-        public async Task<bool> SaveFlight(Flight flight)
+        public async Task SaveFlight(Flight flight)
         {
-            
-            return true;
         }
 
         public void SaveFlights()
@@ -66,9 +64,9 @@ namespace LogbookApp.Mocks
             
         }
 
-        public async Task<bool> DeleteAircraft(Aircraft f)
+        public async Task DeleteAircraft(Aircraft f)
         {
-            return true;
+            
         }
 
         public async Task UpdateAirfield(Airfield airfield)
@@ -76,9 +74,9 @@ namespace LogbookApp.Mocks
            
         }
 
-        public async Task<bool> DeleteAirfield(Airfield f)
+        public async Task DeleteAirfield(Airfield f)
         {
-            return true;
+            
         }
 
         public async Task UpdateAcType(AcType acType)
@@ -91,9 +89,9 @@ namespace LogbookApp.Mocks
           
         }
 
-        public async Task<bool> Delete<T1>(T1 item)
+        public async Task Delete<T1>(T1 item)
         {
-            return true;
+            
         }
 
         public Task InsertUser(User user)
@@ -101,17 +99,16 @@ namespace LogbookApp.Mocks
             return default(Task);
         }
 
-        public async Task GetUser(string displayName)
+        public async Task<User> GetUser(string displayName)
         {
-            if (User==null)
-               User = new User {DisplayName = displayName};
+               return new User {DisplayName = displayName};
         }
 
         
         public bool FlightsChanged { get; set; }
-        
 
-        public async Task<List<Flight>>  GetFlights()
+
+        public async Task<List<Flight>> GetFlights(int userId)
         {
             return new List<Flight>();
         }
@@ -126,22 +123,22 @@ namespace LogbookApp.Mocks
             
         }
 
-        public async Task UpdateUser(DateTime upDateTime)
+        public async Task UpdateUser(User user)
         {
-            User.LastUpdated = upDateTime;
+            LastUpdated = user.LastUpdated;
         }
 
-        
+        public DateTime? LastUpdated { get; set; }
+
 
         public void SetAvailable(bool available)
         {
             _available = available;
+            if (LastUpdated == null)
+                LastUpdated = DateTime.MinValue;
         }
 
-        public void SetUser(User user)
-        {
-            User = user;
-        }
+        
 
        
     }

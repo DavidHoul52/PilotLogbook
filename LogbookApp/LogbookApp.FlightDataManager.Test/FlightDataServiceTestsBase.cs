@@ -15,6 +15,7 @@ namespace LogbookApp.FlightDataManagerTest
         protected DateTime NewerTime;
         protected DateTime Now;
         protected TestLocalStorage TestLocalStorage;
+        protected User User;
         
         public virtual void Setup()
         {
@@ -24,7 +25,7 @@ namespace LogbookApp.FlightDataManagerTest
             TestLocalStorage.SetExists(true);
             LocalTestData = new MockLocalDataManager(TestLocalStorage, "", "", "");
             OnlineDataUpdatedFromOffLine = false;
-            OnlineTestData.SetUser(new User());
+            User = new User();
             OldTime = new DateTime(2012, 1, 1);
             NewerTime = new DateTime(2013, 1, 1);
             Now = new DateTime(2013, 5, 5);
@@ -36,8 +37,8 @@ namespace LogbookApp.FlightDataManagerTest
 
         protected void SetLastUpdates(DateTime? local, DateTime? online)
         {
-            LocalTestData.SetUser(new User { LastUpdated = local });
-            OnlineTestData.SetUser(new User { LastUpdated = online });
+            LocalTestData.LastUpdated = local ;
+            OnlineTestData.LastUpdated = online;
         }
     }
 }

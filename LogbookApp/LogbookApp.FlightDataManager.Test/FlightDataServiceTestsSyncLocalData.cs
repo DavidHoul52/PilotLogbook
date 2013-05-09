@@ -19,49 +19,49 @@ namespace LogbookApp.FlightDataManagerTest
         }
 
 
-        [TestMethod]
-        public void ShouldUpdateLocalDataWithOnlineFlights()
-        {
+        //[TestMethod]
+        //public void ShouldUpdateLocalDataWithOnlineFlights()
+        //{
 
-            OnlineTestData.Flights = new List<Flight> { new Flight()};
-            SetLastUpdates(null, OldTime);
-            OnlineTestData.SetAvailable(true);
-            Target.SaveFlight(new Flight(), NewerTime);
-            Assert.AreEqual(1,LocalTestData.Flights.Count);
-
-
-
-        }
-
-
-        [TestMethod]
-        public void ShouldUpdateLocalDataWithOnlineLookups()
-        {
-
-            OnlineTestData.Lookups = new Lookups{ Aircraft = new ObservableCollection<Aircraft> {new Aircraft()}};
-            SetLastUpdates(null, OldTime);
-            OnlineTestData.SetAvailable(true);
-            Target.SaveFlight(new Flight(), NewerTime);
-            Assert.AreEqual(1, LocalTestData.Lookups.Aircraft.Count);
+        //    OnlineTestData.Flights = new List<Flight> { new Flight()};
+        //    SetLastUpdates(null, OldTime);
+        //    OnlineTestData.SetAvailable(true);
+        //    Target.SaveFlight(new Flight(), NewerTime);
+        //    Assert.AreEqual(1,LocalTestData.Flights.Count);
 
 
 
-        }
+        //}
 
 
-        [TestMethod]
-        public void ShouldUpdateLocalDataWithOnlineUser()
-        {
+        //[TestMethod]
+        //public void ShouldUpdateLocalDataWithOnlineLookups()
+        //{
+
+        //    OnlineTestData.Lookups = new Lookups{ Aircraft = new ObservableCollection<Aircraft> {new Aircraft()}};
+        //    SetLastUpdates(null, OldTime);
+        //    OnlineTestData.SetAvailable(true);
+        //    Target.SaveFlight(new Flight(), NewerTime);
+        //    Assert.AreEqual(1, LocalTestData.Lookups.Aircraft.Count);
+
+
+
+        //}
+
+
+        //[TestMethod]
+        //public void ShouldUpdateLocalDataWithOnlineUser()
+        //{
 
             
-            SetLastUpdates(null, OldTime);
-            OnlineTestData.SetAvailable(true);
-            OnlineTestData.User.Id = 1;
-            Target.SaveFlight(new Flight(), NewerTime);
-            Assert.AreEqual(1, LocalTestData.User.Id);
+        //    SetLastUpdates(null, OldTime);
+        //    OnlineTestData.SetAvailable(true);
+        //    OnlineTestData.User.Id = 1;
+        //    Target.SaveFlight(new Flight(), NewerTime);
+        //    Assert.AreEqual(1, LocalTestData.User.Id);
 
 
 
-        }
+        //}
     }
 }

@@ -98,15 +98,7 @@ namespace LogbookApp.FlightDataManagerTest
 
      
 
-        [TestMethod]
-        public void OnlineDataShouldGetUser()
-        {
-
-            OnlineTestData.SetAvailable(true);
-            Target.GetData(Now);
-            Assert.IsNotNull((OnlineTestData.User));
-        }
-
+      
 
         [TestMethod]
         public void OnlineDataShouldGetUserLastUpdated()  // see also UserManagerTests
@@ -114,7 +106,7 @@ namespace LogbookApp.FlightDataManagerTest
 
             OnlineTestData.SetAvailable(true);
             Target.GetData(Now);
-            Assert.IsNotNull((OnlineTestData.User.LastUpdated));
+            Assert.IsNotNull((OnlineTestData.LastUpdated));
 
 
         }

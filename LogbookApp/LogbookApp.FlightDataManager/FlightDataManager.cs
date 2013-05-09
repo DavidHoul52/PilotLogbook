@@ -75,7 +75,8 @@ namespace LogbookApp.Data
         {
             var localAvailable = await _localData.Available(_displayName);
             var onLineAvailable = await _onLineData.Available(_displayName);
-            var localNewer = (localAvailable && onLineAvailable && _localData.LastUpdated.Value >
+            var localNewer = (localAvailable && onLineAvailable && 
+                _localData.LastUpdated.GetValueOrDefault(DateTime.MinValue) >
                 _onLineData.LastUpdated.GetValueOrDefault(DateTime.MinValue));
             if (!onLineAvailable && localAvailable || (localAvailable && localNewer))
                 DataType=DataType.OffLine;

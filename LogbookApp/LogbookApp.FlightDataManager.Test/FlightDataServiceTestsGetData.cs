@@ -23,7 +23,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
             OnlineTestData.SetAvailable(true);
             Target.GetData(Now);
-            Assert.IsNotNull(Target.Flights);
+            Assert.IsNotNull(Target.FlightData.Flights);
 
 
 
@@ -36,7 +36,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
             OnlineTestData.SetAvailable(true);
             Target.GetData(Now);
-            Assert.IsNotNull(Target.Lookups);
+            Assert.IsNotNull(Target.FlightData.Lookups);
 
 
 
@@ -48,7 +48,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
             OnlineTestData.SetAvailable(true);
             Target.GetData(Now);
-            Assert.IsNotNull(Target.User);
+            Assert.IsNotNull(Target.FlightData.User);
 
 
 

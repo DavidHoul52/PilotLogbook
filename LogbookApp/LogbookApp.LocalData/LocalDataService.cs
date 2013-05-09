@@ -30,7 +30,7 @@ namespace LogbookApp.Storage
             return await _localStorage.Restore<Lookups>(_lookupsFileName);
         }
 
-
+      
         
         public async Task InsertFlight(Flight flight )
         {

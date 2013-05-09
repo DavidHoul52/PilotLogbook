@@ -16,18 +16,10 @@ namespace LogbookApp.Mocks
         {
         }
 
-        public async override  Task GetUser(string displayName)
-        {
-            if (User == null)
-               await base.GetUser(displayName);
+       
+        
 
-        }
-
-        public void SetUser(User user)
-        {
-            User = user;
-
-        }
+        
     }
 
 }

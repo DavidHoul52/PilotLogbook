@@ -19,27 +19,20 @@ namespace LogbookApp.FlightDataManagerTest
         [TestMethod]
         public void OnlineShouldSaveFlightOnlineAndSetLastupdated()
         {
-
-            
             SetLastUpdates(null,OldTime);
             OnlineTestData.SetAvailable(true);
             Target.SaveFlight(new Flight(),NewerTime);
-            Assert.AreEqual(NewerTime,OnlineTestData.User.LastUpdated);
-            
-
-
+            Assert.AreEqual(NewerTime,OnlineTestData.LastUpdated);
         }
 
 
         [TestMethod]
         public void OnlineShouldSaveFlightLocalAndSetLastupdated()
         {
-
-
             SetLastUpdates(null, OldTime);
             OnlineTestData.SetAvailable(true);
             Target.SaveFlight(new Flight(), NewerTime);
-            Assert.AreEqual(NewerTime, LocalTestData.User.LastUpdated);
+            Assert.AreEqual(NewerTime, LocalTestData.LastUpdated);
 
 
 
@@ -53,7 +46,7 @@ namespace LogbookApp.FlightDataManagerTest
             SetLastUpdates(null, OldTime);
             OnlineTestData.SetAvailable(false);
             Target.SaveFlight(new Flight(), NewerTime);
-            Assert.AreEqual(NewerTime, LocalTestData.User.LastUpdated);
+            Assert.AreEqual(NewerTime, LocalTestData.LastUpdated);
 
 
 
@@ -65,10 +58,10 @@ namespace LogbookApp.FlightDataManagerTest
         public void ShouldNotSaveFlightOnlineIfOnlinenotAvailable()
         {
 
-            OnlineTestData.User.LastUpdated = OldTime;
+            OnlineTestData.LastUpdated = OldTime;
             OnlineTestData.SetAvailable(false);
             Target.SaveFlight(new Flight(), NewerTime);
-            Assert.AreEqual(OldTime, OnlineTestData.User.LastUpdated);
+            Assert.AreEqual(OldTime, OnlineTestData.LastUpdated);
 
 
 

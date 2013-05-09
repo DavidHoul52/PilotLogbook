@@ -105,7 +105,7 @@ namespace LogbookApp.Views
             Frame.Navigate(typeof(AirfieldBasicPage), flightActionCommand);
         }
 
-        private async void GoBack(object sender, RoutedEventArgs e)
+        private async void CallGoBack(object sender, RoutedEventArgs e)
         {
             await viewModel.SaveFlight();
             Frame.GoBack();
