@@ -1,10 +1,17 @@
 ﻿using System;
+using System.Linq.Expressions;
+using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Windows.Foundation.Metadata;
+using Windows.Media.Devices;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using System.IO;
+using Windows.UI.Text;
+using Windows.UI.Xaml.Automation;
 
 namespace LogbookApp
 {
@@ -29,22 +36,27 @@ namespace LogbookApp
                 where T : new()
         {
             var file = await GetFileAsync(filename);
+            T result = default(T);
             if (file!=null)
             {
                 try
                 {
-                    await Windows.System.Threading.ThreadPool.RunAsync((sender) => RestoreAsync<T>(filename).Wait(),
-                    Windows.System.Threading.WorkItemPriority.Normal);
+                    result = await RestoreAsync<T>(filename);
+                    //await Windows.System.Threading.ThreadPool.RunAsync((sender) =>
+                    //{
+                      
+                    //},
+                    //Windows.System.Threading.WorkItemPriority.Normal);
                 }
                 catch (Exception)
                 {
 
-                    return default(T);
+                    return result;
                 }
                 
             }
-          
-            return default(T);
+
+            return result;
         }
 
       
@@ -81,23 +93,25 @@ namespace LogbookApp
             sessionOutputStream.Dispose();
         }
 
-         static async private Task RestoreAsync<T>( string filename)
+         static async private Task<T> RestoreAsync<T>( string filename)
          {
+             
              StorageFile sessionFile = await ApplicationData.Current.LocalFolder.GetFileAsync(filename);
              if (sessionFile == null)
              {
-                 return;
+                 return default(T);
              }
              IInputStream sessionInputStream = await sessionFile.OpenReadAsync();
 
              //Using DataContractSerializer , look at the cat-class
               var sessionSerializer = new DataContractSerializer(typeof(T));
-             var data = sessionSerializer.ReadObject(sessionInputStream.AsStreamForRead());
+             var data = (T)sessionSerializer.ReadObject(sessionInputStream.AsStreamForRead());
 
              //Using XmlSerializer , look at the Dog-class
              //var serializer = new XmlSerializer(typeof(List<object>), new Type[] { typeof(T) });
              //_data = (List<object>)serializer.Deserialize(sessionInputStream.AsStreamForRead());
              sessionInputStream.Dispose();
+             return data;
          }
     }
 }
