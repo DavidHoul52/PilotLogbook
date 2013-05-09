@@ -1,5 +1,6 @@
 ﻿using System;
 using LogbookApp.Data;
+using LogbookApp.FlightDataManagement;
 using LogbookApp.Mocks;
 using LogbookApp.Storage;
 
@@ -29,10 +30,7 @@ namespace LogbookApp.FlightDataManagerTest
             OldTime = new DateTime(2012, 1, 1);
             NewerTime = new DateTime(2013, 1, 1);
             Now = new DateTime(2013, 5, 5);
-            Target = new Data.FlightDataManager(OnlineTestData, LocalTestData, () =>
-            {
-                OnlineDataUpdatedFromOffLine = true;
-            }, "david");
+            Target = new FlightDataManager(OnlineTestData, LocalTestData, "david");
         }
 
         protected void SetLastUpdates(DateTime? local, DateTime? online)

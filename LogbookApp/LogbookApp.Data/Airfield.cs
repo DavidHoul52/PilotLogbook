@@ -3,7 +3,7 @@
     public class Airfield :Entity
     {
 
-        public int Id { get; set; }
+       
 
         public string ICAOCode { get; set; }
 

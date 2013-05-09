@@ -26,7 +26,7 @@ namespace LogbookApp.Data
         private Aircraft _aircraft;
 
 
-        public int id { get; set; }
+       
         public int? UserId { get; set; }
 
         public DateTime Date { get; set; }
@@ -60,7 +60,7 @@ namespace LogbookApp.Data
             {
                 _from = value;
                 if (value != null)
-                    AirfieldFromId = value.Id;
+                    AirfieldFromId = value.id;
 
             }
         }
@@ -76,7 +76,7 @@ namespace LogbookApp.Data
             {
                 _to = value;
                 if (value != null)
-                    AirfieldToId = value.Id;
+                    AirfieldToId = value.id;
             }
         }
 

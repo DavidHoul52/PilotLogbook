@@ -1,28 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Windows.UI.Core.AnimationMetrics;
-
+using LogbookApp.Data;
 using LogbookApp.Storage;
 
-namespace LogbookApp.Data
+namespace LogbookApp.FlightDataManagement
 {
     public class FlightDataManager : IFlightDataManager
     {
-        private readonly IFlightDataService _onLineData;
+        private readonly IOnlineFlightData _onLineData;
         private readonly LocalDataService _localData;
         private readonly Action _onlineDataUpdatedFromOffLine;
         private readonly string _displayName;
         private UserManager _userManager;
-        
-        
+        private SyncManager _syncManager;
 
-        public FlightDataManager(IFlightDataService onLineData, LocalDataService localData,
-            Action onlineDataUpdatedFromOffLine, string displayName)
+
+        public FlightDataManager(IOnlineFlightData onLineData, LocalDataService localData,
+            string displayName)
         {
             _onLineData = onLineData;
             _localData = localData;
-            _onlineDataUpdatedFromOffLine = onlineDataUpdatedFromOffLine;
+            _syncManager = new SyncManager(_onLineData);
             _displayName = displayName;
             _userManager = new UserManager();
             FlightData = new FlightData();
@@ -87,7 +85,7 @@ namespace LogbookApp.Data
 
 
             if (DataType == DataType.OffLine && onLineAvailable)
-                UpdateOnlineDataFromOffLineData();
+                _syncManager.UpdateOnlineData(FlightData);
 
             switch (DataType)
             {
@@ -107,7 +105,7 @@ namespace LogbookApp.Data
 
         private void UpdateOnlineDataFromOffLineData()
         {
-            if (_onlineDataUpdatedFromOffLine != null) _onlineDataUpdatedFromOffLine();
+            
         }
 
 
@@ -115,7 +113,7 @@ namespace LogbookApp.Data
         {
             await PerformDataGetAction(async (flightDataService) =>
             {
-                { FlightData.Lookups= await flightDataService.GetLookups(FlightData.User.Id);}
+                { FlightData.Lookups = await flightDataService.GetLookups(FlightData.User.id); }
 
             });
         }
@@ -230,7 +228,7 @@ namespace LogbookApp.Data
         {
             await PerformDataGetAction(async (flightservice) =>
             {
-                FlightData.Flights = await flightservice.GetFlights(FlightData.User.Id);
+                FlightData.Flights = await flightservice.GetFlights(FlightData.User.id);
 
             });
             

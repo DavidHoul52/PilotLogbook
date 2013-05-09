@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace LogbookApp.Data
 {
-    public class AcType : Entity
+    public interface IOnlineFlightData : IFlightDataService
     {
-
-      
-        public string Code { get; set; }
+        void Update<T>(T item)
+          where T : Entity;
     }
 }

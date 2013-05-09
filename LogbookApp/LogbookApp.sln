@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogbookApp.Data.Test", "Log
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogbookApp.LocalData.Test", "LogbookApp.LocalData.Test\LogbookApp.LocalData.Test.csproj", "{054B79FB-C670-43DC-BC4E-EB243B24FF2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogbookApp.FlightDataManager", "LogbookApp.FlightDataManager\LogbookApp.FlightDataManager.csproj", "{5895BD95-7913-43CA-961A-5929B08BA6B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogbookApp.FlightDataManagement", "LogbookApp.FlightDataManager\LogbookApp.FlightDataManagement.csproj", "{5895BD95-7913-43CA-961A-5929B08BA6B8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogbookApp.FlightDataManagerTest", "LogbookApp.FlightDataManager.Test\LogbookApp.FlightDataManagerTest.csproj", "{54D49B49-9F4C-4137-BDEA-FBE4C2043B90}"
 EndProject

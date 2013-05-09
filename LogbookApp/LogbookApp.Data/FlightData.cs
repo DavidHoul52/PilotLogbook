@@ -25,8 +25,8 @@ namespace LogbookApp.Data
                     _flights = value.Select(x =>
                     {
                         x.Capacity = Lookups.Capacity.Where(c => c.Id == x.CapacityId).FirstOrDefault();
-                        x.From = Lookups.Airfields.Where(airfield => airfield.Id == x.AirfieldFromId).FirstOrDefault();
-                        x.To = Lookups.Airfields.Where(airfield => airfield.Id == x.AirfieldToId).FirstOrDefault();
+                        x.From = Lookups.Airfields.Where(airfield => airfield.id == x.AirfieldFromId).FirstOrDefault();
+                        x.To = Lookups.Airfields.Where(airfield => airfield.id == x.AirfieldToId).FirstOrDefault();
                         x.Aircraft =
                             Lookups.Aircraft.Where(aircraft => aircraft.id == x.AircraftId)
                                 .FirstOrDefault();
@@ -48,7 +48,7 @@ namespace LogbookApp.Data
 
         public void AddInsert(Airfield @from)
         {
-            from.UserId = User.Id;
+            from.UserId = User.id;
             Lookups.Airfields.Add(from);
         }
 
@@ -64,7 +64,7 @@ namespace LogbookApp.Data
 
         public void AddFlight(Flight flight)
         {
-            flight.UserId = User.Id;
+            flight.UserId = User.id;
             Flights.Add(flight);
         }
 

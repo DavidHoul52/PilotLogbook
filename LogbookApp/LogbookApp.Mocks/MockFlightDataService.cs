@@ -5,7 +5,7 @@ using LogbookApp.Data;
 
 namespace LogbookApp.Mocks
 {
-    public class MockFlightDataService : IFlightDataService
+    public class MockFlightDataService : IOnlineFlightData
     {
         
         private bool _available;
@@ -121,6 +121,11 @@ namespace LogbookApp.Mocks
         public async Task DeleteAcType(AcType acType)
         {
             
+        }
+
+        public void Update<T>(T item) where T : Entity
+        {
+            throw new NotImplementedException();
         }
 
         public async Task UpdateUser(User user)

@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace LogbookApp.Data
 {
@@ -12,6 +13,11 @@ namespace LogbookApp.Data
         {
             return true;
         }
+
+        public int id { get; set; }
+
+        public DateTime TimeStamp { get; set; }
+
 
     
     }

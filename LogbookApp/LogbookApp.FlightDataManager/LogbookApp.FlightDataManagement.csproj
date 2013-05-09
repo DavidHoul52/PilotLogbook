@@ -9,8 +9,8 @@
     <ProjectGuid>{5895BD95-7913-43CA-961A-5929B08BA6B8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LogbookApp.FlightDataManager</RootNamespace>
-    <AssemblyName>LogbookApp.FlightDataManager</AssemblyName>
+    <RootNamespace>LogbookApp.FlightDataManagement</RootNamespace>
+    <AssemblyName>LogbookApp.FlightDataManagement</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -112,6 +112,7 @@
   <ItemGroup>
     <Compile Include="FlightDataManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SyncManager.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

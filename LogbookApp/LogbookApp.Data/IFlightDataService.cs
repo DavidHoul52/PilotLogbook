@@ -42,5 +42,6 @@ namespace LogbookApp.Data
 
 
         Task DeleteAcType(AcType acType);
+      
     }
 }

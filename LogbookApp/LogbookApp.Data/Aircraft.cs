@@ -8,7 +8,7 @@ namespace LogbookApp.Data
 
     public class Aircraft : Entity 
     {
-        public int id { get; set; }
+      
         public string Reg { get; set; }
 
         public int UserId { get; set; }
@@ -64,7 +64,7 @@ namespace LogbookApp.Data
             {
                 _acType = value;
                 if (_acType != null)
-                    AcTypeId = AcType.Id;
+                    AcTypeId = AcType.id;
             }
         }
 

@@ -3,9 +3,9 @@
 
 namespace LogbookApp.Data
 {
-    public class User
+    public class User : Entity
     {
-        public int Id { get; set; }
+        
         public string DisplayName { get; set; }
         public DateTime? LastUpdated { get; set; }
     }
