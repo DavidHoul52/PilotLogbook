@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using LogbookApp.Data;
 
 namespace LogbookApp.Mocks
@@ -9,11 +12,18 @@ namespace LogbookApp.Mocks
     {
         
         private bool _available;
+        private FlightData _internalFlightData;
 
-        public MockFlightDataService(DataType dataType)
+        public MockFlightDataService(DataType dataType, FlightData internalFlightData)
         {
             DataType = dataType;
             _available = false;
+            _internalFlightData = internalFlightData;
+
+        }
+
+        public MockFlightDataService(DataType dataType) : this(dataType, new FlightData())
+        {
             
         }
         public DataType DataType { get; private set; }
@@ -22,7 +32,7 @@ namespace LogbookApp.Mocks
 
         public async Task<Lookups> GetLookups(int userId)
         {
-            return new Lookups();
+            return _internalFlightData.Lookups;
         }
 
         
@@ -86,13 +96,10 @@ namespace LogbookApp.Mocks
 
         public async Task InsertAcType(AcType acType)
         {
-          
+           _internalFlightData.AddAcType(acType);
         }
 
-        public async Task Delete<T1>(T1 item)
-        {
-            
-        }
+        
 
         public Task InsertUser(User user)
         {
@@ -108,9 +115,9 @@ namespace LogbookApp.Mocks
         public bool FlightsChanged { get; set; }
 
 
-        public async Task<List<Flight>> GetFlights(int userId)
+        public async Task<ObservableCollection<Flight>> GetFlights(int userId)
         {
-            return new List<Flight>();
+            return _internalFlightData.Flights;
         }
 
         public async Task<bool> Available(string displayName)
@@ -123,10 +130,48 @@ namespace LogbookApp.Mocks
             
         }
 
-        public void Update<T>(T item) where T : Entity
+        public async Task Update<T>(T item) where T : Entity
         {
-            throw new NotImplementedException();
+            var items= GetItems<T>();
+            if (items != null)
+            {
+                items.Remove(items.First(x => x.id == item.id));
+                items.Add(item);
+            }
         }
+
+       
+
+        public async Task Insert<T>(T item) where T : Entity
+        {
+            GetItems<T>().Add(item);
+        }
+
+
+        public async Task Delete<T>(T item) where T : Entity
+        {
+             GetItems<T>().Remove(item);
+        }
+
+        private ObservableCollection<T> GetItems<T>()  where T : Entity
+        {
+             Type type = typeof(T);
+            if (type == typeof(Aircraft))
+            {
+                return _internalFlightData.Lookups.Aircraft as ObservableCollection<T>;
+            }
+            if (type == typeof(Airfield))
+            {
+               return  _internalFlightData.Lookups.Airfields as ObservableCollection<T>;
+            }
+
+            if (type == typeof(Flight))
+            {
+               return  _internalFlightData.Flights as ObservableCollection<T>;
+            }
+            return null;
+        }
+
 
         public async Task UpdateUser(User user)
         {

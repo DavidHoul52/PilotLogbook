@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using LogbookApp.Data;
 
@@ -128,9 +129,9 @@ namespace LogbookApp.Storage
         public DateTime? LastUpdated { get; set; }
 
 
-        public async  Task<List<Flight>>  GetFlights(int userId)
+        public async  Task<ObservableCollection<Flight>>  GetFlights(int userId)
         {
-            return await _localStorage.Restore<List<Flight>>(_flightsFileName);
+            return await _localStorage.Restore<ObservableCollection<Flight>>(_flightsFileName);
         }
 
         public async Task<bool> Available(string displayName)

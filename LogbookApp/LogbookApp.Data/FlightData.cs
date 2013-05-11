@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -6,23 +7,23 @@ namespace LogbookApp.Data
 {
     public class FlightData
     {
-        private List<Flight> _flights;
+        private ObservableCollection<Flight> _flights;
 
         public FlightData()
         {
-            Flights = new List<Flight>();
+            Flights = new ObservableCollection<Flight>();
             Lookups = new Lookups();
             User = new User();
         }
 
-        public List<Flight> Flights
+        public ObservableCollection<Flight> Flights
         {
             get { return _flights; }
             set
             {
                 if (value != null )
                 {
-                    _flights = value.Select(x =>
+                    _flights = new ObservableCollection<Flight>(value.Select(x =>
                     {
                         x.Capacity = Lookups.Capacity.Where(c => c.Id == x.CapacityId).FirstOrDefault();
                         x.From = Lookups.Airfields.Where(airfield => airfield.id == x.AirfieldFromId).FirstOrDefault();
@@ -33,7 +34,7 @@ namespace LogbookApp.Data
                         x.Lookups = Lookups;
 
                         return x;
-                    }).ToList();
+                    }).ToList());
                 }
             }
         }

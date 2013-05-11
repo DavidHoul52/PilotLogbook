@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,7 +20,7 @@ namespace LogbookApp.Data
 
         Task<Lookups> GetLookups(int userId);
         Task<User> GetUser(string displayName);
-        Task<List<Flight>> GetFlights(int userId);
+        Task<ObservableCollection<Flight>> GetFlights(int userId);
         Task InsertFlight(Flight flight);
         Task DeleteFlight(Flight flight);
         Task SaveFlight(Flight flight);

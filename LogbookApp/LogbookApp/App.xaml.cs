@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Callisto.Controls;
 using LogbookApp.Common;
 using LogbookApp.Data;
+using LogbookApp.FlightDataManagement;
 using LogbookApp.Storage;
 using LogbookApp.Views;
 using Windows.ApplicationModel;

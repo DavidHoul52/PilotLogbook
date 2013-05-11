@@ -17,9 +17,9 @@ namespace LogbookApp.Services
             
         }
 
-        private IFlightDataService _client;
+        private IOnlineFlightData _client;
 
-        public IFlightDataService Client
+        public IOnlineFlightData Client
         {
             get
             {

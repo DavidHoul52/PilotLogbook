@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using LogbookApp.Data;
 
 namespace LogbookApp.FlightDataManagement
@@ -13,18 +14,23 @@ namespace LogbookApp.FlightDataManagement
             _onLineData = onLineData;
         }
 
-        public void UpdateOnlineData(FlightData flightData)
+        public async void UpdateOnlineData(FlightData flightData)
         {
-            SyncLookups(flightData.Lookups, flightData.User.id);
+            await SyncLookups(flightData.Lookups, flightData.User.id);
+            var onLineFlights = await _onLineData.GetFlights(flightData.User.id);
+            await SyncTable<Flight>(flightData.Flights, onLineFlights);
+           
         }
 
-        private async void SyncLookups(Lookups lookups, int userId)
+        private async Task SyncLookups(Lookups lookups, int userId)
         {
             var onLineLookups = await _onLineData.GetLookups(userId);
-            SyncTable(lookups.Aircraft, onLineLookups.Aircraft);
+            await SyncTable(lookups.Aircraft, onLineLookups.Aircraft);
+            await SyncTable(lookups.Airfields, onLineLookups.Airfields);
+           
         }
 
-        private void SyncTable<T>(ObservableCollection<T> sourceItems,
+        private async Task SyncTable<T>(ObservableCollection<T> sourceItems,
             ObservableCollection<T> targetItems)
             where T: Entity
         {
@@ -32,8 +38,25 @@ namespace LogbookApp.FlightDataManagement
             foreach (var item in sourceItems)
             {
                 var targetItem = targetItems.FirstOrDefault(x => x.id == item.id);
+                if (targetItem == null) // new
+                {
+                    await _onLineData.Insert(item);
+                }
+                else
                 if (item.TimeStamp > targetItem.TimeStamp)
-                    _onLineData.Update(item);
+                    await _onLineData.Update(item);
+            }
+
+            // delete items which no longer exist in source
+
+            foreach (var targetItem in targetItems)
+            {
+                var sourceItem = sourceItems.FirstOrDefault(x => x.id == targetItem.id);
+                if (sourceItem == null) // doesn't exist
+                {
+                   await _onLineData.Delete(targetItem);
+                }
+                
             }
         }
     }

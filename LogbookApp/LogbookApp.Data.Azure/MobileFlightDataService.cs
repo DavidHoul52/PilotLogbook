@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LogbookApp.Data
 {
-    public class MobileFlightDataService : IFlightDataService
+    public class MobileFlightDataService : IOnlineFlightData
     {
         private MobileServiceClient _mobileService;
      
@@ -30,12 +30,13 @@ namespace LogbookApp.Data
             get { return DataType.OnLine; }
         }
 
-        public async Task<List<Flight>>  GetFlights(int userId)
+        public async Task<ObservableCollection<Flight>>  GetFlights(int userId)
         {
             FlightsChanged = false;
-            return await _mobileService.GetTable<Flight>().Where(x => x.UserId == userId).Take(500).ToListAsync();
-            
-            
+            var flights= await _mobileService.GetTable<Flight>().Where(x => x.UserId == userId).Take(500).ToListAsync();
+            return new ObservableCollection<Flight>(flights);
+
+
 
         }
 
@@ -82,7 +83,7 @@ namespace LogbookApp.Data
             lookups.Aircraft = new ObservableCollection<Aircraft>(aircraft.
                Select(ac =>
                {
-                   ac.AcType = lookups.AcTypes.FirstOrDefault(x => x.Id == ac.AcTypeId);
+                   ac.AcType = lookups.AcTypes.FirstOrDefault(x => x.id == ac.AcTypeId);
                    return ac;
                }));
             lookups.Airfields = new ObservableCollection<Airfield>(await _mobileService.GetTable<Airfield>().Where(x => x.UserId == userId).Take(500).OrderBy(x => x.Name).
@@ -193,16 +194,19 @@ namespace LogbookApp.Data
 
 
         public async Task Insert<T>(T item)
+            where T: Entity
         {
             await _mobileService.GetTable<T>().InsertAsync(item);
         }
 
         public async Task Update<T>(T item)
+            where T : Entity
         {
             await _mobileService.GetTable<T>().UpdateAsync(item);
         }
 
-        private async Task Delete<T>(T item)
+        public async Task Delete<T>(T item)
+            where T : Entity
         {
             await _mobileService.GetTable<T>().DeleteAsync(item);
             

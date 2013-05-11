@@ -29,7 +29,7 @@ namespace LogbookApp.ViewModel
             RaisePropertyChanged(() => AddCommand);
             TotalsCommand = new DelegateCommand<List<Flight>>((f) =>    ShowTotals(new TotalsActionCommand
             {
-                Flights = Flights.ToList(),
+                Flights = this.Flights,
                 FromDate = new DateTime(1900,1,1),
                 ToDate = DateTime.Now
             })

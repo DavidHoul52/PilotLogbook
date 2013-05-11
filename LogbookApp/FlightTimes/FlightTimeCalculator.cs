@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace FlightTimes
 {
     public class FlightTimeCalculator
     {
-        public FlightCalcTotals Calc(List<Flight> flights, DateTime FromDate, DateTime ToDate)
+        public FlightCalcTotals Calc(IEnumerable<Flight> flights, DateTime FromDate, DateTime ToDate)
         {
         
             var result = new FlightCalcTotals(); 
@@ -25,7 +26,7 @@ namespace FlightTimes
         }
 
 
-        private FlightCalcResult CalcTimePeriod(List<Flight> flights, DateTime FromDate, DateTime ToDate)
+        private FlightCalcResult CalcTimePeriod(IEnumerable<Flight> flights, DateTime FromDate, DateTime ToDate)
         {
             var result = new FlightCalcResult();
          
