@@ -99,18 +99,17 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <ProjectReference Include="..\LogbookApp.Data\LogbookApp.Data.csproj">
-      <Project>{89900CBD-6C4A-443B-93B9-67081C3308B9}</Project>
-      <Name>LogbookApp.Data</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="ILocalStorage.cs" />
     <Compile Include="LocalDataService.cs" />
     <Compile Include="LocalStorage.cs" />
     <Compile Include="LocalStorageBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogbookApp.Data\LogbookApp.Data.csproj">
+      <Project>{89900CBD-6C4A-443B-93B9-67081C3308B9}</Project>
+      <Name>LogbookApp.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

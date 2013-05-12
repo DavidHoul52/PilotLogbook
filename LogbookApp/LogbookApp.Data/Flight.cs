@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace LogbookApp.Data
 {
    
-    public class Flight :Entity
+    public class Flight :IEntity
     {
         public Flight()
         {
@@ -194,11 +194,25 @@ namespace LogbookApp.Data
         public DateTime? SimulatedInstrumentFlying { get; set; }
 
 
-        public override bool Valid()
+        public bool IsNew { get; set; }
+
+        public bool Valid()
         {
             return Arrival > Depart ;
         }
 
-       
+        public int id { get; set; }
+        public DateTime TimeStamp { get; set; }
+
+
+        public void PopulateLookups(Lookups lookupData)
+        {
+            Aircraft = lookupData.Aircraft.FirstOrDefault(x => x.id == AircraftId);
+            Capacity = lookupData.Capacity.FirstOrDefault(x => x.Id == CapacityId);
+            From = lookupData.Airfields.FirstOrDefault(x => x.id == AirfieldFromId);
+            To = lookupData.Airfields.FirstOrDefault(x => x.id == AirfieldToId);
+            this.Lookups = lookupData;
+           
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace LogbookApp.FlightDataManagement
 
         private async Task SyncTable<T>(ObservableCollection<T> sourceItems,
             ObservableCollection<T> targetItems)
-            where T: Entity
+            where T: IEntity
         {
             // update items which have changed and are newer
             foreach (var item in sourceItems)

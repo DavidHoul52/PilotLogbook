@@ -130,7 +130,7 @@ namespace LogbookApp.Mocks
             
         }
 
-        public async Task Update<T>(T item) where T : Entity
+        public async Task Update<T>(T item) where T : IEntity
         {
             var items= GetItems<T>();
             if (items != null)
@@ -142,18 +142,18 @@ namespace LogbookApp.Mocks
 
        
 
-        public async Task Insert<T>(T item) where T : Entity
+        public async Task Insert<T>(T item) where T : IEntity
         {
             GetItems<T>().Add(item);
         }
 
 
-        public async Task Delete<T>(T item) where T : Entity
+        public async Task Delete<T>(T item) where T : IEntity
         {
              GetItems<T>().Remove(item);
         }
 
-        private ObservableCollection<T> GetItems<T>()  where T : Entity
+        private ObservableCollection<T> GetItems<T>()  where T : IEntity
         {
              Type type = typeof(T);
             if (type == typeof(Aircraft))

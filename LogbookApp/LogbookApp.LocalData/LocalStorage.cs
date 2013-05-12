@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -12,6 +13,7 @@ using Windows.Storage.Streams;
 using System.IO;
 using Windows.UI.Text;
 using Windows.UI.Xaml.Automation;
+using LogbookApp.Data;
 
 namespace LogbookApp
 {
@@ -94,6 +96,7 @@ namespace LogbookApp
         }
 
          static async private Task<T> RestoreAsync<T>( string filename)
+             
          {
              
              StorageFile sessionFile = await ApplicationData.Current.LocalFolder.GetFileAsync(filename);
@@ -104,7 +107,9 @@ namespace LogbookApp
              IInputStream sessionInputStream = await sessionFile.OpenReadAsync();
 
              //Using DataContractSerializer , look at the cat-class
-              var sessionSerializer = new DataContractSerializer(typeof(T));
+             var sessionSerializer = new DataContractSerializer(typeof (T),
+                 new DataContractSerializerSettings
+                  {});
              var data = (T)sessionSerializer.ReadObject(sessionInputStream.AsStreamForRead());
 
              //Using XmlSerializer , look at the Dog-class

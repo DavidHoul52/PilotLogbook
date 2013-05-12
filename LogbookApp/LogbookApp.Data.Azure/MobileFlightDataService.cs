@@ -194,19 +194,19 @@ namespace LogbookApp.Data
 
 
         public async Task Insert<T>(T item)
-            where T: Entity
+            where T: IEntity
         {
             await _mobileService.GetTable<T>().InsertAsync(item);
         }
 
         public async Task Update<T>(T item)
-            where T : Entity
+            where T : IEntity
         {
             await _mobileService.GetTable<T>().UpdateAsync(item);
         }
 
         public async Task Delete<T>(T item)
-            where T : Entity
+            where T : IEntity
         {
             await _mobileService.GetTable<T>().DeleteAsync(item);
             

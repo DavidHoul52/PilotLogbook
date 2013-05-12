@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace LogbookApp.Data
 {
-    public class AcType : Entity
+    public class AcType : IEntity
     {
 
       
         public string Code { get; set; }
+        public bool IsNew { get; set; }
+        public bool Valid()
+        {
+            return true;
+        }
+
+        public int id { get; set; }
+        public DateTime TimeStamp { get; set; }
     }
 }

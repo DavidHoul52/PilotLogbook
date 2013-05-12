@@ -1,14 +1,17 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Runtime.Serialization;
 
 
 namespace LogbookApp.Data
 {
   
-
-    public class Aircraft : Entity 
+   
+    public class Aircraft : IEntity 
     {
-      
+        public int id { get; set; }
+        public DateTime TimeStamp { get; set; }
+
         public string Reg { get; set; }
 
         public int UserId { get; set; }
@@ -70,8 +73,10 @@ namespace LogbookApp.Data
 
         public int AcTypeId { get; set; }
 
+        [IgnoreDataMember]
+        public bool IsNew { get; set; }
 
-        public override bool Valid()
+        public bool Valid()
         {
             return (AircraftClass != null && AcType != null);
         }

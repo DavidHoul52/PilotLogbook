@@ -55,7 +55,7 @@ namespace LogbookApp.ViewModel
         {
             if (flightDataManager.FlightData.Flights != null)
                 Flights = new ObservableCollection<Flight>(flightDataManager.FlightData.Flights.OrderByDescending(x => x.Depart).
-                    OrderByDescending(x => x.Date));
+                    OrderByDescending(x => x.Date).ToList());
             RaisePropertyChanged(() => Flights);
         }
 

@@ -7,7 +7,7 @@ namespace LogbookApp
         Task Save<T>(T data, string filename);
 
         Task<T> Restore<T>(string filename)
-            where T : new();
+            where T: new();
 
       //  bool Exists { get;  }
     }

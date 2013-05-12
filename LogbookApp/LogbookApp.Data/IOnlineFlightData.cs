@@ -9,12 +9,12 @@ namespace LogbookApp.Data
     public interface IOnlineFlightData : IFlightDataService
     {
         Task Update<T>(T item)
-          where T : Entity;
+          where T : IEntity;
 
         Task Insert<T>(T item)
-            where T : Entity;
+            where T : IEntity;
 
         Task Delete<T>(T item)
-              where T : Entity;
+              where T : IEntity;
     }
 }

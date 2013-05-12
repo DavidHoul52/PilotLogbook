@@ -52,6 +52,7 @@ namespace LogbookApp.FlightDataManagement
             {
                 await GetLookups();
                 await GetFlights();
+                
                 return true;
             }
             return false;

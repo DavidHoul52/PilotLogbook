@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using LogbookApp.Data;
@@ -131,8 +130,17 @@ namespace LogbookApp.Storage
 
         public async  Task<ObservableCollection<Flight>>  GetFlights(int userId)
         {
-            return await _localStorage.Restore<ObservableCollection<Flight>>(_flightsFileName);
+            var flights = await _localStorage.Restore<ObservableCollection<Flight>>(_flightsFileName);
+            foreach (var flight in flights)
+            {
+
+                flight.PopulateLookups(_flightData.Lookups);
+            }
+            return flights;
+
         }
+
+      
 
         public async Task<bool> Available(string displayName)
         {

@@ -10,7 +10,7 @@ using LogbookApp.Data;
 namespace LogbookApp.ViewModel
 {
     public abstract class MaintainViewModelBase<T> : ViewModelBase
-        where T: Entity, new()
+        where T: IEntity, new()
     {
         protected IFlightDataManager FlightDataManager;
 
