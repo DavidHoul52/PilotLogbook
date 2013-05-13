@@ -5,7 +5,7 @@ using LogbookApp.Data;
 
 namespace LogbookApp.FlightDataManagement
 {
-    public class SyncManager
+    public class SyncManager : ISyncManager
     {
         private readonly IOnlineFlightData _onLineData;
 

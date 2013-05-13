@@ -20,8 +20,8 @@ namespace LogbookApp.Data
             }
             
 
-            if (User.LastUpdated == null)
-                User.LastUpdated = now;
+            if (User.TimeStamp == null)
+                User.TimeStamp = now;
         }
 
         public User User { get; set; }

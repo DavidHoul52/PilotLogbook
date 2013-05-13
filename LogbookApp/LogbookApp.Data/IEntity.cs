@@ -17,7 +17,7 @@ namespace LogbookApp.Data
 
         int id { get; set; }
 
-        DateTime TimeStamp { get; set; }
+        DateTime? TimeStamp { get; set; }
 
 
     

@@ -49,7 +49,7 @@ namespace LogbookApp.Data
 
         public async Task UpdateUser(User user)
         {
-            LastUpdated = user.LastUpdated;
+            
             await Update(user);
         }
 
@@ -242,11 +242,11 @@ namespace LogbookApp.Data
         public async Task InsertUser(User user)
         {
 
-            LastUpdated = user.LastUpdated;
+            
             await Insert(user);
         }
 
-        public DateTime? LastUpdated { get; set; }
+        
 
 
         public bool FlightsChanged { get; set; }

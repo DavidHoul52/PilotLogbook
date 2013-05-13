@@ -28,7 +28,7 @@ namespace LogbookApp.Data.Test
         {
             
             target.GetUser(flightDataService,_now);
-            Assert.AreEqual(_now, target.User.LastUpdated);
+            Assert.AreEqual(_now, target.User.TimeStamp);
 
 
         }

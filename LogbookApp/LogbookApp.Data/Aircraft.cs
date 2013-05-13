@@ -10,7 +10,7 @@ namespace LogbookApp.Data
     public class Aircraft : IEntity 
     {
         public int id { get; set; }
-        public DateTime TimeStamp { get; set; }
+        public DateTime? TimeStamp { get; set; }
 
         public string Reg { get; set; }
 

@@ -202,7 +202,7 @@ namespace LogbookApp.Data
         }
 
         public int id { get; set; }
-        public DateTime TimeStamp { get; set; }
+        public DateTime? TimeStamp { get; set; }
 
 
         public void PopulateLookups(Lookups lookupData)

@@ -108,7 +108,9 @@ namespace LogbookApp.Mocks
 
         public async Task<User> GetUser(string displayName)
         {
+            if (_available)
                return new User {DisplayName = displayName};
+            return null;
         }
 
         
@@ -175,7 +177,7 @@ namespace LogbookApp.Mocks
 
         public async Task UpdateUser(User user)
         {
-            LastUpdated = user.LastUpdated;
+            LastUpdated = user.TimeStamp;
         }
 
         public DateTime? LastUpdated { get; set; }

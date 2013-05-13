@@ -17,6 +17,7 @@ namespace LogbookApp.FlightDataManagerTest
         protected DateTime Now;
         protected TestLocalStorage TestLocalStorage;
         protected User User;
+        protected MockSyncManager SyncManager;
         
         public virtual void Setup()
         {
@@ -30,7 +31,8 @@ namespace LogbookApp.FlightDataManagerTest
             OldTime = new DateTime(2012, 1, 1);
             NewerTime = new DateTime(2013, 1, 1);
             Now = new DateTime(2013, 5, 5);
-            Target = new FlightDataManager(OnlineTestData, LocalTestData, "david");
+            SyncManager = new MockSyncManager();
+            Target = new FlightDataManager(OnlineTestData, LocalTestData, "david", SyncManager);
         }
 
         protected void SetLastUpdates(DateTime? local, DateTime? online)

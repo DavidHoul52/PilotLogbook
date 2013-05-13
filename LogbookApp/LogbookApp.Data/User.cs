@@ -7,7 +7,7 @@ namespace LogbookApp.Data
     {
         
         public string DisplayName { get; set; }
-        public DateTime? LastUpdated { get; set; }
+        
         public bool IsNew { get; set; }
         public bool Valid()
         {
@@ -15,6 +15,6 @@ namespace LogbookApp.Data
         }
 
         public int id { get; set; }
-        public DateTime TimeStamp { get; set; }
+        public DateTime? TimeStamp { get; set; }
     }
 }

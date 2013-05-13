@@ -1,11 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace LogbookApp.Data
 {
     [DataContract]
-    public class Lookups : ILookups
+    public class Lookups :  ILookups
     {
         public Lookups()
         {
@@ -23,7 +24,7 @@ namespace LogbookApp.Data
         public ObservableCollection<Airfield> Airfields { get; set; }
         [DataMember]
         public ObservableCollection<Aircraft> Aircraft { get; set; }
-        
-      
+
+     
     }
 }

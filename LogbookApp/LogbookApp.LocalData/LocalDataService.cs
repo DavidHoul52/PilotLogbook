@@ -120,12 +120,21 @@ namespace LogbookApp.Storage
 
         public virtual async Task<User> GetUser(string displayName)
         {
-            return await _localStorage.Restore<User>(_userFileName);
+            
+            try
+            {
+                return await _localStorage.RestoreUser(_userFileName);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            
         }
 
         
         public bool FlightsChanged { get; set; }
-        public DateTime? LastUpdated { get; set; }
+        
 
 
         public async  Task<ObservableCollection<Flight>>  GetFlights(int userId)
@@ -162,7 +171,7 @@ namespace LogbookApp.Storage
 
         public async Task UpdateUser(User user)
         {
-            LastUpdated = user.LastUpdated;
+            
             await _localStorage.Save(user, _userFileName);
             
         }

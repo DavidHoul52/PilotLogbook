@@ -16,10 +16,14 @@ namespace LogbookApp.Mocks
         {
         }
 
-       
-        
 
-        
+        public DateTime? LastUpdated
+        {
+            get { return GetUser("").Result.TimeStamp; }
+
+            set { InsertUser(new User {TimeStamp = value}); }
+
+        }
     }
 
 }

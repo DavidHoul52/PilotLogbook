@@ -36,7 +36,6 @@ namespace LogbookApp.Data
         Task InsertUser(User user);
         
         bool FlightsChanged { get; set; }
-        DateTime? LastUpdated { get; set; }
 
         Task<bool> Available(string displayName);
         Task UpdateUser(User user);

@@ -17,7 +17,7 @@ namespace LogbookApp.Data
 
         [IgnoreDataMember]
         public bool IsNew { get; set; }
-        public DateTime TimeStamp { get; set; }
+        public DateTime? TimeStamp { get; set; }
         public bool Valid()
         {
             return !string.IsNullOrEmpty(Name);

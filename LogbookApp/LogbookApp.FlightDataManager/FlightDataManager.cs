@@ -12,15 +12,15 @@ namespace LogbookApp.FlightDataManagement
         private readonly Action _onlineDataUpdatedFromOffLine;
         private readonly string _displayName;
         private UserManager _userManager;
-        private SyncManager _syncManager;
+        private ISyncManager _syncManager;
 
 
         public FlightDataManager(IOnlineFlightData onLineData, LocalDataService localData,
-            string displayName)
+            string displayName,ISyncManager syncManager)
         {
             _onLineData = onLineData;
             _localData = localData;
-            _syncManager = new SyncManager(_onLineData);
+            _syncManager = syncManager;
             _displayName = displayName;
             _userManager = new UserManager();
             FlightData = new FlightData();
@@ -70,13 +70,14 @@ namespace LogbookApp.FlightDataManagement
             return false;
         }
 
-        private async Task<IFlightDataService> GetAvailableDataService()
+        public async Task<IFlightDataService> GetAvailableDataService()
         {
-            var localAvailable = await _localData.Available(_displayName);
-            var onLineAvailable = await _onLineData.Available(_displayName);
-            var localNewer = (localAvailable && onLineAvailable && 
-                _localData.LastUpdated.GetValueOrDefault(DateTime.MinValue) >
-                _onLineData.LastUpdated.GetValueOrDefault(DateTime.MinValue));
+            var localUser = await _localData.GetUser(_displayName);
+            var localAvailable = (localUser != null);
+            var onLineUser = await _onLineData.GetUser(_displayName);
+            var onLineAvailable = (onLineUser != null);
+            var localNewer = (localAvailable && onLineAvailable && localUser.TimeStamp
+                > onLineUser.TimeStamp);
             if (!onLineAvailable && localAvailable || (localAvailable && localNewer))
                 DataType=DataType.OffLine;
             else if (onLineAvailable)
@@ -154,7 +155,7 @@ namespace LogbookApp.FlightDataManagement
 
         private async Task PerformDataUpdateAction(Func<IFlightDataService,Task> dataAction,  DateTime upDateTime)
         {
-            FlightData.User.LastUpdated = upDateTime;
+            FlightData.User.TimeStamp = upDateTime;
             var availableData = await GetAvailableDataService();
             await dataAction(availableData);
             if (availableData.DataType != DataType.OffLine)

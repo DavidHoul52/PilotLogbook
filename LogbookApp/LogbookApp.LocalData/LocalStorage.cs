@@ -61,7 +61,12 @@ namespace LogbookApp
             return result;
         }
 
-      
+        public async Task<User> RestoreUser(string filename)
+        {
+            var user = await Restore<User>(filename);
+            return user;
+        }
+
 
         static async Task<StorageFile> GetFileAsync(string fileName)
         {

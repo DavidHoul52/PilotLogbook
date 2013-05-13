@@ -95,9 +95,10 @@ namespace LogbookApp
                 
                //DisplayName = await UserInformation.GetDisplayNameAsync();
                DisplayName = "test2";
-                Data = new FlightDataManager(new MobileService(DisplayName).Client,
+                var onlineDataService = new MobileService(DisplayName).Client;
+                Data = new FlightDataManager(onlineDataService,
                     new LocalDataService(new LocalStorage(), "flights.xml","lookups.xml","user.xml"),
-                    DisplayName);
+                    DisplayName, new SyncManager(onlineDataService));
                var dataAvailable=  await Data.GetData(DateTime.UtcNow);
                 if (!dataAvailable)
                 {
