@@ -1,4 +1,6 @@
-﻿using LogbookApp.Data;
+﻿using System;
+using System.Linq;
+using LogbookApp.Data;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace LogbookApp.FlightDataManagerTest
@@ -62,6 +64,22 @@ namespace LogbookApp.FlightDataManagerTest
             OnlineTestData.SetAvailable(false);
             Target.SaveFlight(new Flight(), NewerTime);
             Assert.AreEqual(OldTime, OnlineTestData.LastUpdated);
+
+
+
+        }
+
+
+        [TestMethod]
+        public void WhenSavingFlightShouldUpdateTimeStamp()
+        {
+
+            SetLastUpdates(null, OldTime);
+            OnlineTestData.SetAvailable(true);
+            var flight = new Flight {Date= new DateTime(2013,8,1)};
+            Target.SaveFlight(flight, NewerTime);
+            Assert.AreEqual(NewerTime,flight.TimeStamp);
+
 
 
 

@@ -105,10 +105,7 @@ namespace LogbookApp.FlightDataManagement
 
         }
 
-        private void UpdateOnlineDataFromOffLineData()
-        {
-            
-        }
+       
 
 
         public async Task GetLookups()
@@ -126,7 +123,9 @@ namespace LogbookApp.FlightDataManagement
         public async Task InsertFlight(Flight flight, DateTime insertTime)
         {
             FlightData.AddFlight(flight);
-            await PerformDataUpdateAction((flightservice) => flightservice.InsertFlight(flight), insertTime);
+            await PerformDataUpdateAction((flightservice) => flightservice.InsertFlight(flight),
+                flight,
+                insertTime);
             
 
         }
@@ -134,14 +133,19 @@ namespace LogbookApp.FlightDataManagement
         public async Task DeleteFlight(Flight flight, DateTime deleteTime)
         {
             FlightData.Flights.Remove(flight);
-            await PerformDataUpdateAction((flightservice) => flightservice.DeleteFlight(flight), deleteTime);
+            await PerformDataUpdateAction((flightservice) => flightservice.DeleteFlight(flight),
+                flight,
+                deleteTime);
             
         }
 
       
         public async Task SaveFlight(Flight flight, DateTime saveTime)
         {
-            await PerformDataUpdateAction((flightservice) => flightservice.SaveFlight(flight), saveTime);
+            
+            await PerformDataUpdateAction((flightservice) => flightservice.SaveFlight(flight),
+                flight,
+                saveTime);
         }
 
       
@@ -149,13 +153,17 @@ namespace LogbookApp.FlightDataManagement
         public async Task InsertAircraft(Aircraft aircraft, DateTime upDateTime)
         {
             FlightData.Lookups.Aircraft.Add(aircraft);
-            await PerformDataUpdateAction((flightservice) => flightservice.InsertAircraft(aircraft),upDateTime);
+            await PerformDataUpdateAction((flightservice) => flightservice.InsertAircraft(aircraft),
+                aircraft,
+                upDateTime);
      
         }
 
-        private async Task PerformDataUpdateAction(Func<IFlightDataService,Task> dataAction,  DateTime upDateTime)
+        private async Task PerformDataUpdateAction(Func<IFlightDataService,Task> dataAction,IEntity entity,
+              DateTime upDateTime)
         {
             FlightData.User.TimeStamp = upDateTime;
+            entity.TimeStamp = upDateTime;
             var availableData = await GetAvailableDataService();
             await dataAction(availableData);
             if (availableData.DataType != DataType.OffLine)
@@ -172,42 +180,55 @@ namespace LogbookApp.FlightDataManagement
         public async Task InsertAirfield(Airfield @from, DateTime upDateTime)
         {
             FlightData.AddInsert(@from);
-            await PerformDataUpdateAction((flightservice) => flightservice.InsertAirfield(@from), upDateTime);
+            await PerformDataUpdateAction((flightservice) => flightservice.InsertAirfield(@from),
+                from,upDateTime);
         }
 
         public async Task UpdateAircraft(Aircraft aircraft, DateTime upDateTime)
         {
-            await PerformDataUpdateAction((flightservice) => flightservice.UpdateAircraft(aircraft), upDateTime);
+            await PerformDataUpdateAction((flightservice) => flightservice.UpdateAircraft(aircraft),
+                aircraft,
+                upDateTime);
         }
 
         public async Task DeleteAircraft(Aircraft aircraft, DateTime upDateTime)
         {
             FlightData.RemoveAircraft(aircraft);
-            await PerformDataUpdateAction((flightservice) => flightservice.DeleteAircraft(aircraft), upDateTime);
+            await PerformDataUpdateAction((flightservice) => flightservice.DeleteAircraft(aircraft),
+                aircraft,
+                upDateTime);
             
         }
 
         public async Task UpdateAirfield(Airfield airfield, DateTime upDateTime)
         {
-            await PerformDataUpdateAction((flightservice) => flightservice.UpdateAirfield(airfield), upDateTime);
+            await PerformDataUpdateAction((flightservice) => flightservice.UpdateAirfield(airfield), 
+                airfield,
+                upDateTime);
         }
 
         public async Task DeleteAirfield(Airfield airfield, DateTime upDateTime)
         {
             FlightData.RemoveAirfield(airfield);
-            await PerformDataUpdateAction((flightservice) => flightservice.UpdateAirfield(airfield), upDateTime);
+            await PerformDataUpdateAction((flightservice) => flightservice.UpdateAirfield(airfield),
+                airfield,
+                upDateTime);
          
         }
 
         public async Task UpdateAcType(AcType acType, DateTime upDateTime)
         {
-            await PerformDataUpdateAction((flightservice) => flightservice.UpdateAcType(acType), upDateTime);
+            await PerformDataUpdateAction((flightservice) => flightservice.UpdateAcType(acType),
+                acType,
+                upDateTime);
         }
 
         public async Task InsertAcType(AcType acType, DateTime upDateTime)
         {
             FlightData.AddAcType(acType);
-            await PerformDataUpdateAction((flightservice) => flightservice.InsertAcType(acType), upDateTime);
+            await PerformDataUpdateAction((flightservice) => flightservice.InsertAcType(acType),
+                acType,
+                upDateTime);
         }
 
 
@@ -215,7 +236,9 @@ namespace LogbookApp.FlightDataManagement
         public async Task InsertUser(User user, DateTime upDateTime)
         {
             FlightData.User = user;
-            await PerformDataUpdateAction((flightservice) => flightservice.InsertUser(user), upDateTime);
+            await PerformDataUpdateAction((flightservice) => flightservice.InsertUser(user),
+                user,
+                upDateTime);
         }
 
         public async Task GetUser()
@@ -245,7 +268,9 @@ namespace LogbookApp.FlightDataManagement
         public async Task DeleteAcType(AcType acType, DateTime upDateTime)
         {
             await FlightData.RemoveAcType(acType);
-            await PerformDataUpdateAction((flightservice) => flightservice.DeleteAcType(acType), upDateTime);
+            await PerformDataUpdateAction((flightservice) => flightservice.DeleteAcType(acType),
+                acType,
+                upDateTime);
         }
     }
 }
