@@ -22,7 +22,7 @@ namespace LogbookApp.ViewModel
 
         protected override void Delete(Aircraft item)
         {
-            FlightDataManager.DeleteAircraft(item, DateTime.UtcNow);
+            FlightDataManager.DeleteAircraft(item, DateTime.Now);
         }
 
         protected override void Add()

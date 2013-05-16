@@ -161,7 +161,7 @@ namespace LogbookApp.ViewModel
         public async Task SaveFlight()
         {
           
-            await App.Data.SaveFlight(Flight,new DateTime( DateTime.UtcNow.Ticks,DateTimeKind.Utc));
+            await App.Data.SaveFlight(Flight,DateTime.Now);
            Flight.IsNew = false;
 
         }

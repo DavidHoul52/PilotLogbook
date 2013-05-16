@@ -33,7 +33,7 @@ namespace LogbookApp.ViewModel
                         await Messager.ShowMessage("This aircraft has already been added.");
                         return;
                     }
-                    await DataService.InsertAircraft(Aircraft,DateTime.UtcNow);
+                    await DataService.InsertAircraft(Aircraft,DateTime.Now);
                     if (Flight != null)
                     {
                         Flight.Lookups.Aircraft.Add(Aircraft);
@@ -42,7 +42,7 @@ namespace LogbookApp.ViewModel
                 }
                 else
                 {
-                    await DataService.UpdateAircraft(Aircraft, DateTime.UtcNow);
+                    await DataService.UpdateAircraft(Aircraft, DateTime.Now);
                 }
             }
 

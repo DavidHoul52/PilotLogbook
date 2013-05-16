@@ -77,7 +77,7 @@ namespace LogbookApp.ViewModel
 
         private async void DeleteFlight(Flight f)
         {
-            await flightDataManager.DeleteFlight(f, DateTime.UtcNow);   
+            await flightDataManager.DeleteFlight(f, DateTime.Now);   
             
         }
 

@@ -83,6 +83,7 @@ namespace LogbookApp.Data
         private int _airfieldToId;
         private DateTime _arrival;
         private DateTime? _instrumentFlying;
+        private DateTime? _timeStamp;
 
         public int AirfieldToId
         {
@@ -202,7 +203,14 @@ namespace LogbookApp.Data
         }
 
         public int id { get; set; }
-        public DateTime? TimeStamp { get; set; }
+        public DateTime? TimeStamp
+        {
+            get { return _timeStamp; }
+            set
+            {
+                _timeStamp = value;
+            }
+        }
 
 
         public void PopulateLookups(Lookups lookupData)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using LogbookApp.Data;
@@ -11,7 +12,7 @@ namespace LogbookApp.Storage
         private readonly string _flightsFileName;
         private readonly string _lookupsFileName;
         private readonly string _userFileName;
-        private  FlightData _flightData;
+        private Lookups _lookups;
 
 
         public LocalDataService(ILocalStorage localStorage, string flightsFileName, string lookupsFileName,
@@ -27,92 +28,25 @@ namespace LogbookApp.Storage
         public DataType DataType { get; private set; }
         public async Task<Lookups> GetLookups(int userId)
         {
-            return await _localStorage.Restore<Lookups>(_lookupsFileName);
+            _lookups= await _localStorage.Restore<Lookups>(_lookupsFileName);
+            return _lookups;
         }
 
-      
-        
-        public async Task InsertFlight(Flight flight )
+
+        private async Task SaveFlights(ObservableCollection<Flight> flights )
         {
-            await SaveFlights();
-            
+            await _localStorage.Save(flights, _flightsFileName);
         }
 
-        private async Task SaveFlights()
+       
+
+        private async Task SaveLookups(Lookups lookups)
         {
-            await _localStorage.Save(_flightData.Flights, _flightsFileName);
-        }
-
-        
-
-        public async Task DeleteFlight(Flight flight)
-        {
-          
-            await SaveFlights();
-            
-
-        }
-
-        public async Task SaveFlight(Flight flight)
-        {
-            await SaveFlights();
-            
-        }
-
-        public async Task InsertAircraft(Aircraft aircraft)
-        {
-            await SaveLookups();
-        }
-
-        
-
-        private async Task SaveLookups()
-        {
-            await _localStorage.Save(_flightData.Lookups, _lookupsFileName);
+            await _localStorage.Save(lookups, _lookupsFileName);
         }
 
 
-        public async Task InsertAircraftType(AcType acType)
-        {
-            await SaveLookups();
-        }
-
-        public async Task InsertAirfield(Airfield @from)
-        {
-            await SaveLookups();
-        }
-
-        public async Task UpdateAircraft(Aircraft aircraft)
-        {
-            await SaveLookups();
-        }
-
-        public async Task DeleteAircraft(Aircraft aircraft)
-        {
-            await SaveLookups();
-        }
-
-        public async Task UpdateAirfield(Airfield airfield)
-        {
-            await SaveLookups();
-        }
-
-        public async Task DeleteAirfield(Airfield airfield)
-        {
-            await SaveLookups();
-        }
-
-        public async Task UpdateAcType(AcType acType)
-        {
-            await SaveLookups();
-        }
-
-        public async Task InsertAcType(AcType acType)
-        {
-            await SaveLookups();
-        }
-
-
+     
         public async Task InsertUser(User user)
         {
             await _localStorage.Save(user, _userFileName);
@@ -143,7 +77,7 @@ namespace LogbookApp.Storage
             foreach (var flight in flights)
             {
 
-                flight.PopulateLookups(_flightData.Lookups);
+                flight.PopulateLookups(_lookups);
             }
             return flights;
 
@@ -176,14 +110,14 @@ namespace LogbookApp.Storage
             
         }
 
-        public async Task DeleteAcType(AcType acType)
-        {
-           await SaveLookups();
-        }
+       
 
-        public void SetFlightData(FlightData flightData)
+
+        public async Task SaveFlightData(FlightData flightData)
         {
-            _flightData = flightData;
+            await SaveFlights(flightData.Flights);
+            await SaveLookups(flightData.Lookups);
+           
         }
     }
 }

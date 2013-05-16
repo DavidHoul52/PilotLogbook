@@ -24,7 +24,7 @@ namespace LogbookApp.FlightDataManagement
             _displayName = displayName;
             _userManager = new UserManager();
             FlightData = new FlightData();
-            localData.SetFlightData(FlightData);
+          
 
 
         }
@@ -159,19 +159,22 @@ namespace LogbookApp.FlightDataManagement
      
         }
 
-        private async Task PerformDataUpdateAction(Func<IFlightDataService,Task> dataAction,IEntity entity,
+        private async Task PerformDataUpdateAction(Func<IOnlineFlightData,Task> updateAction,IEntity entity,
               DateTime upDateTime)
         {
             FlightData.User.TimeStamp = upDateTime;
             entity.TimeStamp = upDateTime;
-            var availableData = await GetAvailableDataService();
-            await dataAction(availableData);
-            if (availableData.DataType != DataType.OffLine)
+            var availableData =await GetAvailableDataService();
+            if (DataType == DataType.OnLine)
             {
-                await (dataAction(_localData));
-                await _localData.UpdateUser(FlightData.User);
+                await updateAction(availableData as IOnlineFlightData);
+                await availableData.UpdateUser(FlightData.User);
             }
-            await availableData.UpdateUser(FlightData.User);
+
+            await (_localData.SaveFlightData(FlightData));
+            await _localData.UpdateUser(FlightData.User);
+            
+            
           
         }
 

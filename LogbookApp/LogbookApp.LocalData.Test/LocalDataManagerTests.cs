@@ -16,6 +16,7 @@ namespace LogbookApp.LocalData.Test
         private TestLocalStorage testLocalStorage;
         private string _flightsFileName = "flights";
         private string _lookupsFileName = "lookups";
+        private FlightData _flightData;
 
         [TestInitialize]
         public void Setup()
@@ -23,8 +24,10 @@ namespace LogbookApp.LocalData.Test
             testLocalStorage = new TestLocalStorage();
             testLocalStorage.SetExists(true); // default for these tests
             testLocalStorage.AllSaved = false;
+            _flightData = new FlightData();
+
             target = new LocalDataService(testLocalStorage, _flightsFileName, _lookupsFileName, "");
-            target.SetFlightData(new FlightData());
+            
            
         }
 
@@ -39,47 +42,12 @@ namespace LogbookApp.LocalData.Test
         [TestMethod]
         public void ShouldInsertFlightandSave()
         {
-            target.InsertFlight(new Flight());
+            target.SaveFlightData(_flightData);
             Assert.IsTrue(testLocalStorage.AllSaved);
         }
 
 
-        [TestMethod]
-        public void ShouldDeleteFlightAndSave()
-        {
-            var flight = new Flight();
-            target.InsertFlight(flight);
-            target.DeleteFlight(flight);
-            Assert.IsTrue(testLocalStorage.AllSaved);
-        }
-
-
-        [TestMethod]
-        public void ShouldSaveFlight()
-        {
-            var flight = new Flight();
-            target.SaveFlight(flight);
-            Assert.IsTrue(testLocalStorage.AllSaved);
-        }
-
-
-        [TestMethod]
-        public void ShouldInsertAircraftAndSave()
-        {
-            target.InsertAircraft(new Aircraft());
-            Assert.IsTrue(testLocalStorage.AllSaved);
-
-        }
-
-
-        [TestMethod]
-        public void ShouldInsertAircraftTypeAndSave()
-        {
-            target.InsertAircraftType(new AcType());
-            Assert.IsTrue(testLocalStorage.AllSaved);
-
-        }
-
+    
         
 
     }

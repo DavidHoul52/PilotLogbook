@@ -99,7 +99,7 @@ namespace LogbookApp
                 Data = new FlightDataManager(onlineDataService,
                     new LocalDataService(new LocalStorage(), "flights.xml","lookups.xml","user.xml"),
                     DisplayName, new SyncManager(onlineDataService));
-               var dataAvailable=  await Data.GetData(DateTime.UtcNow);
+               var dataAvailable=  await Data.GetData(DateTime.Now);
                 if (!dataAvailable)
                 {
                     await new MessageDialog("We are unable to set up your Logbook as you are not connected" +
@@ -164,7 +164,7 @@ namespace LogbookApp
         public static async Task GetAllFlightData()
         {
             
-                await Data.GetData(DateTime.UtcNow);
+                await Data.GetData(DateTime.Now);
         }
 
         private Color _background = Color.FromArgb(255, 0, 77, 96);

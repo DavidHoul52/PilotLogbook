@@ -36,13 +36,13 @@ namespace LogbookApp.ViewModel
 
             if (AcType.IsNew)
             {
-                await DataService.InsertAcType(AcType, DateTime.UtcNow);
+                await DataService.InsertAcType(AcType, DateTime.Now);
                 if (Flight != null)
                     Flight.Lookups.AcTypes.Add(AcType);
             }
             else
             {
-                await DataService.UpdateAcType(AcType, DateTime.UtcNow);
+                await DataService.UpdateAcType(AcType, DateTime.Now);
             }
 
         }
