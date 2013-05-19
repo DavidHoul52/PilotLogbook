@@ -13,6 +13,7 @@ namespace LogbookApp.Mocks
         
         private bool _available;
         private FlightData _internalFlightData;
+        private DateTime? _lastUpdated;
 
         public MockFlightDataService(DataType dataType, FlightData internalFlightData)
         {
@@ -109,7 +110,8 @@ namespace LogbookApp.Mocks
         public async Task<User> GetUser(string displayName)
         {
             if (_available)
-               return new User {DisplayName = displayName};
+
+                return _internalFlightData.User;
             return null;
         }
 
@@ -180,7 +182,16 @@ namespace LogbookApp.Mocks
             LastUpdated = user.TimeStamp;
         }
 
-        public DateTime? LastUpdated { get; set; }
+        public DateTime? LastUpdated
+
+        {
+            get { return _lastUpdated; }
+            set
+            {
+                _lastUpdated = value;
+                _internalFlightData.User.TimeStamp = value;
+            }
+        }
 
 
         public void SetAvailable(bool available)

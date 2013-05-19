@@ -22,9 +22,9 @@ namespace LogbookApp.FlightDataManagerTest
         public void OnlineShouldSaveFlightOnlineAndSetLastupdated()
         {
             SetLastUpdates(null,OldTime);
-            OnlineTestData.SetAvailable(true);
+            OnlineDataService.SetAvailable(true);
             Target.SaveFlight(new Flight(),NewerTime);
-            Assert.AreEqual(NewerTime,OnlineTestData.LastUpdated);
+            Assert.AreEqual(NewerTime,OnlineDataService.LastUpdated);
         }
 
 
@@ -32,7 +32,7 @@ namespace LogbookApp.FlightDataManagerTest
         public void OnlineShouldSaveFlightLocalAndSetLastupdated()
         {
             SetLastUpdates(null, OldTime);
-            OnlineTestData.SetAvailable(true);
+            OnlineDataService.SetAvailable(true);
             Target.SaveFlight(new Flight(), NewerTime);
             Assert.AreEqual(NewerTime, LocalTestData.LastUpdated);
 
@@ -46,7 +46,7 @@ namespace LogbookApp.FlightDataManagerTest
 
 
             SetLastUpdates(null, OldTime);
-            OnlineTestData.SetAvailable(false);
+            OnlineDataService.SetAvailable(false);
             Target.SaveFlight(new Flight(), NewerTime);
             Assert.AreEqual(NewerTime, LocalTestData.LastUpdated);
 
@@ -60,10 +60,10 @@ namespace LogbookApp.FlightDataManagerTest
         public void ShouldNotSaveFlightOnlineIfOnlinenotAvailable()
         {
 
-            OnlineTestData.LastUpdated = OldTime;
-            OnlineTestData.SetAvailable(false);
+            OnlineDataService.LastUpdated = OldTime;
+            OnlineDataService.SetAvailable(false);
             Target.SaveFlight(new Flight(), NewerTime);
-            Assert.AreEqual(OldTime, OnlineTestData.LastUpdated);
+            Assert.AreEqual(OldTime, OnlineDataService.LastUpdated);
 
 
 
@@ -75,7 +75,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
 
             SetLastUpdates(null, OldTime);
-            OnlineTestData.SetAvailable(true);
+            OnlineDataService.SetAvailable(true);
             var flight = new Flight {Date= new DateTime(2013,8,1)};
             Target.SaveFlight(flight, NewerTime);
             Assert.AreEqual(NewerTime,flight.TimeStamp);

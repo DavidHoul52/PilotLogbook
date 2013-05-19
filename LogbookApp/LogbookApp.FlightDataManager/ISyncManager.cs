@@ -1,9 +1,11 @@
-﻿using LogbookApp.Data;
+﻿using System;
+using System.Threading.Tasks;
+using LogbookApp.Data;
 
 namespace LogbookApp.FlightDataManagement
 {
     public interface ISyncManager
     {
-        void UpdateOnlineData(FlightData flightData);
+        Task UpdateOnlineData(FlightData flightData, DateTime now);
     }
 }

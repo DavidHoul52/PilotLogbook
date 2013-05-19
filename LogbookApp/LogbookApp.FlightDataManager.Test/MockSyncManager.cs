@@ -1,4 +1,6 @@
-﻿using LogbookApp.Data;
+﻿using System;
+using System.Threading.Tasks;
+using LogbookApp.Data;
 using LogbookApp.FlightDataManagement;
 
 namespace LogbookApp.FlightDataManagerTest
@@ -7,7 +9,7 @@ namespace LogbookApp.FlightDataManagerTest
     {
         public bool UpdateOnlineDataCalled { get; private set; }
 
-        public void UpdateOnlineData(FlightData flightData)
+        public async Task UpdateOnlineData(FlightData flightData, DateTime now)
         {
             UpdateOnlineDataCalled = true;
         }

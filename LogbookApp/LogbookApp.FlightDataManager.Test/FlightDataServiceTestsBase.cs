@@ -9,7 +9,7 @@ namespace LogbookApp.FlightDataManagerTest
     public class FlightDataServiceTestsBase
     {
         protected FlightDataManager Target;
-        protected MockFlightDataService OnlineTestData;
+        protected MockFlightDataService OnlineDataService;
         protected MockLocalDataManager LocalTestData;
         protected bool OnlineDataUpdatedFromOffLine;
         protected DateTime OldTime;
@@ -17,11 +17,13 @@ namespace LogbookApp.FlightDataManagerTest
         protected DateTime Now;
         protected TestLocalStorage TestLocalStorage;
         protected User User;
-        protected MockSyncManager SyncManager;
+        protected MockSyncManager MockSyncManager;
+        protected FlightData OnLineDataServiceFlightData;
         
         public virtual void Setup()
         {
-            OnlineTestData = new MockFlightDataService(DataType.OnLine);
+            OnLineDataServiceFlightData = new FlightData();
+            OnlineDataService = new MockFlightDataService(DataType.OnLine, OnLineDataServiceFlightData);
             
             TestLocalStorage = new TestLocalStorage { };
             TestLocalStorage.SetExists(true);
@@ -31,14 +33,14 @@ namespace LogbookApp.FlightDataManagerTest
             OldTime = new DateTime(2012, 1, 1);
             NewerTime = new DateTime(2013, 1, 1);
             Now = new DateTime(2013, 5, 5);
-            SyncManager = new MockSyncManager();
-            Target = new FlightDataManager(OnlineTestData, LocalTestData, "david", SyncManager);
+            MockSyncManager = new MockSyncManager();
+            Target = new FlightDataManager(OnlineDataService, LocalTestData, "david", MockSyncManager);
         }
 
         protected void SetLastUpdates(DateTime? local, DateTime? online)
         {
             LocalTestData.LastUpdated = local ;
-            OnlineTestData.LastUpdated = online;
+            OnlineDataService.LastUpdated = online;
         }
     }
 }

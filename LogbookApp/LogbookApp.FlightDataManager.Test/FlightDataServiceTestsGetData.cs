@@ -21,7 +21,7 @@ namespace LogbookApp.FlightDataManagerTest
         [TestMethod]
         public void ShouldGetFlights()
         {
-            OnlineTestData.SetAvailable(true);
+            OnlineDataService.SetAvailable(true);
             Target.GetData(Now);
             Assert.IsNotNull(Target.FlightData.Flights);
 
@@ -34,7 +34,7 @@ namespace LogbookApp.FlightDataManagerTest
         [TestMethod]
         public void ShouldGetLookups()
         {
-            OnlineTestData.SetAvailable(true);
+            OnlineDataService.SetAvailable(true);
             Target.GetData(Now);
             Assert.IsNotNull(Target.FlightData.Lookups);
 
@@ -46,7 +46,7 @@ namespace LogbookApp.FlightDataManagerTest
         [TestMethod]
         public void ShouldGetUser()
         {
-            OnlineTestData.SetAvailable(true);
+            OnlineDataService.SetAvailable(true);
             Target.GetData(Now);
             Assert.IsNotNull(Target.FlightData.User);
 

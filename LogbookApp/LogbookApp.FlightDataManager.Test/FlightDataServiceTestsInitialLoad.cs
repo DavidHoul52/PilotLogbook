@@ -17,7 +17,7 @@ namespace LogbookApp.FlightDataManagerTest
         public void IfOfflineAndNoLocalThenReturnFalse()
         {
 
-            OnlineTestData.SetAvailable(false);
+            OnlineDataService.SetAvailable(false);
             TestLocalStorage.SetExists(false);
             var result=Target.GetData(Now);
             Assert.IsFalse(result.Result);
@@ -28,7 +28,7 @@ namespace LogbookApp.FlightDataManagerTest
         public void IfOfflineAndLocalThenReturnTrue()
         {
 
-            OnlineTestData.SetAvailable(false);
+            OnlineDataService.SetAvailable(false);
             TestLocalStorage.SetExists(true);
             var result = Target.GetData(Now);
             Assert.IsTrue(result.Result);
@@ -39,7 +39,7 @@ namespace LogbookApp.FlightDataManagerTest
         public void IfOfflineAndLocalDataTypeOffline()
         {
 
-            OnlineTestData.SetAvailable(false);
+            OnlineDataService.SetAvailable(false);
             TestLocalStorage.SetExists(true);
             Target.GetData(Now);
             Assert.AreEqual(DataType.OffLine,Target.DataType);
@@ -50,7 +50,7 @@ namespace LogbookApp.FlightDataManagerTest
         public void IfOnLineDataTypeOnline()
         {
 
-            OnlineTestData.SetAvailable(true);
+            OnlineDataService.SetAvailable(true);
             TestLocalStorage.SetExists(true);
             Target.GetData(Now);
             Assert.AreEqual(DataType.OnLine, Target.DataType);
@@ -61,7 +61,7 @@ namespace LogbookApp.FlightDataManagerTest
         public void IfOnLineAndLocalDataOlderThenJustLoadOnline()
         {
 
-            OnlineTestData.SetAvailable(true);
+            OnlineDataService.SetAvailable(true);
             TestLocalStorage.SetExists(true);
             SetLastUpdates(OldTime,NewerTime);
             Target.GetData(Now);
@@ -74,7 +74,7 @@ namespace LogbookApp.FlightDataManagerTest
         public void IfOnLineAndLocalDataNewerLoadLocal()
         {
 
-            OnlineTestData.SetAvailable(true);
+            OnlineDataService.SetAvailable(true);
             TestLocalStorage.SetExists(true);
             SetLastUpdates(NewerTime, OldTime);
             Target.GetData(Now);
@@ -86,7 +86,7 @@ namespace LogbookApp.FlightDataManagerTest
         public void IfOnLineAndLocalDataNewerUpateOnlineFromLocal()
         {
 
-            OnlineTestData.SetAvailable(true);
+            OnlineDataService.SetAvailable(true);
             TestLocalStorage.SetExists(true);
             SetLastUpdates(NewerTime, OldTime);
             Target.GetData(Now);
@@ -104,9 +104,9 @@ namespace LogbookApp.FlightDataManagerTest
         public void OnlineDataShouldGetUserLastUpdated()  // see also UserManagerTests
         {
 
-            OnlineTestData.SetAvailable(true);
+            OnlineDataService.SetAvailable(true);
             Target.GetData(Now);
-            Assert.IsNotNull((OnlineTestData.LastUpdated));
+            Assert.IsNotNull((OnlineDataService.LastUpdated));
 
 
         }
@@ -121,7 +121,7 @@ namespace LogbookApp.FlightDataManagerTest
         public void IfOnlineDataIfAvailableAndNewerThanLocalThenShouldNotUpdateOnlineData()
         {
 
-            OnlineTestData.SetAvailable(true);
+            OnlineDataService.SetAvailable(true);
             SetLastUpdates(OldTime, NewerTime);
             Target.GetData(Now);
             Assert.IsFalse(OnlineDataUpdatedFromOffLine);
@@ -133,7 +133,7 @@ namespace LogbookApp.FlightDataManagerTest
         public void IfOnlineDataAvailableAndLastUpdatedNullThenShouldUpdateOnlineData()
         {
 
-            OnlineTestData.SetAvailable(true);
+            OnlineDataService.SetAvailable(true);
             SetLastUpdates(NewerTime, null);
             Target.GetData(Now);
             Assert.IsTrue(OnlineDataUpdatedFromOffLine);

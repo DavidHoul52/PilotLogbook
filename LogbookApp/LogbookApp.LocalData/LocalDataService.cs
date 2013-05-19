@@ -26,7 +26,7 @@ namespace LogbookApp.Storage
         }
 
         public DataType DataType { get; private set; }
-        public async Task<Lookups> GetLookups(int userId)
+        public virtual async Task<Lookups> GetLookups(int userId)
         {
             _lookups= await _localStorage.Restore<Lookups>(_lookupsFileName);
             return _lookups;
@@ -71,18 +71,23 @@ namespace LogbookApp.Storage
         
 
 
-        public async  Task<ObservableCollection<Flight>>  GetFlights(int userId)
+        public virtual async  Task<ObservableCollection<Flight>>  GetFlights(int userId)
         {
             var flights = await _localStorage.Restore<ObservableCollection<Flight>>(_flightsFileName);
-            foreach (var flight in flights)
-            {
 
-                flight.PopulateLookups(_lookups);
-            }
+            PopulateFlightLookups(flights, _lookups);
             return flights;
 
         }
 
+        protected void PopulateFlightLookups(ObservableCollection<Flight> flights, Lookups lookups)
+        {
+            foreach (var flight in flights)
+            {
+
+                flight.PopulateLookups(lookups);
+            }
+        }
       
 
         public async Task<bool> Available(string displayName)

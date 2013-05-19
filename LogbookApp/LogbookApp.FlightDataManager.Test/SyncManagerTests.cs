@@ -37,7 +37,7 @@ namespace LogbookApp.FlightDataManagerTest
         public void ShouldAddNewAircraft()
         {
             _sourceFlightData.Lookups.Aircraft.Add(new Aircraft());
-            target.UpdateOnlineData(_sourceFlightData);
+            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
             Assert.IsNotNull(_onlineFlightDataService.GetLookups(0).Result.Aircraft.FirstOrDefault());
         }
 
@@ -47,7 +47,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
             _targetFlightData.Lookups.Aircraft.Add(new Aircraft { id = 1, TimeStamp = _olderTimeStamp });
             _sourceFlightData.Lookups.Aircraft.Add(new Aircraft { id = 1, Reg = "G", TimeStamp = _newerTimeStamp });
-            target.UpdateOnlineData(_sourceFlightData);
+            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
             Assert.AreEqual("G", _onlineFlightDataService.GetLookups(0).Result.Aircraft.First().Reg);
         }
 
@@ -56,7 +56,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
             _targetFlightData.Lookups.Aircraft.Add(new Aircraft { id = 1, Reg = "A", TimeStamp = _newerTimeStamp });
             _sourceFlightData.Lookups.Aircraft.Add(new Aircraft { id = 1, Reg = "G", TimeStamp = _olderTimeStamp });
-            target.UpdateOnlineData(_sourceFlightData);
+            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
             Assert.AreEqual("A", _onlineFlightDataService.GetLookups(0).Result.Aircraft.First().Reg);
         }
 
@@ -65,7 +65,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
 
             _targetFlightData.Lookups.Aircraft.Add(new Aircraft { id = 1, Reg = "A" });
-            target.UpdateOnlineData(_sourceFlightData);
+            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
             Assert.IsNull(_onlineFlightDataService.GetLookups(0).Result.Aircraft.FirstOrDefault());
         } 
         #endregion
@@ -75,7 +75,7 @@ namespace LogbookApp.FlightDataManagerTest
         public void ShouldAddNewAirfield()
         {
             _sourceFlightData.Lookups.Airfields.Add(new Airfield());
-            target.UpdateOnlineData(_sourceFlightData);
+            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
             Assert.IsNotNull(_onlineFlightDataService.GetLookups(0).Result.Airfields.FirstOrDefault());
         }
 
@@ -84,7 +84,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
             _targetFlightData.Lookups.Airfields.Add(new Airfield { id = 1, TimeStamp = _olderTimeStamp });
             _sourceFlightData.Lookups.Airfields.Add(new Airfield { id = 1, ICAOCode = "G", TimeStamp = _newerTimeStamp });
-            target.UpdateOnlineData(_sourceFlightData);
+            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
             Assert.AreEqual("G", _onlineFlightDataService.GetLookups(0).Result.Airfields.First().ICAOCode);
         }
 
@@ -94,7 +94,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
 
             _targetFlightData.Lookups.Airfields.Add(new Airfield { id = 1, ICAOCode = "A" });
-            target.UpdateOnlineData(_sourceFlightData);
+            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
             Assert.IsNull(_onlineFlightDataService.GetLookups(0).Result.Airfields.FirstOrDefault());
         } 
         #endregion
@@ -105,7 +105,7 @@ namespace LogbookApp.FlightDataManagerTest
         public void ShouldAddNewFlight()
         {
             _sourceFlightData.AddFlight(new Flight());
-            target.UpdateOnlineData(_sourceFlightData);
+            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
             Assert.IsNotNull(_onlineFlightDataService.GetFlights(0).Result.FirstOrDefault());
         }
 
@@ -114,7 +114,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
             _targetFlightData.Flights.Add(new Flight { id = 1, TimeStamp = _olderTimeStamp });
             _sourceFlightData.Flights.Add(new Flight { id = 1, Remarks = "G", TimeStamp = _newerTimeStamp });
-            target.UpdateOnlineData(_sourceFlightData);
+            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
             Assert.AreEqual("G", _onlineFlightDataService.GetFlights(0).Result.First().Remarks);
         }
 
@@ -123,7 +123,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
 
             _targetFlightData.Flights.Add(new Flight { id = 1, Remarks =  "A" });
-            target.UpdateOnlineData(_sourceFlightData);
+            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
             Assert.IsNull(_onlineFlightDataService.GetFlights(0).Result.FirstOrDefault());
         } 
         #endregion

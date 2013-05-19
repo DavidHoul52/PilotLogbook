@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using LogbookApp.Data;
@@ -14,12 +15,14 @@ namespace LogbookApp.FlightDataManagement
             _onLineData = onLineData;
         }
 
-        public async void UpdateOnlineData(FlightData flightData)
+        public async Task UpdateOnlineData(FlightData flightData, DateTime now)
         {
             await SyncLookups(flightData.Lookups, flightData.User.id);
             var onLineFlights = await _onLineData.GetFlights(flightData.User.id);
             await SyncTable<Flight>(flightData.Flights, onLineFlights);
-           
+            flightData.User.TimeStamp = now;
+            await _onLineData.UpdateUser(flightData.User);
+
         }
 
         private async Task SyncLookups(Lookups lookups, int userId)
@@ -27,7 +30,8 @@ namespace LogbookApp.FlightDataManagement
             var onLineLookups = await _onLineData.GetLookups(userId);
             await SyncTable(lookups.Aircraft, onLineLookups.Aircraft);
             await SyncTable(lookups.Airfields, onLineLookups.Airfields);
-           
+             
+            bool done = true;
         }
 
         private async Task SyncTable<T>(ObservableCollection<T> sourceItems,

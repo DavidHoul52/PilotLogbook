@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using LogbookApp.Data;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
@@ -16,6 +17,21 @@ namespace LogbookApp.FlightDataManagerTest
         public override void Setup()
         {
             base.Setup();
+        }
+
+        
+        [TestMethod]
+
+        public async Task ShouldUpdateOnlineDataCalled()
+        {
+            LocalTestData.FlightData.Flights = new ObservableCollection<Flight> { new Flight() };
+            OnLineDataServiceFlightData.Flights = new ObservableCollection<Flight> { new Flight() };
+            SetLastUpdates(NewerTime, OldTime);
+            OnlineDataService.SetAvailable(true);
+            await Target.GetAvailableDataService();
+
+            Assert.IsTrue(MockSyncManager.UpdateOnlineDataCalled);
+
         }
 
 

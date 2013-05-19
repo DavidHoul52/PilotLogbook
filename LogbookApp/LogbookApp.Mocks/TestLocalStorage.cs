@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
 using LogbookApp.Data;
@@ -9,6 +11,21 @@ namespace LogbookApp.Mocks
     {
         private User _user;
         private DateTime? _timeStamp;
+        private FlightData _internalFlightData;
+        
+
+        public TestLocalStorage()
+            : base()
+        {
+            _internalFlightData = new FlightData();
+
+        }
+
+        public FlightData InternalFlightData
+        {
+            get { return _internalFlightData; }
+            set { _internalFlightData = value; }
+        }
 
 
         public override async Task Save<T>(T data, string filename)
@@ -16,17 +33,25 @@ namespace LogbookApp.Mocks
             SavedFileName = filename;
             base.Save(data, filename);
             AllSaved = true;
+            if (typeof (T) == typeof (ObservableCollection<Flight>))
+                _internalFlightData.Flights = data as ObservableCollection<Flight>;
+            if (typeof(T) == typeof(Lookups))
+                _internalFlightData.Lookups = data as Lookups;
+            if (typeof(T) == typeof(User))
+                _internalFlightData.User = data as User;
+
 
         }
 
         public async Task<T> Restore<T>(string filename)
-            where T: new()
+            where T : new()
         {
 
             AllSaved = false;
             if (Exists)
             {
-                return new T ();
+                
+                return new T();
             }
             else
             {
@@ -34,9 +59,12 @@ namespace LogbookApp.Mocks
             }
         }
 
+
+      
+
         public async Task<User> RestoreUser(string filename)
         {
-            return await new Task<User>(()=> new User {TimeStamp = _timeStamp});
+            return _internalFlightData.User;
         }
 
         public bool Exists { get; set; }
@@ -51,7 +79,6 @@ namespace LogbookApp.Mocks
         }
 
         public void SetTimeStamp(DateTime? timeStamp)
-
         {
             _timeStamp = timeStamp;
 
