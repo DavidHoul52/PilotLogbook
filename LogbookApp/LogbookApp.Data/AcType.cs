@@ -19,5 +19,6 @@ namespace LogbookApp.Data
 
         public int id { get; set; }
         public DateTime? TimeStamp { get; set; }
+        public int? UserId { get; set; }
     }
 }

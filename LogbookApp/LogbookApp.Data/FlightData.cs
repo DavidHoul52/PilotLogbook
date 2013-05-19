@@ -44,10 +44,11 @@ namespace LogbookApp.Data
 
         public void AddAcType(AcType acType)
         {
+            acType.UserId = User.id;
             Lookups.AcTypes.Add(acType);
         }
 
-        public void AddInsert(Airfield @from)
+        public void AddAirfield(Airfield @from)
         {
             from.UserId = User.id;
             Lookups.Airfields.Add(from);
@@ -72,6 +73,12 @@ namespace LogbookApp.Data
         public async Task RemoveAcType(AcType acType)
         {
             Lookups.AcTypes.Remove(acType);
+        }
+
+        public void AddAircraft(Aircraft aircraft)
+        {
+            aircraft.UserId = User.id;
+            Lookups.Aircraft.Add(aircraft);
         }
     }
 }

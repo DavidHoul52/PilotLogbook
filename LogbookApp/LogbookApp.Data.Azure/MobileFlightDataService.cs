@@ -71,7 +71,9 @@ namespace LogbookApp.Data
         private async Task<Lookups> LoadLookups(int userId)
         {
             var lookups = new Lookups();
-            lookups.AcTypes = new ObservableCollection<AcType>(await _mobileService.GetTable<AcType>().Take(500).OrderBy(x => x.Code).ToListAsync());
+            lookups.AcTypes = new ObservableCollection<AcType>(await _mobileService.GetTable<AcType>()
+                .Where(x => x.UserId == userId)
+                .Take(500).OrderBy(x => x.Code).ToListAsync());
             lookups.Capacity = new ObservableCollection<Capacity>(await _mobileService.GetTable<Capacity>().Take(500).OrderBy(x => x.Description).ToListAsync());
             var aircraft = await
                 _mobileService.GetTable<Aircraft>()
@@ -86,7 +88,8 @@ namespace LogbookApp.Data
                    ac.AcType = lookups.AcTypes.FirstOrDefault(x => x.id == ac.AcTypeId);
                    return ac;
                }));
-            lookups.Airfields = new ObservableCollection<Airfield>(await _mobileService.GetTable<Airfield>().Where(x => x.UserId == userId).Take(500).OrderBy(x => x.Name).
+            lookups.Airfields = new ObservableCollection<Airfield>(await _mobileService.GetTable<Airfield>().
+                Where(x => x.UserId == userId).Take(500).OrderBy(x => x.Name).
                ToListAsync());
             return lookups;
 

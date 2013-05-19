@@ -162,7 +162,8 @@ namespace LogbookApp.FlightDataManagement
 
         public async Task InsertAircraft(Aircraft aircraft, DateTime upDateTime)
         {
-            FlightData.Lookups.Aircraft.Add(aircraft);
+            FlightData.AddAircraft(aircraft);
+            
             await PerformDataUpdateAction((flightservice) => flightservice.InsertAircraft(aircraft),
                 aircraft,
                 upDateTime);
@@ -192,7 +193,7 @@ namespace LogbookApp.FlightDataManagement
 
         public async Task InsertAirfield(Airfield @from, DateTime upDateTime)
         {
-            FlightData.AddInsert(@from);
+            FlightData.AddAirfield(@from);
             await PerformDataUpdateAction((flightservice) => flightservice.InsertAirfield(@from),
                 from,upDateTime);
         }

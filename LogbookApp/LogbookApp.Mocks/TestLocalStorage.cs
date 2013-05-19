@@ -64,7 +64,9 @@ namespace LogbookApp.Mocks
 
         public async Task<User> RestoreUser(string filename)
         {
-            return _internalFlightData.User;
+            if (Exists)
+              return _internalFlightData.User;
+            return null;
         }
 
         public bool Exists { get; set; }

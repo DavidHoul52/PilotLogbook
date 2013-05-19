@@ -219,6 +219,7 @@ namespace LogbookApp.Data
             Capacity = lookupData.Capacity.FirstOrDefault(x => x.Id == CapacityId);
             From = lookupData.Airfields.FirstOrDefault(x => x.id == AirfieldFromId);
             To = lookupData.Airfields.FirstOrDefault(x => x.id == AirfieldToId);
+            
             this.Lookups = lookupData;
            
         }

@@ -1,1 +1,1 @@
-﻿select * from WorldPilotsLogBook.Airfield order by Name
+﻿update WorldPilotsLogBook.AcType set userid=4
