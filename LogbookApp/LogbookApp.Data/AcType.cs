@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace LogbookApp.Data
 
       
         public string Code { get; set; }
+          [IgnoreDataMember]
         public bool IsNew { get; set; }
         public bool Valid()
         {

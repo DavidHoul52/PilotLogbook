@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 
 namespace LogbookApp.Data
@@ -7,7 +8,8 @@ namespace LogbookApp.Data
     {
         
         public string DisplayName { get; set; }
-        
+
+          [IgnoreDataMember]
         public bool IsNew { get; set; }
         public bool Valid()
         {

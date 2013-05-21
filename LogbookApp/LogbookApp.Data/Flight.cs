@@ -194,7 +194,7 @@ namespace LogbookApp.Data
 
         public DateTime? SimulatedInstrumentFlying { get; set; }
 
-
+          [IgnoreDataMember]
         public bool IsNew { get; set; }
 
         public bool Valid()
