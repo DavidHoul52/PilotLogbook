@@ -25,12 +25,7 @@
             <Setter Property="Foreground" Value="Yellow"></Setter>
         </Style>
 
-        <Style x:Key="AddAircraftTypeButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
-            <Setter Property="AutomationProperties.AutomationId" Value="AddAppBarButton"/>
-            <Setter Property="AutomationProperties.Name" Value="Add Aircraft Type"/>
-            <Setter Property="Content" Value="&#xE109;"/>
-            <Setter Property="Foreground" Value="Orange"></Setter>
-        </Style>
+     
         <Style x:Key="AddAirfieldFromButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
             <Setter Property="AutomationProperties.AutomationId" Value="AddAppBarButton"/>
             <Setter Property="AutomationProperties.Name" Value="Add Airfield"/>

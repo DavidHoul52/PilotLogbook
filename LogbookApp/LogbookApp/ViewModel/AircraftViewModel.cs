@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
+using LogbookApp.Commands;
 using LogbookApp.Data;
 using LogbookApp.Views;
 
@@ -15,9 +17,26 @@ namespace LogbookApp.ViewModel
         {
             Classes = new ObservableCollection<AircraftClass>(AircraftClass.Items);
 
+            AddAircraftTypeCommand = new DelegateCommand<AircraftClass>((f) => AddAircraftType(), (f) => true);
+            RaisePropertyChanged(() => AddAircraftTypeCommand);
+
 
         }
 
+        
+
+        public DelegateCommand<AircraftClass> AddAircraftTypeCommand { get; set; }
+
+
+        private void AddAircraftType()
+        {
+            Aircraft.AcType = new AcType { IsNew = true };
+
+            ShowAircraftType(new AircraftActionCommand { Aircraft = this.Aircraft, DataService = this.DataService});
+        }
+
+    
+        public Action<AircraftActionCommand> ShowAircraftType { get; set; }
 
         public override async Task Save()
         {

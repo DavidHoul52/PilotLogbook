@@ -15,7 +15,7 @@ namespace LogbookApp.ViewModel
                 _flight = value;
                 if (value!=null)
                   OnFlightUpdated();
-                RaisePropertyChanged(()=>Flight);
+                RaisePropertyChanged(() => Flight);
             }
         }
 

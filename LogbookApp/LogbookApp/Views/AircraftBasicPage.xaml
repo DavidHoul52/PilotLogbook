@@ -17,8 +17,27 @@
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="26"></Setter>
         </Style>
+        <Style x:Key="AddAircraftTypeButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+            <Setter Property="AutomationProperties.AutomationId" Value="AddAppBarButton"/>
+            <Setter Property="AutomationProperties.Name" Value="Add Aircraft Type"/>
+            <Setter Property="Content" Value="&#xE109;"/>
+            <Setter Property="Foreground" Value="Orange"></Setter>
+        </Style>
     </Page.Resources>
+    <Page.BottomAppBar>
+        <AppBar Padding="10,0,10,0">
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button Style="{StaticResource AddAircraftTypeButtonStyle}" 
+                            Command="{Binding AddAircraftTypeCommand,Mode=TwoWay}"   />
 
+               
+
+                </StackPanel>
+              
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
     <!--
         This grid acts as a root panel for the page that defines two rows:
         * Row 0 contains the back button and page title

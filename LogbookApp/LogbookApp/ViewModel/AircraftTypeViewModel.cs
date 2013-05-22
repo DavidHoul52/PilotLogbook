@@ -8,6 +8,24 @@ namespace LogbookApp.ViewModel
     public class AircraftTypeViewModel : LookupViewModelBase
     {
 
+        public AircraftTypeViewModel()
+        {
+          
+        }
+
+        private Aircraft _aircraft;
+        public Aircraft Aircraft
+        {
+            get { return _aircraft; }
+            set
+            {
+                _aircraft = value;
+                if (value != null) AcType = value.AcType;
+                RaisePropertyChanged(() => Aircraft);
+            }
+        }
+      
+
         private AcType acType;
 
         public AcType AcType
@@ -22,29 +40,37 @@ namespace LogbookApp.ViewModel
         }
 
 
+ 
+
 
         public override async Task Save()
         {
 
 
-            if (AcType.IsNew && IsDuplicate())
+            if (AcType.Valid())
             {
-                await Messager.ShowMessage("This Aircraft Type has already been added.");
-                return;
+                if (AcType.IsNew)
+                {
+                    if (IsDuplicate())
+                    {
+                        await Messager.ShowMessage("This aircraft type has already been added.");
+                        return;
+                    }
+                    await DataService.InsertAcType(AcType, DateTime.Now);
+                    if (Aircraft != null)
+                    {
+                        Lookups.AcTypes.Add(AcType);
+                        Aircraft.AcType = AcType;
+                    }
+                }
+                else
+                {
+                    await DataService.UpdateAcType(AcType, DateTime.Now);
+                }
             }
 
 
-            if (AcType.IsNew)
-            {
-                await DataService.InsertAcType(AcType, DateTime.Now);
-                if (Flight != null)
-                    Flight.Lookups.AcTypes.Add(AcType);
-            }
-            else
-            {
-                await DataService.UpdateAcType(AcType, DateTime.Now);
-            }
-
+          
         }
 
         private bool IsDuplicate()

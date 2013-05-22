@@ -42,13 +42,13 @@ namespace LogbookApp.Views
         {
             
 
-            if (navigationParameter is FlightActionCommand)
+            if (navigationParameter is AircraftActionCommand)
             {
-                flightActionCommand = navigationParameter as FlightActionCommand;
-                if (flightActionCommand != null)
+                var aircraftActionCommand = navigationParameter as AircraftActionCommand;
+                if (aircraftActionCommand != null)
                 {
-                    viewModel.Flight = flightActionCommand.Flight;
-                    
+                    viewModel.Aircraft = aircraftActionCommand.Aircraft;
+                    viewModel.DataService = aircraftActionCommand.DataService;
                 }
             }
 

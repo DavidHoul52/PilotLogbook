@@ -33,8 +33,14 @@ namespace LogbookApp.Views
 
             viewModel.Messager = new Messager();
             DataContext = viewModel;
+
+            viewModel.ShowAircraftType = ActionAddAircraftType;
         }
 
+        private void ActionAddAircraftType(AircraftActionCommand command)
+        {
+            Frame.Navigate(typeof(AircraftTypeBasicPage), command);
+        }
 
 
         /// <summary>
@@ -64,6 +70,8 @@ namespace LogbookApp.Views
 
                 }
             }
+
+           
 
         }
 

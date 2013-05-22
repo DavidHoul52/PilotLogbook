@@ -131,6 +131,7 @@
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\TotalsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="Commands\AircraftActionCommand.cs" />
     <Compile Include="Views\AircraftBasicPage.xaml.cs">
       <DependentUpon>AircraftBasicPage.xaml</DependentUpon>
     </Compile>
