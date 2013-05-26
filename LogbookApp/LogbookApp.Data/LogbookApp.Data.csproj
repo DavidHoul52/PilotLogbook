@@ -125,10 +125,19 @@
     <Compile Include="Validation\IValidator.cs" />
     <Compile Include="Validation\ValidationExtensions.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="MoqaLateCommandLine\MoqaLate.exe" />
+    <Content Include="MoqaLateCommandLine\MoqaLateExcludedFiles.txt" />
+    <Content Include="MoqaLateCommandLine\Ninject.dll" />
+    <Content Include="MoqaLateCommandLine\READMEHowToEnableMockGeneration.txt" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>$(ProjectDir)\MoqaLateCommandLine\MoqaLate.exe "$(SolutionDir)$(ProjectName)" "$(SolutionDir)LogbookApp.Data.Test\Fakes"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

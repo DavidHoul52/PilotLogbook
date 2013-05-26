@@ -31,6 +31,7 @@ namespace LogbookApp.Data.Validation
             var validator = GetValidator(entity);
             if (validator != null)
                 return validator.ValidationMessage();
+            return "";
         }
     }
 }
