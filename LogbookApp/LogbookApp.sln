@@ -31,6 +31,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogbookApp.FlightDataManage
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogbookApp.Mocks", "LogbookApp.Mocks\LogbookApp.Mocks.csproj", "{69426F3F-EC27-4C6F-B54F-8C014ACCBA1B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{68043973-02DA-45DA-80ED-CFC97A72A028}"
+	ProjectSection(SolutionItems) = preProject
+		docs\Connectivitiy use cases.xlsx = docs\Connectivitiy use cases.xlsx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

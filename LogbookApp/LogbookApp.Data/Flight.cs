@@ -197,10 +197,10 @@ namespace LogbookApp.Data
           [IgnoreDataMember]
         public bool IsNew { get; set; }
 
-        public bool Valid()
-        {
-            return Arrival > Depart ;
-        }
+        //public bool Valid()
+        //{
+        //    return Arrival > Depart ;
+        //}
 
         public int id { get; set; }
         public DateTime? TimeStamp

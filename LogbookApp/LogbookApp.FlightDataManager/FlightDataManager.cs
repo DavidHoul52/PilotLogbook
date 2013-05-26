@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Activation;
 using LogbookApp.Data;
 using LogbookApp.Storage;
 
@@ -78,6 +79,14 @@ namespace LogbookApp.FlightDataManagement
             var localUser = await _localData.GetUser(_displayName);
             var localAvailable = (localUser != null);
             var onLineUser = await _onLineData.GetUser(_displayName);
+            if (onLineUser == null)
+            {
+                onLineUser = await SavedUserOnline();
+                if (onLineUser != null)
+                    InsertUserOffline(onLineUser);
+
+
+            }
             var onLineAvailable = (onLineUser != null);
             var localNewer = (localAvailable && onLineAvailable && localUser.TimeStamp
                 > onLineUser.TimeStamp);
@@ -112,6 +121,17 @@ namespace LogbookApp.FlightDataManagement
         }
 
        
+        private async Task<User> SavedUserOnline()
+        {
+
+            return await InsertUser(new User { DisplayName = _displayName }, DateTime.Now, _onLineData);
+        }
+
+        private async void InsertUserOffline(User onLineUser)
+        {
+            
+            await InsertUser(onLineUser, DateTime.Now,_localData);
+        }
 
 
         public async Task GetLookups()
@@ -254,6 +274,16 @@ namespace LogbookApp.FlightDataManagement
                 user,
                 upDateTime);
         }
+
+          public async Task<User> InsertUser(User user, DateTime upDateTime, IFlightDataService flightservice)
+          {
+            user.TimeStamp = upDateTime;
+            FlightData.User = user;
+            await flightservice.InsertUser(user);
+            return user;
+
+        }
+
 
         public async Task GetUser()
         {

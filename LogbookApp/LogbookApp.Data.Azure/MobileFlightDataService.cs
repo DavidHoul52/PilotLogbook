@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq.Expressions;
+using LogbookApp.Data.Validation;
 using Microsoft.WindowsAzure.MobileServices;
 using System;
 using System.Collections.Generic;

@@ -1,9 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using Windows.UI.Popups;
 using LogbookApp.Commands;
 using LogbookApp.Data;
 using System;
 using System.Threading.Tasks;
+using LogbookApp.Data.Validation;
 
 namespace LogbookApp.ViewModel
 {
@@ -158,11 +160,17 @@ namespace LogbookApp.ViewModel
         public Action<FlightAirfieldActionCommand> ShowAirfield { get; set; }
 
 
-        public async Task SaveFlight()
+        public async Task<bool> SaveFlight()
         {
-          
+
+            if (!Flight.Valid())
+            {
+                await new MessageDialog(Flight.ValidationMessage()).ShowAsync();
+                return false;
+            }
             await App.Data.SaveFlight(Flight,DateTime.Now);
            Flight.IsNew = false;
+            return true;
 
         }
 

@@ -11,6 +11,6 @@ namespace LogbookApp
 
         Task<User> RestoreUser(string filename);
 
-      //  bool Exists { get;  }
+      
     }
 }

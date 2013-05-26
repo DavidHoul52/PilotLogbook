@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.Security.Authentication.OnlineId;
+using Windows.System.UserProfile;
+using Windows.UI.Xaml.Controls;
 using LogbookApp.Data;
 
 namespace LogbookApp.Storage
@@ -12,6 +16,7 @@ namespace LogbookApp.Storage
         private readonly string _flightsFileName;
         private readonly string _lookupsFileName;
         private readonly string _userFileName;
+        
         private Lookups _lookups;
 
 
@@ -22,6 +27,7 @@ namespace LogbookApp.Storage
             _flightsFileName = flightsFileName;
             _lookupsFileName = lookupsFileName;
             _userFileName = userFileName;
+            
             
         }
 
@@ -57,7 +63,10 @@ namespace LogbookApp.Storage
             
             try
             {
-                return await _localStorage.RestoreUser(_userFileName);
+                User userx = await _localStorage.RestoreUser(_userFileName);
+                if (userx != null && userx.DisplayName == displayName)
+                    return userx;
+                return null;
             }
             catch (Exception)
             {
@@ -75,9 +84,12 @@ namespace LogbookApp.Storage
         {
             var flights = await _localStorage.Restore<ObservableCollection<Flight>>(_flightsFileName);
 
-            PopulateFlightLookups(flights, _lookups);
+            if (flights != null)
+            {
+                PopulateFlightLookups(flights, _lookups);
+               
+            }
             return flights;
-
         }
 
         protected void PopulateFlightLookups(ObservableCollection<Flight> flights, Lookups lookups)
@@ -124,5 +136,7 @@ namespace LogbookApp.Storage
             await SaveLookups(flightData.Lookups);
            
         }
+
+       
     }
 }

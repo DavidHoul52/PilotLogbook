@@ -112,6 +112,7 @@
     <Compile Include="FlightTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserManagerTests.cs" />
+    <Compile Include="FlightValidationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

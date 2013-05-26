@@ -12,7 +12,7 @@ namespace LogbookApp.Data
         bool IsNew { get; set; }
 
 
-        bool Valid();
+     
         
 
         int id { get; set; }

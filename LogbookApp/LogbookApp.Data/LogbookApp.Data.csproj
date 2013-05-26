@@ -121,6 +121,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserManager.cs" />
+    <Compile Include="Validation\FlightValidator.cs" />
+    <Compile Include="Validation\IValidator.cs" />
+    <Compile Include="Validation\ValidationExtensions.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

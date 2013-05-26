@@ -37,6 +37,7 @@ namespace LogbookApp
         async public Task<T> Restore<T>(string filename)
                 where T : new()
         {
+            
             var file = await GetFileAsync(filename);
             T result = default(T);
             if (file!=null)
@@ -61,11 +62,14 @@ namespace LogbookApp
             return result;
         }
 
+     
+
         public async Task<User> RestoreUser(string filename)
         {
             var user = await Restore<User>(filename);
             return user;
         }
+
 
 
         static async Task<StorageFile> GetFileAsync(string fileName)
