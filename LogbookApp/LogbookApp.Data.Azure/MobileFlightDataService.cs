@@ -100,8 +100,8 @@ namespace LogbookApp.Data
 
         public async Task InsertFlight(Flight flight)
         {
-           await _mobileService.GetTable<Flight>().InsertAsync(flight);
-         
+          
+                await _mobileService.GetTable<Flight>().InsertAsync(flight);
            
         }
 
@@ -118,8 +118,8 @@ namespace LogbookApp.Data
         public async Task SaveFlight(Flight flight)
         {
 
-            if (!flight.Valid())
-                return ; // simply cancel if new and not complete
+           // if (!flight.Valid())
+           //     return ; // simply cancel if new and not complete
 
             if (flight.IsNew)
             {

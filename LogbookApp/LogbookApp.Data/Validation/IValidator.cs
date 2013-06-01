@@ -4,8 +4,8 @@ namespace LogbookApp.Data.Validation
 {
     public interface IValidator
     {
-        bool Valid();
-        string ValidationMessage();
+        
+        LogbookValidationResult GetValidationResult();
     }
 
     

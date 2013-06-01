@@ -64,6 +64,7 @@ namespace LogbookApp.ViewModel
         {
             Flights.Add(new Flight
             {
+                UserId = flightDataManager.FlightData.User.id,
                 Lookups = flightDataManager.FlightData.Lookups,
                 IsNew = true, 
             Date = DateTime.Today, AircraftId = 1});

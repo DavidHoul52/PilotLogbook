@@ -162,10 +162,10 @@ namespace LogbookApp.ViewModel
 
         public async Task<bool> SaveFlight()
         {
-
-            if (!Flight.Valid())
+            var validResult = Flight.ValidationResult();
+            if (!validResult.Valid)
             {
-                await new MessageDialog(Flight.ValidationMessage()).ShowAsync();
+                await new MessageDialog(validResult.Message).ShowAsync();
                 return false;
             }
             await App.Data.SaveFlight(Flight,DateTime.Now);

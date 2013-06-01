@@ -66,6 +66,7 @@ namespace LogbookApp.FlightDataManagement
         private async Task<bool> PerformDataGetAction(Func<IFlightDataService, Task> dataAction)
         {
             var availableData = await GetAvailableDataService();
+            
             if (availableData != null)
             {
                 await dataAction(availableData);

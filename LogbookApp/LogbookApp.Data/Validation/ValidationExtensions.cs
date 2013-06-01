@@ -7,31 +7,28 @@ namespace LogbookApp.Data.Validation
 {
     public static class ValidationExtensions
     {
-        public static bool Valid<T>(this T entity)
+        public static LogbookValidationResult ValidationResult<T>(this T entity)
             where T : IEntity
         {
 
             var validator = GetValidator(entity);
             if (validator != null)
-                return validator.Valid();
-            return false;
+                return validator.GetValidationResult();
+
+            return LogbookValidationResult.Ok;
+            
+
+
         }
 
         private static IValidator GetValidator<T>(T entity)
             where T : IEntity
         {
             if (typeof (T) == typeof (Flight))
-                return new FlightValidator(entity);
+                return new FlightValidator(entity as Flight);
             return null;
         }
 
-        public static string ValidationMessage<T>(this T entity)
-            where T : IEntity
-        {
-            var validator = GetValidator(entity);
-            if (validator != null)
-                return validator.ValidationMessage();
-            return "";
-        }
+    
     }
 }
