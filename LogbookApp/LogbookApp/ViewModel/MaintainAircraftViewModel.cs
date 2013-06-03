@@ -20,9 +20,10 @@ namespace LogbookApp.ViewModel
         }
 
 
-        protected override void Delete(Aircraft item)
+        protected async override void Delete(Aircraft item)
         {
-            FlightDataManager.DeleteAircraft(item, DateTime.Now);
+            await FlightDataManager.DeleteAircraft(item, DateTime.Now);
+            Load();
         }
 
         protected override void Add()
