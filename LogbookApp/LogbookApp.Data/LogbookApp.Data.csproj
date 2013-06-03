@@ -126,12 +126,6 @@
     <Compile Include="Validation\LogbookValidationResult.cs" />
     <Compile Include="Validation\ValidationExtensions.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="MoqaLateCommandLine\MoqaLate.exe" />
-    <Content Include="MoqaLateCommandLine\MoqaLateExcludedFiles.txt" />
-    <Content Include="MoqaLateCommandLine\Ninject.dll" />
-    <Content Include="MoqaLateCommandLine\READMEHowToEnableMockGeneration.txt" />
-  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>
