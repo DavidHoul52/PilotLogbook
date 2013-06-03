@@ -81,7 +81,7 @@ namespace LogbookApp.Views
                         throw new ArgumentOutOfRangeException();
                 }
             else
-                viewModel.Save();
+                await viewModel.Save();
             
             Frame.GoBack();
         }

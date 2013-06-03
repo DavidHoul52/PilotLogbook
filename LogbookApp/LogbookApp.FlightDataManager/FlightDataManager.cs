@@ -245,7 +245,7 @@ namespace LogbookApp.FlightDataManagement
         public async Task DeleteAirfield(Airfield airfield, DateTime upDateTime)
         {
             FlightData.RemoveAirfield(airfield);
-            await PerformDataUpdateAction((flightservice) => flightservice.UpdateAirfield(airfield),
+            await PerformDataUpdateAction((flightservice) => flightservice.DeleteAirfield(airfield),
                 airfield,
                 upDateTime);
          
