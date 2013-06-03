@@ -42,8 +42,7 @@ namespace LogbookApp.ViewModel
                         return;
                     }
                     await DataService.InsertAirfield(Airfield, DateTime.Now);
-                    if (Flight != null)
-                        Flight.Lookups.Airfields.Add(Airfield);
+                  
                 }
                 else
                     await DataService.UpdateAirfield(Airfield, DateTime.Now);
