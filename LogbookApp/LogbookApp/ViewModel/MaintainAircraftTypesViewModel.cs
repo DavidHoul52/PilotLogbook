@@ -17,9 +17,10 @@ namespace LogbookApp.ViewModel
         }
 
 
-        protected override void Delete(AcType item)
+        protected async override void Delete(AcType item)
         {
-            FlightDataManager.DeleteAcType(item, DateTime.Now);
+           await FlightDataManager.DeleteAcType(item, DateTime.Now);
+            Load();
         }
 
         public async override void Load()
