@@ -21,11 +21,11 @@ namespace LogbookApp.ViewModel
             this.flightDataManager = flightData;
             
             
-            EditCommand = new DelegateCommand<Flight>((f) => ShowDetail(f), (f) => { return f!=null; });
+            EditCommand = new DelegateCommand<Flight>((f) => ShowDetail(f), (f) => f!=null);
             RaisePropertyChanged(() => EditCommand);
-            DeleteCommand = new DelegateCommand<Flight>((f) => DeleteFlight(f), (f) => { return f != null; });
+            DeleteCommand = new DelegateCommand<Flight>(DeleteFlight, (f) => f != null);
             RaisePropertyChanged(() => DeleteCommand);
-            AddCommand = new DelegateCommand<Flight>((f) => AddFlight(), (f) => { return true; });
+            AddCommand = new DelegateCommand<Flight>((f) => AddFlight(), (f) => true);
             RaisePropertyChanged(() => AddCommand);
             TotalsCommand = new DelegateCommand<List<Flight>>((f) =>    ShowTotals(new TotalsActionCommand
             {
@@ -79,6 +79,7 @@ namespace LogbookApp.ViewModel
         private async void DeleteFlight(Flight f)
         {
             await flightDataManager.DeleteFlight(f, DateTime.Now);   
+            Load();
             
         }
 
