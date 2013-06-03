@@ -157,8 +157,7 @@ namespace LogbookApp
 
         public static async Task RefreshFlightData()
         {
-            if (Data.FlightsChanged)
-               await Data.GetFlights();
+              await Data.GetFlights();
         }
 
         public static async Task GetAllFlightData()
