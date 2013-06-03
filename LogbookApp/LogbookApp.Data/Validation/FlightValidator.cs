@@ -18,6 +18,12 @@ namespace LogbookApp.Data.Validation
         {
            if (_flight.Aircraft == null)
                    return new LogbookValidationResult { Valid = false, Message = "Please select an aircraft (or add a new one)" };
+           if (string.IsNullOrEmpty(_flight.Captain))
+               return new LogbookValidationResult
+               {
+                   Valid = false,
+                   Message = "Please enter the Captain's name"
+               };
             if (_flight.Capacity == null)
                    return new LogbookValidationResult { Valid = false,
                                                         Message = "Please select the Captain's capacity"
