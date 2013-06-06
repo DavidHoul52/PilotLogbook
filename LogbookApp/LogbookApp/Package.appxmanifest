@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="49810WorldPilotsLogbook.PilotsLogbook" Publisher="CN=66B17444-BE7E-46FA-B8C6-32394219182A" Version="1.0.0.13" />
+  <Identity Name="49810WorldPilotsLogbook.PilotsLogbook" Publisher="CN=66B17444-BE7E-46FA-B8C6-32394219182A" Version="1.0.0.16" />
   <Properties>
     <DisplayName>PilotsLogbook</DisplayName>
     <PublisherDisplayName>World Pilots Logbook</PublisherDisplayName>

@@ -7,6 +7,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Windows.Devices.Geolocation;
 using Windows.Foundation.Metadata;
+using Windows.Networking.Connectivity;
 using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Core;
@@ -92,9 +93,15 @@ namespace LogbookApp
         {
             if (loadState)
             {
-                 
+
+                var profile = NetworkInformation.GetInternetConnectionProfile();
+            //    var connectivity = profile.GetNetworkConnectivityLevel();
+                
+
+
                //DisplayName = await UserInformation.GetDisplayNameAsync();
                DisplayName = "test";
+
                 var onlineDataService = new MobileService(DisplayName).Client;
                 Data = new FlightDataManager(onlineDataService,
                     new LocalDataService(new LocalStorage(), "flights.xml","lookups.xml","user.xml"),
@@ -120,7 +127,15 @@ namespace LogbookApp
 
         }
 
-      
+
+        public  bool IsConnected
+        {
+            get
+            {
+                return NetworkInformation.GetInternetConnectionProfile() != null;
+            }
+        }
+
 
         private void RemoveExtendedSplash()
         {

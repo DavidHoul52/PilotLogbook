@@ -100,6 +100,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <ProjectReference Include="..\InternetDetection\InternetDetection.csproj">
+      <Project>{C46F31CA-32D2-4FB4-AFEF-958A16E1FA6F}</Project>
+      <Name>InternetDetection</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogbookApp.Data\LogbookApp.Data.csproj">
       <Project>{89900CBD-6C4A-443B-93B9-67081C3308B9}</Project>
       <Name>LogbookApp.Data</Name>

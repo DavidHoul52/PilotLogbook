@@ -19,6 +19,7 @@ namespace LogbookApp.FlightDataManagerTest
         protected User User;
         protected MockSyncManager MockSyncManager;
         protected FlightData OnLineDataServiceFlightData;
+        protected MockInternetTools MockInternetTools;
         
         public virtual void Setup()
         {
@@ -34,7 +35,8 @@ namespace LogbookApp.FlightDataManagerTest
             NewerTime = new DateTime(2013, 1, 1);
             Now = new DateTime(2013, 5, 5);
             MockSyncManager = new MockSyncManager();
-            Target = new FlightDataManager(OnlineDataService, LocalTestData, "david", MockSyncManager);
+            MockInternetTools = new MockInternetTools();
+            Target = new FlightDataManager(OnlineDataService, LocalTestData,  MockSyncManager, MockInternetTools);
         }
 
         protected void SetLastUpdates(DateTime? local, DateTime? online)

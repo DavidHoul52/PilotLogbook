@@ -8,13 +8,13 @@ namespace LogbookApp.Data
         
 
         public string DisplayName { get; set; }
-        public async Task GetUser(IFlightDataService flightDataService, DateTime now)
+        public async Task<User> GetUser(IFlightDataService flightDataService, DateTime now)
         {
 
             User = await flightDataService.GetUser(DisplayName);
             if (User == null)
             {
-                User = new User {DisplayName = this.DisplayName};
+                User = new User {DisplayName = this.DisplayName, IsNew = true};
                 await flightDataService.InsertUser(User);
                 
             }
@@ -22,6 +22,7 @@ namespace LogbookApp.Data
 
             if (User.TimeStamp == null)
                 User.TimeStamp = now;
+            return User;
         }
 
         public User User { get; set; }
