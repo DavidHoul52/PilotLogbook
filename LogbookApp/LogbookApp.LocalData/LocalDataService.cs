@@ -35,7 +35,10 @@ namespace LogbookApp.Storage
         {
             return DataType.OffLine;
         }}
-        public virtual async Task<Lookups> GetLookups(int userId)
+
+        
+
+        public virtual async Task<Lookups> GetLookups()
         {
             _lookups= await _localStorage.Restore<Lookups>(_lookupsFileName);
             return _lookups;
@@ -52,13 +55,17 @@ namespace LogbookApp.Storage
         private async Task SaveLookups(Lookups lookups)
         {
             await _localStorage.Save(lookups, _lookupsFileName);
+            
         }
 
 
      
-        public async Task InsertUser(User user)
+        public async Task CreateUserData(FlightData flightData, DateTime now)
         {
-            await _localStorage.Save(user, _userFileName);
+            User = flightData.User;
+            await _localStorage.Save(flightData.User, _userFileName);
+            await SaveLookups(flightData.Lookups);
+            await SaveFlights(flightData.Flights);
         }
 
         public virtual async Task<User> GetUser(string displayName)
@@ -83,7 +90,7 @@ namespace LogbookApp.Storage
         
 
 
-        public virtual async  Task<ObservableCollection<Flight>>  GetFlights(int userId)
+        public virtual async  Task<ObservableCollection<Flight>> GetFlights()
         {
             var flights = await _localStorage.Restore<ObservableCollection<Flight>>(_flightsFileName);
 
@@ -105,8 +112,9 @@ namespace LogbookApp.Storage
         }
       
 
-        public async Task<bool> Available(string displayName)
+        public async Task<bool> UserDataExists(string displayName)
         {
+            
             User tryUser = null;
             try
             {
@@ -123,6 +131,8 @@ namespace LogbookApp.Storage
             
         }
 
+        public DateTime? LastUpdated { get { return User.TimeStamp; }  }
+
         public async Task UpdateUser(User user)
         {
             
@@ -130,7 +140,12 @@ namespace LogbookApp.Storage
             
         }
 
-       
+        public async Task SetUserData(string displayName)
+        {
+            User = GetUser(displayName).Result; 
+        }
+
+        public User User { get; private set; }
 
 
         public async Task SaveFlightData(FlightData flightData)

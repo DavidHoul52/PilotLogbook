@@ -17,7 +17,7 @@ namespace LogbookApp.Data.Test
         public void Setup()
         {
             _now = new DateTime(2013,5,5);
-            flightDataService = new MockFlightDataService(DataType.None);
+           
             target= new UserManager();
         }
 
@@ -27,8 +27,8 @@ namespace LogbookApp.Data.Test
         public void ShouldSetUserLastUpdated()
         {
             
-            target.GetUser(flightDataService,_now);
-            Assert.AreEqual(_now, target.User.TimeStamp);
+           var user= target.CreateUser("",_now);
+            Assert.AreEqual(_now, user.TimeStamp);
 
 
         }

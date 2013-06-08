@@ -9,7 +9,7 @@ namespace LogbookApp.Data
         FlightData FlightData { get; set; }
     
         bool FlightsChanged { get; set; }
-        Task GetData();
+        Task LoadData();
         Task GetLookups();
         Task InsertFlight(Flight flight,DateTime updateTime);
         Task DeleteFlight(Flight flight, DateTime updateTime);
@@ -22,11 +22,12 @@ namespace LogbookApp.Data
         Task DeleteAirfield(Airfield airfield, DateTime upDateTime);
         Task UpdateAcType(AcType acType, DateTime upDateTime);
         Task InsertAcType(AcType acType, DateTime upDateTime);
-        Task InsertUser(User user, DateTime upDateTime);
+       
   
         Task GetFlights();
         
 
         Task DeleteAcType(AcType item, DateTime upDateTime);
+        Task StartUp(string displayName);
     }
 }

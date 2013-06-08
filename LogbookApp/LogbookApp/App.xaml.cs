@@ -14,6 +14,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 using Callisto.Controls;
+using InternetDetection;
 using LogbookApp.Common;
 using LogbookApp.Data;
 using LogbookApp.FlightDataManagement;
@@ -105,15 +106,10 @@ namespace LogbookApp
                 var onlineDataService = new MobileService(DisplayName).Client;
                 Data = new FlightDataManager(onlineDataService,
                     new LocalDataService(new LocalStorage(), "flights.xml","lookups.xml","user.xml"),
-                    DisplayName, new SyncManager(onlineDataService));
-               var dataAvailable=  await Data.GetData(DateTime.Now);
-                if (!dataAvailable)
-                {
-                    await new MessageDialog("We are unable to set up your Logbook as you are not connected" +
-                        " to the internet.").ShowAsync();
-                    App.Current.Exit();
-                    
-                }
+                     new SyncManager(onlineDataService), new InternetTools()
+                     );
+               await Data.StartUp(DisplayName);
+             
 
 
 
@@ -178,7 +174,7 @@ namespace LogbookApp
         public static async Task GetAllFlightData()
         {
             
-                await Data.GetData(DateTime.Now);
+                await Data.LoadData();
         }
 
         private Color _background = Color.FromArgb(255, 0, 77, 96);

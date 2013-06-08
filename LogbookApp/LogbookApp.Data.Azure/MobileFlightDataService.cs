@@ -31,22 +31,27 @@ namespace LogbookApp.Data
             get { return DataType.OnLine; }
         }
 
-        public async Task<ObservableCollection<Flight>>  GetFlights(int userId)
+
+       
+
+        public async Task<ObservableCollection<Flight>> GetFlights()
         {
             FlightsChanged = false;
-            var flights= await _mobileService.GetTable<Flight>().Where(x => x.UserId == userId).Take(500).ToListAsync();
+            var flights= await _mobileService.GetTable<Flight>().Where(x => x.UserId == User.id).Take(500).ToListAsync();
             return new ObservableCollection<Flight>(flights);
 
 
 
         }
 
-        public async Task<bool> Available(string displayName)
+        public async Task<bool> UserDataExists(string displayName)
         {
            var user = await GetUser(displayName);
 
             return user != null;
         }
+
+        public DateTime? LastUpdated { get { return User.TimeStamp; }}
 
         public async Task UpdateUser(User user)
         {
@@ -54,16 +59,23 @@ namespace LogbookApp.Data
             await Update(user);
         }
 
+        public async Task SetUserData(string displayName)
+        {
+            User = await GetUser(displayName);
+        }
+
+        public User User { get; set; }
+
         public async Task DeleteAcType(AcType acType)
         {
             await Delete(acType);
         }
 
 
-        public async Task<Lookups> GetLookups(int userId)
+        public async Task<Lookups> GetLookups()
         {
 
-            return await LoadLookups(userId);
+            return await LoadLookups(User.id);
             
 
 
@@ -243,11 +255,12 @@ namespace LogbookApp.Data
         }
 
 
-        public async Task InsertUser(User user)
+        public async Task CreateUserData(FlightData flightData, DateTime now)
         {
 
-            
-            await Insert(user);
+
+            await Insert(flightData.User);
+            // rest of data will sync later
         }
 
         

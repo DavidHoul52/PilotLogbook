@@ -64,7 +64,7 @@ namespace LogbookApp.FlightDataManagerTest
         public void ShouldNotSaveFlightOnlineIfOnlinenotAvailable()
         {
             SetupDataType(DataType.OffLine);
-            OnlineDataService.LastUpdated = OldTime;
+            OnlineDataService.User.TimeStamp = OldTime;
             Target.StartUp("");
             Target.SaveFlight(new Flight(), NewerTime);
             Assert.AreEqual(OldTime, OnlineDataService.LastUpdated);

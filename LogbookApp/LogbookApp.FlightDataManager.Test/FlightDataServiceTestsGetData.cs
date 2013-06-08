@@ -15,8 +15,9 @@ namespace LogbookApp.FlightDataManagerTest
         public override void Setup()
         {
             base.Setup();
-            Target.ConnectionStateChanged(true);
-            Target.GetData();
+            MockInternetTools.SetConnected(true);
+            Target.ConnectionStateChanged();
+            Target.LoadData();
         }
 
 

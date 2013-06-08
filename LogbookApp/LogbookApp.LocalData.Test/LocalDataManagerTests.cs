@@ -34,7 +34,7 @@ namespace LogbookApp.LocalData.Test
         [TestMethod]
         public void ShouldGetLookups()
         {
-            var lookups= target.GetLookups(0);
+            var lookups= target.GetLookups();
             Assert.IsNotNull(lookups);
         }
 

@@ -7,5 +7,6 @@ namespace LogbookApp.FlightDataManagement
     public interface ISyncManager
     {
         Task UpdateOnlineData(FlightData flightData, DateTime now);
+      
     }
 }

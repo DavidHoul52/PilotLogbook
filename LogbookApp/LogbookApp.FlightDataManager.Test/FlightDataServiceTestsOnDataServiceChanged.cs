@@ -22,16 +22,18 @@ namespace LogbookApp.FlightDataManagerTest
         public void IfChangesFromLocalToOnLineThenServiceShouldBeOnline()
         {
             SetupDataType(DataType.OffLine);
-            Target.ConnectionStateChanged(true);
-            Assert.AreEqual(DataType.OnLine, Target.DataService);
+            MockInternetTools.SetConnected(true);
+            Target.ConnectionStateChanged();
+            Assert.AreEqual(DataType.OnLine, Target.DataService.DataType);
         }
 
         [TestMethod]
         public void IfChangesFromLocalToOnLineThenShouldUpdateOnline()
         {
             SetupDataType(DataType.OffLine);
-            Target.ConnectionStateChanged(true);
-            Assert.AreEqual(DataType.OnLine,Target.DataService);
+            MockInternetTools.SetConnected(true);
+            Target.ConnectionStateChanged();
+            Assert.AreEqual(DataType.OnLine,Target.DataService.DataType);
         }
     }
 }

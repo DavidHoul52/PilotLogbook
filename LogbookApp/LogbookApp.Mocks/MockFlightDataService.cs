@@ -32,9 +32,10 @@ namespace LogbookApp.Mocks
             return DataType.OnLine;
         }}
 
+        
 
 
-        public async Task<Lookups> GetLookups(int userId)
+        public async Task<Lookups> GetLookups()
         {
             return _internalFlightData.Lookups;
         }
@@ -105,31 +106,34 @@ namespace LogbookApp.Mocks
 
         
 
-        public async Task InsertUser(User user)
+        public async Task CreateUserData(FlightData flightData, DateTime now)
         {
-            return;
+            _internalFlightData.User = flightData.User;
+            
         }
 
-        public async Task<User> GetUser(string displayName)
-        {
-            if (_exists)
-            {
-                _internalFlightData.User.DisplayName = displayName;
-                return _internalFlightData.User;
-            }
-            return null;
-        }
+        //public async Task<User> GetUser()
+        //{
+        //    if (_exists)
+        //    {
+        //        _internalFlightData.User.DisplayName = displayName;
+        //        return _internalFlightData.User;
+        //    }
+        //    return null;
+        //}
 
         
         public bool FlightsChanged { get; set; }
+        public User User { get { return _internalFlightData.User; }
+             set { _internalFlightData.User = value; }}
 
 
-        public async Task<ObservableCollection<Flight>> GetFlights(int userId)
+        public async Task<ObservableCollection<Flight>> GetFlights()
         {
             return _internalFlightData.Flights;
         }
 
-        public async Task<bool> Available(string displayName)
+        public async Task<bool> UserDataExists(string displayName)
         {
             return _exists;
         }
@@ -184,26 +188,26 @@ namespace LogbookApp.Mocks
 
         public async Task UpdateUser(User user)
         {
-            LastUpdated = user.TimeStamp;
+            _internalFlightData.User=user;
+        }
+
+        public async Task SetUserData(string displayName)
+        {
+            _internalFlightData.User.DisplayName = displayName;
         }
 
         public DateTime? LastUpdated
 
         {
-            get { return _lastUpdated; }
-            set
-            {
-                _lastUpdated = value;
-                _internalFlightData.User.TimeStamp = value;
-            }
+            get { return _internalFlightData.User.TimeStamp; }
+           
         }
 
 
         public void SetExists(bool exists)
         {
             _exists = exists;
-            if (LastUpdated == null)
-                LastUpdated = DateTime.MinValue;
+           
         }
 
         

@@ -13,5 +13,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
             UpdateOnlineDataCalled = true;
         }
+
+      
     }
 }

@@ -17,17 +17,24 @@ namespace LogbookApp.Data
     {
         DataType DataType { get; }
 
-        Task<Lookups> GetLookups(int userId);
-        Task<User> GetUser(string displayName);
-        Task<ObservableCollection<Flight>> GetFlights(int userId);
+        
+        Task<bool> UserDataExists(string displayName);
+        DateTime? LastUpdated { get; }
+        
+
+        Task<Lookups> GetLookups();
+        //Task<User> GetUser();
+        Task<ObservableCollection<Flight>> GetFlights();
       
-        Task InsertUser(User user);
+        Task CreateUserData(FlightData flightData, DateTime now);
         
         bool FlightsChanged { get; set; }
+        User User { get; }
 
-        Task<bool> Available(string displayName);
+
         Task UpdateUser(User user);
-     
-      
+
+
+        Task SetUserData(string displayName);
     }
 }

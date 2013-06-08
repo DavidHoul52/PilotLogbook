@@ -44,7 +44,7 @@ namespace LogbookApp.Mocks
 
         }
 
-        public override async Task<ObservableCollection<Flight>> GetFlights(int userId)
+        public override async Task<ObservableCollection<Flight>> GetFlights()
         {
             var lookups = _testLocalStorage.InternalFlightData.Lookups;
             var flights = _testLocalStorage.InternalFlightData.Flights;
@@ -54,7 +54,7 @@ namespace LogbookApp.Mocks
 
         }
 
-        public override async Task<Lookups> GetLookups(int userId)
+        public override async Task<Lookups> GetLookups()
         {
             return _testLocalStorage.InternalFlightData.Lookups;
             

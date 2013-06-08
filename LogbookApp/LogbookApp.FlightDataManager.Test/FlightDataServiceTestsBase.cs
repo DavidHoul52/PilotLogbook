@@ -43,7 +43,7 @@ namespace LogbookApp.FlightDataManagerTest
         protected void SetLastUpdates(DateTime? local, DateTime? online)
         {
             LocalTestData.LastUpdated = local ;
-            OnlineDataService.LastUpdated = online;
+            OnlineDataService.User.TimeStamp = online;
         }
 
         protected void SetupDataType(DataType dataType)
