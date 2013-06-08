@@ -31,7 +31,10 @@ namespace LogbookApp.Storage
             
         }
 
-        public DataType DataType { get; private set; }
+        public DataType DataType { get
+        {
+            return DataType.OffLine;
+        }}
         public virtual async Task<Lookups> GetLookups(int userId)
         {
             _lookups= await _localStorage.Restore<Lookups>(_lookupsFileName);

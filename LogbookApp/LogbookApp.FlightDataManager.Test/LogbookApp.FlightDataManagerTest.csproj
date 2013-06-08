@@ -109,12 +109,13 @@
     <SDKReference Include="TestPlatform, Version=11.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FlightDataServiceTestsGetAvailableDataService.cs" />
     <Compile Include="FlightDataServiceTestsGetData.cs" />
-    <Compile Include="FlightDataServiceTestsInitialLoadNew.cs" />
+    <Compile Include="FlightDataServiceTestsOnDataServiceChanged.cs" />
+    <Compile Include="FlightDataServiceTestsStartupNewUserConnected.cs" />
+    <Compile Include="FlightDataServiceTestsStartupNewUserNotConnected.cs" />
     <Compile Include="FlightDataServiceTestsSave.cs" />
     <Compile Include="FlightDataServiceTestsBase.cs" />
-    <Compile Include="FlightDataServiceTestsInitialLoad.cs" />
+    <Compile Include="FlightDataServiceTestsStartupLoadDataServiceLastUpdates.cs" />
     <Compile Include="FlightDataServiceTestsSyncLocalData.cs" />
     <Compile Include="MockInternetTools.cs" />
     <Compile Include="MockSyncManager.cs" />

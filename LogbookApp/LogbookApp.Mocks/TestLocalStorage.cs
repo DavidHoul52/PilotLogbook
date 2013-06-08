@@ -10,8 +10,9 @@ namespace LogbookApp.Mocks
     public class TestLocalStorage : LocalStorageBase, ILocalStorage
     {
         private User _user;
-        private DateTime? _timeStamp;
+        
         private FlightData _internalFlightData;
+        private string _userName;
         
 
         public TestLocalStorage()
@@ -65,7 +66,10 @@ namespace LogbookApp.Mocks
         public async Task<User> RestoreUser(string filename)
         {
             if (Exists)
-              return _internalFlightData.User;
+            {
+                _internalFlightData.User.DisplayName = _userName;
+                return _internalFlightData.User;
+            }
             return null;
         }
 
@@ -84,8 +88,13 @@ namespace LogbookApp.Mocks
 
         public void SetTimeStamp(DateTime? timeStamp)
         {
-            _timeStamp = timeStamp;
+            _internalFlightData.User.TimeStamp = timeStamp;
 
+        }
+
+        public void SetUserName(string userName)
+        {
+            _userName = userName;
         }
     }
 }

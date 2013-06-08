@@ -7,9 +7,9 @@ namespace LogbookApp.Data
     public interface IFlightDataManager
     {
         FlightData FlightData { get; set; }
-        DataType DataType { get; }
+    
         bool FlightsChanged { get; set; }
-        Task<bool> GetData(DateTime now);
+        Task GetData();
         Task GetLookups();
         Task InsertFlight(Flight flight,DateTime updateTime);
         Task DeleteFlight(Flight flight, DateTime updateTime);
@@ -23,9 +23,9 @@ namespace LogbookApp.Data
         Task UpdateAcType(AcType acType, DateTime upDateTime);
         Task InsertAcType(AcType acType, DateTime upDateTime);
         Task InsertUser(User user, DateTime upDateTime);
-        Task GetUser();
+  
         Task GetFlights();
-        Task<bool> Available();
+        
 
         Task DeleteAcType(AcType item, DateTime upDateTime);
     }

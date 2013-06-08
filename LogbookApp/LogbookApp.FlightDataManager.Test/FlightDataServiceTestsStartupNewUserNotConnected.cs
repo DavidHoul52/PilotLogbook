@@ -3,27 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LogbookApp.Data;
 using LogbookApp.Mocks;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace LogbookApp.FlightDataManagerTest
 {
     [TestClass]
-    public class FlightDataServiceTestsInitialLoadNew : FlightDataServiceTestsBase
+    public class FlightDataServiceTestsStartupNewUserNotConnected : FlightDataServiceTestsBase
     {
         [TestInitialize]
         public override void Setup()
         {
             base.Setup();
+            MockInternetTools.SetConnected(false);
+            TestLocalStorage.SetExists(false);
+            Target.StartUp("jack");
+        }
+
+        [TestMethod]
+        public void FlightDataServiceShouldBeOffline()
+        {
+
+            Assert.AreEqual(DataType.OffLine, Target.DataService.DataType);
+
         }
 
         [TestMethod]
         public void IfOfflineAndNoLocalThenCreateNewUser()
         {
 
-            
-            MockInternetTools.SetConnected(false);
-            Target.StartUp("jack");
             Assert.AreEqual("jack",Target.FlightData.User.DisplayName);
 
         }
@@ -33,8 +42,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
 
 
-            MockInternetTools.SetConnected(false);
-            Target.StartUp("jack");
+        
             Assert.IsNotNull(Target.FlightData.Lookups);
 
         }
@@ -44,8 +52,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
 
 
-            MockInternetTools.SetConnected(false);
-            Target.StartUp("jack");
+       
             Assert.IsNotNull(Target.FlightData.Lookups.AcTypes);
 
         }
@@ -55,8 +62,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
 
 
-            MockInternetTools.SetConnected(false);
-            Target.StartUp("jack");
+          
             Assert.IsNotNull(Target.FlightData.Lookups.Aircraft);
 
         }
@@ -66,8 +72,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
 
 
-            MockInternetTools.SetConnected(false);
-            Target.StartUp("jack");
+         
             Assert.IsNotNull(Target.FlightData.Lookups.Airfields);
 
         }
@@ -77,8 +82,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
 
 
-            MockInternetTools.SetConnected(false);
-            Target.StartUp("jack");
+        
             Assert.IsNotNull(Target.FlightData.Lookups.Capacity);
 
         }

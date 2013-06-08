@@ -17,12 +17,15 @@ namespace LogbookApp.FlightDataManagerTest
             base.Setup();
         }
 
+      
+
 
         [TestMethod]
         public void OnlineShouldSaveFlightOnlineAndSetLastupdated()
         {
+            SetupDataType(DataType.OnLine);
             SetLastUpdates(null,OldTime);
-            OnlineDataService.SetAvailable(true);
+            Target.StartUp("");
             Target.SaveFlight(new Flight(),NewerTime);
             Assert.AreEqual(NewerTime,OnlineDataService.LastUpdated);
         }
@@ -31,8 +34,9 @@ namespace LogbookApp.FlightDataManagerTest
         [TestMethod]
         public void OnlineShouldSaveFlightLocalAndSetLastupdated()
         {
+            SetupDataType(DataType.OnLine);
             SetLastUpdates(null, OldTime);
-            OnlineDataService.SetAvailable(true);
+            Target.StartUp("");
             Target.SaveFlight(new Flight(), NewerTime);
             Assert.AreEqual(NewerTime, LocalTestData.LastUpdated);
 
@@ -43,10 +47,10 @@ namespace LogbookApp.FlightDataManagerTest
         [TestMethod]
         public void OfflineShouldSaveFlightLocalAndSetLastupdated()
         {
-
-
+            
+            SetupDataType(DataType.OffLine);
             SetLastUpdates(null, OldTime);
-            OnlineDataService.SetAvailable(false);
+            Target.StartUp("");
             Target.SaveFlight(new Flight(), NewerTime);
             Assert.AreEqual(NewerTime, LocalTestData.LastUpdated);
 
@@ -54,14 +58,14 @@ namespace LogbookApp.FlightDataManagerTest
 
         }
 
-
+      
 
         [TestMethod] 
         public void ShouldNotSaveFlightOnlineIfOnlinenotAvailable()
         {
-
+            SetupDataType(DataType.OffLine);
             OnlineDataService.LastUpdated = OldTime;
-            OnlineDataService.SetAvailable(false);
+            Target.StartUp("");
             Target.SaveFlight(new Flight(), NewerTime);
             Assert.AreEqual(OldTime, OnlineDataService.LastUpdated);
 
@@ -73,9 +77,10 @@ namespace LogbookApp.FlightDataManagerTest
         [TestMethod]
         public void WhenSavingFlightShouldUpdateTimeStamp()
         {
-
+            SetupDataType(DataType.OnLine);
+            
             SetLastUpdates(null, OldTime);
-            OnlineDataService.SetAvailable(true);
+            Target.StartUp("");
             var flight = new Flight {Date= new DateTime(2013,8,1)};
             Target.SaveFlight(flight, NewerTime);
             Assert.AreEqual(NewerTime,flight.TimeStamp);

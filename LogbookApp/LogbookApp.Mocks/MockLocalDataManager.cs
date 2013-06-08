@@ -36,7 +36,11 @@ namespace LogbookApp.Mocks
         {
             get { return FlightData.User.TimeStamp; }
 
-            set { FlightData.User.TimeStamp = value; }
+            set
+            {
+                _testLocalStorage.SetTimeStamp(value);
+                FlightData.User.TimeStamp = value;
+            }
 
         }
 

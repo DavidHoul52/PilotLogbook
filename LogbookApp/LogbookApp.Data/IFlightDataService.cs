@@ -8,7 +8,6 @@ namespace LogbookApp.Data
 {
     public enum DataType
     {
-        None,
         OffLine,
         OnLine
     };

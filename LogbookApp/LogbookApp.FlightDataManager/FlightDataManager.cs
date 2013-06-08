@@ -17,7 +17,7 @@ namespace LogbookApp.FlightDataManagement
         private UserManager _userManager;
         private ISyncManager _syncManager;
         private readonly IInternetTools _internetTools;
-        private IFlightDataService _dataService;
+        public IFlightDataService DataService { get; private set; }
 
 
         public FlightDataManager(IOnlineFlightData onLineData, LocalDataService localData,
@@ -37,111 +37,127 @@ namespace LogbookApp.FlightDataManagement
 
 
         public FlightData FlightData { get; set; }
-        public DataType DataType { get; private set; }
+    
 
          public async void StartUp(string displayName)
         {
             _userManager.DisplayName = displayName;
-            var connected = _internetTools.IsConnected;
-             if (connected)
-                 _dataService = _onLineData;
-             else
-                 _dataService = _localData;
+            var localUser = await _localData.GetUser(displayName); 
+            
+            var onLineUser= await GetOnLineUser();
+            
+            
+            var localNewer = (localUser != null && onLineUser != null 
+                && (onLineUser.TimeStamp == null || (localUser.TimeStamp > onLineUser.TimeStamp)));
              
-             FlightData.User = await _userManager.GetUser(_dataService, DateTime.Now);
-             if (!FlightData.User.IsNew)
+
+             if (!_internetTools.IsConnected || localNewer)
              {
-                 await GetData(_dataService);
+                 SetDataService(DataType.OffLine);
+                 if (onLineUser != null)
+                     await _syncManager.UpdateOnlineData(FlightData, DateTime.Now);
+             }
+             else
+             {
+                 SetDataService(DataType.OnLine);
+                 
              }
 
+             FlightData.User = await _userManager.GetUser(DataService, DateTime.Now);
+             if (!FlightData.User.IsNew)
+             {
+                 await GetData();
+             }
 
-
-        }
-        
-
-
-        public async Task<bool> GetData(DateTime now)
-        {
-            return await PerformDataGetAction(async (flightDataService) =>
-            {
-                if (flightDataService != null)
-                {
-                     await GetData(flightDataService);
-                }
-
-            });
           
-            
+
         }
 
-        private async Task GetData(IFlightDataService flightDataService)
+        private async Task<User> GetOnLineUser()
         {
-
-            
-             
-            await GetLookups(flightDataService);
-            await GetFlights(flightDataService);
+            if (_internetTools.IsConnected)
+                return _onLineData.GetUser(_userManager.DisplayName).Result;
+              
+            return null;
         }
 
 
-        private async Task<bool> PerformDataGetAction(Func<IFlightDataService, Task> dataAction)
+        public void ConnectionStateChanged(bool isConnected)
         {
-            var availableData = await GetAvailableDataService();
-            
-            if (availableData != null)
-            {
-                await dataAction(availableData);
-                return true;
-            }
-            return false;
-        }
-
-        public async Task<IFlightDataService> GetAvailableDataService()
-        {
-            var localUser = await _localData.GetUser("_displayName");// TODO:
-            var localAvailable = (localUser != null);
-            var onLineUser = await _onLineData.GetUser("_displayName");// TODO:
-            if (onLineUser == null)
-            {
-                onLineUser = await SavedUserOnline();
-                if (onLineUser != null)
-                    InsertUserOffline(onLineUser);
-
-
-            }
-            var onLineAvailable = (onLineUser != null);
-
-            var localNewer = (localAvailable && onLineAvailable && localUser.TimeStamp
-                > onLineUser.TimeStamp);
-            if (!onLineAvailable && localAvailable || (localAvailable && localNewer))
-                DataType=DataType.OffLine;
-            else if (onLineAvailable)
-                DataType = DataType.OnLine;
+            if (isConnected)
+                SetDataService(DataType.OnLine);
+                
             else
-                DataType = DataType.None;
+                SetDataService(DataType.OffLine);
+        }
 
 
-            if (DataType == DataType.OffLine && onLineAvailable)
+        public void SetDataService(DataType dataType)
+        {
+            switch (dataType)
             {
-                await GetData(_localData);
-                await _syncManager.UpdateOnlineData(FlightData, DateTime.Now);
-            }
-
-            switch (DataType)
-            {
-                case DataType.None:
-                    return null;
                 case DataType.OffLine:
-                    return _localData;
+                     DataService = _localData;
+                    break;
                 case DataType.OnLine:
-                    return _onLineData;
+                     DataService = _onLineData;
+                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException("dataType");
             }
+            
+               
+               
+        }
+
+
+        public async Task GetData()
+        {
+            await GetLookups();
+            await GetFlights();
+        }
+
+
+        private async Task PerformDataGetAction(Func<IFlightDataService, Task> dataAction)
+        {
+            await dataAction(DataService);
+         
+        }
+
+        //public async Task<IFlightDataService> GetAvailableDataService()
+        //{
+        //    var localUser = await _localData.GetUser("_displayName");// TODO:
+        //    var localAvailable = (localUser != null);
+        //    var onLineUser = await _onLineData.GetUser("_displayName");// TODO:
+        //    if (onLineUser == null)
+        //    {
+        //        onLineUser = await SavedUserOnline();
+        //        if (onLineUser != null)
+        //            InsertUserOffline(onLineUser);
+
+
+        //    }
+        //    var onLineAvailable = (onLineUser != null);
+
+        //    var localNewer = (localAvailable && onLineAvailable && localUser.TimeStamp
+        //        > onLineUser.TimeStamp);
+        //    if (!onLineAvailable && localAvailable || (localAvailable && localNewer))
+        //        _dataService.DataType = DataType.OffLine;
+        //    else if (onLineAvailable)
+        //        _dataService.DataType = DataType.OnLine;
+         
+
+        //    if (_dataService.DataType == DataType.OffLine && onLineAvailable)
+        //    {
+        //        await GetData(_localData);
+        //        await _syncManager.UpdateOnlineData(FlightData, DateTime.Now);
+        //    }
+
+            
 
         
 
-        }
+        //}
 
 
       
@@ -161,16 +177,8 @@ namespace LogbookApp.FlightDataManagement
 
         public async Task GetLookups()
         {
-            await PerformDataGetAction(async (flightDataService) =>
             {
-                await GetLookups(flightDataService);
-            });
-        }
-
-        private async Task GetLookups(IFlightDataService flightDataService)
-        {
-            {
-                FlightData.Lookups = await flightDataService.GetLookups(FlightData.User.id);
+                FlightData.Lookups = await DataService.GetLookups(FlightData.User.id);
             }
         }
 
@@ -220,11 +228,11 @@ namespace LogbookApp.FlightDataManagement
         {
             FlightData.User.TimeStamp = upDateTime;
             entity.TimeStamp = upDateTime;
-            var availableData =await GetAvailableDataService();
-            if (DataType == DataType.OnLine)
+            
+            if (DataService.DataType == DataType.OnLine)
             {
-                await updateAction(availableData as IOnlineFlightData);
-                await availableData.UpdateUser(FlightData.User);
+                await updateAction(_onLineData);
+                await _onLineData.UpdateUser(FlightData.User);
             }
 
             await (_localData.SaveFlightData(FlightData));
@@ -310,34 +318,17 @@ namespace LogbookApp.FlightDataManagement
         }
 
 
-        public async Task GetUser()
-        {
-            await PerformDataGetAction(async (flightservice) =>
-               FlightData.User = await flightservice.GetUser("_displayName")); // TODO:
-        }
+       
 
         
         public bool FlightsChanged { get; set; }
+
+
         public async Task GetFlights()
         {
-            await PerformDataGetAction(async (flightservice) =>
-            {
-                await GetFlights(flightservice);
-
-            });
-            
-            
+            FlightData.Flights = await DataService.GetFlights(FlightData.User.id);
         }
 
-        private async Task GetFlights(IFlightDataService flightservice)
-        {
-            FlightData.Flights = await flightservice.GetFlights(FlightData.User.id);
-        }
-
-        public async Task<bool> Available()
-        {
-            return DataType != DataType.None;
-        }
 
         public async Task DeleteAcType(AcType acType, DateTime upDateTime)
         {

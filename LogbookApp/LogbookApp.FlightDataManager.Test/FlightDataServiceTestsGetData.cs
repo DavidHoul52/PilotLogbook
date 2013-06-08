@@ -15,14 +15,15 @@ namespace LogbookApp.FlightDataManagerTest
         public override void Setup()
         {
             base.Setup();
+            Target.ConnectionStateChanged(true);
+            Target.GetData();
         }
 
 
         [TestMethod]
         public void ShouldGetFlights()
         {
-            OnlineDataService.SetAvailable(true);
-            Target.GetData(Now);
+         
             Assert.IsNotNull(Target.FlightData.Flights);
 
 
@@ -34,8 +35,7 @@ namespace LogbookApp.FlightDataManagerTest
         [TestMethod]
         public void ShouldGetLookups()
         {
-            OnlineDataService.SetAvailable(true);
-            Target.GetData(Now);
+        
             Assert.IsNotNull(Target.FlightData.Lookups);
 
 
@@ -46,8 +46,7 @@ namespace LogbookApp.FlightDataManagerTest
         [TestMethod]
         public void ShouldGetUser()
         {
-            OnlineDataService.SetAvailable(true);
-            Target.GetData(Now);
+            
             Assert.IsNotNull(Target.FlightData.User);
 
 

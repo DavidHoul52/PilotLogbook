@@ -17,18 +17,20 @@ namespace LogbookApp.FlightDataManagerTest
         public override void Setup()
         {
             base.Setup();
+            TestLocalStorage.SetUserName("");
         }
 
         
         [TestMethod]
 
-        public async Task ShouldUpdateOnlineDataCalled()
+        public void ShouldUpdateOnlineDataCalled()
         {
+            SetupDataType(DataType.OnLine);
             LocalTestData.FlightData.Flights = new ObservableCollection<Flight> { new Flight() };
             OnLineDataServiceFlightData.Flights = new ObservableCollection<Flight> { new Flight() };
             SetLastUpdates(NewerTime, OldTime);
-            OnlineDataService.SetAvailable(true);
-            await Target.GetAvailableDataService();
+            Target.StartUp("");
+            
 
             Assert.IsTrue(MockSyncManager.UpdateOnlineDataCalled);
 

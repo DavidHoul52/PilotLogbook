@@ -11,14 +11,14 @@ namespace LogbookApp.Mocks
     public class MockFlightDataService : IOnlineFlightData
     {
         
-        private bool _available;
+        private bool _exists;
         private FlightData _internalFlightData;
         private DateTime? _lastUpdated;
 
         public MockFlightDataService(DataType dataType, FlightData internalFlightData)
         {
-            DataType = dataType;
-            _available = false;
+            
+            _exists = false;
             _internalFlightData = internalFlightData;
 
         }
@@ -27,7 +27,10 @@ namespace LogbookApp.Mocks
         {
             
         }
-        public DataType DataType { get; private set; }
+        public DataType DataType { get
+        {
+            return DataType.OnLine;
+        }}
 
 
 
@@ -102,16 +105,18 @@ namespace LogbookApp.Mocks
 
         
 
-        public Task InsertUser(User user)
+        public async Task InsertUser(User user)
         {
-            return default(Task);
+            return;
         }
 
         public async Task<User> GetUser(string displayName)
         {
-            if (_available)
-
+            if (_exists)
+            {
+                _internalFlightData.User.DisplayName = displayName;
                 return _internalFlightData.User;
+            }
             return null;
         }
 
@@ -126,7 +131,7 @@ namespace LogbookApp.Mocks
 
         public async Task<bool> Available(string displayName)
         {
-            return _available;
+            return _exists;
         }
 
         public async Task DeleteAcType(AcType acType)
@@ -194,9 +199,9 @@ namespace LogbookApp.Mocks
         }
 
 
-        public void SetAvailable(bool available)
+        public void SetExists(bool exists)
         {
-            _available = available;
+            _exists = exists;
             if (LastUpdated == null)
                 LastUpdated = DateTime.MinValue;
         }
