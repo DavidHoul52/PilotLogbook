@@ -101,9 +101,11 @@ namespace LogbookApp.FlightDataManagement
 
             if (DataService.DataType == DataType.OnLine)
             {
-                await LoadData(DataService);
+                var onlineUser = await DataService.GetUser(DisplayName);
+                var onlineLastUpdated = onlineUser.TimeStamp;
+               // await LoadData(DataService);
 
-                if (DetectNeedForSyncUpdate())
+                if (DetectNeedForSyncUpdate(onlineLastUpdated))
                    await _syncManager.UpdateOnlineData(FlightData, DateTime.Now);
             }
 
@@ -112,10 +114,10 @@ namespace LogbookApp.FlightDataManagement
            
         }
 
-        public bool DetectNeedForSyncUpdate()
+        public bool DetectNeedForSyncUpdate(DateTime? onlineLastUpdated)
         {
-            return _onLineData.LastUpdated == null || (LocalDataService.LastUpdated >
-                _onLineData.LastUpdated);
+            return onlineLastUpdated == null || (LocalDataService.LastUpdated >
+                onlineLastUpdated);
 
         }
 
