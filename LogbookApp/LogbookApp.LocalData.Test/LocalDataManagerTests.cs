@@ -17,6 +17,7 @@ namespace LogbookApp.LocalData.Test
         private string _flightsFileName = "flights";
         private string _lookupsFileName = "lookups";
         private FlightData _flightData;
+        private string displayName = "";
 
         [TestInitialize]
         public void Setup()
@@ -26,7 +27,7 @@ namespace LogbookApp.LocalData.Test
             testLocalStorage.AllSaved = false;
             _flightData = new FlightData();
 
-            target = new LocalDataService(testLocalStorage, _flightsFileName, _lookupsFileName, "");
+            target = new LocalDataService(testLocalStorage, _flightsFileName, _lookupsFileName, "",displayName);
             
            
         }
@@ -34,7 +35,7 @@ namespace LogbookApp.LocalData.Test
         [TestMethod]
         public void ShouldGetLookups()
         {
-            var lookups= target.GetLookups();
+            var lookups= target.GetLookups(0);
             Assert.IsNotNull(lookups);
         }
 

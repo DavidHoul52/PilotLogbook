@@ -10,7 +10,7 @@ namespace LogbookApp.FlightDataManagerTest
     {
         protected FlightDataManager Target;
         protected MockFlightDataService OnlineDataService;
-        protected MockLocalDataManager LocalTestData;
+        protected MockLocalDataService LocalTestData;
         
         protected DateTime OldTime;
         protected DateTime NewerTime;
@@ -20,16 +20,17 @@ namespace LogbookApp.FlightDataManagerTest
         protected MockSyncManager MockSyncManager;
         protected FlightData OnLineDataServiceFlightData;
         protected MockInternetTools MockInternetTools;
+        protected string DisplayName = "";
         
         public virtual void Setup()
         {
             OnLineDataServiceFlightData = new FlightData();
-            OnlineDataService = new MockFlightDataService(DataType.OnLine, OnLineDataServiceFlightData);
+            OnlineDataService = new MockFlightDataService(DataType.OnLine, OnLineDataServiceFlightData, DisplayName);
             
             TestLocalStorage = new TestLocalStorage { };
             TestLocalStorage.SetExists(true);
             TestLocalStorage.SetUserName("");
-            LocalTestData = new MockLocalDataManager(TestLocalStorage, "", "", "");
+            LocalTestData = new MockLocalDataService(TestLocalStorage, "", "", "", DisplayName);
             
             User = new User();
             OldTime = new DateTime(2012, 1, 1);
@@ -40,10 +41,10 @@ namespace LogbookApp.FlightDataManagerTest
             Target = new FlightDataManager(OnlineDataService, LocalTestData,  MockSyncManager, MockInternetTools);
         }
 
-        protected void SetLastUpdates(DateTime? local, DateTime? online)
+        protected void SetLastUpdatesLocalOnline(DateTime? local, DateTime? online)
         {
-            LocalTestData.LastUpdated = local ;
-            OnlineDataService.User.TimeStamp = online;
+            LocalTestData.SetLastUpdated(local) ;
+            OnlineDataService.SetLastUpdated(online);
         }
 
         protected void SetupDataType(DataType dataType)

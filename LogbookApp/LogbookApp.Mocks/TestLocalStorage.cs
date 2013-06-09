@@ -13,12 +13,14 @@ namespace LogbookApp.Mocks
         
         private FlightData _internalFlightData;
         private string _userName;
+        private User _internalUser;
         
 
         public TestLocalStorage()
             : base()
         {
             _internalFlightData = new FlightData();
+            _internalUser = new User();
 
         }
 
@@ -38,8 +40,11 @@ namespace LogbookApp.Mocks
                 _internalFlightData.Flights = data as ObservableCollection<Flight>;
             if (typeof(T) == typeof(Lookups))
                 _internalFlightData.Lookups = data as Lookups;
-            if (typeof(T) == typeof(User))
-                _internalFlightData.User = data as User;
+            if (typeof (T) == typeof (User))
+            {
+
+                _internalUser = new User(data as User);
+            }
 
 
         }
@@ -67,8 +72,8 @@ namespace LogbookApp.Mocks
         {
             if (Exists)
             {
-                _internalFlightData.User.DisplayName = _userName;
-                return _internalFlightData.User;
+                _internalUser.DisplayName = _userName;
+                return  new User(_internalUser);
             }
             return null;
         }
@@ -88,7 +93,7 @@ namespace LogbookApp.Mocks
 
         public void SetTimeStamp(DateTime? timeStamp)
         {
-            _internalFlightData.User.TimeStamp = timeStamp;
+            _internalUser.TimeStamp = timeStamp;
 
         }
 

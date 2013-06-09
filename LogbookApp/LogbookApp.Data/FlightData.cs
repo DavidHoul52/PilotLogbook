@@ -8,6 +8,7 @@ namespace LogbookApp.Data
     public class FlightData
     {
         private ObservableCollection<Flight> _flights;
+        private User _user;
 
         public FlightData()
         {
@@ -40,7 +41,15 @@ namespace LogbookApp.Data
         }
 
         public Lookups Lookups { get; set; }
-        public User User { get; set; }
+
+        public User User
+        {
+            get { return _user; }
+            set
+            {
+                _user = value;
+            }
+        }
 
         public void AddAcType(AcType acType)
         {

@@ -16,7 +16,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
             base.Setup();
             MockInternetTools.SetConnected(true);
-            Target.ConnectionStateChanged();
+            Target.CheckConnectionState();
             Target.LoadData();
         }
 

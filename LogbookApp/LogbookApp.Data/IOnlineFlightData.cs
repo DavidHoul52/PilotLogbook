@@ -31,5 +31,6 @@ namespace LogbookApp.Data
         Task InsertAcType(AcType acType);
 
         Task DeleteAcType(AcType acType);
+        Task UpdateUserFromLocal(User localUser);
     }
 }

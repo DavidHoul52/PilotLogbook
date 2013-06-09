@@ -20,21 +20,21 @@ namespace LogbookApp.Data
         
         Task<bool> UserDataExists(string displayName);
         DateTime? LastUpdated { get; }
-        
 
-        Task<Lookups> GetLookups();
-        //Task<User> GetUser();
-        Task<ObservableCollection<Flight>> GetFlights();
+
+        Task<Lookups> GetLookups(int userId);
+
+        Task<ObservableCollection<Flight>> GetFlights(int userId);
       
         Task CreateUserData(FlightData flightData, DateTime now);
         
         bool FlightsChanged { get; set; }
-        User User { get; }
+      
 
 
         Task UpdateUser(User user);
 
 
-        Task SetUserData(string displayName);
+        Task<User> GetUser(string displayName);
     }
 }

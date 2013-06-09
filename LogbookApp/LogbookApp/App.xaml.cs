@@ -105,7 +105,7 @@ namespace LogbookApp
 
                 var onlineDataService = new MobileService(DisplayName).Client;
                 Data = new FlightDataManager(onlineDataService,
-                    new LocalDataService(new LocalStorage(), "flights.xml","lookups.xml","user.xml"),
+                    new LocalDataService(new LocalStorage(), "flights.xml","lookups.xml","user.xml",DisplayName),
                      new SyncManager(onlineDataService), new InternetTools()
                      );
                await Data.StartUp(DisplayName);

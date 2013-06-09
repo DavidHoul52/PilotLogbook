@@ -2,7 +2,7 @@
 {
     public interface IInternetTools
     {
-        event InternetTools.InternetConnectionChangedHandler InternetConnectionChanged;
+        //event InternetTools.InternetConnectionChangedHandler InternetConnectionChanged;
         bool IsConnected { get; }
     }
 }

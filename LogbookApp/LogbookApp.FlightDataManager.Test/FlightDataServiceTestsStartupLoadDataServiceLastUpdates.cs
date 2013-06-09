@@ -26,7 +26,7 @@ namespace LogbookApp.FlightDataManagerTest
             MockInternetTools.SetConnected(true);
             OnlineDataService.SetExists(true);
             TestLocalStorage.SetExists(true);
-            SetLastUpdates(OldTime,NewerTime);
+            SetLastUpdatesLocalOnline(OldTime,NewerTime);
             Target.StartUp(_displayName);
             Assert.AreEqual(DataType.OnLine, Target.DataService.DataType);
 
@@ -36,22 +36,19 @@ namespace LogbookApp.FlightDataManagerTest
         [TestMethod]
         public void IfOnLineAndLocalDataNewerLoadLocal()
         {
-            MockInternetTools.SetConnected(true);
-            OnlineDataService.SetExists(true);
-            TestLocalStorage.SetExists(true);
-            SetLastUpdates(NewerTime, OldTime);
+            base.SetupDataType(DataType.OnLine);
+            SetLastUpdatesLocalOnline(NewerTime, OldTime);
             Target.StartUp(_displayName);
-            Assert.AreEqual(DataType.OffLine, Target.DataService.DataType);
+            Assert.AreEqual(Target.DataService.DataType, Target.DataService.DataType);
 
         }
 
         [TestMethod]
         public void IfOnLineAndLocalDataNewerUpateOnlineFromLocal()
         {
-            MockInternetTools.SetConnected(true);
-            OnlineDataService.SetExists(true);
-            TestLocalStorage.SetExists(true);
-            SetLastUpdates(NewerTime, OldTime);
+        
+            base.SetupDataType(DataType.OnLine);
+            SetLastUpdatesLocalOnline(NewerTime, OldTime);
             Target.StartUp(_displayName);
             Assert.IsTrue(MockSyncManager.UpdateOnlineDataCalled);
             
@@ -63,16 +60,15 @@ namespace LogbookApp.FlightDataManagerTest
 
       
 
-        [TestMethod]
-        public void OnlineDataShouldGetUserLastUpdated()  // see also UserManagerTests
-        {
-            MockInternetTools.SetConnected(true);
-            OnlineDataService.SetExists(true);
-            Target.StartUp(_displayName);
-            Assert.IsNotNull((OnlineDataService.LastUpdated));
+        //[TestMethod]
+        //public void OnlineDataShouldGetUserLastUpdated()  // see also UserManagerTests
+        //{
+        //    base.SetupDataType(DataType.OnLine);
+        //    Target.StartUp(_displayName);
+        //    Assert.IsNotNull((OnlineDataService.LastUpdated));
 
 
-        }
+        //}
 
      
 
@@ -85,7 +81,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
             MockInternetTools.SetConnected(true);
             OnlineDataService.SetExists(true);
-            SetLastUpdates(OldTime, NewerTime);
+            SetLastUpdatesLocalOnline(OldTime, NewerTime);
             Target.StartUp(_displayName);
             Assert.IsFalse(MockSyncManager.UpdateOnlineDataCalled);
             
@@ -98,7 +94,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
             MockInternetTools.SetConnected(true);
             OnlineDataService.SetExists(true);
-            SetLastUpdates(NewerTime, null);
+            SetLastUpdatesLocalOnline(NewerTime, null);
             Target.StartUp(_displayName);
             Assert.IsTrue(MockSyncManager.UpdateOnlineDataCalled);
 

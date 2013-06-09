@@ -66,7 +66,7 @@ namespace LogbookApp
 
         public async Task<User> RestoreUser(string filename)
         {
-            var user = await Restore<User>(filename);
+            var user = await Restore<User>(filename).ConfigureAwait(false);
             return user;
         }
 

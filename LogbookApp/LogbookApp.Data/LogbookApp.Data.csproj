@@ -109,6 +109,7 @@
     <Compile Include="Aircraft.cs" />
     <Compile Include="AircraftClass.cs" />
     <Compile Include="Airfield.cs" />
+    <Compile Include="BaseOnlineFlightDataService.cs" />
     <Compile Include="Capacity.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="Flight.cs" />

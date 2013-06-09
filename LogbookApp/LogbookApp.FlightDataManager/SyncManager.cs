@@ -13,15 +13,16 @@ namespace LogbookApp.FlightDataManagement
         public SyncManager(IOnlineFlightData onLineData)
         {
             _onLineData = onLineData;
+            
         }
 
         public async Task UpdateOnlineData(FlightData flightData, DateTime now)
         {
             await SyncLookups(flightData.Lookups, flightData.User.id);
-            var onLineFlights = await _onLineData.GetFlights();
+            var onLineFlights = await _onLineData.GetFlights(flightData.User.id);
             await SyncTable<Flight>(flightData.Flights, onLineFlights);
             flightData.User.TimeStamp = now;
-            await _onLineData.UpdateUser(flightData.User);
+            await _onLineData.UpdateUserFromLocal(flightData.User);
 
         }
 
@@ -29,7 +30,7 @@ namespace LogbookApp.FlightDataManagement
 
         private async Task SyncLookups(Lookups lookups, int userId)
         {
-            var onLineLookups = await _onLineData.GetLookups();
+            var onLineLookups = await _onLineData.GetLookups(userId);
             await SyncTable(lookups.Aircraft, onLineLookups.Aircraft);
             await SyncTable(lookups.Airfields, onLineLookups.Airfields);
              

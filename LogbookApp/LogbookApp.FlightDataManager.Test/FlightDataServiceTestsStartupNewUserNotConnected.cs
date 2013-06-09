@@ -16,9 +16,10 @@ namespace LogbookApp.FlightDataManagerTest
         public override void Setup()
         {
             base.Setup();
-            MockInternetTools.SetConnected(false);
-            TestLocalStorage.SetExists(false);
-            Target.StartUp("jack");
+            base.SetupDataType(DataType.OffLine);
+            
+            //TestLocalStorage.SetExists(false);
+            Target.StartUp(DisplayName);
         }
 
         [TestMethod]
@@ -33,7 +34,7 @@ namespace LogbookApp.FlightDataManagerTest
         public void IfOfflineAndNoLocalThenCreateNewUser()
         {
 
-            Assert.AreEqual("jack",Target.FlightData.User.DisplayName);
+            Assert.AreEqual(DisplayName, Target.FlightData.User.DisplayName);
 
         }
 

@@ -23,12 +23,12 @@ namespace LogbookApp.FlightDataManagerTest
         
         [TestMethod]
 
-        public void ShouldUpdateOnlineDataCalled()
+        public void ShouldUpdateOnlineDataCalled() // ????
         {
             SetupDataType(DataType.OnLine);
             LocalTestData.FlightData.Flights = new ObservableCollection<Flight> { new Flight() };
             OnLineDataServiceFlightData.Flights = new ObservableCollection<Flight> { new Flight() };
-            SetLastUpdates(NewerTime, OldTime);
+            SetLastUpdatesLocalOnline(NewerTime, OldTime);
             Target.StartUp("");
             
 

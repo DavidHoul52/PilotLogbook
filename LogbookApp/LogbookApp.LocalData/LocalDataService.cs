@@ -10,7 +10,7 @@ using LogbookApp.Data;
 
 namespace LogbookApp.Storage
 {
-    public class LocalDataService : IFlightDataService
+    public class LocalDataService : BaseOnlineFlightDataService, IFlightDataService
     {
         private readonly ILocalStorage _localStorage;
         private readonly string _flightsFileName;
@@ -18,10 +18,12 @@ namespace LogbookApp.Storage
         private readonly string _userFileName;
         
         private Lookups _lookups;
+        protected User _user;
 
 
         public LocalDataService(ILocalStorage localStorage, string flightsFileName, string lookupsFileName,
-            string userFileName)
+            string userFileName, string displayName)
+            : base(displayName)
         {
             _localStorage = localStorage;
             _flightsFileName = flightsFileName;
@@ -36,9 +38,9 @@ namespace LogbookApp.Storage
             return DataType.OffLine;
         }}
 
-        
 
-        public virtual async Task<Lookups> GetLookups()
+
+        public virtual async Task<Lookups> GetLookups(int userId)
         {
             _lookups= await _localStorage.Restore<Lookups>(_lookupsFileName);
             return _lookups;
@@ -62,15 +64,22 @@ namespace LogbookApp.Storage
      
         public async Task CreateUserData(FlightData flightData, DateTime now)
         {
-            User = flightData.User;
+        
             await _localStorage.Save(flightData.User, _userFileName);
             await SaveLookups(flightData.Lookups);
             await SaveFlights(flightData.Flights);
         }
 
-        public virtual async Task<User> GetUser(string displayName)
+        public override Task Update<T>(T item)
         {
-            
+            throw new NotImplementedException();
+        }
+
+      
+
+        protected async override Task<User> GetUserInternal(string displayName)
+        {
+
             try
             {
                 User userx = await _localStorage.RestoreUser(_userFileName);
@@ -82,15 +91,14 @@ namespace LogbookApp.Storage
             {
                 return null;
             }
-            
         }
 
-        
+
         public bool FlightsChanged { get; set; }
-        
 
 
-        public virtual async  Task<ObservableCollection<Flight>> GetFlights()
+
+        public virtual async Task<ObservableCollection<Flight>> GetFlights(int userId)
         {
             var flights = await _localStorage.Restore<ObservableCollection<Flight>>(_flightsFileName);
 
@@ -131,21 +139,15 @@ namespace LogbookApp.Storage
             
         }
 
-        public DateTime? LastUpdated { get { return User.TimeStamp; }  }
+     
+       
 
-        public async Task UpdateUser(User user)
+      
+
+        protected override async Task UpdateUserInternal(User user)
         {
-            
             await _localStorage.Save(user, _userFileName);
-            
         }
-
-        public async Task SetUserData(string displayName)
-        {
-            User = GetUser(displayName).Result; 
-        }
-
-        public User User { get; private set; }
 
 
         public async Task SaveFlightData(FlightData flightData)

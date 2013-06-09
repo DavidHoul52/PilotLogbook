@@ -6,7 +6,21 @@ namespace LogbookApp.Data
 {
     public class User : IEntity
     {
-        
+        private DateTime? _timeStamp;
+
+        public User()
+        {
+            
+        }
+
+        public User(User otherUser)
+        {
+            this.DisplayName = otherUser.DisplayName;
+            this.IsNew = otherUser.IsNew;
+            this.TimeStamp = otherUser.TimeStamp;
+            this.id = otherUser.id;
+        }
+
         public string DisplayName { get; set; }
 
           [IgnoreDataMember]
@@ -17,6 +31,14 @@ namespace LogbookApp.Data
         }
 
         public int id { get; set; }
-        public DateTime? TimeStamp { get; set; }
+
+        public DateTime? TimeStamp
+        {
+            get { return _timeStamp; }
+            set
+            {
+                _timeStamp = value;
+            }
+        }
     }
 }

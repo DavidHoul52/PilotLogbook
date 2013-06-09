@@ -111,7 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MockFlightDataService.cs" />
-    <Compile Include="MockLocalDataManager.cs" />
+    <Compile Include="MockLocalDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestLocalStorage.cs" />
   </ItemGroup>

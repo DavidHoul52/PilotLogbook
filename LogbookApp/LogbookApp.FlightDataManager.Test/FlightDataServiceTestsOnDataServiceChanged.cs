@@ -23,7 +23,7 @@ namespace LogbookApp.FlightDataManagerTest
         {
             SetupDataType(DataType.OffLine);
             MockInternetTools.SetConnected(true);
-            Target.ConnectionStateChanged();
+            Target.CheckConnectionState();
             Assert.AreEqual(DataType.OnLine, Target.DataService.DataType);
         }
 
@@ -32,8 +32,12 @@ namespace LogbookApp.FlightDataManagerTest
         {
             SetupDataType(DataType.OffLine);
             MockInternetTools.SetConnected(true);
-            Target.ConnectionStateChanged();
+            Target.CheckConnectionState();
             Assert.AreEqual(DataType.OnLine,Target.DataService.DataType);
         }
+
+
+       
+     
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq.Expressions;
+using LogbookApp.Data;
 using LogbookApp.Data.Validation;
 using Microsoft.WindowsAzure.MobileServices;
 using System;
@@ -10,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace LogbookApp.Data
 {
-    public class MobileFlightDataService : IOnlineFlightData
+    public class MobileFlightDataService : BaseOnlineFlightDataService, IOnlineFlightData
     {
         private MobileServiceClient _mobileService;
      
         private bool _connected;
         private bool _available;
 
-        public MobileFlightDataService(MobileServiceClient mobileService, string displayName)
+        public MobileFlightDataService(MobileServiceClient mobileService, string displayName): base(displayName)
         {
 
             _mobileService = mobileService;
@@ -34,10 +35,10 @@ namespace LogbookApp.Data
 
        
 
-        public async Task<ObservableCollection<Flight>> GetFlights()
+        public async Task<ObservableCollection<Flight>> GetFlights(int userId)
         {
             FlightsChanged = false;
-            var flights= await _mobileService.GetTable<Flight>().Where(x => x.UserId == User.id).Take(500).ToListAsync();
+            var flights = await _mobileService.GetTable<Flight>().Where(x => x.UserId == userId).Take(500).ToListAsync();
             return new ObservableCollection<Flight>(flights);
 
 
@@ -51,31 +52,27 @@ namespace LogbookApp.Data
             return user != null;
         }
 
-        public DateTime? LastUpdated { get { return User.TimeStamp; }}
+        
+       
 
-        public async Task UpdateUser(User user)
-        {
-            
-            await Update(user);
-        }
+       
 
-        public async Task SetUserData(string displayName)
-        {
-            User = await GetUser(displayName);
-        }
+      
 
-        public User User { get; set; }
+    
 
         public async Task DeleteAcType(AcType acType)
         {
             await Delete(acType);
         }
 
+      
 
-        public async Task<Lookups> GetLookups()
+
+        public async Task<Lookups> GetLookups(int userId)
         {
 
-            return await LoadLookups(User.id);
+            return await LoadLookups(userId);
             
 
 
@@ -215,8 +212,13 @@ namespace LogbookApp.Data
             await _mobileService.GetTable<T>().InsertAsync(item);
         }
 
-        public async Task Update<T>(T item)
-            where T : IEntity
+        protected async override Task UpdateUserInternal(User user)
+        {
+           await Update(user);
+        }
+
+        public override async Task Update<T>(T item)
+          
         {
             await _mobileService.GetTable<T>().UpdateAsync(item);
         }
@@ -269,28 +271,22 @@ namespace LogbookApp.Data
         public bool FlightsChanged { get; set; }
 
 
-        public async Task<User> GetUser(string displayName)
+        protected async override Task<User> GetUserInternal(string displayName)
         {
-            
-         
-                try
-                {
-                    var users = await _mobileService.GetTable<User>()
-                        .Where(x => x.DisplayName == displayName)
-                        .ToListAsync();
-                    return users.FirstOrDefault();
-                    
-                }
-                catch (Exception)
-                {
-                    return null;
-                    
+            try
+            {
+                var users = await _mobileService.GetTable<User>()
+                    .Where(x => x.DisplayName == displayName)
+                    .ToListAsync();
+                return users.FirstOrDefault();
 
-                }
-          
+            }
+            catch (Exception)
+            {
+                return null;
 
-            
 
+            }
         }
     }
 }
