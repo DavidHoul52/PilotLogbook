@@ -111,7 +111,7 @@
                 <StackPanel Orientation="Horizontal">
                   <TextBox Width="200" Text="{Binding Flight.Captain,Mode=TwoWay}" HorizontalAlignment="Left"></TextBox>
                    <Rectangle Width="30"></Rectangle>
-                  <ComboBox Width="200" HorizontalAlignment="Left" ItemsSource="{Binding Flight.Lookups.Capacity}" 
+                  <ComboBox Width="200" HorizontalAlignment="Left" ItemsSource="{Binding Flight.Capacities}" 
                             SelectedItem="{Binding Flight.Capacity,Mode=TwoWay}"
                             DisplayMemberPath="Description"></ComboBox>
                   </StackPanel>

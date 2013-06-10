@@ -12,18 +12,22 @@ namespace LogbookApp.Data.Test
     public class FlightTests
     {
         private Flight _target;
+        private InMemoryLookups _inMemoryLookups;
+       
 
         [TestInitialize]
         public void Setup()
         {
             _target = new Flight();
+            _inMemoryLookups = new InMemoryLookups();
         }
 
         [TestMethod]
         public void ShouldPopulateLookupsAircraft()
         {
             _target.AircraftId = 22;
-            _target.PopulateLookups(new Lookups { Aircraft = new ObservableCollection<Aircraft> { new Aircraft {id = 22}}});
+            _target.PopulateLookups(new Lookups { Aircraft = new ObservableCollection<Aircraft> { new Aircraft {id = 22}}},
+                _inMemoryLookups);
             Assert.IsNotNull(_target.Aircraft);
         }
 
@@ -31,7 +35,8 @@ namespace LogbookApp.Data.Test
         public void ShouldNotPopulateLookupsAircraft()
         {
             _target.AircraftId = 23;
-            _target.PopulateLookups(new Lookups { Aircraft = new ObservableCollection<Aircraft> { new Aircraft { id = 22 } } });
+            _target.PopulateLookups(new Lookups { Aircraft = new ObservableCollection<Aircraft> { new Aircraft { id = 22 } } },
+               _inMemoryLookups);
             Assert.IsNull(_target.Aircraft);
         }
 
@@ -39,15 +44,15 @@ namespace LogbookApp.Data.Test
         public void ShouldPopulateLookupsCapacity()
         {
             _target.CapacityId = 1;
-            _target.PopulateLookups(new Lookups { Capacity = new ObservableCollection<Capacity> { new Capacity {Id = 1}}});
+            _target.PopulateLookups(new Lookups (),_inMemoryLookups);
             Assert.IsNotNull(_target.Capacity);
         }
 
         [TestMethod]
         public void ShouldNotPopulateLookupsCapacity()
         {
-            _target.CapacityId = 0;
-            _target.PopulateLookups(new Lookups { Capacity = new ObservableCollection<Capacity> { new Capacity { Id = 1 } } });
+            _target.CapacityId = -1;
+            _target.PopulateLookups(new Lookups(), _inMemoryLookups);
             Assert.IsNull(_target.Capacity);
         }
 
@@ -55,7 +60,8 @@ namespace LogbookApp.Data.Test
         public void ShouldPopulateLookupsFrom()
         {
             _target.AirfieldFromId = 11;
-            _target.PopulateLookups(new Lookups { Airfields = new ObservableCollection<Airfield> { new Airfield { id = 11 } } });
+            _target.PopulateLookups(new Lookups { Airfields = new ObservableCollection<Airfield> { new Airfield { id = 11 } } },
+                _inMemoryLookups);
             Assert.IsNotNull(_target.From);
         }
 
@@ -63,7 +69,8 @@ namespace LogbookApp.Data.Test
         public void ShouldNotPopulateLookupsFrom()
         {
             _target.AirfieldFromId = 0;
-            _target.PopulateLookups(new Lookups { Airfields = new ObservableCollection<Airfield> { new Airfield { id = 11 } } });
+            _target.PopulateLookups(new Lookups { Airfields = new ObservableCollection<Airfield> { new Airfield { id = 11 } } },
+                _inMemoryLookups);
             Assert.IsNull(_target.From);
         }
 
@@ -71,7 +78,8 @@ namespace LogbookApp.Data.Test
         public void ShouldPopulateLookupsTo()
         {
             _target.AirfieldToId = 11;
-            _target.PopulateLookups(new Lookups { Airfields = new ObservableCollection<Airfield> { new Airfield { id = 11 } } });
+            _target.PopulateLookups(new Lookups { Airfields = new ObservableCollection<Airfield> { new Airfield { id = 11 } } },
+                _inMemoryLookups);
             Assert.IsNotNull(_target.To);
         }
 
@@ -79,7 +87,8 @@ namespace LogbookApp.Data.Test
         public void ShouldNotPopulateLookupsTo()
         {
             _target.AirfieldToId = 0;
-            _target.PopulateLookups(new Lookups { Airfields = new ObservableCollection<Airfield> { new Airfield { id = 11 } } });
+            _target.PopulateLookups(new Lookups { Airfields = new ObservableCollection<Airfield> { new Airfield { id = 11 } } },
+                _inMemoryLookups);
             Assert.IsNull(_target.To);
         }
 
@@ -87,7 +96,7 @@ namespace LogbookApp.Data.Test
         public void ShouldPopulateLookups()
         {
             
-            _target.PopulateLookups(new Lookups());
+            _target.PopulateLookups(new Lookups(),_inMemoryLookups);
             Assert.IsNotNull(_target.Lookups);
         }
     }

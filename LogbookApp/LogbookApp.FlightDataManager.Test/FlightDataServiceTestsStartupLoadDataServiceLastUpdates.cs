@@ -101,6 +101,19 @@ namespace LogbookApp.FlightDataManagerTest
 
 
         }
+
+        [TestMethod]
+        public void IfOnlineDataLastUpdatedNullAndLocalLastUpdatedNullThenNotUpdateOnlineData()
+        {
+            MockInternetTools.SetConnected(true);
+            OnlineDataService.SetExists(true);
+            SetLastUpdatesLocalOnline(null, null);
+            Target.StartUp(_displayName);
+            Assert.IsFalse(MockSyncManager.UpdateOnlineDataCalled);
+
+
+
+        }
     
     }
 }

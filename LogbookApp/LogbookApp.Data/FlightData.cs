@@ -15,7 +15,10 @@ namespace LogbookApp.Data
             Flights = new ObservableCollection<Flight>();
             Lookups = new Lookups();
             User = new User();
+            InMemoryLookups = new InMemoryLookups();
         }
+
+        public InMemoryLookups InMemoryLookups { get; set; }
 
         public ObservableCollection<Flight> Flights
         {
@@ -26,7 +29,7 @@ namespace LogbookApp.Data
                 {
                     _flights = new ObservableCollection<Flight>(value.Select(x =>
                     {
-                        x.Capacity = Lookups.Capacity.Where(c => c.Id == x.CapacityId).FirstOrDefault();
+                        x.Capacity = InMemoryLookups.Capacities.Where(c => c.Id == x.CapacityId).FirstOrDefault();
                         x.From = Lookups.Airfields.Where(airfield => airfield.id == x.AirfieldFromId).FirstOrDefault();
                         x.To = Lookups.Airfields.Where(airfield => airfield.id == x.AirfieldToId).FirstOrDefault();
                         x.Aircraft =
@@ -89,5 +92,7 @@ namespace LogbookApp.Data
             aircraft.UserId = User.id;
             Lookups.Aircraft.Add(aircraft);
         }
+
+        
     }
 }

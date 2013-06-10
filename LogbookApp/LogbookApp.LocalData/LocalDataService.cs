@@ -115,7 +115,7 @@ namespace LogbookApp.Storage
             foreach (var flight in flights)
             {
 
-                flight.PopulateLookups(lookups);
+                flight.PopulateLookups(lookups, new InMemoryLookups());
             }
         }
       

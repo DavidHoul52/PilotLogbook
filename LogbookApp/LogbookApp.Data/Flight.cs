@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -213,15 +214,18 @@ namespace LogbookApp.Data
         }
 
 
-        public void PopulateLookups(Lookups lookupData)
+        public void PopulateLookups(Lookups lookupData, InMemoryLookups inMemoryLookups)
         {
             Aircraft = lookupData.Aircraft.FirstOrDefault(x => x.id == AircraftId);
-            Capacity = lookupData.Capacity.FirstOrDefault(x => x.Id == CapacityId);
+            Capacity = inMemoryLookups.Capacities.FirstOrDefault(x => x.Id == CapacityId);
             From = lookupData.Airfields.FirstOrDefault(x => x.id == AirfieldFromId);
             To = lookupData.Airfields.FirstOrDefault(x => x.id == AirfieldToId);
             
             this.Lookups = lookupData;
-           
+            Capacities = inMemoryLookups.Capacities;
+
         }
+
+        public List<Capacity> Capacities { get; set; }
     }
 }

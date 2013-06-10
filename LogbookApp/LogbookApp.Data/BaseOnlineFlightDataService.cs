@@ -15,10 +15,13 @@ namespace LogbookApp.Data
         public async Task UpdateUserFromLocal(User localUser)
         {
             var user = await GetUser(DisplayName);
-            user.TimeStamp = localUser.TimeStamp;
-            if (user.id == 0)
-                user.id = localUser.id;
-            await UpdateUser(user);
+            if (user != null)
+            {
+                user.TimeStamp = localUser.TimeStamp;
+                if (user.id == 0)
+                    user.id = localUser.id;
+                await UpdateUser(user);
+            }
         }
 
         public virtual async Task UpdateUser(User user)

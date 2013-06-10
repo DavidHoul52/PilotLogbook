@@ -82,7 +82,7 @@ namespace LogbookApp.FlightDataManagerTest
 
 
 
-            Assert.IsNotNull(Target.FlightData.Lookups.Capacity);
+            Assert.IsNotNull(Target.FlightData.InMemoryLookups.Capacities);
 
         }
     }

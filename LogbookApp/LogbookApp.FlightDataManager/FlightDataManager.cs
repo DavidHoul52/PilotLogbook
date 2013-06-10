@@ -73,10 +73,30 @@ namespace LogbookApp.FlightDataManagement
 
         }
 
-     
 
 
 
+        private async Task PerformDataUpdateAction(Func<IOnlineFlightData, Task> updateAction, IEntity entity,
+           DateTime upDateTime)
+        {
+            entity.TimeStamp = upDateTime;
+
+            await CheckConnectionState();
+
+            FlightData.User.TimeStamp = upDateTime;
+            if (DataService.DataType == DataType.OnLine)
+            {
+                await updateAction(_onLineData);
+                await _onLineData.UpdateUser(FlightData.User);
+            }
+
+            await (LocalDataService.SaveFlightData(FlightData));
+            await LocalDataService.UpdateUser(FlightData.User);
+
+
+
+
+        }
 
       
 
@@ -101,8 +121,10 @@ namespace LogbookApp.FlightDataManagement
 
             if (DataService.DataType == DataType.OnLine)
             {
+                DateTime? onlineLastUpdated = null;
                 var onlineUser = await DataService.GetUser(DisplayName);
-                var onlineLastUpdated = onlineUser.TimeStamp;
+                if( onlineUser!=null)
+                    onlineLastUpdated=onlineUser.TimeStamp;
                // await LoadData(DataService);
 
                 if (DetectNeedForSyncUpdate(onlineLastUpdated))
@@ -116,8 +138,8 @@ namespace LogbookApp.FlightDataManagement
 
         public bool DetectNeedForSyncUpdate(DateTime? onlineLastUpdated)
         {
-            return onlineLastUpdated == null || (LocalDataService.LastUpdated >
-                onlineLastUpdated);
+            return (onlineLastUpdated == null && LocalDataService.LastUpdated!=null)
+                || (LocalDataService.LastUpdated > onlineLastUpdated);
 
         }
 
@@ -177,27 +199,7 @@ namespace LogbookApp.FlightDataManagement
      
         }
 
-        private async Task PerformDataUpdateAction(Func<IOnlineFlightData,Task> updateAction,IEntity entity,
-              DateTime upDateTime)
-        {
-            entity.TimeStamp = upDateTime;
-
-            await CheckConnectionState();
-
-            FlightData.User.TimeStamp = upDateTime;
-            if (DataService.DataType == DataType.OnLine)
-            {
-                await updateAction(_onLineData);
-                await _onLineData.UpdateUser(FlightData.User);
-            }
-
-            await (LocalDataService.SaveFlightData(FlightData));
-            await LocalDataService.UpdateUser(FlightData.User);
-            
-
-
-
-        }
+     
 
     
 

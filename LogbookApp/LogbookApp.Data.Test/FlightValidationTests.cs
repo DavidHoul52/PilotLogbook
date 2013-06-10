@@ -46,6 +46,7 @@ namespace LogbookApp.Data.Test
           public void ShouldReturnMessageifNoCapacitySelected()
           {
               flight.Aircraft = new Aircraft();
+              flight.Captain = "Haddock";
               Assert.AreEqual("Please select the Captain's capacity", flight.ValidationResult().Message);
           }
 
@@ -54,6 +55,7 @@ namespace LogbookApp.Data.Test
           {
               flight.Aircraft= new Aircraft();
               flight.Capacity= new Capacity();
+              flight.Captain = "Haddock";
               Assert.AreEqual("Please select a departure airfield (or add a new one)", flight.ValidationResult().Message);
           }
 
@@ -65,6 +67,7 @@ namespace LogbookApp.Data.Test
               flight.Aircraft = new Aircraft();
               flight.Capacity = new Capacity();
               flight.From= new Airfield();
+              flight.Captain = "Haddock";
               Assert.AreEqual("Please select an arrival airfield (or add a new one)", flight.ValidationResult().Message);
           }
 
@@ -75,6 +78,7 @@ namespace LogbookApp.Data.Test
               flight.Capacity = new Capacity();
               flight.From = new Airfield();
               flight.To= new Airfield();
+              flight.Captain = "Haddock";
               Assert.AreEqual("Please select an arrival time later than the departure time", flight.ValidationResult().Message);
           }
 
@@ -88,6 +92,7 @@ namespace LogbookApp.Data.Test
               flight.To = new Airfield();
               flight.Depart= new DateTime(2013,1,1);
               flight.Arrival = new DateTime(2013, 1, 2);
+              flight.Captain = "Haddock";
               Assert.IsTrue(flight.ValidationResult().Valid);
           }
     }

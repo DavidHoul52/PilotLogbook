@@ -84,7 +84,7 @@ namespace LogbookApp.Data
             lookups.AcTypes = new ObservableCollection<AcType>(await _mobileService.GetTable<AcType>()
                 .Where(x => x.UserId == userId)
                 .Take(500).OrderBy(x => x.Code).ToListAsync());
-            lookups.Capacity = new ObservableCollection<Capacity>(await _mobileService.GetTable<Capacity>().Take(500).OrderBy(x => x.Description).ToListAsync());
+            
             var aircraft = await
                 _mobileService.GetTable<Aircraft>()
                     .Where(x => x.UserId == userId)
