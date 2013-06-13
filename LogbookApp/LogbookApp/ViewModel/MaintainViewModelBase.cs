@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BaseData;
 using LogbookApp.Commands;
 using LogbookApp.Data;
 

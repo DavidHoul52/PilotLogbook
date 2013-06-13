@@ -258,6 +258,14 @@
       <Project>{6839bcfb-3893-4aca-b5d2-9362bb164cb0}</Project>
       <Name>FlightTimes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Framework\BaseData\BaseData.csproj">
+      <Project>{5B0AE921-C26D-47DD-8357-508464F036D3}</Project>
+      <Name>BaseData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\OnlineOfflineSyncLibrary\OnlineOfflineSyncLibrary.csproj">
+      <Project>{af8b13e5-162d-453d-a5c5-fd8a54f97dbc}</Project>
+      <Name>OnlineOfflineSyncLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\InternetDetection\InternetDetection.csproj">
       <Project>{C46F31CA-32D2-4FB4-AFEF-958A16E1FA6F}</Project>
       <Name>InternetDetection</Name>

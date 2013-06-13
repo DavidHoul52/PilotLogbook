@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using BaseData;
 
 namespace LogbookApp.Data
 {
@@ -13,7 +14,7 @@ namespace LogbookApp.Data
     };
 
 
-    public interface IFlightDataService
+    public interface IFlightDataService : IDataService
     {
         DataType DataType { get; }
 

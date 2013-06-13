@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using System.ServiceModel;
 
-namespace LogbookApp.Data
+namespace BaseData
 {
 
     

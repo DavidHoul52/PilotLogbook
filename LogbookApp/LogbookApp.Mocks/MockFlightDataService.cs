@@ -4,11 +4,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using BaseData;
 using LogbookApp.Data;
 
 namespace LogbookApp.Mocks
 {
-    public class MockFlightDataService : BaseOnlineFlightDataService, IOnlineFlightData
+    public class MockFlightDataService : BaseFlightDataService, IOnlineFlightData
     {
 
         private bool _exists;

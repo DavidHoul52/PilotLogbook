@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq.Expressions;
+using BaseData;
 using LogbookApp.Data;
 using LogbookApp.Data.Validation;
 using Microsoft.WindowsAzure.MobileServices;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace LogbookApp.Data
 {
-    public class MobileFlightDataService : BaseOnlineFlightDataService, IOnlineFlightData
+    public class MobileFlightDataService : BaseFlightDataService, IOnlineFlightData
     {
         private MobileServiceClient _mobileService;
      

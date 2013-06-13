@@ -100,6 +100,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <ProjectReference Include="..\Framework\BaseData\BaseData.csproj">
+      <Project>{5b0ae921-c26d-47dd-8357-508464f036d3}</Project>
+      <Name>BaseData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogbookApp.Data\LogbookApp.Data.csproj">
       <Project>{89900cbd-6c4a-443b-93b9-67081c3308b9}</Project>
       <Name>LogbookApp.Data</Name>

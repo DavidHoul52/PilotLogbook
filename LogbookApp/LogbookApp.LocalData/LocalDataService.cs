@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using Windows.Security.Authentication.OnlineId;
 using Windows.System.UserProfile;
 using Windows.UI.Xaml.Controls;
+using BaseData;
 using LogbookApp.Data;
 
 namespace LogbookApp.Storage
 {
-    public class LocalDataService : BaseOnlineFlightDataService, IFlightDataService
+    public class LocalDataService : BaseFlightDataService, IFlightDataService
     {
         private readonly ILocalStorage _localStorage;
         private readonly string _flightsFileName;
@@ -75,7 +76,16 @@ namespace LogbookApp.Storage
             throw new NotImplementedException();
         }
 
-      
+        public Task Insert<T>(T item) where T : IEntity
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Delete<T>(T item) where T : IEntity
+        {
+            throw new NotImplementedException();
+        }
+
 
         protected async override Task<User> GetUserInternal(string displayName)
         {

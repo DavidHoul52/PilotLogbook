@@ -8,13 +8,14 @@ using LogbookApp.Data;
 using LogbookApp.FlightDataManagement;
 using LogbookApp.Mocks;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using OnlineOfflineSyncLibrary;
 
 namespace LogbookApp.FlightDataManagerTest
 {
   
     public abstract class SyncManagerTestsBase
     {
-        protected SyncManager target;
+        protected FlightsSyncManager target;
         protected MockFlightDataService _onlineFlightDataService;
         protected FlightData _sourceFlightData;
         protected FlightData _targetFlightData;
@@ -29,7 +30,7 @@ namespace LogbookApp.FlightDataManagerTest
             _targetFlightData = new FlightData();
             _onlineFlightDataService = new MockFlightDataService(DataType.OnLine, _targetFlightData,"");
             _sourceFlightData = new FlightData();
-            target = new SyncManager(_onlineFlightDataService);
+            target = new FlightsSyncManager(_onlineFlightDataService);
         }
     
     

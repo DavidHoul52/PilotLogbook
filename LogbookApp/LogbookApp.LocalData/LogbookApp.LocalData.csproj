@@ -106,6 +106,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Framework\BaseData\BaseData.csproj">
+      <Project>{5b0ae921-c26d-47dd-8357-508464f036d3}</Project>
+      <Name>BaseData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\OnlineOfflineSyncLibrary\OnlineOfflineSyncLibrary.csproj">
+      <Project>{af8b13e5-162d-453d-a5c5-fd8a54f97dbc}</Project>
+      <Name>OnlineOfflineSyncLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogbookApp.Data\LogbookApp.Data.csproj">
       <Project>{89900CBD-6C4A-443B-93B9-67081C3308B9}</Project>
       <Name>LogbookApp.Data</Name>

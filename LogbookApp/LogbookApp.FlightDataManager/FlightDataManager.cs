@@ -3,9 +3,11 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
+using BaseData;
 using InternetDetection;
 using LogbookApp.Data;
 using LogbookApp.Storage;
+using OnlineOfflineSyncLibrary;
 
 namespace LogbookApp.FlightDataManagement
 {
@@ -16,14 +18,14 @@ namespace LogbookApp.FlightDataManagement
         private readonly Action _onlineDataUpdatedFromOffLine;
         
         private UserManager _userManager;
-        private ISyncManager _syncManager;
+        private ISyncManager<FlightData> _syncManager;
         private readonly IInternetTools _internetTools;
         public IFlightDataService DataService { get; private set; }
         public LocalDataService LocalDataService { get; private set; }
 
 
         public FlightDataManager(IOnlineFlightData onLineData, LocalDataService localDataService,
-           ISyncManager syncManager, IInternetTools internetTools)
+           ISyncManager<FlightData> syncManager, IInternetTools internetTools)
         {
             _onLineData = onLineData;
             LocalDataService = localDataService;

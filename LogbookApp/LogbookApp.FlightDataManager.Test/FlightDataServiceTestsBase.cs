@@ -17,7 +17,7 @@ namespace LogbookApp.FlightDataManagerTest
         protected DateTime Now;
         protected TestLocalStorage TestLocalStorage;
         protected User User;
-        protected MockSyncManager MockSyncManager;
+        protected MockSyncManager<FlightData> MockSyncManager;
         protected FlightData OnLineDataServiceFlightData;
         protected MockInternetTools MockInternetTools;
         protected string DisplayName = "";
@@ -36,7 +36,7 @@ namespace LogbookApp.FlightDataManagerTest
             OldTime = new DateTime(2012, 1, 1);
             NewerTime = new DateTime(2013, 1, 1);
             Now = new DateTime(2013, 5, 5);
-            MockSyncManager = new MockSyncManager();
+            MockSyncManager = new MockSyncManager<FlightData>();
             MockInternetTools = new MockInternetTools();
             Target = new FlightDataManager(OnlineDataService, LocalTestData,  MockSyncManager, MockInternetTools);
         }

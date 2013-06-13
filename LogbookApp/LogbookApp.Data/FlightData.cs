@@ -2,10 +2,11 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using OnlineOfflineSyncLibrary;
 
 namespace LogbookApp.Data
 {
-    public class FlightData
+    public class FlightData : ISyncableData
     {
         private ObservableCollection<Flight> _flights;
         private User _user;

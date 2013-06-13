@@ -31,6 +31,7 @@ using LogbookApp.Services;
 using Windows.System.UserProfile;
 using Windows.UI.Xaml.Controls;
 using System.Threading.Tasks;
+using OnlineOfflineSyncLibrary;
 
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
@@ -106,7 +107,7 @@ namespace LogbookApp
                 var onlineDataService = new MobileService(DisplayName).Client;
                 Data = new FlightDataManager(onlineDataService,
                     new LocalDataService(new LocalStorage(), "flights.xml","lookups.xml","user.xml",DisplayName),
-                     new SyncManager(onlineDataService), new InternetTools()
+                     new FlightsSyncManager(onlineDataService), new InternetTools()
                      );
                await Data.StartUp(DisplayName);
              

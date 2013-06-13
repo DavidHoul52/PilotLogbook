@@ -1,13 +1,14 @@
 using System;
 using System.Threading.Tasks;
+using BaseData;
 
 namespace LogbookApp.Data
 {
-    public abstract class BaseOnlineFlightDataService
+    public abstract class BaseFlightDataService
     {
         protected string DisplayName;
 
-        protected BaseOnlineFlightDataService(string displayName)
+        protected BaseFlightDataService(string displayName)
         {
             DisplayName = displayName;
         }
