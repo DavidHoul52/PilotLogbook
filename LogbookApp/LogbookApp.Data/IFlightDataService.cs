@@ -7,16 +7,12 @@ using BaseData;
 
 namespace LogbookApp.Data
 {
-    public enum DataType
-    {
-        OffLine,
-        OnLine
-    };
+  
 
 
     public interface IFlightDataService : IDataService
     {
-        DataType DataType { get; }
+       
 
         
         Task<bool> UserDataExists(string displayName);

@@ -6,19 +6,20 @@ using BaseData;
 
 namespace OnlineOfflineSyncLibrary
 {
-    public abstract class SyncManager<TSyncableData,TDataService> : ISyncManager<TSyncableData>
-        where TDataService : IDataService
-        where TSyncableData : ISyncableData
+    public abstract class SyncManager<TSyncableData,TOnlineDataService,TUser> : ISyncManager<TSyncableData,TUser>
+        where TOnlineDataService : IDataService
+        where TSyncableData : ISyncableData<TUser>
+        where TUser : IUser
     {
-        protected readonly TDataService _onLineDataService;
+        protected readonly TOnlineDataService _onLineDataService;
 
-        public SyncManager(TDataService onlineDataService)
+        public SyncManager(TOnlineDataService onlineDataService)
         {
             _onLineDataService = onlineDataService;
             
         }
 
-        public abstract Task UpdateOnlineData(TSyncableData sourceFlightData, DateTime now);
+        public abstract Task UpdateTargetData(TSyncableData sourceFlightData, DateTime now);
        
 
      

@@ -6,14 +6,15 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F8E0D01C-33A9-4F83-B54E-A8B1C4A5437D}</ProjectGuid>
+    <ProjectGuid>{8AE318B2-BEF4-40B5-84D0-08D41F0D07A8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OnlineOfflineSyncLibrary.Test</RootNamespace>
-    <AssemblyName>OnlineOfflineSyncLibrary.Test</AssemblyName>
+    <RootNamespace>OnlineOfflineSyncLibrary2</RootNamespace>
+    <AssemblyName>OnlineOfflineSyncLibrary2</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PackageCertificateKeyFile>OnlineOfflineSyncLibrary2_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -98,23 +99,59 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <AppXPackage>True</AppXPackage>
+    <AppxPackageIncludePrivateSymbols>true</AppxPackageIncludePrivateSymbols>
+  </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <ProjectReference Include="..\Framework\BaseData\BaseData.csproj">
+    <!--A reference to the entire .Net Framework and Windows SDK are automatically included-->
+    <SDKReference Include="MSTestFramework, Version=11.0" />
+    <SDKReference Include="TestPlatform, Version=11.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataManagerTests\DataManagerTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stubs\MockDataService.cs" />
+    <Compile Include="Stubs\MockInternetTools.cs" />
+    <Compile Include="Stubs\SyncableTestData.cs" />
+    <Compile Include="SyncManagerTests\Base\SyncManagerTestsBase.cs" />
+    <Compile Include="SyncManagerTests\SyncManagerTestsUser.cs" />
+    <Compile Include="Stubs\TestUser.cs" />
+    <Compile Include="TestSyncManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <None Include="OnlineOfflineSyncLibrary2_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\UnitTestLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\UnitTestSmallLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\UnitTestSplashScreen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\UnitTestStoreLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\InternetDetection\InternetDetection.csproj">
+      <Project>{C46F31CA-32D2-4FB4-AFEF-958A16E1FA6F}</Project>
+      <Name>InternetDetection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BaseData\BaseData.csproj">
       <Project>{5b0ae921-c26d-47dd-8357-508464f036d3}</Project>
       <Name>BaseData</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Framework\OnlineOfflineSyncLibrary\OnlineOfflineSyncLibrary.csproj">
+    <ProjectReference Include="..\OnlineOfflineSyncLibrary\OnlineOfflineSyncLibrary.csproj">
       <Project>{af8b13e5-162d-453d-a5c5-fd8a54f97dbc}</Project>
       <Name>OnlineOfflineSyncLibrary</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SyncManagerTests\MockDataService.cs" />
-    <Compile Include="SyncManagerTests\SyncableTestData.cs" />
-    <Compile Include="SyncManagerTests\SyncManagerTestsBase.cs" />
-    <Compile Include="SyncManagerTests\SyncManagerTestsUser.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
@@ -123,7 +160,7 @@
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
-  </Target>
+  </Target>  
   <Target Name="AfterBuild">
   </Target>
   -->

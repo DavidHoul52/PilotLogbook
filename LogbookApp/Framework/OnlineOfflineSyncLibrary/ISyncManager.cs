@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 
 namespace OnlineOfflineSyncLibrary
 {
-    public interface ISyncManager<TSyncableData>
-        where TSyncableData: ISyncableData
+    public interface ISyncManager<TSyncableData,TUser>
+        where TSyncableData: ISyncableData<TUser>
+            where TUser: IUser
     {
-        Task UpdateOnlineData(TSyncableData sourceFlightData, DateTime now);
+        Task UpdateTargetData(TSyncableData sourceData, DateTime now);
       
     }
 }

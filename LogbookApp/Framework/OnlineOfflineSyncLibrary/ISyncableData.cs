@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace OnlineOfflineSyncLibrary
 {
-    public interface ISyncableData
+    public interface ISyncableData<TUser>
+        where TUser : IUser
     {
+        TUser User { get; set; }
     }
 }
