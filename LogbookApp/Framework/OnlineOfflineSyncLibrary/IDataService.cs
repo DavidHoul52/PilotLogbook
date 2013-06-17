@@ -23,7 +23,7 @@ namespace OnlineOfflineSyncLibrary
         Task Delete<T>(T item)
               where T : IEntity;
 
-        Task<bool> LoadUserData(string userName, TSyncableData data);
+        Task LoadUserData(string userName, TSyncableData data);
 
         Task CreateUserData(string userName);
 

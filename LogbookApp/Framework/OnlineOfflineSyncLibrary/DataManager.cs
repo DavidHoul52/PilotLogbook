@@ -89,6 +89,8 @@ namespace OnlineOfflineSyncLibrary
                 state.UserDataExists = true;
                 state.LastUpdated = DateTime.Now;
             }
+
+            return state;
         }
 
      

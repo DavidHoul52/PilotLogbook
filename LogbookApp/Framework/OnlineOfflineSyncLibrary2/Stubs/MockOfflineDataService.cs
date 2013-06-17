@@ -8,7 +8,7 @@ using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
 
 namespace OnlineOfflineSyncLibrary2.Stubs
 {
-    public class MockOfflineDataService : MockBaseDataService, IOfflineDataService<TestUser>
+    public class MockOfflineDataService : MockBaseDataService, IOfflineDataService<ISyncableData<TestUser>,TestUser>
     {
         public MockOfflineDataService(ISyncableData<TestUser> targetData, string userName) : base(targetData, userName)
         {
@@ -20,7 +20,14 @@ namespace OnlineOfflineSyncLibrary2.Stubs
         }
 
 
-        
+        public async Task LoadUserData(string userName, ISyncableData<TestUser> data)
+        {
+            
+        }
 
+        public async Task<DataServiceState> GetServiceState(string userName)
+        {
+            
+        }
     }
 }
