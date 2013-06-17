@@ -37,19 +37,12 @@ namespace OnlineOfflineSyncLibrary2.Stubs
 
 
 
-        public Task CreateUserData(string userName)
+        public async Task CreateUserData(string userName)
         {
             CreateUserDataCalled = true;
         }
 
-        public bool LoadUserData(string userName, object data)
-        {
-            LoadUserDataCalled = true;
-            return TargetData.User != null;
-
-
-
-        }
+      
 
         public void SetupGetUser(TestUser testUser)
         {
@@ -63,6 +56,15 @@ namespace OnlineOfflineSyncLibrary2.Stubs
         {
             return TargetData.User;
         }
-        public DateTime? LastUpdated { get; set; }
+
+        public async Task LoadUserData(string userName, ISyncableData<TestUser> data)
+        {
+
+        }
+
+        public async Task<DataServiceState> GetServiceState(string userName)
+        {
+
+        }
     }
 }
