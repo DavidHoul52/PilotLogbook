@@ -111,6 +111,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataManager.cs" />
+    <Compile Include="DataServiceState.cs" />
+    <Compile Include="IDataService.cs" />
+    <Compile Include="IOfflineDataService.cs" />
+    <Compile Include="IOnlineDataService.cs" />
     <Compile Include="ISyncableData.cs" />
     <Compile Include="ISyncManager.cs" />
     <Compile Include="IUser.cs" />

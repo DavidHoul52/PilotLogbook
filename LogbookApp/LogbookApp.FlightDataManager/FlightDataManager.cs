@@ -76,9 +76,7 @@ namespace LogbookApp.FlightDataManagement
         }
 
 
-
-
-        private async Task PerformDataUpdateAction(Func<IOnlineFlightData, Task> updateAction, IEntity entity,
+        public async Task PerformDataUpdateAction(Func<IOnlineFlightData, Task> updateAction, IEntity entity,
            DateTime upDateTime)
         {
             entity.TimeStamp = upDateTime;

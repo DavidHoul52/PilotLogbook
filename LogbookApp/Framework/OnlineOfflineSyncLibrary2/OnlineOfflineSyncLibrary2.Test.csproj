@@ -111,9 +111,13 @@
   <ItemGroup>
     <Compile Include="DataManagerTests\DataManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Stubs\MockDataService.cs" />
+    <Compile Include="Stubs\MockBaseDataService.cs" />
+    <Compile Include="Stubs\MockOfflineDataService.cs" />
+    <Compile Include="Stubs\MockOnlineDataService.cs" />
     <Compile Include="Stubs\MockInternetTools.cs" />
+    <Compile Include="Stubs\MockSyncManager.cs" />
     <Compile Include="Stubs\SyncableTestData.cs" />
+    <Compile Include="Stubs\TestEntity.cs" />
     <Compile Include="SyncManagerTests\Base\SyncManagerTestsBase.cs" />
     <Compile Include="SyncManagerTests\SyncManagerTestsUser.cs" />
     <Compile Include="Stubs\TestUser.cs" />

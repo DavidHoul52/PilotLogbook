@@ -7,8 +7,8 @@ namespace OnlineOfflineSyncLibrary.Test.SyncManagerTests
   
     public abstract class SyncManagerTestsBase
     {
-        protected SyncManager<SyncableTestData, MockDataService, TestUser> Target;
-        protected MockDataService OnlineDataService;
+        protected SyncManager<SyncableTestData, MockOnlineDataService, TestUser> Target;
+        protected MockOnlineDataService OnlineDataService;
         protected SyncableTestData SourceData;
         protected SyncableTestData TargetData;
         protected DateTime NewerTimeStamp = new DateTime(2013, 10, 1);
@@ -20,7 +20,7 @@ namespace OnlineOfflineSyncLibrary.Test.SyncManagerTests
         public virtual void Setup()
         {
             TargetData = new SyncableTestData();
-            OnlineDataService = new MockDataService(DataType.OnLine, TargetData, "");
+            OnlineDataService = new MockOnlineDataService(TargetData, "");
             SourceData = new SyncableTestData();
             Target = new TestSyncManager(OnlineDataService);
         }

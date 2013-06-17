@@ -7,7 +7,7 @@ using BaseData;
 namespace OnlineOfflineSyncLibrary
 {
     public abstract class SyncManager<TSyncableData,TOnlineDataService,TUser> : ISyncManager<TSyncableData,TUser>
-        where TOnlineDataService : IDataService
+        where TOnlineDataService : IDataService<TSyncableData,TUser>
         where TSyncableData : ISyncableData<TUser>
         where TUser : IUser
     {

@@ -8,9 +8,9 @@ using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
 
 namespace OnlineOfflineSyncLibrary2
 {
-    public class TestSyncManager : SyncManager<SyncableTestData, MockDataService, TestUser>
+    public class TestSyncManager : SyncManager<SyncableTestData, MockOnlineDataService, TestUser>
     {
-        public TestSyncManager(MockDataService onlineDataService) : base(onlineDataService)
+        public TestSyncManager(MockOnlineDataService onlineDataService) : base(onlineDataService)
         {
         }
 

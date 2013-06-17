@@ -42,7 +42,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseData", "Framework\BaseData\BaseData.csproj", "{5B0AE921-C26D-47DD-8357-508464F036D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineOfflineSyncLibrary2", "Framework\OnlineOfflineSyncLibrary2\OnlineOfflineSyncLibrary2.csproj", "{8AE318B2-BEF4-40B5-84D0-08D41F0D07A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineOfflineSyncLibrary2.Test", "Framework\OnlineOfflineSyncLibrary2\OnlineOfflineSyncLibrary2.Test.csproj", "{8AE318B2-BEF4-40B5-84D0-08D41F0D07A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
