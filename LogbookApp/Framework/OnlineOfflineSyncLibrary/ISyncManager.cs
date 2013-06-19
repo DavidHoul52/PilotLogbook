@@ -7,7 +7,7 @@ namespace OnlineOfflineSyncLibrary
         where TSyncableData: ISyncableData<TUser>
             where TUser: IUser
     {
-        Task UpdateTargetData(TSyncableData sourceData, DateTime now);
+        Task UpdateTargetData(TSyncableData sourceData,TSyncableData targetData, DateTime now);
       
     }
 }

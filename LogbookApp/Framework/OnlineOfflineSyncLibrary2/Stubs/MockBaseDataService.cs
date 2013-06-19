@@ -62,7 +62,7 @@ namespace OnlineOfflineSyncLibrary2.Stubs
 
         }
 
-        public async Task<DataServiceState> GetServiceState(string userName)
+        public async Task<DataServiceState> GetUserExists(string userName)
         {
 
         }

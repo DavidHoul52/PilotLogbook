@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using BaseData;
 using OnlineOfflineSyncLibrary2.Stubs;
 
@@ -15,6 +16,7 @@ namespace OnlineOfflineSyncLibrary.Test.SyncManagerTests
         }
     
         public bool IsConnected { get; set; }
-      
+
+        
     }
 }

@@ -20,14 +20,6 @@ namespace OnlineOfflineSyncLibrary2.Stubs
         }
 
 
-        public async Task LoadUserData(string userName, ISyncableData<TestUser> data)
-        {
-            
-        }
-
-        public async Task<DataServiceState> GetServiceState(string userName)
-        {
-            
-        }
+        
     }
 }

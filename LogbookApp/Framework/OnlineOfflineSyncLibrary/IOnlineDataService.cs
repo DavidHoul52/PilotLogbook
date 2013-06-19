@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using BaseData;
 
 namespace OnlineOfflineSyncLibrary
@@ -8,8 +9,6 @@ namespace OnlineOfflineSyncLibrary
         where TSyncableData : ISyncableData<TUser>
     {
         bool IsConnected { get; set; }
-
-
-       
+        
     }
 }

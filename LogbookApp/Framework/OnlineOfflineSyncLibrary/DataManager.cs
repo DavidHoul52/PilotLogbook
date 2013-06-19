@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using BaseData;
@@ -11,14 +12,13 @@ namespace OnlineOfflineSyncLibrary
     public class DataManager<TUser>
         where TUser: IUser
     {
-        private readonly ISyncableData<TUser> _data;
+        private  ISyncableData<TUser> _data;
         private readonly IOnlineDataService<ISyncableData<TUser>,TUser> _onlineDataService;
         private readonly IOfflineDataService<ISyncableData<TUser>,TUser> _offlineDataService;
         private readonly IInternetTools _internet;
         private string _userName;
         private ISyncManager<ISyncableData<TUser>,TUser> _syncManager;
-        private DataServiceState _onLineState;
-        private DataServiceState _offLineState;
+        
 
         public DataManager(ISyncableData<TUser> data, 
             IOnlineDataService<ISyncableData<TUser>,TUser> onlineDataService,
@@ -33,7 +33,7 @@ namespace OnlineOfflineSyncLibrary
         public async void Startup(string userName)
         {
             _userName = userName;
-            await CheckConnectionState();
+            await CheckConnectionState(true);
      
         }
 
@@ -42,62 +42,61 @@ namespace OnlineOfflineSyncLibrary
         {
             entity.TimeStamp = upDateTime;
 
-            await CheckConnectionState();
+            await CheckConnectionState(false);
             _data.User.TimeStamp = upDateTime;
             if (_onlineDataService.IsConnected)
             {
                 await updateAction(_onlineDataService);
-               // await _onlineDataService.UpdateUser(FlightData.User);
+                
             }
 
             await (_offlineDataService.SaveLocalData(_data));
-           // await LocalDataService.UpdateUser(FlightData.User);
-
-
 
 
         }
 
-        private async Task CheckConnectionState()
+        private async Task CheckConnectionState(bool isStartup)
         {
             _onlineDataService.IsConnected = _internet.IsConnected;
             if (_onlineDataService.IsConnected)
             {
-                // although DataServiceState belongs to dataservice we want to check and manipulate it here
-                _onLineState=await GetState(_onlineDataService);
-                if (DetectNeedForSyncUpdate())
-                    await _syncManager.UpdateTargetData(_data, DateTime.Now); // TODO: source and target data will be different  
+                
+                var unSyncedData=await LoadUserData(_onlineDataService);
+                if (DetectNeedForSyncUpdate(_data.User.TimeStamp,unSyncedData.User.TimeStamp))
+                    await _syncManager.UpdateTargetData(_data,unSyncedData, DateTime.Now);
             }
-            else
+            else if (isStartup)
             {
-                _offLineState = await GetState(_offlineDataService);
+                _data =await LoadUserData(_offlineDataService);
             }
         }
 
-        private async Task<DataServiceState> GetState(IDataService<ISyncableData<TUser>,TUser> dataService
+        private async Task<ISyncableData<TUser>> LoadUserData(IDataService<ISyncableData<TUser>, TUser> dataService
             )
         {
-            DataServiceState state = await dataService.GetServiceState(_userName);
-            if (state.UserDataExists)
+            bool userDataExists = await dataService.GetUserDataExists(_userName);
+            if (userDataExists)
             {
-                await dataService.LoadUserData(_userName, _data);
-                state.LastUpdated = _data.User.TimeStamp;
+               return await dataService.LoadUserData(_userName); 
+                                                                 
+                
+              
+                
             }
             else
             {
-                await dataService.CreateUserData(_userName);
-                state.UserDataExists = true;
-                state.LastUpdated = DateTime.Now;
+                return await dataService.CreateUserData(_userName);  
+                
             }
 
-            return state;
+            
         }
 
      
-        private bool DetectNeedForSyncUpdate()
+        private bool DetectNeedForSyncUpdate(DateTime? sourceLastUpdated, DateTime? targetLastUpdated)
         {
-            return (_onLineState.LastUpdated == null && _offLineState.LastUpdated != null)
-                  || (_offLineState.LastUpdated > _onLineState.LastUpdated);
+            return (targetLastUpdated == null && sourceLastUpdated != null)
+                  || (sourceLastUpdated > targetLastUpdated);
         }
     }
 }
