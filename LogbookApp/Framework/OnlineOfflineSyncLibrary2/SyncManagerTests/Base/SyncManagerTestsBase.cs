@@ -20,7 +20,7 @@ namespace OnlineOfflineSyncLibrary.Test.SyncManagerTests
         public virtual void Setup()
         {
             TargetData = new SyncableTestData();
-            OnlineDataService = new MockOnlineDataService(TargetData, "");
+            OnlineDataService = new MockOnlineDataService( "");
             SourceData = new SyncableTestData();
             Target = new TestSyncManager(OnlineDataService);
         }

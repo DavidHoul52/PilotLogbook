@@ -19,9 +19,9 @@ namespace OnlineOfflineSyncLibrary
             
         }
 
-        public abstract Task UpdateTargetData(TSyncableData sourceFlightData, DateTime now);
-       
+        
 
+        public abstract Task UpdateTargetData(TSyncableData sourceData, TSyncableData targetData, DateTime now);
      
 
 
@@ -55,6 +55,8 @@ namespace OnlineOfflineSyncLibrary
             }
         }
 
-      
+
+       
+     
     }
 }

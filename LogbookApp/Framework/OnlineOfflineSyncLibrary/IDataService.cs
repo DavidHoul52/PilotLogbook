@@ -25,7 +25,7 @@ namespace OnlineOfflineSyncLibrary
 
         Task<TSyncableData> LoadUserData(string userName);
 
-        Task<TSyncableData> CreateUserData(string userName);
+        Task<TSyncableData> CreateUserData(string userName, DateTime? timeStamp);
 
 
         Task<bool> GetUserDataExists(string userName);

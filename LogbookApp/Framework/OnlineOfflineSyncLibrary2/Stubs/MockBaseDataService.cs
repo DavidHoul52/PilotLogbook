@@ -9,14 +9,15 @@ using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
 
 namespace OnlineOfflineSyncLibrary2.Stubs
 {
-    public abstract class MockBaseDataService
+    public abstract class MockBaseDataService 
     {
-        protected readonly ISyncableData<TestUser> TargetData;
+        protected SyncableTestData TargetData;
         protected readonly string UserName;
+        private bool _userDataExists;
 
-        protected MockBaseDataService(ISyncableData<TestUser> targetData, string userName)
+        protected MockBaseDataService(string userName)
         {
-            TargetData = targetData;
+            
             UserName = userName;
         }
 
@@ -35,20 +36,6 @@ namespace OnlineOfflineSyncLibrary2.Stubs
 
         }
 
-
-
-        public async Task CreateUserData(string userName)
-        {
-            CreateUserDataCalled = true;
-        }
-
-      
-
-        public void SetupGetUser(TestUser testUser)
-        {
-            TargetData.User = testUser;
-        }
-
         public bool LoadUserDataCalled { get; set; }
         public bool CreateUserDataCalled { get; set; }
 
@@ -57,14 +44,37 @@ namespace OnlineOfflineSyncLibrary2.Stubs
             return TargetData.User;
         }
 
-        public async Task LoadUserData(string userName, ISyncableData<TestUser> data)
+        public async Task<SyncableTestData> LoadUserData(string userName)
         {
-
+            LoadUserDataCalled = true;
+            return TargetData;
         }
 
-        public async Task<DataServiceState> GetUserExists(string userName)
+        public async Task<SyncableTestData> CreateUserData(string userName, DateTime? timeStamp)
         {
+            CreateUserDataCalled = true;
+            return InternalCreateUserData(timeStamp);
+        }
 
+
+       public async Task<bool> GetUserDataExists(string userName)
+       {
+           return TargetData != null;
+       }
+
+        public void SetUserDataExists(bool exists, DateTime? timeStamp)
+        {
+            if (exists)
+               TargetData = InternalCreateUserData(timeStamp);
+            else
+            {
+                TargetData = null;
+            }
+        }
+
+        private static SyncableTestData InternalCreateUserData(DateTime? timeStamp)
+        {
+            return new SyncableTestData { User = new TestUser { TimeStamp = timeStamp } };
         }
     }
 }

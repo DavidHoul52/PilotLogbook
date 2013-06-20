@@ -16,7 +16,9 @@ namespace OnlineOfflineSyncLibrary2
 
         
 
-        public async override Task UpdateTargetData(SyncableTestData sourceFlightData, DateTime now)
+        
+
+        public async override Task UpdateTargetData(SyncableTestData sourceData, SyncableTestData targetData, DateTime now)
         {
             
         }

@@ -5,11 +5,12 @@ using OnlineOfflineSyncLibrary2.Stubs;
 
 namespace OnlineOfflineSyncLibrary.Test.SyncManagerTests
 {
-    public class MockOnlineDataService : MockBaseDataService, IOnlineDataService<TestUser>
+    public class MockOnlineDataService : MockBaseDataService, IOnlineDataService<SyncableTestData, TestUser>
     {
-    
 
-        public MockOnlineDataService( ISyncableData<TestUser> targetData, string userName) :base(targetData,userName)
+
+        public MockOnlineDataService(string userName)
+            : base(userName)
         {
           
             
@@ -17,6 +18,10 @@ namespace OnlineOfflineSyncLibrary.Test.SyncManagerTests
     
         public bool IsConnected { get; set; }
 
+
         
+
+      
+        public DateTime? LastUpdated { get; set; }
     }
 }
