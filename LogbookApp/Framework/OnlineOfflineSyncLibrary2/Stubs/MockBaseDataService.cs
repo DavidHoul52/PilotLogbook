@@ -9,7 +9,7 @@ using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
 
 namespace OnlineOfflineSyncLibrary2.Stubs
 {
-    public abstract class MockBaseDataService 
+    public abstract class MockBaseDataService : DataService<SyncableTestData>
     {
         protected SyncableTestData TargetData;
         protected readonly string UserName;
@@ -44,14 +44,16 @@ namespace OnlineOfflineSyncLibrary2.Stubs
             return TargetData.User;
         }
 
-        public async Task<SyncableTestData> LoadUserData(string userName)
+        public override async Task<SyncableTestData> LoadUserData(string userName)
         {
+            base.LoadUserData(userName);
             LoadUserDataCalled = true;
             return TargetData;
         }
 
         public async Task<SyncableTestData> CreateUserData(string userName, DateTime? timeStamp)
         {
+            base.CreateUserData(userName, timeStamp);
             CreateUserDataCalled = true;
             return InternalCreateUserData(timeStamp);
         }
@@ -76,5 +78,7 @@ namespace OnlineOfflineSyncLibrary2.Stubs
         {
             return new SyncableTestData { User = new TestUser { TimeStamp = timeStamp } };
         }
+
+     
     }
 }

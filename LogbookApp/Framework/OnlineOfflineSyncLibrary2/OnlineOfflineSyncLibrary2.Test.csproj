@@ -111,7 +111,7 @@
   <ItemGroup>
     <Compile Include="DataManagerTests\DataManagerTestBase.cs" />
     <Compile Include="DataManagerTests\DataManagerTestStartUp.cs" />
-    <Compile Include="DataManagerTests\DataManagerTestSyncData.cs" />
+    <Compile Include="DataManagerTests\DataManagerTestAferStartup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stubs\MockBaseDataService.cs" />
     <Compile Include="Stubs\MockOfflineDataService.cs" />

@@ -31,7 +31,8 @@ namespace OnlineOfflineSyncLibrary2.DataManagerTests
             _internet = new MockInternetTools();
             now = new DateTime(2013, 5, 1);
             _syncManager = new MockSyncManager();
-            _target = new DataManager<SyncableTestData, TestUser>(_onlineDataService, _offlineDataService, _internet);
+            _target = new DataManager<SyncableTestData, TestUser>
+                (_onlineDataService, _offlineDataService, _internet,_syncManager);
         }
     }
 }

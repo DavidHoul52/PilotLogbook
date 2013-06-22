@@ -19,11 +19,12 @@ namespace OnlineOfflineSyncLibrary2.Stubs
 
 
         public DateTime? LastUpdated { get; set; }
+        public bool LocalDataSaved { get; set; }
 
 
         public async Task SaveLocalData(ISyncableData<TestUser> data)
         {
-            
+            LocalDataSaved = true;
         }
     }
 }

@@ -90,6 +90,18 @@ namespace OnlineOfflineSyncLibrary2.DataManagerTests
             Assert.IsFalse(_offlineDataService.CreateUserDataCalled);
         }
 
+        [TestMethod]
+        public void ShouldSaveLocalData()
+        {
+            _internet.SetConnected(false);
+
+            _offlineDataService.SetUserDataExists(false, null);
+            _target.Startup(_userName);
+            var entity = new TestEntity();
+            _target.PerformDataUpdateAction(dataService => dataService.Insert(entity), entity, now);
+            Assert.IsTrue(_offlineDataService.LocalDataSaved);
+        }
+
 
      
 

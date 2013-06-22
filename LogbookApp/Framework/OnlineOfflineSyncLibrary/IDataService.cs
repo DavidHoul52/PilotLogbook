@@ -30,6 +30,8 @@ namespace OnlineOfflineSyncLibrary
 
         Task<bool> GetUserDataExists(string userName);
 
-        DateTime? LastUpdated { get; set; }
+        bool Loaded { get;  }
+
+       
     }
 }
