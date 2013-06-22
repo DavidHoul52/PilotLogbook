@@ -40,7 +40,7 @@ namespace LogbookApp.ViewModel
 
         private void ShowTotals()
         {
-            ShowTotalsAction(new TotalsActionCommand { Flights= App.Data.FlightData.Flights,
+            ShowTotalsAction(new TotalsActionCommand { Flights= App.DataManager.FlightData.Flights,
                 FromDate = new DateTime(1900,1,1),
                 ToDate=Flight.Date});
         }
@@ -168,7 +168,7 @@ namespace LogbookApp.ViewModel
                 await new MessageDialog(validResult.Message).ShowAsync();
                 return false;
             }
-            await App.Data.SaveFlight(Flight,DateTime.Now);
+            await App.DataManager.SaveFlight(Flight,DateTime.Now);
            Flight.IsNew = false;
             return true;
 

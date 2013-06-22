@@ -9,30 +9,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OnlineOfflineSyncLibrary;
 
 namespace LogbookApp.Data
 {
-    public class MobileFlightDataService : BaseFlightDataService, IOnlineFlightData
+    public class MobileFlightDataService : DataService<FlightData>, IOnlineFlightData
     {
         private MobileServiceClient _mobileService;
      
-        private bool _connected;
-        private bool _available;
+    
 
-        public MobileFlightDataService(MobileServiceClient mobileService, string displayName): base(displayName)
+        public MobileFlightDataService(MobileServiceClient mobileService):
+            base()
         {
 
             _mobileService = mobileService;
           
             
         }
-
-
-        public DataType DataType
-        {
-            get { return DataType.OnLine; }
-        }
-
 
        
 
@@ -46,21 +40,7 @@ namespace LogbookApp.Data
 
         }
 
-        public async Task<bool> UserDataExists(string displayName)
-        {
-           var user = await GetUser(displayName);
-
-            return user != null;
-        }
-
-        
-       
-
-       
-
-      
-
-    
+     
 
         public async Task DeleteAcType(AcType acType)
         {
@@ -207,18 +187,43 @@ namespace LogbookApp.Data
         }
 
 
+        Task IDataService<FlightData, User>.Update<T>(T item)
+        {
+            return Update(item);
+        }
+
         public async Task Insert<T>(T item)
             where T: IEntity
         {
             await _mobileService.GetTable<T>().InsertAsync(item);
         }
 
-        protected async override Task UpdateUserInternal(User user)
+        protected async Task UpdateUserInternal(User user)
         {
            await Update(user);
         }
 
-        public override async Task Update<T>(T item)
+        public async Task<User> GetUser(string userName)
+        {
+            try
+            {
+                var users = await _mobileService.GetTable<User>()
+                    .Where(x => x.DisplayName == userName)
+                    .ToListAsync();
+                return users.FirstOrDefault();
+
+            }
+            catch (Exception)
+            {
+                return null;
+
+
+            }
+        }
+
+       
+
+        public async Task Update<T>(T item)
           
         {
             await _mobileService.GetTable<T>().UpdateAsync(item);
@@ -229,6 +234,11 @@ namespace LogbookApp.Data
         {
             await _mobileService.GetTable<T>().DeleteAsync(item);
             
+        }
+
+        public async Task<bool> GetUserDataExists(string userName)
+        {
+            return await GetUser(userName) != null;
         }
 
 
@@ -257,37 +267,30 @@ namespace LogbookApp.Data
             
         }
 
-
-        public async Task CreateUserData(FlightData flightData, DateTime now)
+        protected async override Task<FlightData> InternalLoadUserData(string userName)
         {
+            FlightData result = new FlightData();
+            result.User= await GetUser(userName);
+            result.Lookups=await LoadLookups(result.User.id);
+            result.Flights = await GetFlights(result.User.id);
+            return result;
 
-
-            await Insert(flightData.User);
-            // rest of data will sync later
         }
 
         
 
+        protected async override Task InternalCreateUserData(string userName)
+        {
+            await Insert(new User { DisplayName = userName, TimeStamp = DateTime.Now });
+        }
+
+        
 
         public bool FlightsChanged { get; set; }
 
 
-        protected async override Task<User> GetUserInternal(string displayName)
-        {
-            try
-            {
-                var users = await _mobileService.GetTable<User>()
-                    .Where(x => x.DisplayName == displayName)
-                    .ToListAsync();
-                return users.FirstOrDefault();
+     
 
-            }
-            catch (Exception)
-            {
-                return null;
-
-
-            }
-        }
+        public bool IsConnected { get; set; }
     }
 }

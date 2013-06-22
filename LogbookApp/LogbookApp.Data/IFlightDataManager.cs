@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace LogbookApp.Data
 {
-    public interface IFlightDataManager
+    public interface IFlightDataManager 
     {
         FlightData FlightData { get; set; }
     

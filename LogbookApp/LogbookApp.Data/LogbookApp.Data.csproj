@@ -109,12 +109,10 @@
     <Compile Include="Aircraft.cs" />
     <Compile Include="AircraftClass.cs" />
     <Compile Include="Airfield.cs" />
-    <Compile Include="BaseFlightDataService.cs" />
     <Compile Include="Capacity.cs" />
     <Compile Include="Flight.cs" />
     <Compile Include="FlightData.cs" />
     <Compile Include="IFlightDataManager.cs" />
-    <Compile Include="IFlightDataService.cs" />
     <Compile Include="ILookups.cs" />
     <Compile Include="InMemoryLookups.cs" />
     <Compile Include="IOnlineFlightData.cs" />

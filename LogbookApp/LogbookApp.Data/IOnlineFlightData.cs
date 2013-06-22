@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BaseData;
+using OnlineOfflineSyncLibrary;
 
 namespace LogbookApp.Data
 {
-    public interface IOnlineFlightData : IFlightDataService
+    public interface IOnlineFlightData :  IOnlineDataService<FlightData, User>
     {
       
 
@@ -25,6 +26,6 @@ namespace LogbookApp.Data
         Task InsertAcType(AcType acType);
 
         Task DeleteAcType(AcType acType);
-        Task UpdateUserFromLocal(User localUser);
+        
     }
 }

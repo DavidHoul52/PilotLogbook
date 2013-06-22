@@ -6,7 +6,7 @@ using OnlineOfflineSyncLibrary;
 
 namespace LogbookApp.Data
 {
-    public class FlightData : ISyncableData
+    public class FlightData : ISyncableData<User>
     {
         private ObservableCollection<Flight> _flights;
         private User _user;

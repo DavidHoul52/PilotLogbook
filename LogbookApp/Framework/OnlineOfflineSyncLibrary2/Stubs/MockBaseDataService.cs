@@ -44,19 +44,22 @@ namespace OnlineOfflineSyncLibrary2.Stubs
             return TargetData.User;
         }
 
-        public override async Task<SyncableTestData> LoadUserData(string userName)
+        protected async override Task<SyncableTestData> InternalLoadUserData(string userName)
         {
-            base.LoadUserData(userName);
             LoadUserDataCalled = true;
             return TargetData;
         }
 
-        public async Task<SyncableTestData> CreateUserData(string userName, DateTime? timeStamp)
+        protected async override Task InternalCreateUserData(string userName)
         {
-            base.CreateUserData(userName, timeStamp);
+            TargetData = new SyncableTestData();
             CreateUserDataCalled = true;
-            return InternalCreateUserData(timeStamp);
+            
         }
+
+     
+
+
 
 
        public async Task<bool> GetUserDataExists(string userName)
@@ -74,7 +77,7 @@ namespace OnlineOfflineSyncLibrary2.Stubs
             }
         }
 
-        private static SyncableTestData InternalCreateUserData(DateTime? timeStamp)
+        private SyncableTestData InternalCreateUserData(DateTime? timeStamp)
         {
             return new SyncableTestData { User = new TestUser { TimeStamp = timeStamp } };
         }

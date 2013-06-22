@@ -23,6 +23,7 @@ namespace OnlineOfflineSyncLibrary.Test.SyncManagerTests
 
       
         public DateTime? LastUpdated { get; set; }
-        
+
+       
     }
 }

@@ -18,7 +18,7 @@ namespace LogbookApp.FlightDataManagement
         private readonly Action _onlineDataUpdatedFromOffLine;
         
         private UserManager _userManager;
-        private ISyncManager<FlightData> _syncManager;
+        private ISyncManager<FlightData,User> _syncManager;
         private readonly IInternetTools _internetTools;
         public IFlightDataService DataService { get; private set; }
         public LocalDataService LocalDataService { get; private set; }

@@ -59,7 +59,7 @@ namespace LogbookApp
 
      
 
-        public static IFlightDataManager Data { get; set; }
+        public static DataManager<FlightData,User> DataManager { get; set; }
         public static string DisplayName { get; set; }
 
         /// <summary>
@@ -105,11 +105,11 @@ namespace LogbookApp
                DisplayName = "test";
 
                 var onlineDataService = new MobileService(DisplayName).Client;
-                Data = new FlightDataManager(onlineDataService,
+                DataManager = new DataManager(onlineDataService,
                     new LocalDataService(new LocalStorage(), "flights.xml","lookups.xml","user.xml",DisplayName),
                      new FlightsSyncManager(onlineDataService), new InternetTools()
                      );
-               await Data.StartUp(DisplayName);
+               await DataManager.Startup(DisplayName);
              
 
 
@@ -169,13 +169,13 @@ namespace LogbookApp
 
         public static async Task RefreshFlightData()
         {
-              await Data.GetFlights();
+              await DataManager.GetFlights();
         }
 
         public static async Task GetAllFlightData()
         {
             
-                await Data.LoadData();
+                await DataManager.LoadData();
         }
 
         private Color _background = Color.FromArgb(255, 0, 77, 96);

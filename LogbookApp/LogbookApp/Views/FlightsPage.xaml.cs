@@ -34,7 +34,7 @@ namespace LogbookApp
                 
                 
 
-            viewModel = new FlightsPageViewModel(App.Data);
+            viewModel = new FlightsPageViewModel(App.DataManager);
          
             viewModel.ShowDetail = ActionShowDetail;
             viewModel.ShowTotals = ActionShowTotals;

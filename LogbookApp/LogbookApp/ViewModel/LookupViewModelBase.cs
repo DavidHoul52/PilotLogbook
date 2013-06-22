@@ -21,7 +21,7 @@ namespace LogbookApp.ViewModel
 
         protected virtual void OnFlightUpdated()
         {
-            DataService = App.Data;
+            DataService = App.DataManager;
 
         }
 

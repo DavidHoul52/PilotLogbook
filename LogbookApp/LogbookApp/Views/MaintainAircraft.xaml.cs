@@ -33,7 +33,7 @@ namespace LogbookApp.Views
         {
             this.InitializeComponent();
 
-            IFlightDataManager data = App.Data;
+            IFlightDataManager data = App.DataManager;
 
 
 

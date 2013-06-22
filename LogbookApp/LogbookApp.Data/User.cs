@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using BaseData;
+using OnlineOfflineSyncLibrary;
 
 
 namespace LogbookApp.Data
 {
-    public class User : IEntity
+    public class User : IUser
     {
         private DateTime? _timeStamp;
 

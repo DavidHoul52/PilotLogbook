@@ -3,20 +3,25 @@ using System.Threading.Tasks;
 
 namespace OnlineOfflineSyncLibrary
 {
-    public class DataService<TSyncableData>
+    public abstract class DataService<TSyncableData>
     {
-        public virtual async Task<TSyncableData> LoadUserData(string userName)
+        public async Task<TSyncableData> LoadUserData(string userName)
         {
             Loaded = true;
-            return default(TSyncableData);
+            return await InternalLoadUserData(userName);
         }
 
+        protected abstract Task<TSyncableData> InternalLoadUserData(string userName);
+        
 
-        public virtual async Task<TSyncableData> CreateUserData(string userName, DateTime? timeStamp)
+        public async Task<TSyncableData> CreateUserData(string userName, DateTime? timeStamp)
          {
              Loaded = true;
-             return default(TSyncableData);
+             await InternalCreateUserData(userName);
+             return await InternalLoadUserData(userName);
          }
+
+        protected abstract Task InternalCreateUserData(string userName);
 
         public bool Loaded { get; private set; }
     }
