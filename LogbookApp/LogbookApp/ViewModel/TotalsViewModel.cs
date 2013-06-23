@@ -46,7 +46,7 @@ namespace LogbookApp.ViewModel
         public async Task Load()
         {
             await App.GetAllFlightData();
-            Totals = calculator.Calc(App.DataManager.FlightData.Flights, _command.FromDate, _command.ToDate);
+            Totals = calculator.Calc(App.FlightDataManager.Data.Flights, _command.FromDate, _command.ToDate);
 
             RaisePropertyChanged(() => Totals);
             

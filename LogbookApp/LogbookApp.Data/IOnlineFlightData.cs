@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,10 @@ namespace LogbookApp.Data
         Task InsertAcType(AcType acType);
 
         Task DeleteAcType(AcType acType);
-        
+
+        Task<ObservableCollection<Flight>> GetFlights(int userId);
+        Task<Lookups> LoadLookups(int userId);
+
+      
     }
 }

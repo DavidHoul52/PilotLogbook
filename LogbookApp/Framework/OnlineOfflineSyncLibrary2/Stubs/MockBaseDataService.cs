@@ -9,9 +9,11 @@ using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
 
 namespace OnlineOfflineSyncLibrary2.Stubs
 {
-    public abstract class MockBaseDataService : DataService<SyncableTestData>
+    public abstract class MockBaseDataService<TSyncableData,TUser> : DataService<TSyncableData,TUser>
+        where TUser : IUser, new()
+        where TSyncableData : ISyncableData<TUser>,new()
     {
-        protected SyncableTestData TargetData;
+        protected TSyncableData TargetData;
         protected readonly string UserName;
         private bool _userDataExists;
 
@@ -39,12 +41,12 @@ namespace OnlineOfflineSyncLibrary2.Stubs
         public bool LoadUserDataCalled { get; set; }
         public bool CreateUserDataCalled { get; set; }
 
-        public async Task<TestUser> GetUser(string userName)
+        public async Task<TUser> GetUser(string userName)
         {
             return TargetData.User;
         }
 
-        protected async override Task<SyncableTestData> InternalLoadUserData(string userName)
+        protected async override Task<TSyncableData> InternalLoadUserData(string userName)
         {
             LoadUserDataCalled = true;
             return TargetData;
@@ -52,15 +54,10 @@ namespace OnlineOfflineSyncLibrary2.Stubs
 
         protected async override Task InternalCreateUserData(string userName)
         {
-            TargetData = new SyncableTestData();
+            TargetData = new TSyncableData();
             CreateUserDataCalled = true;
             
         }
-
-     
-
-
-
 
        public async Task<bool> GetUserDataExists(string userName)
        {
@@ -73,13 +70,13 @@ namespace OnlineOfflineSyncLibrary2.Stubs
                TargetData = InternalCreateUserData(timeStamp);
             else
             {
-                TargetData = null;
+                TargetData = default(TSyncableData);
             }
         }
 
-        private SyncableTestData InternalCreateUserData(DateTime? timeStamp)
+        private TSyncableData InternalCreateUserData(DateTime? timeStamp)
         {
-            return new SyncableTestData { User = new TestUser { TimeStamp = timeStamp } };
+            return new TSyncableData { User = new TUser { TimeStamp = timeStamp } };
         }
 
      

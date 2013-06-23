@@ -27,7 +27,7 @@ namespace LogbookApp.LocalData.Test
             testLocalStorage.AllSaved = false;
             _flightData = new FlightData();
 
-            target = new LocalDataService(testLocalStorage, _flightsFileName, _lookupsFileName, "",displayName);
+            target = new LocalDataService(testLocalStorage, _flightsFileName, _lookupsFileName, "");
             
            
         }
@@ -43,7 +43,7 @@ namespace LogbookApp.LocalData.Test
         [TestMethod]
         public void ShouldInsertFlightandSave()
         {
-            target.SaveFlightData(_flightData);
+            target.SaveLocalData(_flightData);
             Assert.IsTrue(testLocalStorage.AllSaved);
         }
 

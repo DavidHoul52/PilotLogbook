@@ -53,8 +53,8 @@ namespace LogbookApp.ViewModel
 
         public void Refresh()
         {
-            if (flightDataManager.FlightData.Flights != null)
-                Flights = new ObservableCollection<Flight>(flightDataManager.FlightData.Flights.OrderByDescending(x => x.Depart).
+            if (flightDataManager.Data.Flights != null)
+                Flights = new ObservableCollection<Flight>(flightDataManager.Data.Flights.OrderByDescending(x => x.Depart).
                     OrderByDescending(x => x.Date).ToList());
             RaisePropertyChanged(() => Flights);
         }
@@ -64,8 +64,8 @@ namespace LogbookApp.ViewModel
         {
             Flights.Add(new Flight
             {
-                UserId = flightDataManager.FlightData.User.id,
-                Lookups = flightDataManager.FlightData.Lookups,
+                UserId = flightDataManager.Data.User.id,
+                Lookups = flightDataManager.Data.Lookups,
                 IsNew = true, 
             Date = DateTime.Today, AircraftId = 1});
             SelectedFlight = Flights.Last();

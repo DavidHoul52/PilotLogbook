@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 
 namespace OnlineOfflineSyncLibrary
 {
-    public abstract class DataService<TSyncableData>
+    public abstract class DataService<TSyncableData, TUser>
+        where TUser : IUser
+        where TSyncableData : ISyncableData<TUser>
     {
         public async Task<TSyncableData> LoadUserData(string userName)
         {

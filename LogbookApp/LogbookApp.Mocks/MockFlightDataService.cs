@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using BaseData;
 using LogbookApp.Data;
+using OnlineOfflineSyncLibrary;
 
 namespace LogbookApp.Mocks
 {
-    public class MockFlightDataService : BaseFlightDataService, IOnlineFlightData
+    public class MockFlightDataService : DataService<FlightData>, IOnlineFlightData
     {
 
         private bool _exists;
         private FlightData _internalFlightData;
         private DateTime? _lastUpdated;
 
-        public MockFlightDataService(DataType dataType, FlightData internalFlightData,string displayname)
-            : base(displayname)
+        public MockFlightDataService(FlightData internalFlightData)
+            : base()
         {
 
             _exists = false;
@@ -25,20 +26,12 @@ namespace LogbookApp.Mocks
 
         }
 
-        public MockFlightDataService(DataType dataType,string displayname)
-            : this(dataType, new FlightData(), displayname)
+        public MockFlightDataService()
+            : this(new FlightData())
         {
 
         }
 
-
-        public DataType DataType
-        {
-            get
-            {
-                return DataType.OnLine;
-            }
-        }
 
 
 
@@ -135,6 +128,11 @@ namespace LogbookApp.Mocks
             return _internalFlightData.Flights;
         }
 
+        public Task<Lookups> LoadLookups(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<bool> UserDataExists(string displayName)
         {
             return _exists;
@@ -145,8 +143,16 @@ namespace LogbookApp.Mocks
 
         }
 
-      
 
+        public Task<User> GetUser(string userName)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task IDataService<FlightData, User>.Update<T>(T item)
+        {
+            return Update(item);
+        }
 
         public override async Task Update<T>(T item) 
         {
@@ -169,6 +175,11 @@ namespace LogbookApp.Mocks
         public async Task Delete<T>(T item) where T : IEntity
         {
             GetItems<T>().Remove(item);
+        }
+
+        public Task<bool> GetUserDataExists(string userName)
+        {
+            throw new NotImplementedException();
         }
 
         private ObservableCollection<T> GetItems<T>() where T : IEntity
@@ -220,5 +231,17 @@ namespace LogbookApp.Mocks
         {
             _internalFlightData.User = user;
         }
+
+        protected override Task<FlightData> InternalLoadUserData(string userName)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override Task InternalCreateUserData(string userName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsConnected { get; set; }
     }
 }

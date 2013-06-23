@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using LogbookApp.Commands;
 using LogbookApp.Data;
-using LogbookApp.Services;
 using LogbookApp.ViewModel;
 using Windows.UI.Xaml.Controls;
 
@@ -19,7 +18,7 @@ namespace LogbookApp.Views
         public MaintainAircraftTypes()
         {
             this.InitializeComponent();
-            IFlightDataManager data = App.DataManager;
+            var data = App.FlightDataManager;
 
 
 

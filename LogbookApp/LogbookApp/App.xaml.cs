@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
-using Windows.Devices.Geolocation;
-using Windows.Foundation.Metadata;
 using Windows.Networking.Connectivity;
-using Windows.Storage.Streams;
 using Windows.UI;
-using Windows.UI.Core;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 using Callisto.Controls;
 using InternetDetection;
@@ -22,16 +11,11 @@ using LogbookApp.Storage;
 using LogbookApp.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.ApplicationSettings;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using LogbookApp.Services;
-using Windows.System.UserProfile;
 using Windows.UI.Xaml.Controls;
 using System.Threading.Tasks;
-using OnlineOfflineSyncLibrary;
+using Microsoft.WindowsAzure.MobileServices;
 
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
@@ -52,14 +36,14 @@ namespace LogbookApp
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             this.Resuming += OnResuming;
-           
-         
+
+
 
         }
 
-     
 
-        public static DataManager<FlightData,User> DataManager { get; set; }
+
+        public static IFlightDataManager FlightDataManager { get; set; }
         public static string DisplayName { get; set; }
 
         /// <summary>
@@ -74,18 +58,18 @@ namespace LogbookApp
         protected async override void OnLaunched(LaunchActivatedEventArgs args)
         {
             SettingsPane.GetForCurrentView().CommandsRequested += OnCommandsRequested;
-            bool loadState = (args.PreviousExecutionState == ApplicationExecutionState.Terminated || args.PreviousExecutionState==ApplicationExecutionState.NotRunning );
+            bool loadState = (args.PreviousExecutionState == ApplicationExecutionState.Terminated || args.PreviousExecutionState == ApplicationExecutionState.NotRunning);
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
-                  // Begin executing setup operations.
+                // Begin executing setup operations.
 
 
                 // Place the frame in the current Window
                 ExtendedSplash extendedSplash = new ExtendedSplash(args.SplashScreen);
-                
+
                 Window.Current.Content = extendedSplash;
                 Window.Current.Activate();
-            
+
             }
 
             await PerformDataFetch(loadState);
@@ -97,20 +81,23 @@ namespace LogbookApp
             {
 
                 var profile = NetworkInformation.GetInternetConnectionProfile();
-            //    var connectivity = profile.GetNetworkConnectivityLevel();
-                
+                //    var connectivity = profile.GetNetworkConnectivityLevel();
 
 
-               //DisplayName = await UserInformation.GetDisplayNameAsync();
-               DisplayName = "test";
 
-                var onlineDataService = new MobileService(DisplayName).Client;
-                DataManager = new DataManager(onlineDataService,
-                    new LocalDataService(new LocalStorage(), "flights.xml","lookups.xml","user.xml",DisplayName),
-                     new FlightsSyncManager(onlineDataService), new InternetTools()
+                //DisplayName = await UserInformation.GetDisplayNameAsync();
+                DisplayName = "test";
+
+                var onlineDataService = new MobileFlightDataService(new MobileServiceClient(
+               "https://worldpilotslogbook.azure-mobile.net/", "LRlXCJsDuLcggcInPASNkoyofIwtuk47"));
+                FlightDataManager = new FlightDataManager(onlineDataService,
+                    new LocalDataService(new LocalStorage(), "flights.xml", "lookups.xml", "user.xml"
+                        ),
+                        new InternetTools(),
+                     new FlightsSyncManager(onlineDataService)
                      );
-               await DataManager.Startup(DisplayName);
-             
+                await FlightDataManager.Startup(DisplayName);
+
 
 
 
@@ -120,12 +107,12 @@ namespace LogbookApp
 
             }
             // Tear down the extended splash screen after all operations are complete.
-            RemoveExtendedSplash(); 
+            RemoveExtendedSplash();
 
         }
 
 
-        public  bool IsConnected
+        public bool IsConnected
         {
             get
             {
@@ -154,28 +141,28 @@ namespace LogbookApp
         {
             SuspendingDeferral deferral = e.SuspendingOperation.GetDeferral();
             await SuspensionManager.SaveAsync();
-            
-            
-            deferral.Complete(); 
+
+
+            deferral.Complete();
         }
 
 
         private async void OnResuming(Object sender, Object e)
         {
-         
-           // await PerformDataFetch(true);
+
+            // await PerformDataFetch(true);
         }
 
 
         public static async Task RefreshFlightData()
         {
-              await DataManager.GetFlights();
+            await FlightDataManager.GetFlights();
         }
 
         public static async Task GetAllFlightData()
         {
-            
-                await DataManager.LoadData();
+
+            await FlightDataManager.LoadData();
         }
 
         private Color _background = Color.FromArgb(255, 0, 77, 96);
@@ -195,9 +182,9 @@ namespace LogbookApp
 
             args.Request.ApplicationCommands.Add(about);
 
-          
+
 
         }
-      
+
     }
 }

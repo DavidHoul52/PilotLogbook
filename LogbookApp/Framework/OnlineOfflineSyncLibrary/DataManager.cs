@@ -1,29 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
 using System.Threading.Tasks;
 using BaseData;
 using InternetDetection;
 
 namespace OnlineOfflineSyncLibrary
 {
-    public class DataManager<TSyncableData,TUser>
+    public class DataManager<TSyncableData,TUser, TOnlineDataService, TOffLineDataService>
         where TUser: IUser
         where TSyncableData : ISyncableData<TUser>
+        where TOnlineDataService : IOnlineDataService<TSyncableData, TUser>
+        where TOffLineDataService : IOfflineDataService<TSyncableData, TUser>
     {
-        private TSyncableData _data;
-        private readonly IOnlineDataService<TSyncableData, TUser> _onlineDataService;
-        private readonly IOfflineDataService<TSyncableData, TUser> _offlineDataService;
+
+        private readonly TOnlineDataService _onlineDataService;
+        private readonly TOffLineDataService _offlineDataService;
         private readonly IInternetTools _internet;
         private string _userName;
-        private ISyncManager<TSyncableData, TUser> _syncManager;
+        private readonly ISyncManager<TSyncableData, TUser> _syncManager;
 
 
         public DataManager(
-            IOnlineDataService<TSyncableData, TUser> onlineDataService,
-            IOfflineDataService<TSyncableData, TUser> offlineDataService, IInternetTools internet, 
+            TOnlineDataService onlineDataService,
+            TOffLineDataService offlineDataService, IInternetTools internet, 
             ISyncManager<TSyncableData,TUser>  syncManager)
         {
             
@@ -33,7 +31,9 @@ namespace OnlineOfflineSyncLibrary
             _syncManager = syncManager;
         }
 
-        public async void Startup(string userName)
+        public TSyncableData Data { get; private set; }
+
+        public async Task Startup(string userName)
         {
             _userName = userName;
             await CheckConnectionState();
@@ -49,20 +49,20 @@ namespace OnlineOfflineSyncLibrary
             {
                 
                 var unSyncedData=await LoadUserData(_onlineDataService);
-                if (DetectNeedForSyncUpdate(_data, unSyncedData))
-                    await _syncManager.UpdateTargetData(_data, unSyncedData, DateTime.Now);
+                if (DetectNeedForSyncUpdate(Data, unSyncedData))
+                    await _syncManager.UpdateTargetData(Data, unSyncedData, DateTime.Now);
                 else
-                    _data = unSyncedData;
+                    Data = unSyncedData;
 
 
             }
             else if (!_offlineDataService.Loaded)
             {
-                _data =await LoadUserData(_offlineDataService);
+                Data =await LoadUserData(_offlineDataService);
             }
         }
 
-        private async Task<TSyncableData> LoadUserData(IDataService<TSyncableData,TUser> dataService)
+        protected async Task<TSyncableData> LoadUserData(IDataService<TSyncableData,TUser> dataService)
         {
             bool userDataExists = await dataService.GetUserDataExists(_userName);
             if (userDataExists)
@@ -82,20 +82,20 @@ namespace OnlineOfflineSyncLibrary
                   || (source.User.TimeStamp > target.User.TimeStamp));
         }
 
-        public async Task PerformDataUpdateAction(Func<IOnlineDataService<TSyncableData, TUser>,
+        public async Task PerformDataUpdateAction(Func<TOnlineDataService,
          Task> updateAction, IEntity entity, DateTime upDateTime)
         {
             entity.TimeStamp = upDateTime;
 
             await CheckConnectionState();
-            _data.User.TimeStamp = upDateTime;
+            Data.User.TimeStamp = upDateTime;
             if (_onlineDataService.IsConnected)
             {
                 await updateAction(_onlineDataService);
 
             }
 
-            await (_offlineDataService.SaveLocalData(_data));
+            await (_offlineDataService.SaveLocalData(Data));
 
 
         }

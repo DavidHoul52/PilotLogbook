@@ -8,7 +8,7 @@ namespace OnlineOfflineSyncLibrary
          where TUser : IUser
         where TSyncableData : ISyncableData<TUser>
     {
-        Task SaveLocalData(ISyncableData<TUser> data);
+        Task SaveLocalData(TSyncableData data);
 
       
     }

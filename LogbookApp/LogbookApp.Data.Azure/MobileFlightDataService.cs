@@ -59,7 +59,7 @@ namespace LogbookApp.Data
 
         }
 
-        private async Task<Lookups> LoadLookups(int userId)
+        public async Task<Lookups> LoadLookups(int userId)
         {
             var lookups = new Lookups();
             lookups.AcTypes = new ObservableCollection<AcType>(await _mobileService.GetTable<AcType>()

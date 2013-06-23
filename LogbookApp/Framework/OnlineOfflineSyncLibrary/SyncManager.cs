@@ -13,7 +13,7 @@ namespace OnlineOfflineSyncLibrary
     {
         protected readonly TOnlineDataService _onLineDataService;
 
-        public SyncManager(TOnlineDataService onlineDataService)
+        protected SyncManager(TOnlineDataService onlineDataService)
         {
             _onLineDataService = onlineDataService;
             

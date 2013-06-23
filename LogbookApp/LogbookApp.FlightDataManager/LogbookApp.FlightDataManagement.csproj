@@ -124,7 +124,6 @@
   <ItemGroup>
     <Compile Include="FlightDataManager.cs" />
     <Compile Include="FlightsSyncManager.cs" />
-    <Compile Include="OnlineFlightDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

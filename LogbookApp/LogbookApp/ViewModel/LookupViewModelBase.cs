@@ -21,7 +21,7 @@ namespace LogbookApp.ViewModel
 
         protected virtual void OnFlightUpdated()
         {
-            DataService = App.DataManager;
+            DataService = App.FlightDataManager;
 
         }
 
@@ -36,7 +36,7 @@ namespace LogbookApp.ViewModel
                 dataService = value;
                 if (value != null)
                 {
-                    Lookups = dataService.FlightData.Lookups;
+                    Lookups = dataService.Data.Lookups;
                     RaisePropertyChanged(() => Lookups);
                 }
                 ;}

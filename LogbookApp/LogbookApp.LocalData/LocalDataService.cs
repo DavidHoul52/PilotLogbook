@@ -8,10 +8,11 @@ using Windows.System.UserProfile;
 using Windows.UI.Xaml.Controls;
 using BaseData;
 using LogbookApp.Data;
+using OnlineOfflineSyncLibrary;
 
 namespace LogbookApp.Storage
 {
-    public class LocalDataService : BaseFlightDataService, IFlightDataService
+    public class LocalDataService : DataService<FlightData>, IOfflineDataService<FlightData,User>
     {
         private readonly ILocalStorage _localStorage;
         private readonly string _flightsFileName;
@@ -23,8 +24,8 @@ namespace LogbookApp.Storage
 
 
         public LocalDataService(ILocalStorage localStorage, string flightsFileName, string lookupsFileName,
-            string userFileName, string displayName)
-            : base(displayName)
+            string userFileName)
+            : base()
         {
             _localStorage = localStorage;
             _flightsFileName = flightsFileName;
@@ -34,11 +35,7 @@ namespace LogbookApp.Storage
             
         }
 
-        public DataType DataType { get
-        {
-            return DataType.OffLine;
-        }}
-
+    
 
 
         public virtual async Task<Lookups> GetLookups(int userId)
@@ -63,18 +60,18 @@ namespace LogbookApp.Storage
 
 
      
-        public async Task CreateUserData(FlightData flightData, DateTime now)
-        {
         
-            await _localStorage.Save(flightData.User, _userFileName);
-            await SaveLookups(flightData.Lookups);
-            await SaveFlights(flightData.Flights);
+
+        Task<User> IDataService<FlightData, User>.GetUser(string userName)
+        {
+            return GetUser(userName);
         }
 
-        public override Task Update<T>(T item)
+        public Task Update<T>(T item) where T : IEntity
         {
             throw new NotImplementedException();
         }
+
 
         public Task Insert<T>(T item) where T : IEntity
         {
@@ -86,8 +83,26 @@ namespace LogbookApp.Storage
             throw new NotImplementedException();
         }
 
+        public async Task<bool> GetUserDataExists(string userName)
+        {
 
-        protected async override Task<User> GetUserInternal(string displayName)
+            User tryUser = null;
+            try
+            {
+                tryUser = await GetUser(userName);
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+
+
+            return tryUser != null;
+        }
+
+
+        protected async Task<User> GetUser(string displayName)
         {
 
             try
@@ -130,43 +145,40 @@ namespace LogbookApp.Storage
         }
       
 
-        public async Task<bool> UserDataExists(string displayName)
-        {
-            
-            User tryUser = null;
-            try
-            {
-                tryUser =await GetUser(displayName);
-            }
-            catch (Exception)
-            {
-
-                return false;
-            }
-
-
-            return tryUser != null;
-            
-        }
-
-     
-       
-
-      
-
-        protected override async Task UpdateUserInternal(User user)
+        protected async Task UpdateUserInternal(User user)
         {
             await _localStorage.Save(user, _userFileName);
         }
 
 
-        public async Task SaveFlightData(FlightData flightData)
+      
+
+
+        protected async override Task<FlightData> InternalLoadUserData(string userName)
+        {
+            var flightData = new FlightData();
+            flightData.User = await GetUser(userName);
+            flightData.Lookups = await GetLookups(flightData.User.id);
+            flightData.Flights = await GetFlights(flightData.User.id);
+            return flightData;
+        }
+
+        protected async override Task InternalCreateUserData(string userName)
+        {
+            
+            var flightData = new FlightData();
+            flightData.User.DisplayName = userName;
+            await _localStorage.Save(flightData.User, _userFileName);
+            await SaveLookups(flightData.Lookups);
+            await SaveFlights(flightData.Flights);
+        }
+
+        public async Task SaveLocalData(FlightData flightData)
         {
             await SaveFlights(flightData.Flights);
             await SaveLookups(flightData.Lookups);
-           
         }
 
-       
+    
     }
 }

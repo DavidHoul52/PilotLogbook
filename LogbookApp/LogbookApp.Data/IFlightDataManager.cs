@@ -6,11 +6,11 @@ namespace LogbookApp.Data
 {
     public interface IFlightDataManager 
     {
-        FlightData FlightData { get; set; }
+        
     
-        bool FlightsChanged { get; set; }
-        Task LoadData();
-        Task GetLookups();
+        
+        
+    
         
         Task DeleteFlight(Flight flight, DateTime updateTime);
         Task SaveFlight(Flight flight, DateTime saveTime);
@@ -24,10 +24,16 @@ namespace LogbookApp.Data
         Task InsertAcType(AcType acType, DateTime upDateTime);
        
   
-        Task GetFlights();
+        
         
 
         Task DeleteAcType(AcType item, DateTime upDateTime);
-        Task StartUp(string displayName);
+
+        FlightData Data { get; }
+
+        Task GetFlights();
+        Task LoadData();
+        Task GetLookups();
+        Task Startup(string userName);
     }
 }
