@@ -8,17 +8,22 @@ using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
 
 namespace OnlineOfflineSyncLibrary2
 {
-    public class TestSyncManager : SyncManager<SyncableTestData, MockOnlineDataService, TestUser>
+    public class TestSyncManager<TSyncableData, TUser> : SyncManager<TSyncableData,
+        MockOnlineDataService<TSyncableData, TUser>, TUser>
+        where TUser : IUser, new()
+        where TSyncableData : ISyncableData<TUser>, new()
     {
-        public TestSyncManager(MockOnlineDataService onlineDataService) : base(onlineDataService)
+        public TestSyncManager(MockOnlineDataService<TSyncableData, TUser> onlineDataService) :
+            base(onlineDataService)
         {
         }
 
-        
 
-        
 
-        public async override Task UpdateTargetData(SyncableTestData sourceData, SyncableTestData targetData, DateTime now)
+
+
+        public async override Task UpdateTargetData(TSyncableData sourceData,
+            TSyncableData targetData, DateTime now)
         {
             
         }

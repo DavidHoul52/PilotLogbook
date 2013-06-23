@@ -12,7 +12,7 @@ using OnlineOfflineSyncLibrary;
 
 namespace LogbookApp.Storage
 {
-    public class LocalDataService : DataService<FlightData>, IOfflineDataService<FlightData,User>
+    public class LocalDataService : DataService<FlightData,User>, IOfflineDataService<FlightData,User>
     {
         private readonly ILocalStorage _localStorage;
         private readonly string _flightsFileName;

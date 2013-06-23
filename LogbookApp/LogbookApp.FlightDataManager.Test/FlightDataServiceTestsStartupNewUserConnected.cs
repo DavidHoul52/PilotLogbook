@@ -6,43 +6,35 @@ using System.Threading.Tasks;
 using LogbookApp.Data;
 using LogbookApp.Mocks;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using OnlineOfflineSyncLibrary2.DataManagerTests;
 
 namespace LogbookApp.FlightDataManagerTest
 {
     [TestClass]
-    public class FlightDataServiceTestsStartupNewUserConnected :  FlightDataServiceTestsBase
+    public class FlightDataServiceTestsStartupNewUserConnected :  DataManagerTestBase<FlightData,User>
     {
         [TestInitialize]
         public override void Setup()
         {
             base.Setup();
-            MockInternetTools.SetConnected(true);
-            OnlineDataService.SetExists(false);
-            TestLocalStorage.SetExists(false);
-            Target.StartUp("jack");
+            StartupAsNewUserConnected();
         }
 
+    
 
-        [TestMethod]
-        public void FlightDataServiceShouldBeOnline()
-        {
-
-            Assert.AreEqual(DataType.OnLine, Target.DataService.DataType);
-
-        }
 
         [TestMethod]
         public void ShouldCreateNewUser()
         {
 
-            Assert.AreEqual("jack", Target.FlightData.User.DisplayName);
+            Assert.AreEqual(UserName, Target.Data.User.DisplayName);
 
         }
 
         [TestMethod]
         public void LookupsShouldBeAvailable()
         {
-            Assert.IsNotNull(Target.FlightData.Lookups);
+            Assert.IsNotNull(Target.Data.Lookups);
 
         }
 
@@ -52,7 +44,7 @@ namespace LogbookApp.FlightDataManagerTest
 
 
 
-            Assert.IsNotNull(Target.FlightData.Lookups.AcTypes);
+            Assert.IsNotNull(Target.Data.Lookups.AcTypes);
 
         }
 
@@ -62,7 +54,7 @@ namespace LogbookApp.FlightDataManagerTest
 
 
 
-            Assert.IsNotNull(Target.FlightData.Lookups.Aircraft);
+            Assert.IsNotNull(Target.Data.Lookups.Aircraft);
 
         }
 
@@ -72,7 +64,7 @@ namespace LogbookApp.FlightDataManagerTest
 
 
 
-            Assert.IsNotNull(Target.FlightData.Lookups.Airfields);
+            Assert.IsNotNull(Target.Data.Lookups.Airfields);
 
         }
 
@@ -82,7 +74,7 @@ namespace LogbookApp.FlightDataManagerTest
 
 
 
-            Assert.IsNotNull(Target.FlightData.InMemoryLookups.Capacities);
+            Assert.IsNotNull(Target.Data.InMemoryLookups.Capacities);
 
         }
     }

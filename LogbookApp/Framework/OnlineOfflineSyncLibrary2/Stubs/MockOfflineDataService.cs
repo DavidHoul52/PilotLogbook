@@ -8,7 +8,10 @@ using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
 
 namespace OnlineOfflineSyncLibrary2.Stubs
 {
-    public class MockOfflineDataService : MockBaseDataService, IOfflineDataService<SyncableTestData, TestUser>
+    public class MockOfflineDataService<TSyncableData, TUser> : MockBaseDataService<TSyncableData, TUser>,
+        IOfflineDataService<TSyncableData, TUser>
+        where TUser : IUser, new()
+        where TSyncableData : ISyncableData<TUser>, new()
     {
         public MockOfflineDataService(string userName)
             : base( userName)
@@ -22,7 +25,9 @@ namespace OnlineOfflineSyncLibrary2.Stubs
         public bool LocalDataSaved { get; set; }
 
 
-        public async Task SaveLocalData(ISyncableData<TestUser> data)
+
+
+        public async Task SaveLocalData(TSyncableData data)
         {
             LocalDataSaved = true;
         }

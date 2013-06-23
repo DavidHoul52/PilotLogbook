@@ -121,7 +121,6 @@
     <Compile Include="Stubs\SyncableTestData.cs" />
     <Compile Include="Stubs\TestEntity.cs" />
     <Compile Include="SyncManagerTests\Base\SyncManagerTestsBase.cs" />
-    <Compile Include="SyncManagerTests\SyncManagerTestsUser.cs" />
     <Compile Include="Stubs\TestUser.cs" />
     <Compile Include="TestSyncManager.cs" />
   </ItemGroup>

@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
 using OnlineOfflineSyncLibrary2.Stubs;
 
 namespace OnlineOfflineSyncLibrary2.DataManagerTests
 {
     [TestClass]
-    public class DataManagerTestAferStartup : DataManagerTestBase
+    public class DataManagerTestAferStartup : DataManagerTestBase<SyncableTestData, TestUser>
     {
 
         [TestInitialize]
@@ -22,27 +23,27 @@ namespace OnlineOfflineSyncLibrary2.DataManagerTests
         [TestMethod]
         public void UserNotConnectedOnStartsUpThenConnectsUserExistsOnlineShouldSync()
         {
-            _internet.SetConnected(false);
-            _offlineDataService.SetUserDataExists(true, DateTime.Now);
-            _target.Startup(_userName);
+            Internet.SetConnected(false);
+            OfflineDataService.SetUserDataExists(true, DateTime.Now);
+            Target.Startup(UserName);
             _onlineDataService.SetUserDataExists(true,DateTime.Now.AddDays(-1));
-            _internet.SetConnected(true);
+            Internet.SetConnected(true);
             var entity = new TestEntity();
-            _target.PerformDataUpdateAction(dataService => dataService.Insert(entity), entity, now);
-            Assert.IsTrue(_syncManager.UpdateTargetDataCalled);
+            Target.PerformDataUpdateAction(dataService => dataService.Insert(entity), entity, now);
+            Assert.IsTrue(SyncManager.UpdateTargetDataCalled);
         }
 
         [TestMethod]
         public void UserNotConnectedOnStartsUpThenConnectsUserExistsOnlineShouldSaveLocalData()
         {
-            _internet.SetConnected(false);
-            _offlineDataService.SetUserDataExists(true, DateTime.Now);
-            _target.Startup(_userName);
+            Internet.SetConnected(false);
+            OfflineDataService.SetUserDataExists(true, DateTime.Now);
+            Target.Startup(UserName);
             _onlineDataService.SetUserDataExists(true, DateTime.Now.AddDays(-1));
-            _internet.SetConnected(true);
+            Internet.SetConnected(true);
             var entity = new TestEntity();
-            _target.PerformDataUpdateAction(dataService => dataService.Insert(entity), entity, now);
-            Assert.IsTrue(_offlineDataService.LocalDataSaved);
+            Target.PerformDataUpdateAction(dataService => dataService.Insert(entity), entity, now);
+            Assert.IsTrue(OfflineDataService.LocalDataSaved);
         }
 
      
@@ -50,13 +51,13 @@ namespace OnlineOfflineSyncLibrary2.DataManagerTests
         [TestMethod]
         public void UserNotConnectedOnStartsUpThenConnectsUserNotExistsOnlineShouldCreateUseData()
         {
-            _internet.SetConnected(false);
-            _offlineDataService.SetUserDataExists(true, DateTime.Now);
-            _target.Startup(_userName);
+            Internet.SetConnected(false);
+            OfflineDataService.SetUserDataExists(true, DateTime.Now);
+            Target.Startup(UserName);
             _onlineDataService.SetUserDataExists(false,null);
-            _internet.SetConnected(true);
+            Internet.SetConnected(true);
             var entity = new TestEntity();
-            _target.PerformDataUpdateAction(dataService => dataService.Insert(entity), entity, now);
+            Target.PerformDataUpdateAction(dataService => dataService.Insert(entity), entity, now);
             Assert.IsTrue(_onlineDataService.CreateUserDataCalled);
         }
 
@@ -64,28 +65,28 @@ namespace OnlineOfflineSyncLibrary2.DataManagerTests
         [TestMethod]
         public void UserNotConnectedOnStartsUpThenConnectsUserNotExistsOnlineShouldSyncData()
         {
-            _internet.SetConnected(false);
-            _offlineDataService.SetUserDataExists(true, DateTime.Now);
-            _target.Startup(_userName);
+            Internet.SetConnected(false);
+            OfflineDataService.SetUserDataExists(true, DateTime.Now);
+            Target.Startup(UserName);
             _onlineDataService.SetUserDataExists(false, null);
-            _internet.SetConnected(true);
+            Internet.SetConnected(true);
             var entity = new TestEntity();
-            _target.PerformDataUpdateAction(dataService => dataService.Insert(entity), entity, now);
-            Assert.IsTrue(_syncManager.UpdateTargetDataCalled);
+            Target.PerformDataUpdateAction(dataService => dataService.Insert(entity), entity, now);
+            Assert.IsTrue(SyncManager.UpdateTargetDataCalled);
         }
 
         [TestMethod]
         public void UserConnectedOnStartsUpThenDisconnectsUserNotExistsOfflineShouldCreateOffLineData()
         {
-            _internet.SetConnected(true);
+            Internet.SetConnected(true);
             _onlineDataService.SetUserDataExists(true, DateTime.Now.AddDays(-1));
-            _offlineDataService.SetUserDataExists(false, null);
-            _target.Startup(_userName);
+            OfflineDataService.SetUserDataExists(false, null);
+            Target.Startup(UserName);
             
-            _internet.SetConnected(false);
+            Internet.SetConnected(false);
             var entity = new TestEntity();
-            _target.PerformDataUpdateAction(dataService => dataService.Insert(entity), entity, now);
-            Assert.IsTrue(_offlineDataService.CreateUserDataCalled);
+            Target.PerformDataUpdateAction(dataService => dataService.Insert(entity), entity, now);
+            Assert.IsTrue(OfflineDataService.CreateUserDataCalled);
         }
 
       

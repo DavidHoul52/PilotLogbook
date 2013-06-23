@@ -10,7 +10,7 @@ using OnlineOfflineSyncLibrary;
 
 namespace LogbookApp.Mocks
 {
-    public class MockFlightDataService : DataService<FlightData>, IOnlineFlightData
+    public class MockFlightDataService : DataService<FlightData,User>, IOnlineFlightData
     {
 
         private bool _exists;

@@ -11,28 +11,55 @@ using OnlineOfflineSyncLibrary2.Stubs;
 
 namespace OnlineOfflineSyncLibrary2.DataManagerTests
 {
-    public class DataManagerTestBase
+    public class DataManagerTestBase<TSyncableData, TUser>
+        where TUser : IUser, new()
+        where TSyncableData : ISyncableData<TUser>, new()
     {
-        protected SyncableTestData _data;
-        protected MockOnlineDataService _onlineDataService;
-        protected MockOfflineDataService _offlineDataService;
-        protected string _userName;
-        protected MockInternetTools _internet;
-        protected DataManager<SyncableTestData, TestUser> _target;
+        protected SyncableTestData Data;
+        protected MockOnlineDataService<TSyncableData, TUser> _onlineDataService;
+        protected MockOfflineDataService<TSyncableData, TUser> OfflineDataService;
+        protected string UserName;
+        protected MockInternetTools Internet;
+        protected DataManager<TSyncableData, TUser, MockOnlineDataService<TSyncableData, TUser>,
+            MockOfflineDataService<TSyncableData, TUser>> Target;
         protected DateTime now;
-        protected MockSyncManager _syncManager;
+        protected MockSyncManager<TSyncableData, TUser> SyncManager;
 
         public virtual void Setup()
         {
             
-            _userName = "David";
-            _onlineDataService = new MockOnlineDataService( _userName);
-            _offlineDataService = new MockOfflineDataService( _userName);
-            _internet = new MockInternetTools();
+            UserName = "David";
+            _onlineDataService = new MockOnlineDataService<TSyncableData, TUser>(UserName);
+            OfflineDataService = new MockOfflineDataService<TSyncableData, TUser>(UserName);
+            Internet = new MockInternetTools();
             now = new DateTime(2013, 5, 1);
-            _syncManager = new MockSyncManager();
-            _target = new DataManager<SyncableTestData, TestUser>
-                (_onlineDataService, _offlineDataService, _internet,_syncManager);
+            SyncManager = new MockSyncManager<TSyncableData, TUser>();
+            Target = new DataManager<TSyncableData, TUser,
+                MockOnlineDataService<TSyncableData, TUser>,
+            MockOfflineDataService<TSyncableData, TUser>>
+                (_onlineDataService, OfflineDataService, Internet,SyncManager);
+        }
+
+
+        protected void StartupAsConnected()
+        {
+            Internet.SetConnected(true);
+            _onlineDataService.SetUserDataExists(true, DateTime.Now);
+            Target.Startup(UserName);
+        }
+
+        protected void StartupAsNewUserConnected()
+        {
+            Internet.SetConnected(true);
+            _onlineDataService.SetUserDataExists(false, null);
+            Target.Startup(UserName);
+        }
+
+        protected void StartupAsNotConnectedNewUser()
+        {
+            Internet.SetConnected(false);
+            _onlineDataService.SetUserDataExists(false, DateTime.Now);
+            Target.Startup(UserName);
         }
     }
 }

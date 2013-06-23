@@ -15,8 +15,8 @@ namespace LogbookApp.Mocks
         private TestLocalStorage _testLocalStorage;
 
         public MockLocalDataService(TestLocalStorage localStorage, string flightsFileName, 
-            string lookupsFileName, string userFileName, string displayName) : 
-            base(localStorage, flightsFileName, lookupsFileName, userFileName, displayName)
+            string lookupsFileName, string userFileName) : 
+            base(localStorage, flightsFileName, lookupsFileName, userFileName)
         {
             _testLocalStorage = localStorage;
             
@@ -33,13 +33,13 @@ namespace LogbookApp.Mocks
         }
 
 
-
-        protected async override Task<User> GetUserInternal(string displayName)
-        {
-            _testLocalStorage.InternalFlightData.User.DisplayName = displayName;
-            return _testLocalStorage.InternalFlightData.User;
+        
+        //protected async override Task<User> GetUserInternal(string displayName)
+        //{
+        //    _testLocalStorage.InternalFlightData.User.DisplayName = displayName;
+        //    return _testLocalStorage.InternalFlightData.User;
             
-        }
+        //}
 
 
         public override async Task<ObservableCollection<Flight>> GetFlights(int userId)

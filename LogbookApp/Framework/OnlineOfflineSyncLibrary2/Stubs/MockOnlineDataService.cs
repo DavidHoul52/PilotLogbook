@@ -7,8 +7,8 @@ namespace OnlineOfflineSyncLibrary.Test.SyncManagerTests
 {
     public class MockOnlineDataService<TSyncableData, TUser> : MockBaseDataService<TSyncableData, TUser>, 
         IOnlineDataService<TSyncableData,TUser>
-          where TUser : IUser
-        where TSyncableData : ISyncableData<TUser>
+          where TUser : IUser,new()
+        where TSyncableData : ISyncableData<TUser>,new()
     {
 
 

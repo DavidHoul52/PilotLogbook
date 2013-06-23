@@ -109,22 +109,14 @@
     <SDKReference Include="TestPlatform, Version=11.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FlightDataServiceTestsLocalDataUser.cs" />
     <Compile Include="FlightDataServiceTestsGetData.cs" />
-    <Compile Include="FlightDataServiceTestsOnDataServiceChanged.cs" />
-    <Compile Include="FlightDataServiceTestsSaveAfterDataServiceChanged.cs" />
     <Compile Include="FlightDataServiceTestsStartupNewUserConnected.cs" />
     <Compile Include="FlightDataServiceTestsStartupNewUserNotConnected.cs" />
-    <Compile Include="FlightDataServiceTestsSave.cs" />
-    <Compile Include="FlightDataServiceTestsBase.cs" />
-    <Compile Include="FlightDataServiceTestsStartupLoadDataServiceLastUpdates.cs" />
-    <Compile Include="FlightDataServiceTestsSyncLocalData.cs" />
     <Compile Include="MockInternetTools.cs" />
     <Compile Include="MockSyncManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SyncManagerTests\SyncManagerTestsAircraft.cs" />
     <Compile Include="SyncManagerTests\SyncManagerTestsAirfields.cs" />
-    <Compile Include="SyncManagerTests\SyncManagerTestsBase.cs" />
     <Compile Include="SyncManagerTests\SyncManagerTestsFlights.cs" />
     <Compile Include="SyncManagerTests\SyncManagerTestsUser.cs" />
   </ItemGroup>
@@ -152,6 +144,10 @@
     <ProjectReference Include="..\Framework\BaseData\BaseData.csproj">
       <Project>{5b0ae921-c26d-47dd-8357-508464f036d3}</Project>
       <Name>BaseData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\OnlineOfflineSyncLibrary2\OnlineOfflineSyncLibrary2.Test.csproj">
+      <Project>{8ae318b2-bef4-40b5-84d0-08d41f0d07a8}</Project>
+      <Name>OnlineOfflineSyncLibrary2.Test</Name>
     </ProjectReference>
     <ProjectReference Include="..\Framework\OnlineOfflineSyncLibrary\OnlineOfflineSyncLibrary.csproj">
       <Project>{af8b13e5-162d-453d-a5c5-fd8a54f97dbc}</Project>

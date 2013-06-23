@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LogbookApp.Data;
+using LogbookApp.Storage;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
 
 namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
 {
     [TestClass]
-    public class SyncManagerTestsAircraft : SyncManagerTestsBase
+    public class SyncManagerTestsAircraft : SyncManagerTestsBase<FlightData, User, IOnlineFlightData, LocalDataService>
     {
         #region Aircraft
 
@@ -22,9 +24,9 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         [TestMethod]
         public void ShouldAddNewAircraft()
         {
-            _sourceFlightData.Lookups.Aircraft.Add(new Aircraft());
-            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
-            Assert.IsNotNull(_onlineFlightDataService.GetLookups(0).Result.Aircraft.FirstOrDefault());
+            SourceData.Lookups.Aircraft.Add(new Aircraft());
+            Target.UpdateTargetData(SourceData, TargetData, NewerTimeStamp);
+            Assert.IsNotNull(OnlineSourceData.GetLookups(0).Result.Aircraft.FirstOrDefault());
         }
 
 

@@ -3,41 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LogbookApp.Data;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using OnlineOfflineSyncLibrary2.DataManagerTests;
 
 namespace LogbookApp.FlightDataManagerTest
 {
     [TestClass]
-    public class FlightDataServiceTestsGetData : FlightDataServiceTestsBase
+    public class FlightDataServiceTestsGetData : DataManagerTestBase<FlightData,User>
     {
 
         [TestInitialize]
         public override void Setup()
         {
             base.Setup();
-            MockInternetTools.SetConnected(true);
-            Target.CheckConnectionState();
-            Target.LoadData();
+            StartupAsConnected();
         }
 
+      
 
         [TestMethod]
         public void ShouldGetFlights()
         {
-         
-            Assert.IsNotNull(Target.FlightData.Flights);
-
-
-
+            StartupAsConnected();
+            Assert.IsNotNull(Target.Data.Flights);
         }
 
+    
 
 
         [TestMethod]
         public void ShouldGetLookups()
         {
         
-            Assert.IsNotNull(Target.FlightData.Lookups);
+            Assert.IsNotNull(Target.Data.Lookups);
 
 
 
@@ -48,7 +47,7 @@ namespace LogbookApp.FlightDataManagerTest
         public void ShouldGetUser()
         {
             
-            Assert.IsNotNull(Target.FlightData.User);
+            Assert.IsNotNull(Target.Data.User);
 
 
 
