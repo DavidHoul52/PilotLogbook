@@ -8,12 +8,13 @@ using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
 
 namespace OnlineOfflineSyncLibrary2
 {
-    public class TestSyncManager<TSyncableData, TUser> : SyncManager<TSyncableData,
-        MockOnlineDataService<TSyncableData, TUser>, TUser>
+    public class TestSyncManager<TSyncableData,TOnlineDataService, TUser> : SyncManager<TSyncableData,
+        TOnlineDataService, TUser>
         where TUser : IUser, new()
         where TSyncableData : ISyncableData<TUser>, new()
+        where TOnlineDataService : MockOnlineDataService<TSyncableData, TUser> 
     {
-        public TestSyncManager(MockOnlineDataService<TSyncableData, TUser> onlineDataService) :
+        public TestSyncManager(TOnlineDataService onlineDataService) :
             base(onlineDataService)
         {
         }

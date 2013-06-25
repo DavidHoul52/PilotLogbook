@@ -54,7 +54,8 @@ namespace OnlineOfflineSyncLibrary2.Stubs
 
         protected async override Task InternalCreateUserData(string userName)
         {
-            TargetData = new TSyncableData();
+            TargetData = new TSyncableData {};
+            TargetData.User.DisplayName = userName;
             CreateUserDataCalled = true;
             
         }

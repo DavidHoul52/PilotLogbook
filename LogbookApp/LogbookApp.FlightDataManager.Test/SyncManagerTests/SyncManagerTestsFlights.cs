@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using LogbookApp.Data;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
 
 namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
 {
     [TestClass]
-    public class SyncManagerTestsFlights :SyncManagerTestsBase
+    public class SyncManagerTestsFlights : SyncManagerTestsBase<FlightData, User, MockOnlineFlightData>
     {
 
         [TestInitialize]
@@ -23,27 +24,27 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         [TestMethod]
         public void ShouldAddNewFlight()
         {
-            _sourceFlightData.AddFlight(new Flight());
-            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
-            Assert.IsNotNull(_onlineFlightDataService.GetFlights(0).Result.FirstOrDefault());
+            SourceData.AddFlight(new Flight());
+              Target.UpdateTargetData(SourceData,TargetData, NewerTimeStamp);
+            Assert.IsNotNull(OnlineDataService.GetFlights(0).Result.FirstOrDefault());
         }
 
         [TestMethod]
         public void ShouldUpdateExistingFlight()
         {
-            _targetFlightData.Flights.Add(new Flight { id = 1, TimeStamp = _olderTimeStamp });
-            _sourceFlightData.Flights.Add(new Flight { id = 1, Remarks = "G", TimeStamp = _newerTimeStamp });
-            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
-            Assert.AreEqual("G", _onlineFlightDataService.GetFlights(0).Result.First().Remarks);
+            TargetData.Flights.Add(new Flight { id = 1, TimeStamp = OlderTimeStamp });
+            SourceData.Flights.Add(new Flight { id = 1, Remarks = "G", TimeStamp = NewerTimeStamp });
+              Target.UpdateTargetData(SourceData,TargetData, NewerTimeStamp);
+              Assert.AreEqual("G", OnlineDataService.GetFlights(0).Result.First().Remarks);
         }
 
         [TestMethod]
         public void ShouldDeleteExistingFlight()
         {
 
-            _targetFlightData.Flights.Add(new Flight { id = 1, Remarks = "A" });
-            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
-            Assert.IsNull(_onlineFlightDataService.GetFlights(0).Result.FirstOrDefault());
+            TargetData.Flights.Add(new Flight { id = 1, Remarks = "A" });
+             Target.UpdateTargetData(SourceData,TargetData, NewerTimeStamp);
+             Assert.IsNull(OnlineDataService.GetFlights(0).Result.FirstOrDefault());
         }
         #endregion
     }

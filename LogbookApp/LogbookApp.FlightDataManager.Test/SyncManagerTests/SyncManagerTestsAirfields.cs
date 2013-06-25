@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using LogbookApp.Data;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
 
 namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
 {
     [TestClass]
-    public class SyncManagerTestsAirfields : SyncManagerTestsBase
+    public class SyncManagerTestsAirfields : SyncManagerTestsBase<FlightData, User, MockOnlineFlightData>
     {
         [TestInitialize]
         public override void Setup()
@@ -22,18 +23,18 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         [TestMethod]
         public void ShouldAddNewAirfield()
         {
-            _sourceFlightData.Lookups.Airfields.Add(new Airfield());
-            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
-            Assert.IsNotNull(_onlineFlightDataService.GetLookups(0).Result.Airfields.FirstOrDefault());
+            SourceData.Lookups.Airfields.Add(new Airfield());
+            Target.UpdateTargetData(SourceData,TargetData, NewerTimeStamp);
+            Assert.IsNotNull(OnlineDataService.LoadLookups(0).Result.Airfields.FirstOrDefault());
         }
 
         [TestMethod]
         public void ShouldUpdateExistingAirfield()
         {
-            _targetFlightData.Lookups.Airfields.Add(new Airfield { id = 1, TimeStamp = _olderTimeStamp });
-            _sourceFlightData.Lookups.Airfields.Add(new Airfield { id = 1, ICAOCode = "G", TimeStamp = _newerTimeStamp });
-            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
-            Assert.AreEqual("G", _onlineFlightDataService.GetLookups(0).Result.Airfields.First().ICAOCode);
+            TargetData.Lookups.Airfields.Add(new Airfield { id = 1, TimeStamp = OlderTimeStamp });
+            SourceData.Lookups.Airfields.Add(new Airfield { id = 1, ICAOCode = "G", TimeStamp = NewerTimeStamp });
+            Target.UpdateTargetData(SourceData, TargetData, NewerTimeStamp);
+            Assert.AreEqual("G", OnlineDataService.LoadLookups(0).Result.Airfields.First().ICAOCode);
         }
 
 
@@ -41,9 +42,9 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         public void ShouldDeleteExistingAirfield()
         {
 
-            _targetFlightData.Lookups.Airfields.Add(new Airfield { id = 1, ICAOCode = "A" });
-            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
-            Assert.IsNull(_onlineFlightDataService.GetLookups(0).Result.Airfields.FirstOrDefault());
+            TargetData.Lookups.Airfields.Add(new Airfield { id = 1, ICAOCode = "A" });
+            Target.UpdateTargetData(SourceData, TargetData, NewerTimeStamp);
+            Assert.IsNull(OnlineDataService.LoadLookups(0).Result.Airfields.FirstOrDefault());
         }
         #endregion
     }

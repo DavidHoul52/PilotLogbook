@@ -7,5 +7,6 @@ namespace OnlineOfflineSyncLibrary.Test.SyncManagerTests
         public bool IsNew { get; set; }
         public int id { get; set; }
         public DateTime? TimeStamp { get; set; }
+        public string DisplayName { get; set; }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using System.Linq;
 using LogbookApp.Data;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
 
 namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
 {
     [TestClass]
-    public class SyncManagerTestsUser : SyncManagerTestsBase
+    public class SyncManagerTestsUser : SyncManagerTestsBase<FlightData, User, MockOnlineFlightData>
     {
         [TestInitialize]
         public override void Setup()
@@ -17,18 +18,18 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         public void ShouldUpdateOnlineUserIdIfNotExists()
         {
 
-            _sourceFlightData.User = new User { id = 53 };
-            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
-            Assert.AreEqual(53, _targetFlightData.User.id);
+            SourceData.User = new User { id = 53 };
+            Target.UpdateTargetData(SourceData, TargetData, NewerTimeStamp);
+            Assert.AreEqual(53, TargetData.User.id);
         }
 
         [TestMethod]
         public void ShouldNotUpdateOnlineUserId()
         {
-            _targetFlightData.User= new User {id=1};
-            _sourceFlightData.User = new User {id = 0};
-            target.UpdateOnlineData(_sourceFlightData, _newerTimeStamp);
-            Assert.AreEqual(1, _targetFlightData.User.id);
+            TargetData.User= new User {id=1};
+            SourceData.User = new User {id = 0};
+            Target.UpdateTargetData(SourceData, TargetData, NewerTimeStamp);
+            Assert.AreEqual(1, TargetData.User.id);
         }
     }
 }

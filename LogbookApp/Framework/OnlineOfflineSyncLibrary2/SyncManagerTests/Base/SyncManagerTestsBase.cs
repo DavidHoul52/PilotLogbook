@@ -5,14 +5,14 @@ using OnlineOfflineSyncLibrary2;
 namespace OnlineOfflineSyncLibrary.Test.SyncManagerTests
 {
 
-    public abstract class SyncManagerTestsBase<TSyncableData, TUser, TOnlineDataService, TOfflineDataService>
+    public abstract class SyncManagerTestsBase<TSyncableData, TUser, TOnlineDataService>
         where TUser : IUser, new()
         where TSyncableData : ISyncableData<TUser>,new()
-        where TOnlineDataService : MockOnlineDataService<TSyncableData, TUser> 
+        where TOnlineDataService : MockOnlineDataService<TSyncableData, TUser> , new()
     {
-        protected SyncManager<TSyncableData, MockOnlineDataService<TSyncableData, TUser>,
+        protected SyncManager<TSyncableData, TOnlineDataService,
             TUser> Target;
-        protected MockOnlineDataService<TSyncableData, TUser> OnlineDataService;
+        protected TOnlineDataService OnlineDataService;
         protected TSyncableData SourceData;
         protected TSyncableData TargetData;
         protected DateTime NewerTimeStamp = new DateTime(2013, 10, 1);
@@ -24,9 +24,9 @@ namespace OnlineOfflineSyncLibrary.Test.SyncManagerTests
         public virtual void Setup()
         {
             TargetData = new TSyncableData();
-            OnlineDataService = new MockOnlineDataService<TSyncableData, TUser>("");
+            OnlineDataService = new TOnlineDataService{ };
             SourceData = new TSyncableData();
-            Target = new TestSyncManager<TSyncableData, TUser>(OnlineDataService);
+            Target = new TestSyncManager<TSyncableData, TOnlineDataService,TUser>(OnlineDataService);
         }
     
     

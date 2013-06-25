@@ -113,8 +113,8 @@
     <Compile Include="FlightDataServiceTestsStartupNewUserConnected.cs" />
     <Compile Include="FlightDataServiceTestsStartupNewUserNotConnected.cs" />
     <Compile Include="MockInternetTools.cs" />
-    <Compile Include="MockSyncManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SyncManagerTests\MockOnlineFlightData.cs" />
     <Compile Include="SyncManagerTests\SyncManagerTestsAircraft.cs" />
     <Compile Include="SyncManagerTests\SyncManagerTestsAirfields.cs" />
     <Compile Include="SyncManagerTests\SyncManagerTestsFlights.cs" />
