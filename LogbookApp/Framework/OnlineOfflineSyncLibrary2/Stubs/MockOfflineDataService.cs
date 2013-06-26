@@ -31,5 +31,10 @@ namespace OnlineOfflineSyncLibrary2.Stubs
         {
             LocalDataSaved = true;
         }
+
+        public async override Task Insert<T>(T item)
+        {
+            
+        }
     }
 }

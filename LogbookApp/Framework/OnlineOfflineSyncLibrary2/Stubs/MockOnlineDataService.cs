@@ -10,7 +10,7 @@ namespace OnlineOfflineSyncLibrary.Test.SyncManagerTests
           where TUser : IUser,new()
         where TSyncableData : ISyncableData<TUser>,new()
     {
-
+     
 
         public MockOnlineDataService(string userName)
             : base(userName)
@@ -27,6 +27,10 @@ namespace OnlineOfflineSyncLibrary.Test.SyncManagerTests
       
         public DateTime? LastUpdated { get; set; }
 
-       
+
+        public async override Task Insert<T>(T item)
+        {
+            
+        }
     }
 }

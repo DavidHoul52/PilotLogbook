@@ -13,7 +13,7 @@ namespace OnlineOfflineSyncLibrary2.Stubs
         where TUser : IUser, new()
         where TSyncableData : ISyncableData<TUser>,new()
     {
-        protected TSyncableData TargetData;
+        protected TSyncableData InternalData;
         protected readonly string UserName;
         private bool _userDataExists;
 
@@ -28,10 +28,8 @@ namespace OnlineOfflineSyncLibrary2.Stubs
 
         }
 
-        public async Task Insert<T>(T item) where T : IEntity
-        {
-
-        }
+        public abstract Task Insert<T>(T item) where T : IEntity;
+        
 
         public async Task Delete<T>(T item) where T : IEntity
         {
@@ -43,35 +41,35 @@ namespace OnlineOfflineSyncLibrary2.Stubs
 
         public async Task<TUser> GetUser(string userName)
         {
-            return TargetData.User;
+            return InternalData.User;
         }
 
         protected async override Task<TSyncableData> InternalLoadUserData(string userName)
         {
             LoadUserDataCalled = true;
-            return TargetData;
+            return InternalData;
         }
 
         protected async override Task InternalCreateUserData(string userName)
         {
-            TargetData = new TSyncableData {};
-            TargetData.User.DisplayName = userName;
+            InternalData = new TSyncableData {};
+            InternalData.User.DisplayName = userName;
             CreateUserDataCalled = true;
             
         }
 
        public async Task<bool> GetUserDataExists(string userName)
        {
-           return TargetData != null;
+           return InternalData != null;
        }
 
         public void SetUserDataExists(bool exists, DateTime? timeStamp)
         {
             if (exists)
-               TargetData = InternalCreateUserData(timeStamp);
+               InternalData = InternalCreateUserData(timeStamp);
             else
             {
-                TargetData = default(TSyncableData);
+                InternalData = default(TSyncableData);
             }
         }
 

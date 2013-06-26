@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LogbookApp.Data;
+using LogbookApp.FlightDataManagement;
 using LogbookApp.Storage;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
@@ -11,7 +12,8 @@ using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
 namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
 {
     [TestClass]
-    public class SyncManagerTestsAircraft : SyncManagerTestsBase<FlightData, User, MockOnlineFlightData>
+    public class SyncManagerTestsAircraft : SyncManagerTestsBase<FlightsSyncManager<MockOnlineFlightData>,
+        FlightData, User, MockOnlineFlightData>
     {
         #region Aircraft
 
@@ -25,7 +27,7 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         public void ShouldAddNewAircraft()
         {
             SourceData.Lookups.Aircraft.Add(new Aircraft());
-            Target.UpdateTargetData(SourceData, TargetData, NewerTimeStamp);
+            Target.UpdateTargetData(OnlineDataService,SourceData, TargetData, NewerTimeStamp);
             Assert.IsNotNull(OnlineDataService.LoadLookups(0).Result.Aircraft.FirstOrDefault());
         }
 
@@ -35,7 +37,7 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         {
             TargetData.Lookups.Aircraft.Add(new Aircraft { id = 1, TimeStamp = OlderTimeStamp });
             SourceData.Lookups.Aircraft.Add(new Aircraft { id = 1, Reg = "G", TimeStamp = NewerTimeStamp });
-            Target.UpdateTargetData(SourceData, TargetData, NewerTimeStamp);
+            Target.UpdateTargetData(OnlineDataService,SourceData, TargetData, NewerTimeStamp);
             Assert.AreEqual("G", OnlineDataService.LoadLookups(0).Result.Aircraft.First().Reg);
         }
 
@@ -44,7 +46,7 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         {
             TargetData.Lookups.Aircraft.Add(new Aircraft { id = 1, Reg = "A", TimeStamp = NewerTimeStamp });
             SourceData.Lookups.Aircraft.Add(new Aircraft { id = 1, Reg = "G", TimeStamp = OlderTimeStamp });
-            Target.UpdateTargetData(SourceData, TargetData, NewerTimeStamp);
+            Target.UpdateTargetData(OnlineDataService,SourceData, TargetData, NewerTimeStamp);
             Assert.AreEqual("A", OnlineDataService.LoadLookups(0).Result.Aircraft.First().Reg);
         }
 
@@ -53,7 +55,7 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         {
 
             TargetData.Lookups.Aircraft.Add(new Aircraft { id = 1, Reg = "A" });
-            Target.UpdateTargetData(SourceData, TargetData, NewerTimeStamp);
+            Target.UpdateTargetData(OnlineDataService,SourceData, TargetData, NewerTimeStamp);
             Assert.IsNull(OnlineDataService.LoadLookups(0).Result.Aircraft.FirstOrDefault());
         }
         #endregion

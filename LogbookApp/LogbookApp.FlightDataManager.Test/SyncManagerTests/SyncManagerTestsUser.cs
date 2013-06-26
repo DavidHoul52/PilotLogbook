@@ -1,12 +1,14 @@
 ﻿using System.Linq;
 using LogbookApp.Data;
+using LogbookApp.FlightDataManagement;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
 
 namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
 {
     [TestClass]
-    public class SyncManagerTestsUser : SyncManagerTestsBase<FlightData, User, MockOnlineFlightData>
+    public class SyncManagerTestsUser : SyncManagerTestsBase<FlightsSyncManager<MockOnlineFlightData>, FlightData, User,
+        MockOnlineFlightData>
     {
         [TestInitialize]
         public override void Setup()
@@ -19,7 +21,7 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         {
 
             SourceData.User = new User { id = 53 };
-            Target.UpdateTargetData(SourceData, TargetData, NewerTimeStamp);
+            Target.UpdateTargetData(OnlineDataService,SourceData, TargetData, NewerTimeStamp);
             Assert.AreEqual(53, TargetData.User.id);
         }
 
@@ -28,7 +30,7 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         {
             TargetData.User= new User {id=1};
             SourceData.User = new User {id = 0};
-            Target.UpdateTargetData(SourceData, TargetData, NewerTimeStamp);
+            Target.UpdateTargetData(OnlineDataService,SourceData, TargetData, NewerTimeStamp);
             Assert.AreEqual(1, TargetData.User.id);
         }
     }

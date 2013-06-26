@@ -23,7 +23,8 @@ namespace OnlineOfflineSyncLibrary2.DataManagerTests
         protected DataManager<TSyncableData, TUser, MockOnlineDataService<TSyncableData, TUser>,
             MockOfflineDataService<TSyncableData, TUser>> Target;
         protected DateTime now;
-        protected MockSyncManager<TSyncableData, TUser> SyncManager;
+        protected MockSyncManager<TSyncableData,MockOnlineDataService<TSyncableData, TUser>,
+            TUser> SyncManager;
 
         public virtual void Setup()
         {
@@ -33,7 +34,9 @@ namespace OnlineOfflineSyncLibrary2.DataManagerTests
             OfflineDataService = new MockOfflineDataService<TSyncableData, TUser>(UserName);
             Internet = new MockInternetTools();
             now = new DateTime(2013, 5, 1);
-            SyncManager = new MockSyncManager<TSyncableData, TUser>();
+            SyncManager = new MockSyncManager<TSyncableData,
+                MockOnlineDataService<TSyncableData, TUser>,
+                TUser>();
             Target = new DataManager<TSyncableData, TUser,
                 MockOnlineDataService<TSyncableData, TUser>,
             MockOfflineDataService<TSyncableData, TUser>>

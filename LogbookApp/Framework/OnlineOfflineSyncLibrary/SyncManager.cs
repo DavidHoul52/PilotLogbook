@@ -6,22 +6,18 @@ using BaseData;
 
 namespace OnlineOfflineSyncLibrary
 {
-    public abstract class SyncManager<TSyncableData,TOnlineDataService,TUser> : ISyncManager<TSyncableData,TUser>
+    public abstract class SyncManager<TSyncableData,TOnlineDataService,TUser> :
+        ISyncManager<TSyncableData, TOnlineDataService,TUser>
         where TOnlineDataService : IDataService<TSyncableData,TUser>
         where TSyncableData : ISyncableData<TUser>
         where TUser : IUser
     {
-        protected readonly TOnlineDataService _onLineDataService;
+        protected TOnlineDataService OnLineDataService;
 
-        protected SyncManager(TOnlineDataService onlineDataService)
-        {
-            _onLineDataService = onlineDataService;
-            
-        }
+       
 
-        
-
-        public abstract Task UpdateTargetData(TSyncableData sourceData, TSyncableData targetData, DateTime now);
+      
+        public abstract Task UpdateTargetData(TOnlineDataService onlineDataService, TSyncableData sourceData, TSyncableData targetData, DateTime now);
      
 
 
@@ -35,11 +31,11 @@ namespace OnlineOfflineSyncLibrary
                 var targetItem = targetItems.FirstOrDefault(x => x.id == item.id);
                 if (targetItem == null) // new
                 {
-                    await _onLineDataService.Insert(item);
+                    await OnLineDataService.Insert(item);
                 }
                 else
                 if (item.TimeStamp > targetItem.TimeStamp)
-                    await _onLineDataService.Update(item);
+                    await OnLineDataService.Update(item);
             }
 
             // delete items which no longer exist in source
@@ -49,7 +45,7 @@ namespace OnlineOfflineSyncLibrary
                 var sourceItem = sourceItems.FirstOrDefault(x => x.id == targetItem.id);
                 if (sourceItem == null) // doesn't exist
                 {
-                   await _onLineDataService.Delete(targetItem);
+                   await OnLineDataService.Delete(targetItem);
                 }
                 
             }

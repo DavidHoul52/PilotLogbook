@@ -9,28 +9,29 @@ using OnlineOfflineSyncLibrary;
 
 namespace LogbookApp.FlightDataManagement
 {
-    public class FlightsSyncManager : SyncManager<FlightData,IOnlineFlightData,User>
+    public class FlightsSyncManager<TOnlineFlightData> : SyncManager<FlightData,TOnlineFlightData,User>
+        where TOnlineFlightData : IOnlineFlightData
     {
-        public FlightsSyncManager(IOnlineFlightData onlineDataService)
-            : base(onlineDataService)
-        {
-        }
-
+     
 
         private async void SyncLookups(Lookups lookups, int userId)
         {
-            var onLineLookups = await _onLineDataService.LoadLookups(userId);
+            var onLineLookups = await OnLineDataService.LoadLookups(userId);
             await SyncTable(lookups.Aircraft, onLineLookups.Aircraft);
             await SyncTable(lookups.Airfields, onLineLookups.Airfields);
         }
 
-        public async override Task UpdateTargetData(FlightData sourceData, FlightData targetData, DateTime now)
+     
+
+  
+        public async override Task UpdateTargetData(TOnlineFlightData onlineDataService,
+            FlightData sourceData, FlightData targetData, DateTime now)
         {
-            
+            OnLineDataService = onlineDataService;
             SyncLookups(sourceData.Lookups, sourceData.User.id);
-            await SyncTable(sourceData.Flights, targetData.Flights);
+            var flights = await OnLineDataService.GetFlights(sourceData.User.id);
+            await SyncTable(sourceData.Flights, flights);
             targetData.User.TimeStamp = sourceData.User.TimeStamp;  // TODO : could this go in the base class
         }
-
     }
 }

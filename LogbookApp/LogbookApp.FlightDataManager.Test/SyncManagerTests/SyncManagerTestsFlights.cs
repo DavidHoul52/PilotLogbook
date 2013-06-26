@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LogbookApp.Data;
+using LogbookApp.FlightDataManagement;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
 
 namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
 {
     [TestClass]
-    public class SyncManagerTestsFlights : SyncManagerTestsBase<FlightData, User, MockOnlineFlightData>
+    public class SyncManagerTestsFlights : SyncManagerTestsBase<FlightsSyncManager<MockOnlineFlightData>,
+        FlightData, User, MockOnlineFlightData>
     {
 
         [TestInitialize]
@@ -25,7 +27,7 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         public void ShouldAddNewFlight()
         {
             SourceData.AddFlight(new Flight());
-              Target.UpdateTargetData(SourceData,TargetData, NewerTimeStamp);
+            Target.UpdateTargetData(OnlineDataService, SourceData, TargetData, NewerTimeStamp);
             Assert.IsNotNull(OnlineDataService.GetFlights(0).Result.FirstOrDefault());
         }
 
@@ -34,7 +36,7 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         {
             TargetData.Flights.Add(new Flight { id = 1, TimeStamp = OlderTimeStamp });
             SourceData.Flights.Add(new Flight { id = 1, Remarks = "G", TimeStamp = NewerTimeStamp });
-              Target.UpdateTargetData(SourceData,TargetData, NewerTimeStamp);
+            Target.UpdateTargetData(OnlineDataService, SourceData, TargetData, NewerTimeStamp);
               Assert.AreEqual("G", OnlineDataService.GetFlights(0).Result.First().Remarks);
         }
 
@@ -43,7 +45,7 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         {
 
             TargetData.Flights.Add(new Flight { id = 1, Remarks = "A" });
-             Target.UpdateTargetData(SourceData,TargetData, NewerTimeStamp);
+            Target.UpdateTargetData(OnlineDataService,SourceData, TargetData, NewerTimeStamp);
              Assert.IsNull(OnlineDataService.GetFlights(0).Result.FirstOrDefault());
         }
         #endregion

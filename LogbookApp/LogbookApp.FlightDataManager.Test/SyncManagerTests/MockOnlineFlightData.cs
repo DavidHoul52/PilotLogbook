@@ -7,6 +7,8 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
 {
     public class MockOnlineFlightData : MockOnlineDataService<FlightData, User>, IOnlineFlightData
     {
+      
+
         public MockOnlineFlightData() : base("")
         {
         }
@@ -77,13 +79,29 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         }
 
        public async Task<ObservableCollection<Flight>> GetFlights(int userId)
-        {
-            return null;
-        }
+       {
+           return InternalData.Flights;
+       }
 
        public async Task<Lookups> LoadLookups(int userId)
        {
-           return null;
+           return InternalData.Lookups;
        }
+
+        protected async override Task InternalCreateUserData(string userName)
+        {
+            base.InternalCreateUserData(userName);
+            
+        }
+
+        public async override Task Insert<T>(T item)
+        {
+            if (typeof(T)==typeof(Aircraft))
+              InternalData.AddAircraft(item as Aircraft);
+            if (typeof(T) == typeof(Airfield))
+                InternalData.AddAirfield(item as Airfield);
+            if (typeof(T) == typeof(Flight))
+                InternalData.AddFlight(item as Flight);
+        }
     }
 }

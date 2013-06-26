@@ -14,19 +14,15 @@ namespace OnlineOfflineSyncLibrary2
         where TSyncableData : ISyncableData<TUser>, new()
         where TOnlineDataService : MockOnlineDataService<TSyncableData, TUser> 
     {
-        public TestSyncManager(TOnlineDataService onlineDataService) :
-            base(onlineDataService)
+     
+
+
+
+
+        public async override Task UpdateTargetData(TOnlineDataService onlineDataService, TSyncableData sourceData, TSyncableData targetData,
+            DateTime now)
         {
-        }
-
-
-
-
-
-        public async override Task UpdateTargetData(TSyncableData sourceData,
-            TSyncableData targetData, DateTime now)
-        {
-            
+          
         }
     }
 }

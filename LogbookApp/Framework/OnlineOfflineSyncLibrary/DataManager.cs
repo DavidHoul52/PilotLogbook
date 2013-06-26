@@ -16,13 +16,13 @@ namespace OnlineOfflineSyncLibrary
         private readonly TOffLineDataService _offlineDataService;
         private readonly IInternetTools _internet;
         private string _userName;
-        private readonly ISyncManager<TSyncableData, TUser> _syncManager;
+        private readonly ISyncManager<TSyncableData,TOnlineDataService, TUser> _syncManager;
 
 
         public DataManager(
             TOnlineDataService onlineDataService,
-            TOffLineDataService offlineDataService, IInternetTools internet, 
-            ISyncManager<TSyncableData,TUser>  syncManager)
+            TOffLineDataService offlineDataService, IInternetTools internet,
+            ISyncManager<TSyncableData, TOnlineDataService,TUser> syncManager)
         {
             
             _onlineDataService = onlineDataService;
@@ -44,22 +44,22 @@ namespace OnlineOfflineSyncLibrary
 
         private async Task CheckConnectionState()
         {
+            if (!_offlineDataService.Loaded)
+                Data =await LoadUserData(_offlineDataService);
+
             _onlineDataService.IsConnected = _internet.IsConnected;
             if (_onlineDataService.IsConnected)
             {
                 
                 var unSyncedData=await LoadUserData(_onlineDataService);
                 if (DetectNeedForSyncUpdate(Data, unSyncedData))
-                    await _syncManager.UpdateTargetData(Data, unSyncedData, DateTime.Now);
+                    await _syncManager.UpdateTargetData(_onlineDataService, Data, unSyncedData, DateTime.Now);
                 else
                     Data = unSyncedData;
 
 
             }
-            else if (!_offlineDataService.Loaded)
-            {
-                Data =await LoadUserData(_offlineDataService);
-            }
+      
         }
 
         protected async Task<TSyncableData> LoadUserData(IDataService<TSyncableData,TUser> dataService)

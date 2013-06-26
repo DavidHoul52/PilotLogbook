@@ -18,7 +18,7 @@ namespace LogbookApp.FlightDataManagement
 
         public FlightDataManager(IOnlineFlightData onlineDataService,
             LocalDataService offlineDataService, IInternetTools internet,
-            ISyncManager<FlightData, User> syncManager) : 
+            ISyncManager<FlightData,IOnlineFlightData, User> syncManager) : 
             base(onlineDataService, offlineDataService, internet, syncManager)
         {
             _onlineDataService = onlineDataService;
