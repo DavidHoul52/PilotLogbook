@@ -44,6 +44,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseData", "Framework\BaseD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineOfflineSyncLibrary2.Test", "Framework\OnlineOfflineSyncLibrary2\OnlineOfflineSyncLibrary2.Test.csproj", "{8AE318B2-BEF4-40B5-84D0-08D41F0D07A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineOfflineSyncLibrary.TestMocks", "Framework\OnlineOfflineSyncLibrary.TestMocks\OnlineOfflineSyncLibrary.TestMocks.csproj", "{8B8094EC-38ED-4B57-BF7C-47918D42061F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -486,6 +488,26 @@ Global
 		{8AE318B2-BEF4-40B5-84D0-08D41F0D07A8}.Release|x86.ActiveCfg = Release|x86
 		{8AE318B2-BEF4-40B5-84D0-08D41F0D07A8}.Release|x86.Build.0 = Release|x86
 		{8AE318B2-BEF4-40B5-84D0-08D41F0D07A8}.Release|x86.Deploy.0 = Release|x86
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Debug|ARM.ActiveCfg = Debug|ARM
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Debug|ARM.Build.0 = Debug|ARM
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Debug|x64.ActiveCfg = Debug|x64
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Debug|x64.Build.0 = Debug|x64
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Debug|x86.ActiveCfg = Debug|x86
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Debug|x86.Build.0 = Debug|x86
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Release|ARM.ActiveCfg = Release|ARM
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Release|ARM.Build.0 = Release|ARM
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Release|Mixed Platforms.Build.0 = Release|x86
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Release|x64.ActiveCfg = Release|x64
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Release|x64.Build.0 = Release|x64
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Release|x86.ActiveCfg = Release|x86
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -494,5 +516,6 @@ Global
 		{AF8B13E5-162D-453D-A5C5-FD8A54F97DBC} = {D852DA96-4A3F-4E0D-A04C-CE9261F2DE69}
 		{5B0AE921-C26D-47DD-8357-508464F036D3} = {D852DA96-4A3F-4E0D-A04C-CE9261F2DE69}
 		{8AE318B2-BEF4-40B5-84D0-08D41F0D07A8} = {D852DA96-4A3F-4E0D-A04C-CE9261F2DE69}
+		{8B8094EC-38ED-4B57-BF7C-47918D42061F} = {D852DA96-4A3F-4E0D-A04C-CE9261F2DE69}
 	EndGlobalSection
 EndGlobal

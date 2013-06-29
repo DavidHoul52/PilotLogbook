@@ -114,7 +114,6 @@
     <Compile Include="FlightDataServiceTestsStartupNewUserNotConnected.cs" />
     <Compile Include="MockInternetTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SyncManagerTests\MockOnlineFlightData.cs" />
     <Compile Include="SyncManagerTests\SyncManagerTestsAircraft.cs" />
     <Compile Include="SyncManagerTests\SyncManagerTestsAirfields.cs" />
     <Compile Include="SyncManagerTests\SyncManagerTestsFlights.cs" />
@@ -144,6 +143,10 @@
     <ProjectReference Include="..\Framework\BaseData\BaseData.csproj">
       <Project>{5b0ae921-c26d-47dd-8357-508464f036d3}</Project>
       <Name>BaseData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\OnlineOfflineSyncLibrary.TestMocks\OnlineOfflineSyncLibrary.TestMocks.csproj">
+      <Project>{8b8094ec-38ed-4b57-bf7c-47918d42061f}</Project>
+      <Name>OnlineOfflineSyncLibrary.TestMocks</Name>
     </ProjectReference>
     <ProjectReference Include="..\Framework\OnlineOfflineSyncLibrary2\OnlineOfflineSyncLibrary2.Test.csproj">
       <Project>{8ae318b2-bef4-40b5-84d0-08d41f0d07a8}</Project>

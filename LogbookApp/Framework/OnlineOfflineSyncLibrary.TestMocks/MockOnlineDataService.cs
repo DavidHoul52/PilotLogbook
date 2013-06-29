@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using BaseData;
-using OnlineOfflineSyncLibrary2.Stubs;
 
-namespace OnlineOfflineSyncLibrary.Test.SyncManagerTests
+namespace OnlineOfflineSyncLibrary.TestMocks
 {
     public class MockOnlineDataService<TSyncableData, TUser> : MockBaseDataService<TSyncableData, TUser>, 
         IOnlineDataService<TSyncableData,TUser>
@@ -22,13 +20,25 @@ namespace OnlineOfflineSyncLibrary.Test.SyncManagerTests
         public bool IsConnected { get; set; }
 
 
-        
 
-      
-        public DateTime? LastUpdated { get; set; }
-
+        public async override Task Update<T>(T item)
+        {
+            
+        }
 
         public async override Task Insert<T>(T item)
+        {
+            
+        }
+
+        public async override Task Delete<T>(T item)
+        {
+            
+        }
+
+       
+
+        protected async override Task InternalUpdateUserTimeStamp(DateTime? timeStamp)
         {
             
         }

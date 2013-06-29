@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using BaseData;
 using OnlineOfflineSyncLibrary;
 
 namespace LogbookApp.Data
@@ -94,6 +95,57 @@ namespace LogbookApp.Data
             Lookups.Aircraft.Add(aircraft);
         }
 
-        
+
+        public void DeleteAircraft(Aircraft aircraft)
+        {
+            Lookups.Aircraft.Remove(aircraft);
+        }
+
+        public void DeleteAirfield(Airfield airfield)
+        {
+            Lookups.Airfields.Remove(airfield);
+        }
+
+        public void DeleteFlight(Flight flight)
+        {
+            Flights.Remove(flight);
+        }
+
+        public void DeleteAcType(AcType acType)
+        {
+            Lookups.AcTypes.Remove(acType);
+        }
+
+        public void UpdateAircraft(Aircraft aircraft)
+        {
+            Update(aircraft,Lookups.Aircraft);
+          
+            
+
+        }
+
+        private void Update<T>(T item, ObservableCollection<T> list )
+            where T:IEntity
+        {
+            var foundInList = list.Where(x => x.id == item.id).FirstOrDefault();
+            list.Remove(foundInList);
+            list.Add(item);
+            
+        }
+
+        public void UpdateAirfield(Airfield airfield)
+        {
+            Update(airfield, Lookups.Airfields);
+        }
+
+        public void UpdateAcType(AcType acType)
+        {
+            Update(acType, Lookups.AcTypes);
+        }
+
+        public void UpdateFlight(Flight flight)
+        {
+            Update(flight, Flights);
+        }
     }
 }

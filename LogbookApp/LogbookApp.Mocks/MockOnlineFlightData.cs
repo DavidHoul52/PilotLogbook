@@ -1,9 +1,9 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using LogbookApp.Data;
-using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
+using OnlineOfflineSyncLibrary.TestMocks;
 
-namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
+namespace LogbookApp.Mocks
 {
     public class MockOnlineFlightData : MockOnlineDataService<FlightData, User>, IOnlineFlightData
     {
@@ -14,14 +14,14 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         }
 
        public async Task InsertFlight(Flight flight)
-        {
-            
-        }
+       {
+           await Insert(flight);
+       }
 
        public async Task DeleteFlight(Flight flight)
-        {
-            
-        }
+       {
+           await Delete(flight);
+       }
 
        public async Task SaveFlight(Flight flight)
         {
@@ -29,9 +29,9 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         }
 
        public async Task InsertAircraft(Aircraft aircraft)
-        {
-            
-        }
+       {
+           await Insert(aircraft);
+       }
 
        public async Task InsertAircraftType(AcType acType)
         {
@@ -39,9 +39,9 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         }
 
        public async Task InsertAirfield(Airfield @from)
-        {
-            
-        }
+       {
+           await Insert(@from);
+       }
 
        public async Task UpdateAircraft(Aircraft aircraft)
         {
@@ -100,8 +100,36 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
               InternalData.AddAircraft(item as Aircraft);
             if (typeof(T) == typeof(Airfield))
                 InternalData.AddAirfield(item as Airfield);
+            if (typeof(T) == typeof(AcType))
+                InternalData.AddAcType(item as AcType);
             if (typeof(T) == typeof(Flight))
                 InternalData.AddFlight(item as Flight);
         }
+
+        public async override Task Delete<T>(T item) 
+        {
+            if (typeof(T) == typeof(Aircraft))
+                InternalData.DeleteAircraft(item as Aircraft);
+            if (typeof(T) == typeof(Airfield))
+                InternalData.DeleteAirfield(item as Airfield);
+            if (typeof(T) == typeof(AcType))
+                InternalData.DeleteAcType(item as AcType);
+            if (typeof(T) == typeof(Flight))
+                InternalData.DeleteFlight(item as Flight);
+        }
+
+        public async override Task Update<T>(T item)
+        {
+            if (typeof(T) == typeof(Aircraft))
+                InternalData.UpdateAircraft(item as Aircraft);
+            if (typeof(T) == typeof(Airfield))
+                InternalData.UpdateAirfield(item as Airfield);
+            if (typeof(T) == typeof(AcType))
+                InternalData.UpdateAcType(item as AcType);
+            if (typeof(T) == typeof(Flight))
+                InternalData.UpdateFlight(item as Flight);
+        }
+
+     
     }
 }

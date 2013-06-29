@@ -101,6 +101,8 @@ namespace LogbookApp.Storage
             return tryUser != null;
         }
 
+       
+
 
         protected async Task<User> GetUser(string displayName)
         {
@@ -171,6 +173,11 @@ namespace LogbookApp.Storage
             await _localStorage.Save(flightData.User, _userFileName);
             await SaveLookups(flightData.Lookups);
             await SaveFlights(flightData.Flights);
+        }
+
+        protected async override Task InternalUpdateUserTimeStamp(DateTime? timeStamp)
+        {
+            
         }
 
         public async Task SaveLocalData(FlightData flightData)

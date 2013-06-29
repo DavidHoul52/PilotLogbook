@@ -10,7 +10,7 @@ namespace LogbookApp.Data.Test
     public class UserManagerTests
     {
         private UserManager target;
-        private MockFlightDataService flightDataService;
+        private MockOnlineFlightData flightDataService;
         private DateTime _now;
 
         [TestInitialize]

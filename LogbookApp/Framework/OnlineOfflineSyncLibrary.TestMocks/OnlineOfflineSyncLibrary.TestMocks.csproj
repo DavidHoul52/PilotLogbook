@@ -6,15 +6,14 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{922C2E29-78F0-4FBB-9A29-73E3420E3C3F}</ProjectGuid>
+    <ProjectGuid>{8B8094EC-38ED-4B57-BF7C-47918D42061F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LogbookApp.Data.Test</RootNamespace>
-    <AssemblyName>LogbookApp.Data.Test</AssemblyName>
+    <RootNamespace>OnlineOfflineSyncLibrary.TestMocks</RootNamespace>
+    <AssemblyName>OnlineOfflineSyncLibrary.TestMocks</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>LogbookApp.Data.Test_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -99,70 +98,28 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup>
-    <AppXPackage>True</AppXPackage>
-    <AppxPackageIncludePrivateSymbols>true</AppxPackageIncludePrivateSymbols>
-  </PropertyGroup>
   <ItemGroup>
-    <!--A reference to the entire .Net Framework and Windows SDK are automatically included-->
-    <SDKReference Include="MSTestFramework, Version=11.0" />
-    <SDKReference Include="TestPlatform, Version=11.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="FlightTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserManagerTests.cs" />
-    <Compile Include="FlightValidationTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest">
-      <SubType>Designer</SubType>
-    </AppxManifest>
-    <None Include="LogbookApp.Data.Test_TemporaryKey.pfx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Images\UnitTestLogo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\UnitTestSmallLogo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\UnitTestSplashScreen.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\UnitTestStoreLogo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Framework\BaseData\BaseData.csproj">
-      <Project>{5b0ae921-c26d-47dd-8357-508464f036d3}</Project>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <ProjectReference Include="..\..\InternetDetection\InternetDetection.csproj">
+      <Project>{C46F31CA-32D2-4FB4-AFEF-958A16E1FA6F}</Project>
+      <Name>InternetDetection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BaseData\BaseData.csproj">
+      <Project>{5B0AE921-C26D-47DD-8357-508464F036D3}</Project>
       <Name>BaseData</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Framework\OnlineOfflineSyncLibrary.TestMocks\OnlineOfflineSyncLibrary.TestMocks.csproj">
-      <Project>{8b8094ec-38ed-4b57-bf7c-47918d42061f}</Project>
-      <Name>OnlineOfflineSyncLibrary.TestMocks</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Framework\OnlineOfflineSyncLibrary\OnlineOfflineSyncLibrary.csproj">
+    <ProjectReference Include="..\OnlineOfflineSyncLibrary\OnlineOfflineSyncLibrary.csproj">
       <Project>{AF8B13E5-162D-453D-A5C5-FD8A54F97DBC}</Project>
       <Name>OnlineOfflineSyncLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LogbookApp.Data\LogbookApp.Data.csproj">
-      <Project>{89900cbd-6c4a-443b-93b9-67081c3308b9}</Project>
-      <Name>LogbookApp.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LogbookApp.LocalData.Test\LogbookApp.LocalData.Test.csproj">
-      <Project>{054B79FB-C670-43DC-BC4E-EB243B24FF2C}</Project>
-      <Name>LogbookApp.LocalData.Test</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LogbookApp.LocalData\LogbookApp.LocalData.csproj">
-      <Project>{72683C7D-0662-4815-9E8E-6E03536FFBCF}</Project>
-      <Name>LogbookApp.LocalData</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LogbookApp.Mocks\LogbookApp.Mocks.csproj">
-      <Project>{69426F3F-EC27-4C6F-B54F-8C014ACCBA1B}</Project>
-      <Name>LogbookApp.Mocks</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MockBaseDataService.cs" />
+    <Compile Include="MockInternetTools.cs" />
+    <Compile Include="MockOfflineDataService.cs" />
+    <Compile Include="MockOnlineDataService.cs" />
+    <Compile Include="MockSyncManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
@@ -171,7 +128,7 @@
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
-  </Target>  
+  </Target>
   <Target Name="AfterBuild">
   </Target>
   -->

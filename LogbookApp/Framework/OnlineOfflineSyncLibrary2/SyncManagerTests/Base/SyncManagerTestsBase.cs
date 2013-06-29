@@ -1,5 +1,6 @@
 ﻿using System;
 using BaseData;
+using OnlineOfflineSyncLibrary.TestMocks;
 using OnlineOfflineSyncLibrary2;
 
 namespace OnlineOfflineSyncLibrary.Test.SyncManagerTests
@@ -13,24 +14,25 @@ namespace OnlineOfflineSyncLibrary.Test.SyncManagerTests
     {
         protected TSyncManager Target;
         protected TOnlineDataService OnlineDataService;
-        protected TSyncableData SourceData;
-        protected TSyncableData TargetData;
+        protected TSyncableData LocalData;
+        protected TSyncableData OnlineData;
         protected DateTime NewerTimeStamp = new DateTime(2013, 10, 1);
         protected DateTime OlderTimeStamp = new DateTime(2013, 1, 1);
 
-
+     
 
        
         public virtual void Setup()
         {
-            TargetData = new TSyncableData();
+            OnlineData = new TSyncableData();
             OnlineDataService = new TOnlineDataService{ };
             OnlineDataService.CreateUserData("", DateTime.Now);
-            SourceData = new TSyncableData();
+            OnlineDataService.UpdateMockInternalData(OnlineData);
+            LocalData = new TSyncableData();
             Target = new TSyncManager {  };
         }
-    
-    
+
+     
 
     
     }

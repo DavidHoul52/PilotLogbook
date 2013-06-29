@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
-using OnlineOfflineSyncLibrary2.Stubs;
 
-namespace OnlineOfflineSyncLibrary.Test
+namespace OnlineOfflineSyncLibrary.TestMocks
 {
     public class MockSyncManager<TSyncableData,TOnlineDataService, TUser> : 
         ISyncManager<TSyncableData, TOnlineDataService,TUser>
@@ -18,7 +16,7 @@ namespace OnlineOfflineSyncLibrary.Test
 
     
 
-        public async Task UpdateTargetData(TOnlineDataService onlineDataService, TSyncableData sourceData, TSyncableData targetData,
+        public async Task UpdateOnlineData(TOnlineDataService onlineDataService, TSyncableData sourceData, TSyncableData targetData,
             DateTime now)
         {
             UpdateTargetDataCalled = true;

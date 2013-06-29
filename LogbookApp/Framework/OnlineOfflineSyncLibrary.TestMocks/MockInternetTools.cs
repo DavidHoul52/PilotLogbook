@@ -1,6 +1,6 @@
 ﻿using InternetDetection;
 
-namespace LogbookApp.FlightDataManagerTest
+namespace OnlineOfflineSyncLibrary.TestMocks
 {
     public class MockInternetTools : IInternetTools
     {

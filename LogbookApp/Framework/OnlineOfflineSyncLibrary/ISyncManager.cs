@@ -9,7 +9,9 @@ namespace OnlineOfflineSyncLibrary
         where TOnlineDataService : IDataService<TSyncableData, TUser>
           
     {
-        Task UpdateTargetData(TOnlineDataService onlineDataService, TSyncableData sourceData, TSyncableData targetData, DateTime now);
+        Task UpdateOnlineData(TOnlineDataService onlineDataService, TSyncableData sourceData,
+            TSyncableData targetData,
+             DateTime now);
       
     }
 }

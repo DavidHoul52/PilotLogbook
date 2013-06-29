@@ -10,7 +10,9 @@ namespace OnlineOfflineSyncLibrary
         public async Task<TSyncableData> LoadUserData(string userName)
         {
             Loaded = true;
-            return await InternalLoadUserData(userName);
+            var result= await InternalLoadUserData(userName);
+            User = result.User;
+            return result;
         }
 
         protected abstract Task<TSyncableData> InternalLoadUserData(string userName);
@@ -20,11 +22,23 @@ namespace OnlineOfflineSyncLibrary
          {
              Loaded = true;
              await InternalCreateUserData(userName);
-             return await InternalLoadUserData(userName);
+             var result= await InternalLoadUserData(userName);
+            User = result.User;
+            return result;
          }
 
         protected abstract Task InternalCreateUserData(string userName);
 
         public bool Loaded { get; private set; }
+
+        public async Task UpdateUserTimeStamp(DateTime? timeStamp)
+        {
+            User.TimeStamp = timeStamp;
+            await InternalUpdateUserTimeStamp(timeStamp);
+        }
+
+        protected abstract Task InternalUpdateUserTimeStamp(DateTime? timeStamp);
+
+        public TUser User { get; set; }
     }
 }

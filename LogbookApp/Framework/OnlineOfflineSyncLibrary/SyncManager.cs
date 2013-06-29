@@ -17,7 +17,8 @@ namespace OnlineOfflineSyncLibrary
        
 
       
-        public abstract Task UpdateTargetData(TOnlineDataService onlineDataService, TSyncableData sourceData, TSyncableData targetData, DateTime now);
+        public abstract Task UpdateOnlineData(TOnlineDataService onlineDataService,
+            TSyncableData sourceData, TSyncableData targetData, DateTime now);
      
 
 

@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LogbookApp.FlightDataManagerTest;
 using OnlineOfflineSyncLibrary;
-using OnlineOfflineSyncLibrary.Test;
 using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
-using OnlineOfflineSyncLibrary2.Stubs;
+using OnlineOfflineSyncLibrary.TestMocks;
 
 namespace OnlineOfflineSyncLibrary2.DataManagerTests
 {

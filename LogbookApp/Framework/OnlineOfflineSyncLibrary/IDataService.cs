@@ -32,6 +32,10 @@ namespace OnlineOfflineSyncLibrary
 
         bool Loaded { get;  }
 
-       
+        Task UpdateUserTimeStamp(DateTime? timeStamp);
+
+        TUser User { get; set; }
+
+
     }
 }

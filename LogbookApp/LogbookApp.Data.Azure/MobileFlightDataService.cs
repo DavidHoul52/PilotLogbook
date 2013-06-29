@@ -13,7 +13,7 @@ using OnlineOfflineSyncLibrary;
 
 namespace LogbookApp.Data
 {
-    public class MobileFlightDataService : DataService<FlightData>, IOnlineFlightData
+    public class MobileFlightDataService : DataService<FlightData,User>, IOnlineFlightData
     {
         private MobileServiceClient _mobileService;
      
@@ -284,7 +284,12 @@ namespace LogbookApp.Data
             await Insert(new User { DisplayName = userName, TimeStamp = DateTime.Now });
         }
 
-        
+        protected async override Task InternalUpdateUserTimeStamp(DateTime? timeStamp)
+        {
+            
+            await Update(User);
+        }
+
 
         public bool FlightsChanged { get; set; }
 

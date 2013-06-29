@@ -94,7 +94,7 @@ namespace LogbookApp
                     new LocalDataService(new LocalStorage(), "flights.xml", "lookups.xml", "user.xml"
                         ),
                         new InternetTools(),
-                     new FlightsSyncManager(onlineDataService)
+                     new FlightsSyncManager<IOnlineFlightData>()
                      );
                 await FlightDataManager.Startup(DisplayName);
 

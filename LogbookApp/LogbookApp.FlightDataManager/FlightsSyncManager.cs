@@ -14,24 +14,28 @@ namespace LogbookApp.FlightDataManagement
     {
      
 
-        private async void SyncLookups(Lookups lookups, int userId)
+        private async void SyncLookups(Lookups sourceLookups,Lookups targetLookups)
         {
-            var onLineLookups = await OnLineDataService.LoadLookups(userId);
-            await SyncTable(lookups.Aircraft, onLineLookups.Aircraft);
-            await SyncTable(lookups.Airfields, onLineLookups.Airfields);
+
+            await SyncTable(sourceLookups.Aircraft, targetLookups.Aircraft);
+            await SyncTable(sourceLookups.Airfields, targetLookups.Airfields);
         }
 
-     
 
-  
-        public async override Task UpdateTargetData(TOnlineFlightData onlineDataService,
+
+
+        public async override Task UpdateOnlineData(TOnlineFlightData onlineDataService,
             FlightData sourceData, FlightData targetData, DateTime now)
         {
             OnLineDataService = onlineDataService;
-            SyncLookups(sourceData.Lookups, sourceData.User.id);
-            var flights = await OnLineDataService.GetFlights(sourceData.User.id);
-            await SyncTable(sourceData.Flights, flights);
-            targetData.User.TimeStamp = sourceData.User.TimeStamp;  // TODO : could this go in the base class
+            SyncLookups(sourceData.Lookups, targetData.Lookups);
+            await SyncTable(sourceData.Flights,targetData.Flights);
+
+            sourceData.User.TimeStamp = DateTime.Now;
+            await OnLineDataService.UpdateUserTimeStamp( sourceData.User.TimeStamp); // TODO : could this go in the base class
+            
         }
+
+      
     }
 }

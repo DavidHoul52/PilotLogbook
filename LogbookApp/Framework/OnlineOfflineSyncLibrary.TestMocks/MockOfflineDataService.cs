@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using OnlineOfflineSyncLibrary;
-using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
 
-namespace OnlineOfflineSyncLibrary2.Stubs
+namespace OnlineOfflineSyncLibrary.TestMocks
 {
     public class MockOfflineDataService<TSyncableData, TUser> : MockBaseDataService<TSyncableData, TUser>,
         IOfflineDataService<TSyncableData, TUser>
@@ -32,9 +27,25 @@ namespace OnlineOfflineSyncLibrary2.Stubs
             LocalDataSaved = true;
         }
 
+        public async override Task Update<T>(T item)
+        {
+            
+        }
+
         public async override Task Insert<T>(T item)
         {
             
+        }
+
+        public async override Task Delete<T>(T item)
+        {
+            
+        }
+
+
+        protected override Task InternalUpdateUserTimeStamp(DateTime? timeStamp)
+        {
+            throw new NotImplementedException();
         }
     }
 }

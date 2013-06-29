@@ -52,10 +52,10 @@ namespace OnlineOfflineSyncLibrary
             {
                 
                 var unSyncedData=await LoadUserData(_onlineDataService);
-                if (DetectNeedForSyncUpdate(Data, unSyncedData))
-                    await _syncManager.UpdateTargetData(_onlineDataService, Data, unSyncedData, DateTime.Now);
+                if (DetectNeedForSyncUpdate(Data, unSyncedData)) // TODO: this should part of the sync?
+                    await _syncManager.UpdateOnlineData(_onlineDataService, Data,unSyncedData, DateTime.Now);
                 else
-                    Data = unSyncedData;
+                    Data = unSyncedData; // TODO: hmmm.....
 
 
             }

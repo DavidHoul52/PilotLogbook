@@ -113,11 +113,6 @@
     <Compile Include="DataManagerTests\DataManagerTestStartUp.cs" />
     <Compile Include="DataManagerTests\DataManagerTestAferStartup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Stubs\MockBaseDataService.cs" />
-    <Compile Include="Stubs\MockOfflineDataService.cs" />
-    <Compile Include="Stubs\MockOnlineDataService.cs" />
-    <Compile Include="Stubs\MockInternetTools.cs" />
-    <Compile Include="Stubs\MockSyncManager.cs" />
     <Compile Include="Stubs\SyncableTestData.cs" />
     <Compile Include="Stubs\TestEntity.cs" />
     <Compile Include="SyncManagerTests\Base\SyncManagerTestsBase.cs" />
@@ -152,6 +147,10 @@
     <ProjectReference Include="..\BaseData\BaseData.csproj">
       <Project>{5b0ae921-c26d-47dd-8357-508464f036d3}</Project>
       <Name>BaseData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OnlineOfflineSyncLibrary.TestMocks\OnlineOfflineSyncLibrary.TestMocks.csproj">
+      <Project>{8b8094ec-38ed-4b57-bf7c-47918d42061f}</Project>
+      <Name>OnlineOfflineSyncLibrary.TestMocks</Name>
     </ProjectReference>
     <ProjectReference Include="..\OnlineOfflineSyncLibrary\OnlineOfflineSyncLibrary.csproj">
       <Project>{af8b13e5-162d-453d-a5c5-fd8a54f97dbc}</Project>
