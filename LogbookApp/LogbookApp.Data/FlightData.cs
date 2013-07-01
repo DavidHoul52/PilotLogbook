@@ -98,6 +98,7 @@ namespace LogbookApp.Data
 
         public void DeleteAircraft(Aircraft aircraft)
         {
+            
             Lookups.Aircraft.Remove(aircraft);
         }
 

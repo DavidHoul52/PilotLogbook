@@ -14,7 +14,7 @@ namespace LogbookApp.FlightDataManagement
     {
      
 
-        private async void SyncLookups(Lookups sourceLookups,Lookups targetLookups)
+        private async Task SyncLookups(Lookups sourceLookups,Lookups targetLookups)
         {
 
             await SyncTable(sourceLookups.Aircraft, targetLookups.Aircraft);
@@ -28,7 +28,7 @@ namespace LogbookApp.FlightDataManagement
             FlightData sourceData, FlightData targetData, DateTime now)
         {
             OnLineDataService = onlineDataService;
-            SyncLookups(sourceData.Lookups, targetData.Lookups);
+            await SyncLookups(sourceData.Lookups, targetData.Lookups);
             await SyncTable(sourceData.Flights,targetData.Flights);
 
             sourceData.User.TimeStamp = DateTime.Now;
