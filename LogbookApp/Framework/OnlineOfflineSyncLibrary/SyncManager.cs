@@ -22,8 +22,8 @@ namespace OnlineOfflineSyncLibrary
      
 
 
-        protected async Task SyncTable<T>(ObservableCollection<T> sourceItems,
-            ObservableCollection<T> targetItems)
+        protected async Task SyncTableUpdates<T>(ObservableCollection<T> sourceItems,
+            ObservableCollection<T> targetItems, TSyncableData targetData)
             where T: IEntity
         {
             // update items which have changed and are newer
@@ -39,16 +39,27 @@ namespace OnlineOfflineSyncLibrary
                     await OnLineDataService.Update(item);
             }
 
+           
+        }
+
+        protected async Task SyncTableDeletes<T>(ObservableCollection<T> sourceItems,
+        ObservableCollection<T> targetItems, TSyncableData targetData)
+        where T : IEntity
+        {
+           
+
             // delete items which no longer exist in source
 
-        
 
-            while (targetItems.Any(x => NotFoundIn(sourceItems, x)))
+
+            while (targetItems.Any(x => NotFoundIn(sourceItems, x) && targetData.CanDelete(x)))
             {
                 var targetItem = targetItems.First(x => NotFoundIn(sourceItems, x));
-                await OnLineDataService.Delete(targetItem);
+                if (targetData.CanDelete(targetItem))
+                    await OnLineDataService.Delete(targetItem);
             }
         }
+
 
         private static bool NotFoundIn<T>(ObservableCollection<T> sourceItems, T x) where T: IEntity
         {

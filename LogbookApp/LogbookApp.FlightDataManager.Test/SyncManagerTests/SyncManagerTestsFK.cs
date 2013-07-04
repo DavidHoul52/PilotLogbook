@@ -47,14 +47,15 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         }
 
         [TestMethod]
-        public void ShouldNotDeleteLookupWhichIsFlightFK()
+        public void ShouldDeleteLookupAndFlightWhereFK()
         {
             Aircraft aircraft = new Aircraft {id =1};
             OnlineData.Lookups.Aircraft.Add(aircraft);
             Flight flight = new Flight {id = 1, Aircraft = aircraft};
             OnlineData.Flights.Add(flight);
             Target.UpdateOnlineData(OnlineDataService, LocalData, OnlineData, NewerTimeStamp);
-            Assert.IsTrue(OnlineData.Lookups.Aircraft.Count ==1);
+            
+            Assert.IsTrue(OnlineData.Flights.Count == 0 && OnlineData.Lookups.Aircraft.Count == 0);
             
         }
     }

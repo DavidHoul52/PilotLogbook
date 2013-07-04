@@ -108,6 +108,7 @@ namespace LogbookApp.Mocks
 
         public async override Task Delete<T>(T item) 
         {
+            
             if (typeof(T) == typeof(Aircraft))
                 InternalData.DeleteAircraft(item as Aircraft);
             if (typeof(T) == typeof(Airfield))

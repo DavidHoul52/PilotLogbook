@@ -14,13 +14,19 @@ namespace LogbookApp.FlightDataManagement
     {
      
 
-        private async Task SyncLookups(Lookups sourceLookups,Lookups targetLookups)
+        private async Task SyncUpdatesLookups(Lookups sourceLookups,FlightData targetData)
         {
 
-            await SyncTable(sourceLookups.Aircraft, targetLookups.Aircraft);
-            await SyncTable(sourceLookups.Airfields, targetLookups.Airfields);
+            await SyncTableUpdates(sourceLookups.Aircraft, targetData.Lookups.Aircraft,targetData);
+            await SyncTableUpdates(sourceLookups.Airfields, targetData.Lookups.Airfields,targetData);
         }
 
+        private async Task SyncDeleteLookups(Lookups sourceLookups, FlightData targetData)
+        {
+
+            await SyncTableDeletes(sourceLookups.Aircraft, targetData.Lookups.Aircraft, targetData);
+            await SyncTableDeletes(sourceLookups.Airfields, targetData.Lookups.Airfields, targetData);
+        }
 
 
 
@@ -28,8 +34,11 @@ namespace LogbookApp.FlightDataManagement
             FlightData sourceData, FlightData targetData, DateTime now)
         {
             OnLineDataService = onlineDataService;
-            await SyncLookups(sourceData.Lookups, targetData.Lookups);
-            await SyncTable(sourceData.Flights,targetData.Flights);
+            await SyncTableDeletes(sourceData.Flights, targetData.Flights, targetData);
+            await SyncDeleteLookups(sourceData.Lookups, targetData);
+
+            await SyncUpdatesLookups(sourceData.Lookups, targetData);
+            await SyncTableUpdates(sourceData.Flights,targetData.Flights,targetData);
 
             sourceData.User.TimeStamp = DateTime.Now;
             await OnLineDataService.UpdateUserTimeStamp( sourceData.User.TimeStamp); // TODO : could this go in the base class

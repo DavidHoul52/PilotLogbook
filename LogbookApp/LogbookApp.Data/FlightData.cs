@@ -56,6 +56,17 @@ namespace LogbookApp.Data
             }
         }
 
+        public bool CanDelete<T>(T item) where T : IEntity
+        {
+            if (typeof (T) == typeof (Aircraft))
+                return Flights.All(x => x.Aircraft != item as Aircraft);
+            if (typeof(T) == typeof(AcType))
+                return Lookups.Aircraft.All(x => x.AcType != item as AcType);
+            if (typeof(T) == typeof(Airfield))
+                return !Flights.Any(x => x.From == item as Airfield || x.To==item as Airfield);
+            return true;
+        }
+
         public void AddAcType(AcType acType)
         {
             acType.UserId = User.id;
