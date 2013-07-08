@@ -42,10 +42,15 @@ namespace OnlineOfflineSyncLibrary.TestMocks
             
         }
 
-
-        protected override Task InternalUpdateUserTimeStamp(DateTime? timeStamp)
+        protected override TSyncableData CopyOfInternalData()
         {
-            throw new NotImplementedException();
+            return InternalData;
+        }
+
+
+        protected async override Task InternalUpdateUserTimeStamp(DateTime? timeStamp)
+        {
+            InternalData.User.TimeStamp = timeStamp;
         }
     }
 }

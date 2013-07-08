@@ -3,38 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using Windows.UI.Xaml;
 using BaseData;
 
 
 namespace LogbookApp.Data
 {
-   
-    public class Flight :IEntity
+
+    public class Flight : IEntity
     {
         public Flight()
         {
             Takeoffs = 1;
             LDG = 1;
-            Depart=new DateTime(2001, 1, 1);
+            Depart = new DateTime(2001, 1, 1);
             Arrival = new DateTime(2001, 1, 1);
-            
+
         }
 
 
-      
+
         private Capacity _capacity;
         private Airfield _from;
         private Airfield _to;
         private Aircraft _aircraft;
 
 
-       
+
         public int? UserId { get; set; }
 
         public DateTime Date { get; set; }
 
-    
-       
+
+
 
         [IgnoreDataMember]
         public string Reg { get; set; }
@@ -53,7 +54,7 @@ namespace LogbookApp.Data
         }
 
         public int CapacityId { get; set; }
-     
+
         [IgnoreDataMember]
         public Airfield From
         {
@@ -68,7 +69,7 @@ namespace LogbookApp.Data
         }
 
         public int AirfieldFromId { get; set; }
-       
+
 
         [IgnoreDataMember]
         public Airfield To
@@ -90,14 +91,15 @@ namespace LogbookApp.Data
         public int AirfieldToId
         {
             get
-            {   
-                return _airfieldToId;}
+            {
+                return _airfieldToId;
+            }
             set
             {
                 _airfieldToId = value; ;
             }
         }
-      
+
 
         public DateTime Depart { get; set; }
         public DateTime Arrival
@@ -122,28 +124,30 @@ namespace LogbookApp.Data
         }
 
         public int AircraftId { get; set; }
-      
+
 
         [IgnoreDataMember]
         public Lookups Lookups { get; set; }
-     
 
 
-     
 
-          [IgnoreDataMember]
+
+
+        [IgnoreDataMember]
         public string FromTo
         {
-            get { if (From != null && To != null) return String.Format("{0} - {1}", From.Name, To.Name);
-            else
+            get
             {
-                return "";
-            }
-            
+                if (From != null && To != null) return String.Format("{0} - {1}", From.Name, To.Name);
+                else
+                {
+                    return "";
+                }
+
 
             }
         }
-          [IgnoreDataMember]
+        [IgnoreDataMember]
         public string DateStr
         {
             get
@@ -151,7 +155,7 @@ namespace LogbookApp.Data
                 return Date.ToString("dd-MM-yyyy");
             }
         }
-          [IgnoreDataMember]
+        [IgnoreDataMember]
         public string DurationStr
         {
             get
@@ -163,7 +167,7 @@ namespace LogbookApp.Data
             }
         }
 
-          [IgnoreDataMember]
+        [IgnoreDataMember]
         public TimeSpan Duration
         {
             get
@@ -174,29 +178,28 @@ namespace LogbookApp.Data
                     return default(TimeSpan);
             }
         }
-      
 
-          public string Remarks { get; set; }
 
-          public int? Takeoffs { get; set; }
+        public string Remarks { get; set; }
 
-          public int? LDG { get; set; }
+        public int? Takeoffs { get; set; }
 
-          public bool Night { get; set; }
+        public int? LDG { get; set; }
 
-          public DateTime? InstrumentFlying
+        public bool Night { get; set; }
 
-          {
-              get { return _instrumentFlying; }
-              set
-              {
-                  _instrumentFlying = value;
-              }
-          }
+        public DateTime? InstrumentFlying
+        {
+            get { return _instrumentFlying; }
+            set
+            {
+                _instrumentFlying = value;
+            }
+        }
 
         public DateTime? SimulatedInstrumentFlying { get; set; }
 
-          [IgnoreDataMember]
+        [IgnoreDataMember]
         public bool IsNew { get; set; }
 
         //public bool Valid()
@@ -221,7 +224,7 @@ namespace LogbookApp.Data
             Capacity = inMemoryLookups.Capacities.FirstOrDefault(x => x.Id == CapacityId);
             From = lookupData.Airfields.FirstOrDefault(x => x.id == AirfieldFromId);
             To = lookupData.Airfields.FirstOrDefault(x => x.id == AirfieldToId);
-            
+
             this.Lookups = lookupData;
             Capacities = inMemoryLookups.Capacities;
 

@@ -57,6 +57,7 @@ namespace OnlineOfflineSyncLibrary2.DataManagerTests
             Internet.SetConnected(false);
             _onlineDataService.SetUserDataExists(false, DateTime.Now);
             Target.Startup(UserName);
+            
         }
     }
 }

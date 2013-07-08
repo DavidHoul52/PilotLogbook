@@ -49,15 +49,17 @@ namespace OnlineOfflineSyncLibrary
            
 
             // delete items which no longer exist in source
-
-
-
-            while (targetItems.Any(x => NotFoundIn(sourceItems, x) && targetData.CanDelete(x)))
+            foreach (var targetItem in targetItems)
             {
-                var targetItem = targetItems.First(x => NotFoundIn(sourceItems, x));
-                if (targetData.CanDelete(targetItem))
+                
+                if (NotFoundIn(sourceItems,targetItem) && targetData.CanDelete(targetItem))
+                {
                     await OnLineDataService.Delete(targetItem);
+                }
+
             }
+
+
         }
 
 

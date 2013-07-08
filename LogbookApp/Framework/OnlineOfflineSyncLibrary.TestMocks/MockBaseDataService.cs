@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using BaseData;
 
@@ -39,8 +43,10 @@ namespace OnlineOfflineSyncLibrary.TestMocks
         protected async override Task<TSyncableData> InternalLoadUserData(string userName)
         {
             LoadUserDataCalled = true;
-            return InternalData;
+            return CopyOfInternalData();
         }
+
+        protected abstract TSyncableData CopyOfInternalData();
 
         protected async override Task InternalCreateUserData(string userName)
         {
@@ -73,6 +79,27 @@ namespace OnlineOfflineSyncLibrary.TestMocks
         public void UpdateMockInternalData(TSyncableData onlineData)
         {
             InternalData = onlineData;
+        }
+
+        protected ObservableCollection<T> Copy<T>(IEnumerable<T> items)
+         where T : IEntity, new()
+        {
+            return new ObservableCollection<T>(items.Select(x => CreateCopy(x)));
+        }
+
+
+
+        protected T CreateCopy<T>(T entity)
+            where T : IEntity, new()
+        {
+            var newEntity = new T();
+            foreach (PropertyInfo prop in newEntity.GetType().GetTypeInfo().DeclaredProperties)
+            {
+                if (prop.CanWrite)
+                    prop.SetValue(newEntity, prop.GetValue(entity, null), null);
+            }
+
+            return newEntity;
         }
      
     }

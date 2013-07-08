@@ -46,11 +46,14 @@ namespace LogbookApp.FlightDataManagerTest.SyncManagerTests
         public void ShouldNotUpdateExistingAircraft()
         {
             var aircraft = new Aircraft {id = 1, Reg = "A", TimeStamp = NewerTimeStamp};
-            OnlineData.Lookups.Aircraft.Add(aircraft);
             
+            OnlineDataService.InsertAircraft(aircraft);
+            OnlineData = OnlineDataService.LoadUserData("").Result;
             LocalData.Lookups.Aircraft.Add(new Aircraft { id = 1, Reg = "G", TimeStamp = OlderTimeStamp });
+            
             Target.UpdateOnlineData(OnlineDataService,LocalData, OnlineData, NewerTimeStamp);
-            Assert.AreEqual("A", OnlineDataService.LoadLookups(0).Result.Aircraft.First().Reg);
+            OnlineData = OnlineDataService.LoadUserData("").Result;
+            Assert.AreEqual("A", OnlineData.Lookups.Aircraft.First().Reg);
         }
 
         [TestMethod]

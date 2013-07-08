@@ -27,7 +27,7 @@ namespace OnlineOfflineSyncLibrary.Test.SyncManagerTests
             OnlineData = new TSyncableData();
             OnlineDataService = new TOnlineDataService{ };
             OnlineDataService.CreateUserData("", DateTime.Now);
-            OnlineDataService.UpdateMockInternalData(OnlineData);
+            //OnlineDataService.UpdateMockInternalData(OnlineData);
             LocalData = new TSyncableData();
             Target = new TSyncManager {  };
         }

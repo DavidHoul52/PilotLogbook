@@ -1,5 +1,11 @@
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
+using BaseData;
 using LogbookApp.Data;
 using OnlineOfflineSyncLibrary.TestMocks;
 
@@ -94,29 +100,51 @@ namespace LogbookApp.Mocks
             
         }
 
+        protected override FlightData CopyOfInternalData()
+        {
+            var flightData= new FlightData();
+            flightData.Lookups.AcTypes = Copy(InternalData.Lookups.AcTypes);
+            flightData.Lookups.Aircraft = Copy(InternalData.Lookups.Aircraft);
+            flightData.Lookups.Airfields = Copy(InternalData.Lookups.Airfields);
+            flightData.Flights = Copy(InternalData.Flights);
+            return flightData;
+        }
+
+     
+
         public async override Task Insert<T>(T item)
         {
-            if (typeof(T)==typeof(Aircraft))
-              InternalData.AddAircraft(item as Aircraft);
+            if (typeof (T) == typeof (Aircraft))
+            {
+                var aircraft = CreateCopy(item as Aircraft);
+                InternalData.AddAircraft(aircraft);
+            }
             if (typeof(T) == typeof(Airfield))
-                InternalData.AddAirfield(item as Airfield);
+                InternalData.AddAirfield(CreateCopy(item as Airfield));
             if (typeof(T) == typeof(AcType))
-                InternalData.AddAcType(item as AcType);
-            if (typeof(T) == typeof(Flight))
-                InternalData.AddFlight(item as Flight);
+                InternalData.AddAcType(CreateCopy(item as AcType));
+            if (typeof (T) == typeof (Flight))
+            {
+                
+                InternalData.AddFlight(CreateCopy(item as Flight));
+            }
         }
+
+      
 
         public async override Task Delete<T>(T item) 
         {
             
+            if (item.id==0)
+                throw new Exception();
             if (typeof(T) == typeof(Aircraft))
-                InternalData.DeleteAircraft(item as Aircraft);
+                InternalData.DeleteAircraft(InternalData.Lookups.Aircraft.FirstOrDefault(x=>x.id==item.id));
             if (typeof(T) == typeof(Airfield))
-                InternalData.DeleteAirfield(item as Airfield);
+                InternalData.DeleteAirfield(InternalData.Lookups.Airfields.FirstOrDefault(x => x.id == item.id));
             if (typeof(T) == typeof(AcType))
-                InternalData.DeleteAcType(item as AcType);
+                InternalData.DeleteAcType(InternalData.Lookups.AcTypes.FirstOrDefault(x => x.id == item.id));
             if (typeof(T) == typeof(Flight))
-                InternalData.DeleteFlight(item as Flight);
+                InternalData.DeleteFlight(InternalData.Flights.FirstOrDefault(x=>x.id==item.id));
         }
 
         public async override Task Update<T>(T item)
