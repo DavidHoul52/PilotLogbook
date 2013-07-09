@@ -1,12 +1,14 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using OnlineOfflineSyncLibrary;
 using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
+using OnlineOfflineSyncLibrary.TestMocks;
 using OnlineOfflineSyncLibrary2.Stubs;
 
 namespace OnlineOfflineSyncLibrary2.DataManagerTests
 {
     [TestClass]
-    public class DataManagerTestStartUp : DataManagerTestBase<SyncableTestData,TestUser>
+    public class DataManagerTestStartUp : GenericDataManagerTestBase
     {
         
      

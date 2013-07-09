@@ -5,33 +5,45 @@ using InternetDetection;
 
 namespace OnlineOfflineSyncLibrary
 {
-    public class DataManager<TSyncableData,TUser, TOnlineDataService, TOffLineDataService>
+    public class DataManager<TSyncableData,TUser, TOnlineDataService, TOffLineDataService
+        , TSyncManager>
         where TUser: IUser
         where TSyncableData : ISyncableData<TUser>
         where TOnlineDataService : IOnlineDataService<TSyncableData, TUser>
         where TOffLineDataService : IOfflineDataService<TSyncableData, TUser>
+        where TSyncManager : ISyncManager<TSyncableData,TOnlineDataService, TUser> 
     {
 
-        private readonly TOnlineDataService _onlineDataService;
-        private readonly TOffLineDataService _offlineDataService;
-        private readonly IInternetTools _internet;
+        private TOnlineDataService _onlineDataService;
+        private TOffLineDataService _offlineDataService;
+        private IInternetTools _internet;
         private string _userName;
-        private readonly ISyncManager<TSyncableData,TOnlineDataService, TUser> _syncManager;
+        private  TSyncManager _syncManager;
 
-
-        public DataManager(
-            TOnlineDataService onlineDataService,
-            TOffLineDataService offlineDataService, IInternetTools internet,
-            ISyncManager<TSyncableData, TOnlineDataService,TUser> syncManager)
+        public DataManager()
         {
             
+        }
+
+        public DataManager(TOnlineDataService onlineDataService,
+            TOffLineDataService offlineDataService, IInternetTools internet,
+            TSyncManager syncManager
+            )
+        {
+            SetConstructorParams(onlineDataService,offlineDataService,internet,syncManager);
+          
+        }
+
+        public void SetConstructorParams(TOnlineDataService onlineDataService,
+            TOffLineDataService offlineDataService, IInternetTools internet,
+            TSyncManager syncManager)
+        {
             _onlineDataService = onlineDataService;
             _offlineDataService = offlineDataService;
             _internet = internet;
             _syncManager = syncManager;
         }
-
-        public TSyncableData Data { get; private set; }
+        public TSyncableData Data { get; protected set; }
 
         public async Task Startup(string userName)
         {

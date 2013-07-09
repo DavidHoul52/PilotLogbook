@@ -112,6 +112,7 @@
     <Compile Include="DataManagerTests\DataManagerTestBase.cs" />
     <Compile Include="DataManagerTests\DataManagerTestStartUp.cs" />
     <Compile Include="DataManagerTests\DataManagerTestAferStartup.cs" />
+    <Compile Include="DataManagerTests\GenericDataManagerTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stubs\SyncableTestData.cs" />
     <Compile Include="Stubs\TestEntity.cs" />

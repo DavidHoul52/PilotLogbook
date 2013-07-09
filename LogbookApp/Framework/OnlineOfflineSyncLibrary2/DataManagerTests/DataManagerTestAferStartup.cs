@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using OnlineOfflineSyncLibrary;
 using OnlineOfflineSyncLibrary.Test.SyncManagerTests;
+using OnlineOfflineSyncLibrary.TestMocks;
 using OnlineOfflineSyncLibrary2.Stubs;
 
 namespace OnlineOfflineSyncLibrary2.DataManagerTests
 {
     [TestClass]
-    public class DataManagerTestAferStartup : DataManagerTestBase<SyncableTestData, TestUser>
+    public class DataManagerTestAferStartup : GenericDataManagerTestBase
     {
 
         [TestInitialize]

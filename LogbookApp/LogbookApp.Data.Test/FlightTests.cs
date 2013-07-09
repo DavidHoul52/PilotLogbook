@@ -99,5 +99,7 @@ namespace LogbookApp.Data.Test
             _target.PopulateLookups(new Lookups(),_inMemoryLookups);
             Assert.IsNotNull(_target.Lookups);
         }
+
+       
     }
 }

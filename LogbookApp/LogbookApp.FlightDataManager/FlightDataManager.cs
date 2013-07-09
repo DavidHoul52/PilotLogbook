@@ -11,14 +11,19 @@ using OnlineOfflineSyncLibrary;
 
 namespace LogbookApp.FlightDataManagement
 {
-    public class FlightDataManager : DataManager<FlightData, User, IOnlineFlightData,LocalDataService>,
+    public class FlightDataManager : DataManager<FlightData, User, IOnlineFlightData,LocalDataService,
+        FlightsSyncManager<IOnlineFlightData>>,
         IFlightDataManager
     {
         private readonly IOnlineFlightData _onlineDataService;
 
+        public FlightDataManager()
+        {
+            
+        }
         public FlightDataManager(IOnlineFlightData onlineDataService,
             LocalDataService offlineDataService, IInternetTools internet,
-            ISyncManager<FlightData,IOnlineFlightData, User> syncManager) : 
+            FlightsSyncManager<IOnlineFlightData> syncManager) : 
             base(onlineDataService, offlineDataService, internet, syncManager)
         {
             _onlineDataService = onlineDataService;
@@ -34,6 +39,7 @@ namespace LogbookApp.FlightDataManagement
 
         public async Task SaveFlight(Flight flight, DateTime saveTime)
         {
+
             await PerformDataUpdateAction((flightservice) => flightservice.SaveFlight(flight),
               flight,
               saveTime);
@@ -121,13 +127,13 @@ namespace LogbookApp.FlightDataManagement
         public async Task LoadData()
         {
             if (_onlineDataService.IsConnected)
-                await _onlineDataService.LoadUserData(Data.User.DisplayName);
+                Data= await LoadUserData(_onlineDataService);
         }
 
         public async Task GetLookups()
         {
                 if (_onlineDataService.IsConnected)
-                await _onlineDataService.LoadLookups(Data.User.id);
+                Data.Lookups=await _onlineDataService.LoadLookups(Data.User.id);
         
         }
     }
