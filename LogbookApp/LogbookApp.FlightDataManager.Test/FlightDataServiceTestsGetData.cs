@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LogbookApp.Data;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using OnlineOfflineSyncLibrary2.DataManagerTests;
+using OnlineOfflineSyncLibrary.TestMocks;
 
 namespace LogbookApp.FlightDataManagerTest
 {
     [TestClass]
-    public class FlightDataServiceTestsGetData : DataManagerTestBase<FlightData,User>
+    public class FlightDataServiceTestsGetData : FlightDataManagerTestBase
     {
 
         [TestInitialize]

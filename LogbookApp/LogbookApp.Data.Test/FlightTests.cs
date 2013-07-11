@@ -100,6 +100,13 @@ namespace LogbookApp.Data.Test
             Assert.IsNotNull(_target.Lookups);
         }
 
+
+        [TestMethod]
+        public void NewFlightShouldHavePopulatedLookups()
+        {
+            Assert.IsNotNull(_target.Lookups);
+
+        }
        
     }
 }

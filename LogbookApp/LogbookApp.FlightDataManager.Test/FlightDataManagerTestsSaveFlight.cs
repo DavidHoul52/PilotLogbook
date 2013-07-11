@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,25 +9,15 @@ using OnlineOfflineSyncLibrary2.DataManagerTests;
 
 namespace LogbookApp.FlightDataManagerTest
 {
-    public class FlightDataManagerTestsSaveFlight : DataManagerTestBase<FlightDataManager, FlightData, User>
+    [TestClass]
+    public class FlightDataManagerTestsSaveFlight : FlightDataManagerTestBase
     {
-        [TestMethod]
-        public void NewFlightShouldHavePopulatedLookups()
+        [TestInitialize]
+        public override void Setup()
         {
-            Target.SaveFlight(new Flight(), TestDates.Now20130101);
-            
+            base.Setup();
         }
-    }
 
-    public class TestDates
-    {
-        public static DateTime Now20130101
-        {
-            get
-            {
-                return new DateTime(2013, 01, 01);
-            }
-            
-        }
+       
     }
 }

@@ -11,7 +11,7 @@ using OnlineOfflineSyncLibrary2.DataManagerTests;
 namespace LogbookApp.FlightDataManagerTest
 {
     [TestClass]
-    public class FlightDataServiceTestsStartupNewUserConnected :  DataManagerTestBase<FlightData,User>
+    public class FlightDataServiceTestsStartupNewUserConnected : FlightDataManagerTestBase
     {
         [TestInitialize]
         public override void Setup()

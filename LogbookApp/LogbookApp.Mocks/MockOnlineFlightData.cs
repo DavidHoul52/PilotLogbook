@@ -107,6 +107,7 @@ namespace LogbookApp.Mocks
             flightData.Lookups.Aircraft = Copy(InternalData.Lookups.Aircraft);
             flightData.Lookups.Airfields = Copy(InternalData.Lookups.Airfields);
             flightData.Flights = Copy(InternalData.Flights);
+            flightData.User = CreateCopy(InternalData.User);
             return flightData;
         }
 

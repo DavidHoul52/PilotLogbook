@@ -90,11 +90,12 @@ namespace LogbookApp
 
                 var onlineDataService = new MobileFlightDataService(new MobileServiceClient(
                "https://worldpilotslogbook.azure-mobile.net/", "LRlXCJsDuLcggcInPASNkoyofIwtuk47"));
-                FlightDataManager = new FlightDataManager(onlineDataService,
+                FlightDataManager = new FlightDataManager<MobileFlightDataService,LocalDataService,
+                    FlightsSyncManager<MobileFlightDataService>>(onlineDataService,
                     new LocalDataService(new LocalStorage(), "flights.xml", "lookups.xml", "user.xml"
                         ),
                         new InternetTools(),
-                     new FlightsSyncManager<IOnlineFlightData>()
+                     new FlightsSyncManager<MobileFlightDataService>()
                      );
                 await FlightDataManager.Startup(DisplayName);
 

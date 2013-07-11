@@ -62,12 +62,14 @@ namespace LogbookApp.ViewModel
 
         private void AddFlight()
         {
-            Flights.Add(new Flight
-            {
-                UserId = flightDataManager.Data.User.id,
-                Lookups = flightDataManager.Data.Lookups,
-                IsNew = true, 
-            Date = DateTime.Today, AircraftId = 1});
+            var newFlight = new FlightFactory().CreateFlight(flightDataManager);
+            //Flights.Add(new Flight
+            //{
+            //    UserId = flightDataManager.Data.User.id,
+            //    Lookups = flightDataManager.Data.Lookups,
+            //    IsNew = true, 
+            //Date = DateTime.Today, AircraftId = 1});
+            Flights.Add(newFlight);
             SelectedFlight = Flights.Last();
             ShowDetail(SelectedFlight);
 

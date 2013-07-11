@@ -11,19 +11,25 @@ using OnlineOfflineSyncLibrary;
 
 namespace LogbookApp.FlightDataManagement
 {
-    public class FlightDataManager : DataManager<FlightData, User, IOnlineFlightData,LocalDataService,
-        FlightsSyncManager<IOnlineFlightData>>,
+    public class FlightDataManager<TOnlineFlightData,TOfflineFlightData,TFlightSyncManager>
+        //: DataManager<FlightData, User, IOnlineFlightData,LocalDataService,
+        //FlightsSyncManager<IOnlineFlightData>>,
+        :DataManager<FlightData,User,TOnlineFlightData,TOfflineFlightData,TFlightSyncManager>,
         IFlightDataManager
+        where TOnlineFlightData : IOnlineFlightData
+        where TOfflineFlightData : IOfflineDataService<FlightData, User>
+        where TFlightSyncManager : ISyncManager<FlightData, TOnlineFlightData, User> 
+        
     {
-        private readonly IOnlineFlightData _onlineDataService;
+        private readonly TOnlineFlightData _onlineDataService;
 
         public FlightDataManager()
         {
             
         }
-        public FlightDataManager(IOnlineFlightData onlineDataService,
-            LocalDataService offlineDataService, IInternetTools internet,
-            FlightsSyncManager<IOnlineFlightData> syncManager) : 
+        public FlightDataManager(TOnlineFlightData onlineDataService,
+            TOfflineFlightData offlineDataService, IInternetTools internet,
+            TFlightSyncManager syncManager) : 
             base(onlineDataService, offlineDataService, internet, syncManager)
         {
             _onlineDataService = onlineDataService;
