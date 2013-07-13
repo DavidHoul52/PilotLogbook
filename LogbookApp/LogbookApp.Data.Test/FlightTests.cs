@@ -12,22 +12,26 @@ namespace LogbookApp.Data.Test
     public class FlightTests
     {
         private Flight _target;
-        private InMemoryLookups _inMemoryLookups;
+        private FlightData flightData;
+        
        
 
         [TestInitialize]
         public void Setup()
         {
-            _target = new Flight();
-            _inMemoryLookups = new InMemoryLookups();
+            
+            flightData = new FlightData();
+            _target = new FlightFactory().CreateFlight(flightData);
+
         }
 
         [TestMethod]
         public void ShouldPopulateLookupsAircraft()
         {
             _target.AircraftId = 22;
-            _target.PopulateLookups(new Lookups { Aircraft = new ObservableCollection<Aircraft> { new Aircraft {id = 22}}},
-                _inMemoryLookups);
+            _target.PopulateLookups(new Lookups { Aircraft = new ObservableCollection<Aircraft> 
+            { new Aircraft {id = 22}}},
+                flightData.InMemoryLookups);
             Assert.IsNotNull(_target.Aircraft);
         }
 
@@ -36,7 +40,7 @@ namespace LogbookApp.Data.Test
         {
             _target.AircraftId = 23;
             _target.PopulateLookups(new Lookups { Aircraft = new ObservableCollection<Aircraft> { new Aircraft { id = 22 } } },
-               _inMemoryLookups);
+               flightData.InMemoryLookups);
             Assert.IsNull(_target.Aircraft);
         }
 
@@ -44,7 +48,7 @@ namespace LogbookApp.Data.Test
         public void ShouldPopulateLookupsCapacity()
         {
             _target.CapacityId = 1;
-            _target.PopulateLookups(new Lookups (),_inMemoryLookups);
+            _target.PopulateLookups(new Lookups(), flightData.InMemoryLookups);
             Assert.IsNotNull(_target.Capacity);
         }
 
@@ -52,7 +56,7 @@ namespace LogbookApp.Data.Test
         public void ShouldNotPopulateLookupsCapacity()
         {
             _target.CapacityId = -1;
-            _target.PopulateLookups(new Lookups(), _inMemoryLookups);
+            _target.PopulateLookups(new Lookups(), flightData.InMemoryLookups);
             Assert.IsNull(_target.Capacity);
         }
 
@@ -61,7 +65,7 @@ namespace LogbookApp.Data.Test
         {
             _target.AirfieldFromId = 11;
             _target.PopulateLookups(new Lookups { Airfields = new ObservableCollection<Airfield> { new Airfield { id = 11 } } },
-                _inMemoryLookups);
+                flightData.InMemoryLookups);
             Assert.IsNotNull(_target.From);
         }
 
@@ -70,7 +74,7 @@ namespace LogbookApp.Data.Test
         {
             _target.AirfieldFromId = 0;
             _target.PopulateLookups(new Lookups { Airfields = new ObservableCollection<Airfield> { new Airfield { id = 11 } } },
-                _inMemoryLookups);
+                flightData.InMemoryLookups);
             Assert.IsNull(_target.From);
         }
 
@@ -79,7 +83,7 @@ namespace LogbookApp.Data.Test
         {
             _target.AirfieldToId = 11;
             _target.PopulateLookups(new Lookups { Airfields = new ObservableCollection<Airfield> { new Airfield { id = 11 } } },
-                _inMemoryLookups);
+                flightData.InMemoryLookups);
             Assert.IsNotNull(_target.To);
         }
 
@@ -88,15 +92,15 @@ namespace LogbookApp.Data.Test
         {
             _target.AirfieldToId = 0;
             _target.PopulateLookups(new Lookups { Airfields = new ObservableCollection<Airfield> { new Airfield { id = 11 } } },
-                _inMemoryLookups);
+                flightData.InMemoryLookups);
             Assert.IsNull(_target.To);
         }
 
         [TestMethod]
         public void ShouldPopulateLookups()
         {
-            
-            _target.PopulateLookups(new Lookups(),_inMemoryLookups);
+
+            _target.PopulateLookups(new Lookups(), flightData.InMemoryLookups);
             Assert.IsNotNull(_target.Lookups);
         }
 
