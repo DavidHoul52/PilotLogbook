@@ -109,6 +109,7 @@ namespace OnlineOfflineSyncLibrary
             if (_onlineDataService.ConnectionTracker.IsConnected)
             {
                 await updateAction(_onlineDataService);
+                Data = await _onlineDataService.LoadUserData(Data.User.DisplayName);
 
             }
 
