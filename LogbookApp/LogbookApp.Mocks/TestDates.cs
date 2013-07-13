@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LogbookApp.FlightDataManagerTest
+namespace LogbookApp.Mocks
 {
     public class TestDates
     {

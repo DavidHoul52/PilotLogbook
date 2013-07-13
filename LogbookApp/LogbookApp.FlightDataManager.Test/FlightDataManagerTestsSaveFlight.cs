@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LogbookApp.Data;
 using LogbookApp.FlightDataManagement;
+using LogbookApp.Mocks;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OnlineOfflineSyncLibrary2.DataManagerTests;
 
@@ -25,8 +26,8 @@ namespace LogbookApp.FlightDataManagerTest
         {
             StartupAsConnected(TestDates.NowLess1);
             FlightData flightData = new FlightData();
-            
-            Target.SaveFlight(new FlightFactory().CreateFlight(flightData), TestDates.Now);
+
+            Target.SaveFlight(new FlightFactory().CreateFlight(flightData, TestDates.Now), TestDates.Now);
             Assert.AreEqual(TestDates.Now,Target.Data.User.TimeStamp);
         }
 
@@ -36,7 +37,7 @@ namespace LogbookApp.FlightDataManagerTest
             StartupAsOfflineExistingUser(TestDates.NowLess1,TestDates.NowLess1);
             Internet.SetConnected(true);
             FlightData flightData = new FlightData();
-            Target.SaveFlight(new FlightFactory().CreateFlight(flightData), TestDates.Now);
+            Target.SaveFlight(new FlightFactory().CreateFlight(flightData, TestDates.Now), TestDates.Now);
             Assert.AreEqual(TestDates.Now, Target.Data.User.TimeStamp);
         }
 
@@ -47,7 +48,7 @@ namespace LogbookApp.FlightDataManagerTest
             StartupAsOfflineExistingUser(TestDates.NowLess1, TestDates.NowLess2);
             Internet.SetConnected(true);
             FlightData flightData = new FlightData();
-            Target.SaveFlight(new FlightFactory().CreateFlight(flightData), TestDates.Now);
+            Target.SaveFlight(new FlightFactory().CreateFlight(flightData, TestDates.Now), TestDates.Now);
             Assert.AreEqual(TestDates.Now, Target.Data.User.TimeStamp);
         }
         

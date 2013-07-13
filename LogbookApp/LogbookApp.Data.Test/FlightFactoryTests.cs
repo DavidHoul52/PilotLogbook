@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LogbookApp.Mocks;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace LogbookApp.Data.Test
@@ -21,7 +22,7 @@ namespace LogbookApp.Data.Test
         [TestMethod]
         public void ShouldCreateFlight()
         {
-            var result=_target.CreateFlight(new FlightData());
+            var result=_target.CreateFlight(new FlightData(),TestDates.Now);
             Assert.IsNotNull(result);
 
         }
@@ -29,7 +30,7 @@ namespace LogbookApp.Data.Test
         [TestMethod]
         public void ShouldAddUserId()
         {
-            var flight = _target.CreateFlight(new FlightData { User = new User { id=54}});
+            var flight = _target.CreateFlight(new FlightData { User = new User { id=54}},TestDates.Now);
             Assert.AreEqual(54,flight.UserId);
 
         }
@@ -39,7 +40,7 @@ namespace LogbookApp.Data.Test
         public void ShouldAddLookups()
         {
             var lookups = new Lookups();
-            var flight = _target.CreateFlight(new FlightData { Lookups = lookups});
+            var flight = _target.CreateFlight(new FlightData { Lookups = lookups }, TestDates.Now);
             Assert.IsNotNull(flight.Lookups);
 
         }
@@ -49,7 +50,7 @@ namespace LogbookApp.Data.Test
         public void ShouldAddCapacities()
         {
             var inMemoryLookups = new InMemoryLookups {};
-            var flight = _target.CreateFlight(new FlightData { InMemoryLookups =inMemoryLookups});
+            var flight = _target.CreateFlight(new FlightData { InMemoryLookups = inMemoryLookups }, TestDates.Now);
             Assert.IsNotNull(flight.Capacities);
 
         }
@@ -57,8 +58,8 @@ namespace LogbookApp.Data.Test
         [TestMethod]
         public void ShouldBeIsNew()
         {
-            
-            var flight = _target.CreateFlight(new FlightData {});
+
+            var flight = _target.CreateFlight(new FlightData { }, TestDates.Now);
             Assert.IsTrue(flight.IsNew);
 
         }

@@ -123,7 +123,6 @@
     <Compile Include="SyncManagerTests\SyncManagerTestsFK.cs" />
     <Compile Include="SyncManagerTests\SyncManagerTestsFlights.cs" />
     <Compile Include="SyncManagerTests\SyncManagerTestsUser.cs" />
-    <Compile Include="TestDates.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

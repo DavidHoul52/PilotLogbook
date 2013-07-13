@@ -52,7 +52,7 @@ namespace OnlineOfflineSyncLibrary.TestMocks
 
         protected async override Task InternalUpdateUserTimeStamp(DateTime? timeStamp)
         {
-            
+            InternalData.User.TimeStamp = timeStamp;
         }
 
         public ConnectionTracker ConnectionTracker { get; private set; }

@@ -124,6 +124,7 @@
   <ItemGroup>
     <Compile Include="MockOnlineFlightData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestDates.cs" />
     <Compile Include="TestLocalStorage.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

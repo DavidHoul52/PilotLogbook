@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LogbookApp.Mocks;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace LogbookApp.Data.Test
@@ -21,7 +22,7 @@ namespace LogbookApp.Data.Test
         {
             
             flightData = new FlightData();
-            _target = new FlightFactory().CreateFlight(flightData);
+            _target = new FlightFactory().CreateFlight(flightData,TestDates.Now);
 
         }
 

@@ -62,7 +62,7 @@ namespace LogbookApp.ViewModel
 
         private void AddFlight()
         {
-            var newFlight = new FlightFactory().CreateFlight(flightDataManager.Data);
+            var newFlight = new FlightFactory().CreateFlight(flightDataManager.Data,DateTime.Now);
          
             Flights.Add(newFlight);
             SelectedFlight = Flights.Last();
