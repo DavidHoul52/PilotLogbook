@@ -8,12 +8,12 @@ using BaseData;
 
 namespace OnlineOfflineSyncLibrary.TestMocks
 {
-    public abstract class MockBaseDataService<TSyncableData,TUser> : DataService<TSyncableData,TUser>
+    public abstract class MockBaseDataService<TSyncableData, TUser> : DataService<TSyncableData, TUser>
+        , IDataUpdateActions
         where TUser : IUser, new()
         where TSyncableData : ISyncableData<TUser>,new()
     {
-      
-        protected readonly string UserName;
+        public string UserName { get; set; }
         protected TSyncableData InternalData;
         private bool _userDataExists;
 

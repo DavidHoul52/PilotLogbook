@@ -11,7 +11,7 @@ using OnlineOfflineSyncLibrary.TestMocks;
 
 namespace LogbookApp.Mocks
 {
-    public class MockOnlineFlightData : MockOnlineDataService<FlightData, User>, IOnlineFlightData
+    public class MockOnlineFlightData : MockOnlineDataService<FlightData, User>, IOnlineFlightDataService
     {
       
 

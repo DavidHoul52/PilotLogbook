@@ -4,9 +4,11 @@ using BaseData;
 
 namespace OnlineOfflineSyncLibrary
 {
-    public interface IOfflineDataService<TSyncableData,TUser> : IDataService<TSyncableData, TUser>
+    public interface IOfflineDataService<TSyncableData,TUser> 
+         : IDataUpdateActions, IDataService<TSyncableData, TUser>
          where TUser : IUser
         where TSyncableData : ISyncableData<TUser>
+        
     {
         Task SaveLocalData(TSyncableData data);
 

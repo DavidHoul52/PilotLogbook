@@ -136,7 +136,7 @@ namespace LogbookApp.Data
 
         }
 
-        private void Update<T>(T item, ObservableCollection<T> list )
+        public  static void Update<T>(T item, ObservableCollection<T> list )
             where T:IEntity
         {
             var foundInList = list.Where(x => x.id == item.id).FirstOrDefault();

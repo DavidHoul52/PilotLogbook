@@ -1,35 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using BaseData;
 using OnlineOfflineSyncLibrary;
 
 namespace LogbookApp.Data
 {
-    public interface IOnlineFlightData :  IOnlineDataService<FlightData, User>
+    public interface IOnlineFlightDataService :  IOnlineDataService<FlightData, User>,
+        IFlightDataService
     {
       
 
-        Task InsertFlight(Flight flight);
-        Task DeleteFlight(Flight flight);
-        Task SaveFlight(Flight flight);
-        Task InsertAircraft(Aircraft aircraft);
-        Task InsertAircraftType(AcType acType);
-        Task InsertAirfield(Airfield from);
-        Task UpdateAircraft(Aircraft aircraft);
-        Task DeleteAircraft(Aircraft f);
-        Task UpdateAirfield(Airfield airfield);
-        Task DeleteAirfield(Airfield f);
-        Task UpdateAcType(AcType acType);
-        Task InsertAcType(AcType acType);
-
-        Task DeleteAcType(AcType acType);
-
-        Task<ObservableCollection<Flight>> GetFlights(int userId);
-        Task<Lookups> LoadLookups(int userId);
+       
 
       
     }

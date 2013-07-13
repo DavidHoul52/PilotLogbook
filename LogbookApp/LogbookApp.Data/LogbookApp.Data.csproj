@@ -114,6 +114,7 @@
     <Compile Include="FlightData.cs" />
     <Compile Include="FlightFactory.cs" />
     <Compile Include="IFlightDataManager.cs" />
+    <Compile Include="IFlightDataService.cs" />
     <Compile Include="ILookups.cs" />
     <Compile Include="InMemoryLookups.cs" />
     <Compile Include="IOnlineFlightData.cs" />

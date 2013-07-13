@@ -5,6 +5,7 @@ using BaseData;
 namespace OnlineOfflineSyncLibrary.TestMocks
 {
     public class MockOnlineDataService<TSyncableData, TUser> : MockBaseDataService<TSyncableData, TUser>, 
+         
         IOnlineDataService<TSyncableData,TUser>
           where TUser : IUser,new()
         where TSyncableData : ISyncableData<TUser>,new()

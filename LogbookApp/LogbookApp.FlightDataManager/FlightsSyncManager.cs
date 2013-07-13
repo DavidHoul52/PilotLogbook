@@ -10,7 +10,7 @@ using OnlineOfflineSyncLibrary;
 namespace LogbookApp.FlightDataManagement
 {
     public class FlightsSyncManager<TOnlineFlightData> : SyncManager<FlightData,TOnlineFlightData,User>
-        where TOnlineFlightData : IOnlineFlightData
+        where TOnlineFlightData : IOnlineFlightDataService
     {
      
 

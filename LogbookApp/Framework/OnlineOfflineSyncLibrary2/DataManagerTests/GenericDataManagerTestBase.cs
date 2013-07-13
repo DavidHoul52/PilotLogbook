@@ -5,10 +5,23 @@ using OnlineOfflineSyncLibrary.TestMocks;
 namespace OnlineOfflineSyncLibrary2.DataManagerTests
 {
     public abstract class GenericDataManagerTestBase :
-        DataManagerTestBase<DataManager<SyncableTestData, TestUser, MockOnlineDataService<SyncableTestData, TestUser>, IOfflineDataService<SyncableTestData, TestUser>, MockSyncManager<SyncableTestData, MockOnlineDataService<SyncableTestData, TestUser>, TestUser>>,
-            SyncableTestData, TestUser,
-            MockOnlineDataService<SyncableTestData, TestUser>, MockSyncManager<SyncableTestData,
-                MockOnlineDataService<SyncableTestData, TestUser>, TestUser>> 
+        DataManagerTestBase<
+        // DataManager
+        DataManager<SyncableTestData,
+                    TestUser,
+                    MockOnlineDataService<SyncableTestData, TestUser>,
+                    MockOfflineDataService<SyncableTestData, TestUser>,
+                    MockSyncManager<SyncableTestData, MockOnlineDataService<SyncableTestData, TestUser>,
+                    TestUser>,IDataUpdateActions>,
+        
+        SyncableTestData,
+        TestUser,
+        MockOnlineDataService<SyncableTestData, TestUser>,
+        MockOfflineDataService<SyncableTestData, TestUser>,
+        MockSyncManager<SyncableTestData,MockOnlineDataService<SyncableTestData, TestUser>, TestUser>,
+        IDataUpdateActions
+        
+        > 
         
         
     {

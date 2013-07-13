@@ -14,11 +14,12 @@ namespace LogbookApp.FlightDataManagement
     public class FlightDataManager<TOnlineFlightData,TOfflineFlightData,TFlightSyncManager>
         //: DataManager<FlightData, User, IOnlineFlightData,LocalDataService,
         //FlightsSyncManager<IOnlineFlightData>>,
-        :DataManager<FlightData,User,TOnlineFlightData,TOfflineFlightData,TFlightSyncManager>,
+        :DataManager<FlightData,User,TOnlineFlightData,TOfflineFlightData,TFlightSyncManager,IFlightDataService>,
         IFlightDataManager
-        where TOnlineFlightData : IOnlineFlightData
-        where TOfflineFlightData : IOfflineDataService<FlightData, User>
+        where TOnlineFlightData : IOnlineFlightDataService,IFlightDataService
+        where TOfflineFlightData : IOfflineDataService<FlightData, User>, IFlightDataService
         where TFlightSyncManager : ISyncManager<FlightData, TOnlineFlightData, User> 
+        
         
     {
         private readonly TOnlineFlightData _onlineDataService;

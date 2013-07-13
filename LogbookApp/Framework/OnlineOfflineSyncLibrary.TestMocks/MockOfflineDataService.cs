@@ -8,8 +8,8 @@ namespace OnlineOfflineSyncLibrary.TestMocks
         where TUser : IUser, new()
         where TSyncableData : ISyncableData<TUser>, new()
     {
-        public MockOfflineDataService(string userName)
-            : base( userName)
+        public MockOfflineDataService()
+            : base( "")
         {
         }
 

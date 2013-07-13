@@ -8,9 +8,9 @@ namespace LogbookApp.FlightDataManagerTest
 {
     public class FlightDataManagerTestBase :
         DataManagerTestBase
-            <FlightDataManager<MockOnlineFlightData, IOfflineDataService<FlightData, User>, 
+            < FlightDataManager<MockOnlineFlightData,MockOffLineFlightData, 
               MockFlightSyncManager>,
-                FlightData, User, MockOnlineFlightData, MockFlightSyncManager>
+                FlightData, User, MockOnlineFlightData,MockOffLineFlightData, MockFlightSyncManager, IFlightDataService>
     {
         
     }

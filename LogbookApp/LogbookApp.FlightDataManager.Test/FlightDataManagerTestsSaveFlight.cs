@@ -51,6 +51,19 @@ namespace LogbookApp.FlightDataManagerTest
             Target.SaveFlight(new FlightFactory().CreateFlight(flightData, TestDates.Now), TestDates.Now);
             Assert.AreEqual(TestDates.Now, Target.Data.User.TimeStamp);
         }
+
+
+        [TestMethod]
+        public void ShouldSaveFlightWhenOffLife()
+        {
+            StartupAsOfflineExistingUser(TestDates.NowLess1, TestDates.NowLess2);
+            Internet.SetConnected(true);
+            FlightData flightData = new FlightData();
+            Target.SaveFlight(new FlightFactory().CreateFlight(flightData, TestDates.Now), TestDates.Now);
+            FlightData data= OfflineDataService.LoadUserData("").Result;
+            Assert.AreEqual(1,data.Flights.Count);
+            
+        }
         
     }
 }

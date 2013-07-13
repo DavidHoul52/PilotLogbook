@@ -6,12 +6,13 @@ using InternetDetection;
 namespace OnlineOfflineSyncLibrary
 {
     public class DataManager<TSyncableData,TUser, TOnlineDataService, TOffLineDataService
-        , TSyncManager>
+        , TSyncManager, TDataUpdateActions>
         where TUser: IUser
         where TSyncableData : ISyncableData<TUser>
-        where TOnlineDataService : IOnlineDataService<TSyncableData, TUser>
-        where TOffLineDataService : IOfflineDataService<TSyncableData, TUser>
+        where TOnlineDataService : IOnlineDataService<TSyncableData, TUser>, TDataUpdateActions
+        where TOffLineDataService : IOfflineDataService<TSyncableData, TUser>, TDataUpdateActions
         where TSyncManager : ISyncManager<TSyncableData,TOnlineDataService, TUser> 
+        where TDataUpdateActions: IDataUpdateActions
     {
 
         private TOnlineDataService _onlineDataService;
@@ -97,13 +98,10 @@ namespace OnlineOfflineSyncLibrary
                   || (source.User.TimeStamp > target.User.TimeStamp));
         }
 
-        public async Task PerformDataUpdateAction(Func<TOnlineDataService,
+        public async Task PerformDataUpdateAction(Func<TDataUpdateActions,
          Task> updateAction, IEntity entity, DateTime upDateTime)
         {
             entity.TimeStamp = upDateTime;
-            
-
-
             await CheckConnectionState();
             Data.User.TimeStamp = upDateTime;
             if (_onlineDataService.ConnectionTracker.IsConnected)
@@ -112,6 +110,11 @@ namespace OnlineOfflineSyncLibrary
                 await _onlineDataService.UpdateUserTimeStamp(upDateTime);
                 Data = await _onlineDataService.LoadUserData(Data.User.DisplayName);
 
+            }
+            else
+            {
+                await updateAction(_offlineDataService);
+                Data = await _offlineDataService.LoadUserData(Data.User.DisplayName);
             }
 
             await (_offlineDataService.SaveLocalData(Data));

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Security.Authentication.OnlineId;
@@ -12,14 +13,15 @@ using OnlineOfflineSyncLibrary;
 
 namespace LogbookApp.Storage
 {
-    public class LocalDataService : DataService<FlightData,User>, IOfflineDataService<FlightData,User>
+    public class LocalDataService : DataService<FlightData,User>, IOfflineDataService<FlightData,User>,
+        IFlightDataService
     {
         private readonly ILocalStorage _localStorage;
         private readonly string _flightsFileName;
         private readonly string _lookupsFileName;
         private readonly string _userFileName;
         
-        private Lookups _lookups;
+        
         protected User _user;
 
 
@@ -40,8 +42,8 @@ namespace LogbookApp.Storage
 
         public virtual async Task<Lookups> GetLookups(int userId)
         {
-            _lookups= await _localStorage.Restore<Lookups>(_lookupsFileName);
-            return _lookups;
+            return await _localStorage.Restore<Lookups>(_lookupsFileName);
+            
         }
 
 
@@ -67,20 +69,109 @@ namespace LogbookApp.Storage
             return GetUser(userName);
         }
 
-        public Task Update<T>(T item) where T : IEntity
+        public async Task Update<T>(T item) where T : IEntity
         {
-            throw new NotImplementedException();
+            if (typeof(T) == typeof(Flight))
+            {
+                var flights = await GetFlights(User.id);
+                FlightData.Update(item as Flight,flights);
+                await SaveFlights(flights);
+            }
+            else
+            {
+                await UpdateLookup(item);
+            }
+
+
+        }
+
+        private async Task UpdateLookup<T>(T item) where T : IEntity
+        {
+
+            var lookups = await GetLookups(User.id);
+
+            if (typeof(T) == typeof(Aircraft))
+            {
+                FlightData.Update(item as Aircraft,lookups.Aircraft);
+            }
+            if (typeof(T) == typeof(Airfield))
+                FlightData.Update(item as Airfield, lookups.Airfields);
+            if (typeof(T) == typeof(AcType))
+                FlightData.Update(item as AcType, lookups.AcTypes);
+
+            await SaveLookups(lookups);
+
         }
 
 
-        public Task Insert<T>(T item) where T : IEntity
+        public async Task Insert<T>(T item) where T : IEntity
         {
-            throw new NotImplementedException();
+            if (typeof(T) == typeof(Flight))
+            {
+                var flights = await GetFlights(User.id);
+                flights.Add(item as Flight);
+                await SaveFlights(flights);
+            }
+            else
+            {
+                await InsertLookup(item);
+            }
+
+
+        
         }
 
-        public Task Delete<T>(T item) where T : IEntity
+        private async Task InsertLookup<T>(T item) where T : IEntity
         {
-            throw new NotImplementedException();
+            
+            var lookups = await GetLookups(User.id);
+
+            if (typeof(T) == typeof(Aircraft))
+            {
+                lookups.Aircraft.Add(item as Aircraft);
+
+            }
+            if (typeof(T) == typeof(Airfield))
+                lookups.Airfields.Add(item as Airfield);
+            if (typeof(T) == typeof(AcType))
+                lookups.AcTypes.Add(item as AcType);
+
+            await SaveLookups(lookups);
+
+        }
+
+        public async Task Delete<T>(T item) where T : IEntity
+        {
+            if (typeof(T) == typeof(Flight))
+            {
+                var flights = await GetFlights(User.id);
+                flights.Remove(item as Flight);
+                await SaveFlights(flights);
+            }
+            else
+            {
+                await DeleteLookup(item);
+            }
+        }
+
+
+        private async Task DeleteLookup<T>(T item) where T : IEntity
+        {
+
+            var lookups = await GetLookups(User.id);
+
+            if (typeof(T) == typeof(Aircraft))
+            {
+                lookups.Aircraft.Remove(item as Aircraft);
+
+            }
+            if (typeof(T) == typeof(Airfield))
+                lookups.Airfields.Remove(item as Airfield);
+            if (typeof(T) == typeof(AcType))
+                lookups.AcTypes.Remove(item as AcType);
+
+            await SaveLookups(lookups);
+
         }
 
         public async Task<bool> GetUserDataExists(string userName)
@@ -124,18 +215,91 @@ namespace LogbookApp.Storage
         public bool FlightsChanged { get; set; }
 
 
+        public async Task InsertFlight(Flight flight)
+        {
+            await Insert(flight);
+        }
+
+        public async Task DeleteFlight(Flight flight)
+        {
+            await Delete(flight);
+        }
+
+        public async Task SaveFlight(Flight flight)
+        {
+            await Insert(flight);
+        }
+
+        public async Task InsertAircraft(Aircraft aircraft)
+        {
+            await Insert(aircraft);
+        }
+
+        public async Task InsertAircraftType(AcType acType)
+        {
+            await Insert(acType);
+        }
+
+        public async Task InsertAirfield(Airfield @from)
+        {
+            await Insert(@from);
+        }
+
+
+        public async Task UpdateAircraft(Aircraft aircraft)
+        {
+            await Update(aircraft);
+        }
+
+        public async Task DeleteAircraft(Aircraft f)
+        {
+            await Delete(f);
+        }
+
+        public async Task UpdateAirfield(Airfield airfield)
+        {
+            await Update(airfield);
+        }
+
+        public async Task DeleteAirfield(Airfield f)
+        {
+            await DeleteAirfield(f);
+        }
+
+        public async Task UpdateAcType(AcType acType)
+        {
+            await Update(acType);
+        }
+
+        public async Task InsertAcType(AcType acType)
+        {
+            await Insert(acType);
+        }
+
+        public async Task DeleteAcType(AcType acType)
+        {
+            await Delete(acType);
+        }
+
+        public async Task<Lookups> LoadLookups(int userId)
+        {
+            return await GetLookups(userId);
+        }
 
         public virtual async Task<ObservableCollection<Flight>> GetFlights(int userId)
         {
             var flights = await _localStorage.Restore<ObservableCollection<Flight>>(_flightsFileName);
+            var lookups = await GetLookups(userId);
 
             if (flights != null)
             {
-                PopulateFlightLookups(flights, _lookups);
+                PopulateFlightLookups(flights, lookups);
                
             }
             return flights;
         }
+
+      
 
         protected void PopulateFlightLookups(ObservableCollection<Flight> flights, Lookups lookups)
         {

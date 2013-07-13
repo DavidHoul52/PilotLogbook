@@ -13,7 +13,7 @@ using OnlineOfflineSyncLibrary;
 
 namespace LogbookApp.Data
 {
-    public class MobileFlightDataService : DataService<FlightData,User>, IOnlineFlightData
+    public class MobileFlightDataService : DataService<FlightData,User>, IOnlineFlightDataService
     {
         private MobileServiceClient _mobileService;
      
@@ -224,7 +224,7 @@ namespace LogbookApp.Data
 
        
 
-        public async Task Update<T>(T item)
+        public async Task Update<T>(T item) where T : IEntity
           
         {
             await _mobileService.GetTable<T>().UpdateAsync(item);
