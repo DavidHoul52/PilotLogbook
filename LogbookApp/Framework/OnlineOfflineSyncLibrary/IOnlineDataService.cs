@@ -8,7 +8,7 @@ namespace OnlineOfflineSyncLibrary
         where TUser : IUser
         where TSyncableData : ISyncableData<TUser>
     {
-        bool IsConnected { get; set; }
+        ConnectionTracker ConnectionTracker { get; }
         
     }
 }

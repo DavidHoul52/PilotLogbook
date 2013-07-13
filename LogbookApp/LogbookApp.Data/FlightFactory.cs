@@ -11,8 +11,8 @@ namespace LogbookApp.Data
                 UserId = flightData.User.id,
                 Lookups = flightData.Lookups,
                 Capacities = flightData.InMemoryLookups.Capacities,
-                IsNew = true,
-                Date = DateTime.Today
+                IsNew = true
+                
                 
             };
         }

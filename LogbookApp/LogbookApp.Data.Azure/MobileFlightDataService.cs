@@ -24,6 +24,7 @@ namespace LogbookApp.Data
         {
 
             _mobileService = mobileService;
+            ConnectionTracker = new ConnectionTracker();
           
             
         }
@@ -296,6 +297,7 @@ namespace LogbookApp.Data
 
      
 
-        public bool IsConnected { get; set; }
+        public ConnectionTracker ConnectionTracker { get; private set; }
+       
     }
 }

@@ -16,7 +16,7 @@ namespace LogbookApp.FlightDataManagerTest
         public override void Setup()
         {
             base.Setup();
-            StartupAsConnected();
+            StartupAsConnected(TestDates.NowLess1);
         }
 
       
@@ -24,7 +24,7 @@ namespace LogbookApp.FlightDataManagerTest
         [TestMethod]
         public void ShouldGetFlights()
         {
-            StartupAsConnected();
+            StartupAsConnected(TestDates.NowLess1);
             Assert.IsNotNull(Target.Data.Flights);
         }
 

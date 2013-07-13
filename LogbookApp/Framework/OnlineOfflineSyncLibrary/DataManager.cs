@@ -59,16 +59,19 @@ namespace OnlineOfflineSyncLibrary
             if (!_offlineDataService.Loaded)
                 Data =await LoadUserData(_offlineDataService);
 
-            _onlineDataService.IsConnected = _internet.IsConnected;
-            if (_onlineDataService.IsConnected)
+            _onlineDataService.ConnectionTracker.IsConnected = _internet.IsConnected;
+            if (_onlineDataService.ConnectionTracker.UpForSyncing)
             {
-                
                 var unSyncedData=await LoadUserData(_onlineDataService);
                 if (DetectNeedForSyncUpdate(Data, unSyncedData)) // TODO: this should part of the sync?
-                    await _syncManager.UpdateOnlineData(_onlineDataService, Data,unSyncedData, DateTime.Now);
+                {
+                    await _syncManager.UpdateOnlineData(_onlineDataService, Data, unSyncedData, DateTime.Now);
+                   
+                }
                 else
                     Data = unSyncedData; // TODO: hmmm.....
 
+                _onlineDataService.ConnectionTracker.Synced = true;
 
             }
       
@@ -98,10 +101,12 @@ namespace OnlineOfflineSyncLibrary
          Task> updateAction, IEntity entity, DateTime upDateTime)
         {
             entity.TimeStamp = upDateTime;
+            
+
 
             await CheckConnectionState();
             Data.User.TimeStamp = upDateTime;
-            if (_onlineDataService.IsConnected)
+            if (_onlineDataService.ConnectionTracker.IsConnected)
             {
                 await updateAction(_onlineDataService);
 

@@ -15,9 +15,6 @@ namespace LogbookApp.Mocks
     {
       
 
-        public MockOnlineFlightData() : base("")
-        {
-        }
 
        public async Task InsertFlight(Flight flight)
        {
@@ -30,9 +27,9 @@ namespace LogbookApp.Mocks
        }
 
        public async Task SaveFlight(Flight flight)
-        {
-            
-        }
+       {
+           await Insert(flight);
+       }
 
        public async Task InsertAircraft(Aircraft aircraft)
        {

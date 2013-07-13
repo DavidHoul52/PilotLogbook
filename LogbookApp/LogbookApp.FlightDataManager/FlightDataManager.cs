@@ -125,20 +125,20 @@ namespace LogbookApp.FlightDataManagement
 
         public async Task GetFlights()
         {
-           if (_onlineDataService.IsConnected) 
+           if (_onlineDataService.ConnectionTracker.IsConnected) 
              await  _onlineDataService.GetFlights(Data.User.id);
             
         }
 
         public async Task LoadData()
         {
-            if (_onlineDataService.IsConnected)
+            if (_onlineDataService.ConnectionTracker.IsConnected)
                 Data= await LoadUserData(_onlineDataService);
         }
 
         public async Task GetLookups()
         {
-                if (_onlineDataService.IsConnected)
+                if (_onlineDataService.ConnectionTracker.IsConnected)
                 Data.Lookups=await _onlineDataService.LoadLookups(Data.User.id);
         
         }

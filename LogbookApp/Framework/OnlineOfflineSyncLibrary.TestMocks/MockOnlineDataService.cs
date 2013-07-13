@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using BaseData;
 
 namespace OnlineOfflineSyncLibrary.TestMocks
 {
@@ -10,9 +11,9 @@ namespace OnlineOfflineSyncLibrary.TestMocks
     {
 
         public MockOnlineDataService()
-            : base("")
+            : this("")
         {
-
+            
 
         }
 
@@ -20,12 +21,11 @@ namespace OnlineOfflineSyncLibrary.TestMocks
         public MockOnlineDataService(string userName)
             : base(userName)
         {
-          
-            
+
+            ConnectionTracker = new ConnectionTracker();
         }
     
-        public bool IsConnected { get; set; }
-
+        
 
 
         public async override Task Update<T>(T item)
@@ -54,5 +54,7 @@ namespace OnlineOfflineSyncLibrary.TestMocks
         {
             
         }
+
+        public ConnectionTracker ConnectionTracker { get; private set; }
     }
 }

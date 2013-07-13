@@ -63,14 +63,7 @@ namespace LogbookApp.Data.Test
 
         }
 
-        [TestMethod]
-        public void DateShouldBeToday()
-        {
-
-            var flight = _target.CreateFlight(new FlightData { });
-            Assert.AreEqual(DateTime.Today.Date,flight.Date.Date);
-
-        }
+     
 
     }
 }

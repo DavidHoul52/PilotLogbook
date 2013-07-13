@@ -91,6 +91,16 @@ namespace OnlineOfflineSyncLibrary2.DataManagerTests
             Assert.IsTrue(OfflineDataService.CreateUserDataCalled);
         }
 
+
+        [TestMethod]
+        public void ShouldBySycnedAfterStartUpIfConnected()
+        {
+            Internet.SetConnected(true);
+            _onlineDataService.SetUserDataExists(true, DateTime.Now.AddDays(-1));
+            Target.Startup(UserName);
+            Assert.IsTrue(_onlineDataService.ConnectionTracker.Synced);
+        }
+
       
     }
 }

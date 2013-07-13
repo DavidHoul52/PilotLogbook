@@ -17,7 +17,7 @@ namespace LogbookApp.FlightDataManagerTest
         public override void Setup()
         {
             base.Setup();
-            StartupAsNotConnectedNewUser();
+            StartupAsNotConnectedNewUser(TestDates.NowLess1);
         }
 
       

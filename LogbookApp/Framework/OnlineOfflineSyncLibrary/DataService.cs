@@ -40,5 +40,7 @@ namespace OnlineOfflineSyncLibrary
         protected abstract Task InternalUpdateUserTimeStamp(DateTime? timeStamp);
 
         public TUser User { get; set; }
+
+
     }
 }

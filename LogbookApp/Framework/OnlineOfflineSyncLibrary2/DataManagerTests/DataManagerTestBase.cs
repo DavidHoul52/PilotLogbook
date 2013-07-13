@@ -38,10 +38,10 @@ namespace OnlineOfflineSyncLibrary2.DataManagerTests
         }
 
 
-        protected void StartupAsConnected()
+        protected void StartupAsConnected(DateTime? onLineLastUpdated)
         {
             Internet.SetConnected(true);
-            _onlineDataService.SetUserDataExists(true, DateTime.Now);
+            _onlineDataService.SetUserDataExists(true, onLineLastUpdated);
             Target.Startup(UserName);
         }
 
@@ -52,12 +52,20 @@ namespace OnlineOfflineSyncLibrary2.DataManagerTests
             Target.Startup(UserName);
         }
 
-        protected void StartupAsNotConnectedNewUser()
+        protected void StartupAsNotConnectedNewUser(DateTime? onLineLastUpdated)
         {
             Internet.SetConnected(false);
-            _onlineDataService.SetUserDataExists(false, DateTime.Now);
+            _onlineDataService.SetUserDataExists(false, onLineLastUpdated);
             Target.Startup(UserName);
             
+        }
+
+        protected void StartupAsOfflineExistingUser(DateTime? offLineLastUpdated, DateTime? onLineLastUpdated)
+        {
+            Internet.SetConnected(false);
+            OfflineDataService.SetUserDataExists(true, offLineLastUpdated);
+            _onlineDataService.SetUserDataExists(true, onLineLastUpdated);
+            Target.Startup(UserName);
         }
     }
 }
