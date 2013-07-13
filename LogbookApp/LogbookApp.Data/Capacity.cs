@@ -3,12 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace LogbookApp.Data
 {
 
-    public enum CapacityEnum  {P1,P2,Put, Dual, P1S}
+    public enum CapacityEnum
+    {
+        [EnumMember]
+        P1,
+        [EnumMember]
+        P2,
+        [EnumMember]
+        Put,
+        [EnumMember]
+        Dual,
+        [EnumMember]
+        P1S
+    }
 
+    [DataContract]
     public class Capacity
     {
 

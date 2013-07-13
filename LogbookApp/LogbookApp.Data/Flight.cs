@@ -229,7 +229,7 @@ namespace LogbookApp.Data
             Capacities = inMemoryLookups.Capacities;
 
         }
-
+          [IgnoreDataMember]
         public List<Capacity> Capacities { get; set; }
     }
 }
