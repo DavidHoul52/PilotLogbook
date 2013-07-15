@@ -46,8 +46,13 @@ namespace LogbookApp.FlightDataManagement
 
         public async Task SaveFlight(Flight flight, DateTime saveTime)
         {
-
-            await PerformDataUpdateAction((flightservice) => flightservice.SaveFlight(flight),
+            
+            await PerformDataUpdateAction(flightservice =>
+            {
+                if (flight.IsNew)
+                   return  flightservice.InsertFlight(flight);
+                 return flightservice.UpdateFlight(flight);
+            },
               flight,
               saveTime);
         }

@@ -25,6 +25,7 @@ namespace OnlineOfflineSyncLibrary.TestMocks
         public async Task SaveLocalData(TSyncableData data)
         {
             LocalDataSaved = true;
+            InternalData = data;
         }
 
         public async override Task Update<T>(T item)

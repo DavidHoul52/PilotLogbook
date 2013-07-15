@@ -8,7 +8,7 @@ namespace LogbookApp.Data
     {
         Task InsertFlight(Flight flight);
         Task DeleteFlight(Flight flight);
-        Task SaveFlight(Flight flight);
+        Task UpdateFlight(Flight flight);
         Task InsertAircraft(Aircraft aircraft);
         Task InsertAircraftType(AcType acType);
         Task InsertAirfield(Airfield from);

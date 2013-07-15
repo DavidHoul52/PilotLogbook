@@ -17,10 +17,11 @@ namespace LogbookApp.FlightDataManagerTest
             throw new System.NotImplementedException();
         }
 
-        public Task SaveFlight(Flight flight)
+        public Task UpdateFlight(Flight flight)
         {
             throw new System.NotImplementedException();
         }
+
 
         public Task InsertAircraft(Aircraft aircraft)
         {

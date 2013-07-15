@@ -225,10 +225,11 @@ namespace LogbookApp.Storage
             await Delete(flight);
         }
 
-        public async Task SaveFlight(Flight flight)
+        public async Task UpdateFlight(Flight flight)
         {
-            await Insert(flight);
+            await Update(flight);
         }
+
 
         public async Task InsertAircraft(Aircraft aircraft)
         {

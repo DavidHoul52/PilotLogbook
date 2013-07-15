@@ -26,10 +26,12 @@ namespace LogbookApp.Mocks
            await Delete(flight);
        }
 
-       public async Task SaveFlight(Flight flight)
-       {
-           await Insert(flight);
-       }
+        public async Task UpdateFlight(Flight flight)
+        {
+            await UpdateFlight(flight);
+        }
+
+     
 
        public async Task InsertAircraft(Aircraft aircraft)
        {
