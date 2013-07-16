@@ -10,12 +10,7 @@ namespace LogbookApp.Data
    
     public class Aircraft : IEntity 
     {
-        public int id { get; set; }
-        public DateTime? TimeStamp { get; set; }
-
-        public string Reg { get; set; }
-
-        public int UserId { get; set; }
+     
 
         public Aircraft()
         {
@@ -56,6 +51,18 @@ namespace LogbookApp.Data
             }
         }
 
+        public int AcTypeId { get; set; }
+
+        public string Reg { get; set; }
+        public DateTime? TimeStamp { get; set; }
+
+        public int UserId { get; set; }
+        public int id { get; set; }
+
+
+
+
+        
 
         private AcType _acType;
         private AircraftClass _aircraftClass;
@@ -72,7 +79,7 @@ namespace LogbookApp.Data
             }
         }
 
-        public int AcTypeId { get; set; }
+       
 
         [IgnoreDataMember]
         public bool IsNew { get; set; }

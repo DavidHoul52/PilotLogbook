@@ -106,6 +106,17 @@ namespace LogbookApp.Data
             Lookups.Aircraft.Add(aircraft);
         }
 
+        public static void Update<T>(T item, ObservableCollection<T> list)
+       where T : IEntity
+        {
+            var foundInList = list.Where(x => x.id == item.id).FirstOrDefault();
+            if (foundInList != null)
+            {
+                list.Remove(foundInList);
+                list.Add(item);
+            }
+
+        }
 
         public void DeleteAircraft(Aircraft aircraft)
         {
@@ -130,20 +141,13 @@ namespace LogbookApp.Data
 
         public void UpdateAircraft(Aircraft aircraft)
         {
-            Update(aircraft,Lookups.Aircraft);
+            Update(aircraft, Lookups.Aircraft );
           
             
 
         }
 
-        public  static void Update<T>(T item, ObservableCollection<T> list )
-            where T:IEntity
-        {
-            var foundInList = list.Where(x => x.id == item.id).FirstOrDefault();
-            list.Remove(foundInList);
-            list.Add(item);
-            
-        }
+      
 
         public void UpdateAirfield(Airfield airfield)
         {

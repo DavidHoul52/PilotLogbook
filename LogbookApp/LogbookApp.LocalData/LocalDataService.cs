@@ -40,12 +40,7 @@ namespace LogbookApp.Storage
     
 
 
-        public virtual async Task<Lookups> GetLookups(int userId)
-        {
-            return await _localStorage.Restore<Lookups>(_lookupsFileName);
-            
-        }
-
+      
 
         private async Task SaveFlights(ObservableCollection<Flight> flights )
         {
@@ -74,7 +69,7 @@ namespace LogbookApp.Storage
             if (typeof(T) == typeof(Flight))
             {
                 var flights = await GetFlights(User.id);
-                FlightData.Update(item as Flight,flights);
+                FlightData.Update(item as Flight, flights);
                 await SaveFlights(flights);
             }
             else
@@ -310,7 +305,18 @@ namespace LogbookApp.Storage
                 flight.PopulateLookups(lookups, new InMemoryLookups());
             }
         }
-      
+
+        public virtual async Task<Lookups> GetLookups(int userId)
+        {
+            var result =await _localStorage.Restore<Lookups>(_lookupsFileName);
+            foreach (var plane in result.Aircraft)
+            {
+                plane.AcType = result.AcTypes.FirstOrDefault(x => x.id == plane.AcTypeId);
+            }
+            
+            return result;
+        }
+
 
         protected async Task UpdateUserInternal(User user)
         {

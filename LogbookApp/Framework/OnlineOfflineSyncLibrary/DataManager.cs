@@ -109,6 +109,7 @@ namespace OnlineOfflineSyncLibrary
                 await updateAction(_onlineDataService);
                 await _onlineDataService.UpdateUserTimeStamp(upDateTime);
                 Data = await _onlineDataService.LoadUserData(Data.User.DisplayName);
+                await (_offlineDataService.SaveLocalData(Data));
 
             }
             else
@@ -117,7 +118,7 @@ namespace OnlineOfflineSyncLibrary
                 Data = await _offlineDataService.LoadUserData(Data.User.DisplayName);
             }
 
-            await (_offlineDataService.SaveLocalData(Data));
+            
 
 
         }
